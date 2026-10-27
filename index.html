@@ -134,6 +134,36 @@
 .hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person-details>span,.hi-phone:has(.receipt-v4) .rebuy-entry-person-details>span{font-size:15px!important}
 .hi-phone:has(.rebuy-entry-v2) .rebuy-entry-money,.hi-phone:has(.receipt-v4) .rebuy-entry-money{font-size:22px!important}
 .hi-phone:has(.rebuy-entry-v2) .rebuy-entry-picture .person-face img,.hi-phone:has(.receipt-v4) .rebuy-entry-picture .person-face img{width:165%!important;height:165%!important;max-width:none!important;object-fit:cover!important;object-position:center top!important;transform:translate(-20%,-9%)!important}
+
+/* Workflow 05: consistent player identity card in steps 2, 3, 4 */
+.hi-phone:has(.approved-player-actions) .approved-player-profile,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person,
+.hi-phone:has(.receipt-v4) .rebuy-entry-person{
+box-sizing:border-box!important;width:100%!important;height:180px!important;min-height:180px!important;max-height:180px!important;flex:0 0 180px!important;padding:5px!important;gap:10px!important;align-items:center!important;overflow:hidden!important;border:3px solid #08bafa!important;background:#072840!important}
+.hi-phone:has(.approved-player-actions) .approved-player-profile .person-face,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person .rebuy-entry-picture,
+.hi-phone:has(.receipt-v4) .rebuy-entry-person .rebuy-entry-picture{
+box-sizing:border-box!important;width:150px!important;min-width:150px!important;max-width:150px!important;height:164px!important;min-height:164px!important;max-height:164px!important;flex:0 0 150px!important;border:2px solid #22bdf4!important;overflow:hidden!important;border-radius:0!important}
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person .rebuy-entry-picture .person-face,
+.hi-phone:has(.receipt-v4) .rebuy-entry-person .rebuy-entry-picture .person-face{height:100%!important;width:100%!important}
+.hi-phone:has(.approved-player-actions) .approved-player-profile .person-face img,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person .rebuy-entry-picture .person-face img,
+.hi-phone:has(.receipt-v4) .rebuy-entry-person .rebuy-entry-picture .person-face img{
+width:100%!important;height:100%!important;max-width:100%!important;object-fit:cover!important;object-position:center 22%!important;transform:none!important}
+.hi-phone:has(.approved-player-actions) .approved-player-info,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person-details,
+.hi-phone:has(.receipt-v4) .rebuy-entry-person-details{flex:1!important;min-width:0!important;gap:7px!important}
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person-details>b,
+.hi-phone:has(.receipt-v4) .rebuy-entry-person-details>b{font-size:21px!important;line-height:1.12!important}
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person-details>strong,
+.hi-phone:has(.receipt-v4) .rebuy-entry-person-details>strong{font-size:17px!important}
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person-details>span,
+.hi-phone:has(.receipt-v4) .rebuy-entry-person-details>span{font-size:15px!important}
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-money,
+.hi-phone:has(.receipt-v4) .rebuy-entry-money{font-size:22px!important}
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-v2>.screen-button,
+.hi-phone:has(.receipt-v4) .receipt-v4>.receipt-done{
+box-sizing:border-box!important;height:62px!important;min-height:62px!important;max-height:62px!important;flex:0 0 62px!important;margin-top:0!important;font-size:23px!important;display:flex!important;align-items:center!important;justify-content:center!important}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 73</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 73 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 73</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script>const WORKFLOWS=[
   {
     "id": 1,
