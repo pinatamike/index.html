@@ -1,0 +1,931 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NORA • UX Review</title><style>
+:root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#f1f7ff;background:#080e1b;font-synthesis:none}*{box-sizing:border-box}body{margin:0}button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #50d9ff;outline-offset:2px}.shell{display:grid;grid-template-columns:310px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;overflow:auto;background:#0c1426;border-right:1px solid #213b59;padding:23px 17px}.brand{font-weight:900;font-size:25px;letter-spacing:2px;color:#5ce1ff}.brand span{color:white}.eyebrow{color:#90a7c0;font-size:11px;letter-spacing:2px;text-transform:uppercase}.tagline{color:#9eb1c8;font-size:13px;margin:5px 0 25px}.progress{border:1px solid #294968;padding:14px;margin-bottom:17px;background:#101f35}.progress strong{font-size:25px;color:#57e3ba}.bar{height:7px;background:#24354b;margin-top:9px}.bar div{height:100%;background:#43d6ad;transition:width .2s}.navgroup{margin-bottom:14px}.navtitle{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:800;color:#dce8fb;padding:11px 9px;border-bottom:1px solid #223952}.navtitle small{font-size:11px;color:#80a1b8}.subheading{font-size:11px;color:#4bd5f4;text-transform:uppercase;letter-spacing:1px;padding:11px 9px 5px}.navitem{display:flex;align-items:flex-start;gap:8px;width:100%;text-align:left;background:none;border:0;color:#a8bad1;padding:9px 9px;font-size:12px;line-height:1.35}.navitem:hover{background:#142941;color:white}.navitem.active{background:#123e56;color:white;border-left:3px solid #47d8ff}.navitem .num{color:#67dfff;min-width:22px;font-weight:800}.dot{margin-left:auto;flex-shrink:0;width:8px;height:8px;border:1px solid #6a8095;margin-top:3px}.dot.approved{background:#40d6a0;border-color:#40d6a0}.dot.changes{background:#ffc75a;border-color:#ffc75a}.main{min-width:0;padding:28px clamp(16px,3vw,50px) 60px;max-width:1650px;width:100%;margin:auto}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.pill{display:inline-block;border:1px solid #345877;padding:6px 10px;font-size:11px;letter-spacing:.5px;color:#8ee8ff;text-transform:uppercase}.tools{display:flex;gap:8px;flex-wrap:wrap}.toolbtn{background:#122338;color:#c9e5f8;border:1px solid #355473;padding:10px 12px;font-size:12px}.toolbtn:hover{border-color:#5ce1ff}h1{font-size:clamp(27px,3.2vw,44px);margin:18px 0 7px;line-height:1.14}p{color:#aabed5;line-height:1.6}.intro{margin:0 0 20px}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}.meta span{font-size:12px;color:#a5c1d9;border:1px solid #29425f;padding:6px 9px}.sectionlabel{color:#65e5ff;letter-spacing:1.5px;font-size:12px;font-weight:800;text-transform:uppercase;margin:28px 0 13px}.storyboard{display:flex;gap:17px;overflow-x:auto;padding:3px 2px 20px;scroll-snap-type:x mandatory}.stage{flex:0 0 238px;scroll-snap-align:start}.stage-head{height:53px;display:flex;align-items:flex-start;gap:9px}.stage-number{background:#45d8f4;color:#05121f;font-size:12px;font-weight:900;min-width:24px;height:24px;display:grid;place-items:center}.stage-title{font-size:13px;font-weight:800;line-height:1.35;color:#f3f8ff}.phone{border:3px solid #3f6585;border-radius:21px;padding:9px 7px;background:#050a13;height:420px;box-shadow:0 14px 32px #0008;display:flex;flex-direction:column}.notch{width:65px;height:8px;border-radius:0 0 8px 8px;background:#283b50;margin:-9px auto 11px}.phonehead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2b4a64;padding:7px 4px 12px;gap:5px}.phonehead b{color:#5bdfff;font-size:10px;letter-spacing:.5px}.phonehead small{color:#a6b6c9;font-size:9px}.avatar{background:#112a3e;border:1px solid #49d9f6;width:24px;height:24px;display:grid;place-items:center;font-size:12px;font-weight:900;color:#5be7ff}.phonebody{padding:12px 3px;display:flex;flex-direction:column;gap:9px;flex:1}.phonecaption{font-size:9px;color:#75e5ff;text-transform:uppercase;letter-spacing:1px}.phonebig{font-size:17px;font-weight:900;line-height:1.25}.screenbox{border:1px solid #1da4cb;background:#0c1c2d;padding:11px 8px;font-size:12px;font-weight:750;line-height:1.4}.screenbox.active{border:2px solid #60e3ff;background:#123b52}.screenbox.green{border-color:#45c99b;color:#5be5b6}.screenbox.yellow{border-color:#e5b34c;color:#ffcf6c}.smallnote{color:#9fb4cc;font-size:10px;line-height:1.5}.phonebtn{border:1px solid #38d2ef;background:#0c5b78;color:#f2fcff;padding:11px 6px;text-align:center;font-size:12px;font-weight:900;margin-top:auto}.phonebtn.confirm{background:#167d64;border-color:#48d6a4}.phonebottom{border-top:1px solid #294761;display:flex;justify-content:space-between;color:#90b4cc;font-size:7px;padding:9px 0 2px}.steptext{color:#9cb0c7;font-size:11px;line-height:1.45;padding:10px 3px}.notice{background:#101e30;border-left:3px solid #4bd9ff;padding:14px 16px;color:#b4cce0;font-size:13px;line-height:1.55}.review{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}.panel{border:1px solid #2a4663;background:#0d192b;padding:20px}.panel h2{font-size:16px;margin:0 0 15px}.statusbuttons{display:flex;gap:8px;flex-wrap:wrap}.statusbuttons button{padding:11px 14px;background:#12263b;color:#e0ecf7;border:1px solid #355977;font-weight:750}.statusbuttons button.selected.approved{background:#124f41;border-color:#4ce1b3}.statusbuttons button.selected.changes{background:#654719;border-color:#f7bd58}.statusbuttons button.selected.pending{background:#244768;border-color:#5ec8ff}textarea{width:100%;min-height:115px;resize:vertical;background:#071221;border:1px solid #385673;color:white;padding:13px;font-size:13px}label{font-size:12px;color:#b2c5d9;display:block;margin-bottom:9px}.saveinfo{font-size:11px;color:#7f9db8;margin-top:9px}.footeractions{display:flex;justify-content:space-between;gap:10px;margin-top:26px}.primary{padding:12px 17px;border:1px solid #42cce9;background:#0c5c79;color:white;font-weight:800}.secondary{padding:12px 17px;border:1px solid #365977;background:#112438;color:white;font-weight:800}.mobilemenu{display:none}.search{width:100%;background:#071321;color:#fff;border:1px solid #31516e;padding:11px;margin-bottom:12px}.hidden{display:none!important}.allindex{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}.indexcard{background:#0e2034;border:1px solid #294e68;padding:13px;color:white;text-align:left}.indexcard strong{display:block;margin:7px 0;font-size:14px}.indexcard small{color:#7faec8}.key{color:#81f0d4}.disclaimer{font-size:11px;color:#8099b0;margin-top:15px}@media(max-width:900px){.shell{display:block}.sidebar{position:fixed;z-index:10;transform:translateX(-105%);transition:transform .2s;width:min(330px,90vw);box-shadow:10px 0 30px #000a}.sidebar.open{transform:none}.mobilemenu{display:inline-block}.main{padding-top:16px}.review{grid-template-columns:1fr}.stage{flex-basis:220px}.phone{height:405px}}@media(min-width:1250px){.stage{flex-basis:245px}}
+</style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 73</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 73 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 73</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script>const WORKFLOWS=[
+  {
+    "id": 1,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Open NORA → Resume active session",
+    "steps": [
+      "Launch NORA",
+      "Detect an open session",
+      "Open the live Table View automatically"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 2,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Start a new session",
+    "steps": [
+      "Open Session Setup",
+      "Review game configuration",
+      "Start the session and open Table View"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 3,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Seat player + initial buy-in",
+    "steps": [
+      "Tap an open seat",
+      "Choose an existing player",
+      "Enter initial buy-in and payment",
+      "Confirm seating; update Table View"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 4,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Add new player and seat immediately",
+    "steps": [
+      "Tap an open seat",
+      "Select Add New Player",
+      "Enter player details and initial buy-in",
+      "Confirm and show occupied seat"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 5,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Rebuy existing player",
+    "steps": [
+      "Tap the seated player",
+      "Choose Rebuy in Quick Actions",
+      "Enter rebuy amount and payment",
+      "Confirm the transaction",
+      "Return to Table View with updated total buy-ins"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 6,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Additional buy-in / add-on",
+    "steps": [
+      "Tap a seated player",
+      "Choose Add-on / Additional Buy-in",
+      "Enter amount and payment",
+      "Confirm and update cumulative buy-ins"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 7,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Cash out player",
+    "steps": [
+      "Tap the player",
+      "Choose Cash Out",
+      "Review any Sign & Settle debt",
+      "Enter full cash-out and payment settlement",
+      "Confirm; remove player from seat"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 8,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Bust out player",
+    "steps": [
+      "Tap the player",
+      "Choose Bust Out",
+      "Review any outstanding debt",
+      "Confirm bust-out and return seat to open"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 9,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Move player to another seat/table",
+    "steps": [
+      "Tap seated player",
+      "Choose Move",
+      "Choose available destination seat or table",
+      "Confirm; update both locations"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 10,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Manage waitlist",
+    "steps": [
+      "Open the waitlist from Table View",
+      "Add or review waiting players",
+      "Select player when a seat opens",
+      "Seat player with initial buy-in"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 11,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Open Player Detail / transaction history",
+    "steps": [
+      "Tap seated player",
+      "Choose Player Details",
+      "Review player information and ledger history",
+      "Return to Table View"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 12,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Record rake / drop",
+    "steps": [
+      "Open the authorized rake entry",
+      "Enter rake / drop details",
+      "Review and confirm",
+      "Update existing session ledger"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 13,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Start, pause, resume, and close a table",
+    "steps": [
+      "Open table controls",
+      "Choose available table state action",
+      "Confirm if required",
+      "Update table status"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 14,
+    "main": "Live Session",
+    "sub": "Table",
+    "title": "Switch between multiple tables",
+    "steps": [
+      "Open the table tabs",
+      "Select another active table",
+      "Review its seats and players",
+      "Return to any table using tabs"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 15,
+    "main": "Live Session",
+    "sub": "Nora AI",
+    "title": "Record voice note → Review → Confirm",
+    "steps": [
+      "Tap microphone in the compact composer",
+      "Record and submit the voice note",
+      "Review Nora’s interpreted action",
+      "Edit or confirm",
+      "Apply via protected transaction handler"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 16,
+    "main": "Live Session",
+    "sub": "Nora AI",
+    "title": "Type command → Review → Confirm",
+    "steps": [
+      "Tap the compact composer",
+      "Type and send a command",
+      "Review Nora’s proposed action",
+      "Edit or confirm",
+      "Apply via protected transaction handler"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 17,
+    "main": "Live Session",
+    "sub": "Nora AI",
+    "title": "Correct misunderstood command",
+    "steps": [
+      "Review Nora’s interpretation",
+      "Select Edit / Correct",
+      "Adjust player, amount or action",
+      "Confirm corrected instruction"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 18,
+    "main": "Live Session",
+    "sub": "Nora AI",
+    "title": "Multiple transactions in one voice note",
+    "steps": [
+      "Record a multi-action voice note",
+      "Review each interpreted action",
+      "Correct individual actions if needed",
+      "Confirm the transaction batch"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 19,
+    "main": "Live Session",
+    "sub": "Nora AI",
+    "title": "Ask Nora for live game information",
+    "steps": [
+      "Ask by voice or text",
+      "Nora reads permitted session data",
+      "Show clear answer without altering ledger"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 20,
+    "main": "Live Session",
+    "sub": "Nora AI",
+    "title": "Failed transaction / error recovery",
+    "steps": [
+      "Attempt a transaction",
+      "Display specific failure and unchanged ledger",
+      "Correct inputs or retry safely",
+      "Confirm successful single posting"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 21,
+    "main": "Live Session",
+    "sub": "Team",
+    "title": "Add or assign team member",
+    "steps": [
+      "Open Team tab",
+      "Choose Add / Assign",
+      "Select existing or add new team member",
+      "Confirm assignment"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 22,
+    "main": "Live Session",
+    "sub": "Team",
+    "title": "Team check-in / start shift",
+    "steps": [
+      "Open Team tab",
+      "Select team member",
+      "Choose Check In",
+      "Confirm shift start"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 23,
+    "main": "Live Session",
+    "sub": "Team",
+    "title": "Record team tips",
+    "steps": [
+      "Open team member details",
+      "Choose Tips",
+      "Enter chip tips amount",
+      "Confirm and update team record"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 24,
+    "main": "Live Session",
+    "sub": "Team",
+    "title": "Record team payments / advances",
+    "steps": [
+      "Select team member",
+      "Choose Payment / Advance",
+      "Enter amount and payment method",
+      "Confirm and update balances"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 25,
+    "main": "Live Session",
+    "sub": "Team",
+    "title": "Team checkout / end shift",
+    "steps": [
+      "Select checked-in team member",
+      "Choose Checkout",
+      "Review hours, tips and advances",
+      "Confirm final settlement"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 26,
+    "main": "Live Session",
+    "sub": "Team",
+    "title": "Review team earnings and balances",
+    "steps": [
+      "Open Team tab",
+      "Select team member or review summary",
+      "Inspect earnings and outstanding balances"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 27,
+    "main": "Live Session",
+    "sub": "Expenses",
+    "title": "Record expense",
+    "steps": [
+      "Open Expenses tab",
+      "Choose Add Expense",
+      "Enter category, amount and payment method",
+      "Confirm expense"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 28,
+    "main": "Live Session",
+    "sub": "Expenses",
+    "title": "Edit / correct expense",
+    "steps": [
+      "Open expense history",
+      "Select expense",
+      "Choose permitted correction",
+      "Confirm with audit trail"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 29,
+    "main": "Live Session",
+    "sub": "Expenses",
+    "title": "Record food or beverage sale",
+    "steps": [
+      "Open enabled food / beverage module",
+      "Select player and item",
+      "Choose chips or cash",
+      "Confirm sale and adjust inventory"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 30,
+    "main": "Live Session",
+    "sub": "Expenses",
+    "title": "Record complimentary item",
+    "steps": [
+      "Open enabled menu",
+      "Select item and recipient",
+      "Mark Complimentary",
+      "Confirm inventory deduction"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 31,
+    "main": "Live Session",
+    "sub": "Expenses",
+    "title": "Select chips vs cash payment",
+    "steps": [
+      "Open a sale or expense",
+      "Select Chips or Cash",
+      "Review ledger implications",
+      "Confirm payment"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 32,
+    "main": "Live Session",
+    "sub": "Expenses",
+    "title": "Beginning / ending inventory",
+    "steps": [
+      "Open inventory review",
+      "Record beginning or ending units",
+      "Review totals and discrepancies",
+      "Save count"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 33,
+    "main": "Live Session",
+    "sub": "Expenses",
+    "title": "Inventory variance and reconciliation",
+    "steps": [
+      "Open inventory reconciliation",
+      "Compare expected and actual quantities",
+      "Review variance and accountability",
+      "Acknowledge or resolve"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 34,
+    "main": "Live Session",
+    "sub": "Snapshot",
+    "title": "View live Snapshot",
+    "steps": [
+      "Tap Snapshot in bottom navigation",
+      "Review current session totals",
+      "Open only supported detail views"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 35,
+    "main": "Live Session",
+    "sub": "Snapshot",
+    "title": "Review player financial details",
+    "steps": [
+      "Open Snapshot or Players",
+      "Select player financial record",
+      "Review buy-ins, cash-outs and result"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 36,
+    "main": "Live Session",
+    "sub": "Snapshot",
+    "title": "Review transactions / correct errors",
+    "steps": [
+      "Open transaction history",
+      "Select transaction",
+      "Use permitted correction workflow",
+      "Confirm audit-safe correction"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 37,
+    "main": "Live Session",
+    "sub": "Snapshot",
+    "title": "View account balances and payment methods",
+    "steps": [
+      "Open Account Balances",
+      "Review enabled cash and digital accounts",
+      "Inspect details as permitted"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 38,
+    "main": "Live Session",
+    "sub": "Snapshot",
+    "title": "Sign & Settle — issue credit",
+    "steps": [
+      "Open authorized player credit action",
+      "Enter amount and verification",
+      "Confirm and record outstanding balance"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 39,
+    "main": "Live Session",
+    "sub": "Snapshot",
+    "title": "Sign & Settle — collect outstanding debt",
+    "steps": [
+      "Open player cash-out or debt detail",
+      "Review outstanding amount",
+      "Apply chips and/or payment method per rules",
+      "Cashier confirms settlement"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 40,
+    "main": "Live Session",
+    "sub": "Snapshot",
+    "title": "Review chip reconciliation and variances",
+    "steps": [
+      "Open reconciliation summary",
+      "Compare buy-ins plus promo chips with cash-outs plus chip tips",
+      "Review variance and warning"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 41,
+    "main": "Live Session",
+    "sub": "Snapshot",
+    "title": "View per-table financial performance",
+    "steps": [
+      "Open Snapshot table performance",
+      "Select table when multiple are active",
+      "Review table rake and performance metrics"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 42,
+    "main": "Live Session",
+    "sub": "Close",
+    "title": "Begin Daily Close",
+    "steps": [
+      "Tap Close in bottom navigation",
+      "Open close checklist",
+      "Review outstanding requirements"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 43,
+    "main": "Live Session",
+    "sub": "Close",
+    "title": "Review outstanding players and cash-outs",
+    "steps": [
+      "Open player settlement section",
+      "Identify seated or unsettled players",
+      "Complete or acknowledge required actions"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 44,
+    "main": "Live Session",
+    "sub": "Close",
+    "title": "Review team settlements",
+    "steps": [
+      "Open team close review",
+      "Review checkouts and balances",
+      "Complete outstanding settlements"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 45,
+    "main": "Live Session",
+    "sub": "Close",
+    "title": "Review expenses and inventory",
+    "steps": [
+      "Open expenses and inventory review",
+      "Inspect totals and variances",
+      "Resolve or acknowledge warnings"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 46,
+    "main": "Live Session",
+    "sub": "Close",
+    "title": "Reconcile chips, cash, and payment accounts",
+    "steps": [
+      "Open financial reconciliation",
+      "Review chips and enabled accounts",
+      "Record discrepancies and confirmations"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 47,
+    "main": "Live Session",
+    "sub": "Close",
+    "title": "Review warnings / discrepancies",
+    "steps": [
+      "Open close warnings",
+      "Read each outstanding warning",
+      "Resolve or acknowledge as allowed"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 48,
+    "main": "Live Session",
+    "sub": "Close",
+    "title": "Confirm permanent session close",
+    "steps": [
+      "Review final close summary",
+      "Confirm permanent closure",
+      "Lock session against new live transactions"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 49,
+    "main": "Live Session",
+    "sub": "Close",
+    "title": "View final Daily Close report",
+    "steps": [
+      "Open closed session report",
+      "Review finalized summary",
+      "Share or export when supported"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 50,
+    "main": "Scheduled",
+    "sub": "Games & RSVPs",
+    "title": "Create scheduled game",
+    "steps": [
+      "Open Scheduled",
+      "Choose Create Game",
+      "Set date, time and game details",
+      "Save schedule"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 51,
+    "main": "Scheduled",
+    "sub": "Games & RSVPs",
+    "title": "Invite players via WhatsApp / SMS / email",
+    "steps": [
+      "Open scheduled game",
+      "Choose Invite",
+      "Select recipients and channel",
+      "Send invitations"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 52,
+    "main": "Scheduled",
+    "sub": "Games & RSVPs",
+    "title": "Player RSVP / decline",
+    "steps": [
+      "Player opens invitation",
+      "Choose Going or Decline",
+      "Update confirmed attendance"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 53,
+    "main": "Scheduled",
+    "sub": "Games & RSVPs",
+    "title": "View and manage confirmed players",
+    "steps": [
+      "Open scheduled game",
+      "Review RSVP roster",
+      "Adjust attendance or waitlist"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 54,
+    "main": "Scheduled",
+    "sub": "Games & RSVPs",
+    "title": "Player ETA / “On My Way”",
+    "steps": [
+      "Open player game-day view",
+      "Select On My Way / ETA",
+      "Update session waitlist or arrival status"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 55,
+    "main": "Scheduled",
+    "sub": "Games & RSVPs",
+    "title": "Move scheduled game into Live Session",
+    "steps": [
+      "Open scheduled game",
+      "Choose Start Session",
+      "Review setup",
+      "Launch Live Table View"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 56,
+    "main": "Players",
+    "sub": "CRM",
+    "title": "Search and view player",
+    "steps": [
+      "Open Players CRM",
+      "Search or filter by enabled game type",
+      "Select player card"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 57,
+    "main": "Players",
+    "sub": "CRM",
+    "title": "Add player",
+    "steps": [
+      "Open Players CRM",
+      "Choose Add Player",
+      "Enter contact and permitted fields",
+      "Save player"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 58,
+    "main": "Players",
+    "sub": "CRM",
+    "title": "Edit player information",
+    "steps": [
+      "Open player record",
+      "Choose Edit",
+      "Update contact or other fields",
+      "Save changes"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 59,
+    "main": "Players",
+    "sub": "CRM",
+    "title": "Manage player tags / privileges",
+    "steps": [
+      "Open player record",
+      "Open relevant enabled privileges",
+      "Adjust permissions or tags",
+      "Save and audit"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 60,
+    "main": "Players",
+    "sub": "CRM",
+    "title": "View player history and statistics",
+    "steps": [
+      "Open player record",
+      "Select History / Stats",
+      "Review sessions, hours and results"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 61,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "First-time onboarding / game configuration",
+    "steps": [
+      "Open onboarding",
+      "Enter game and owner preferences",
+      "Review setup",
+      "Finish onboarding"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 62,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Configure game types, blinds, rake, and tables",
+    "steps": [
+      "Open profile menu → Settings",
+      "Open Game Configuration",
+      "Set enabled game types and rules",
+      "Save configuration"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 63,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Configure payment methods and accounts",
+    "steps": [
+      "Open Settings → Payment Methods",
+      "Open a payment method detail",
+      "Enable / disable and enter account info",
+      "Save"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 64,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Configure Sign & Settle verification",
+    "steps": [
+      "Open Settings → Sign & Settle",
+      "Choose one verification method",
+      "Configure PIN or supported alternative",
+      "Save"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 65,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Configure team roles and permissions",
+    "steps": [
+      "Open Settings → Team",
+      "Review roles",
+      "Set authorized permissions",
+      "Save"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 66,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Configure food/beverage menus and inventory",
+    "steps": [
+      "Open Settings → Food / Beverage",
+      "Enable relevant modules",
+      "Configure menu, prices and inventory",
+      "Save"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 67,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Configure languages, profile, and preferences",
+    "steps": [
+      "Open profile menu",
+      "Open Settings / Preferences",
+      "Adjust language and profile",
+      "Save"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 68,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Invite team members / manage access",
+    "steps": [
+      "Open team access settings",
+      "Choose Invite Member",
+      "Select role and invitation channel",
+      "Send invite"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 69,
+    "main": "Reporting",
+    "sub": "Historical Reports",
+    "title": "Find historical session",
+    "steps": [
+      "Open Reporting",
+      "Search or filter sessions",
+      "Open selected session"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 70,
+    "main": "Reporting",
+    "sub": "Historical Reports",
+    "title": "View player win/loss and session history",
+    "steps": [
+      "Open Reporting → Players",
+      "Choose player and date range",
+      "Review results and session history"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 71,
+    "main": "Reporting",
+    "sub": "Historical Reports",
+    "title": "View rake, revenue, and table performance",
+    "steps": [
+      "Open Reporting → Financial",
+      "Select date / table / game filters",
+      "Review rake and performance"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 72,
+    "main": "Reporting",
+    "sub": "Historical Reports",
+    "title": "View team and expense reports",
+    "steps": [
+      "Open Reporting → Team / Expenses",
+      "Select reporting period",
+      "Review totals and details"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 73,
+    "main": "Reporting",
+    "sub": "Historical Reports",
+    "title": "Export / share report",
+    "steps": [
+      "Open a report",
+      "Choose Export / Share",
+      "Select supported format and destination",
+      "Generate report"
+    ],
+    "status": "draft"
+  }
+];
+const storageKey='nora-ux-review-v1';let reviews={};try{reviews=JSON.parse(localStorage.getItem(storageKey)||'{}')}catch{}let current=1;const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const save=()=>{localStorage.setItem(storageKey,JSON.stringify(reviews));updateProgress();renderNav()};const review=id=>reviews[id]||{status:'pending',comment:''};function updateProgress(){let count=WORKFLOWS.filter(w=>review(w.id).status==='approved').length;$('progressText').textContent=count+' / 73';$('progressBar').style.width=count/73*100+'%'}function renderNav(){let q=$('search').value.trim().toLowerCase();let groups=[];for(let w of WORKFLOWS){if(q&&!(`${w.id} ${w.title} ${w.main} ${w.sub}`).toLowerCase().includes(q))continue;let g=groups.find(g=>g.main===w.main);if(!g){g={main:w.main,subs:[]};groups.push(g)}let s=g.subs.find(s=>s.name===w.sub);if(!s){s={name:w.sub,items:[]};g.subs.push(s)}s.items.push(w)}$('nav').innerHTML=groups.map(g=>`<div class="navgroup"><div class="navtitle">${esc(g.main)} <small>${g.subs.reduce((n,s)=>n+s.items.length,0)} workflows</small></div>${g.subs.map(s=>`<div class="subheading">${esc(s.name)}</div>${s.items.map(w=>`<button class="navitem ${current===w.id?'active':''}" data-id="${w.id}"><span class="num">${String(w.id).padStart(2,'0')}</span><span>${esc(w.title)}</span><span class="dot ${esc(review(w.id).status)}"></span></button>`).join('')}`).join('')}</div>`).join('');document.querySelectorAll('.navitem').forEach(el=>el.onclick=()=>show(+el.dataset.id))}function phone(w,step,i){let title=step.replace(/^[^a-zA-Z]+/,'');let last=i===w.steps.length-1;let rebuy=w.title==='Rebuy existing player';let display=rebuy?([['LIVE SESSION','Table View','DIEGO RESTREPO','SEAT 7 · TOTAL BUY-INS','COP 450,000','Select player'],['PLAYER','Quick Actions','DIEGO RESTREPO','REBUY','Cash Out · Move · Details','Choose Rebuy'],['REBUY','Enter Details','DIEGO RESTREPO','AMOUNT: COP 1,000,000','Payment: Cashbox','Confirm Rebuy'],['LIVE SESSION','Table View','DIEGO RESTREPO','SEAT 7 · TOTAL BUY-INS','COP 1,450,000','Updated']][i]||[]):null;let head=display?display[0]:w.main.toUpperCase(),sub=display?display[1]:w.sub,big=display?display[2]:title,box=display?display[3]:i===0?'START HERE':last?'RESULT / NEXT STATE':`STEP ${i+1}`,detail=display?display[4]:title,button=display?display[5]:last?'Continue':'Next action';return `<div class="stage"><div class="stage-head"><div class="stage-number">${i+1}</div><div class="stage-title">${esc(step)}</div></div><div class="phone"><div class="notch"></div><div class="phonehead"><small>☰</small><div style="text-align:center"><b>${esc(head)}</b><br><small>${esc(sub)}</small></div><div class="avatar">N</div></div><div class="phonebody"><div class="phonecaption">${esc(w.title)}</div><div class="phonebig">${esc(big)}</div><div class="screenbox ${last?'green':'active'}">${esc(box)}</div><div class="screenbox ${last?'green':''}">${esc(detail)}</div><div class="smallnote">${esc(step)}</div><div class="phonebtn ${last?'confirm':''}">${esc(button)}</div></div><div class="phonebottom"><span>TABLE</span><span>PLAYERS</span><span>TEAM</span><span>EXPENSES</span><span>SNAPSHOT</span><span>CLOSE</span></div></div><div class="steptext">Step ${i+1} of ${w.steps.length}</div></div>`}function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;location.hash='workflow-'+id;let r=review(id);$('breadcrumb').textContent=`NORA / ${w.main} / ${w.sub}`;$('content').innerHTML=`<h1>${String(id).padStart(2,'0')}. ${esc(w.title)}</h1><p class="intro">Review the intended interaction in the same order a person would use it inside NORA. Swipe horizontally to see every step.</p><div class="meta"><span>${esc(w.main)}</span><span>${esc(w.sub)}</span><span>${w.steps.length} steps</span><span>Workflow ${id} of 73</span></div><div class="sectionlabel">Step-by-step mobile storyboard →</div><div class="storyboard">${w.steps.map((s,i)=>phone(w,s,i)).join('')}</div><div class="notice"><b>Review rule:</b> These are illustrative, editable workflow wireframes—not final approved NORA screenshots. The sequence and UI details require your approval. The existing live NORA app is not affected.${id===5?' <b>Rebuy rule:</b> Show cumulative total buy-ins, never a supposed current physical chip stack.':''}</div><div class="review"><div class="panel"><h2>Decision</h2><div class="statusbuttons"><button data-status="pending" class="${r.status==='pending'?'selected pending':''}">Not reviewed</button><button data-status="approved" class="${r.status==='approved'?'selected approved':''}">✓ Approve</button><button data-status="changes" class="${r.status==='changes'?'selected changes':''}">✎ Needs changes</button></div><div class="saveinfo">Your decision is saved automatically on this device.</div></div><div class="panel"><h2>Comments / corrections</h2><label for="comments">What should change in this workflow?</label><textarea id="comments" placeholder="Example: Remove step 3. Make the amount larger. Keep the existing Table View.">${esc(r.comment)}</textarea><div class="saveinfo">Comments save as you type. Export to share them with the developer.</div></div></div><div class="footeractions"><button class="secondary" id="prev" ${id===1?'disabled':''}>← Previous</button><button class="primary" id="next" ${id===73?'disabled':''}>Next workflow →</button></div><p class="disclaimer">Prototype for review only. No connection to NORA’s production ledger, accounts, or player data.</p>`;document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{reviews[id]={...review(id),status:b.dataset.status};save();show(id)});$('comments').oninput=e=>{reviews[id]={...review(id),comment:e.target.value};save()};$('prev').onclick=()=>show(Math.max(1,id-1));$('next').onclick=()=>show(Math.min(73,id+1));renderNav();$('sidebar').classList.remove('open');window.scrollTo(0,0)}function showAll(){current=0;$('breadcrumb').textContent='NORA / All workflows';$('content').innerHTML=`<h1>All 73 workflows</h1><p>Grouped by NORA's main navigation, with Live Session ordered Table → Nora AI → Team → Expenses → Snapshot → Close. Choose any workflow to review.</p><div class="allindex">${WORKFLOWS.map(w=>`<button class="indexcard" data-id="${w.id}"><small>${esc(w.main)} / ${esc(w.sub)}</small><strong>${w.id}. ${esc(w.title)}</strong><small>${esc(review(w.id).status)}</small></button>`).join('')}</div>`;document.querySelectorAll('.indexcard').forEach(b=>b.onclick=()=>show(+b.dataset.id));renderNav();$('sidebar').classList.remove('open')}function download(name,content){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'application/json'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}$('exportbtn').onclick=()=>download('nora-ux-review-decisions.json',JSON.stringify({app:'NORA UX Review',version:1,exported:new Date().toISOString(),reviews},null,2));$('importbtn').onclick=()=>$('importfile').click();$('importfile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let data=JSON.parse(await f.text());if(!data.reviews||typeof data.reviews!=='object')throw Error('Invalid review file');if(!confirm('Import reviews from this file? This replaces reviews saved on this device.'))return;reviews=data.reviews;save();current?show(current):showAll();alert('Reviews imported successfully.')}catch(err){alert('Could not import: '+err.message)}e.target.value=''};$('allbtn').onclick=showAll;$('menubtn').onclick=()=>$('sidebar').classList.toggle('open');$('search').oninput=renderNav;updateProgress();let match=location.hash.match(/workflow-(\d+)/);show(match?Math.max(1,Math.min(73,+match[1])):1);</script></body></html>
