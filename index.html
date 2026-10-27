@@ -79,6 +79,27 @@
 .rebuy-entry-v2 .rebuy-payment-choice{display:flex;align-items:center;justify-content:center;min-height:43px;padding:7px;border:3px solid #1ebcf2;background:#08304a;color:white;font-size:16px;font-weight:900}
 .rebuy-entry-v2 .rebuy-payment-choice.selected{border-color:#00df9a;background:#07543f}
 .rebuy-entry-v2>.screen-button{min-height:62px!important;flex:0 0 62px!important}
+
+/* Unified player identity tile: identical portrait frame and type scale in actions and rebuy */
+.hi-phone:has(.approved-player-actions) .approved-player-profile,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person{box-sizing:border-box!important;height:177px!important;min-height:177px!important;flex:0 0 177px!important;padding:5px!important;gap:10px!important;align-items:center!important;border:3px solid #08bafa!important;background:#072840!important}
+.hi-phone:has(.approved-player-actions) .approved-player-profile .person-face,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-picture{box-sizing:border-box!important;width:142px!important;flex:0 0 142px!important;height:161px!important;border:2px solid #69cbed!important;border-radius:0!important;box-shadow:none!important;outline:0!important;overflow:hidden!important;background:#082b43!important;position:relative!important}
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-picture .person-face{width:100%!important;height:100%!important;border:0!important;border-radius:0!important;box-shadow:none!important;display:block!important;overflow:hidden!important;font-size:0!important}
+.hi-phone:has(.approved-player-actions) .approved-player-profile .person-face img,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-picture .person-face img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center 28%!important;transform:none!important;border:0!important;border-radius:0!important}
+.hi-phone:has(.approved-player-actions) .approved-player-info,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person-details{min-width:0!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:9px!important;padding:0!important}
+.hi-phone:has(.approved-player-actions) .approved-player-info>strong:first-child,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person-details>b{font-size:21px!important;line-height:1.12!important;font-weight:900!important;color:white!important}
+.hi-phone:has(.approved-player-actions) .approved-player-info>b,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person-details>strong{font-size:17px!important;line-height:1.15!important;font-weight:900!important;color:white!important}
+.hi-phone:has(.approved-player-actions) .approved-player-info>span,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-person-details>span{font-size:15px!important;line-height:1.15!important;font-weight:900!important;color:#a9d9f6!important}
+.hi-phone:has(.approved-player-actions) .approved-player-info .approved-player-amount,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-money{font-size:23px!important;line-height:1.1!important;font-weight:900!important;color:white!important;white-space:nowrap!important}
+.hi-phone:has(.approved-player-actions) .approved-player-info .currency-code,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-money small{font-size:65%!important;font-weight:900!important;color:#a9d9f6!important}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 73</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 73 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 73</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script>const WORKFLOWS=[
   {
     "id": 1,
