@@ -100,6 +100,19 @@
 .hi-phone:has(.rebuy-entry-v2) .rebuy-entry-money{font-size:23px!important;line-height:1.1!important;font-weight:900!important;color:white!important;white-space:nowrap!important}
 .hi-phone:has(.approved-player-actions) .approved-player-info .currency-code,
 .hi-phone:has(.rebuy-entry-v2) .rebuy-entry-money small{font-size:65%!important;font-weight:900!important;color:#a9d9f6!important}
+
+/* Identity-only portraits: never repeat player name, buy-ins or seat badge inside enlarged photo */
+.hi-phone:has(.approved-player-actions) .approved-player-profile .person-face.photo,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-picture .person-face.photo{background-image:none!important}
+.hi-phone:has(.approved-player-actions) .approved-player-profile .person-face.photo::before,
+.hi-phone:has(.approved-player-actions) .approved-player-profile .person-face.photo::after,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-picture .person-face.photo::before,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-picture .person-face.photo::after{display:none!important;content:none!important}
+
+.hi-phone:has(.approved-player-actions) .approved-player-profile .person-face.photo img,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-picture .person-face.photo img{width:100%!important;height:145%!important;object-fit:cover!important;object-position:center top!important;transform:translateY(-1%)!important}
+.hi-phone:has(.approved-player-actions) .approved-player-profile .person-face.photo,
+.hi-phone:has(.rebuy-entry-v2) .rebuy-entry-picture .person-face.photo{clip-path:inset(0 0 0 0)!important}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 73</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 73 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 73</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script>const WORKFLOWS=[
   {
     "id": 1,
