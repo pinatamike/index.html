@@ -1530,8 +1530,8 @@ function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;loc
 .hi-phone:has(.co6) .co6-profile b{font-size:21px!important}
 .hi-phone:has(.co6) .co6-confirm{font-size:24px!important;line-height:1.1!important}
 </style><style id="co6-money-input-fix">.hi-phone .co6-input-row{justify-content:flex-end!important;gap:5px!important}.hi-phone .co6-input-row .co6-currency{font-size:16px!important;flex:0 0 auto!important}.hi-phone .co6-input-row input{width:125px!important;flex:0 0 125px!important;text-align:right!important;font-size:25px!important;font-variant-numeric:tabular-nums!important;padding:0!important}</style><style id="co6-currency-match-confirmation">
-/* Screen 3: COP is the immediate prefix of the value, as in screen 4. */
-.hi-phone .co6-input-row{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:5px!important;padding:0 12px!important}
-.hi-phone .co6-input-row .co6-currency{display:inline-block!important;position:static!important;width:auto!important;margin:0!important;padding:0!important;flex:none!important;font-size:16px!important;line-height:1!important;white-space:nowrap!important;color:#fff!important}
-.hi-phone .co6-input-row input{display:inline-block!important;position:static!important;width:110px!important;max-width:110px!important;min-width:110px!important;flex:0 0 110px!important;margin:0!important;padding:0!important;border:0!important;text-align:right!important;font-size:24px!important;line-height:1!important;color:#fff!important;letter-spacing:0!important}
+/* Cash-out entry: match confirmation's adjacent COP + value treatment. */
+.hi-phone .co6-input-row{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:3px!important;padding:0 12px!important}
+.hi-phone .co6-input-row .co6-currency{display:block!important;position:static!important;flex:none!important;width:auto!important;margin:0!important;padding:0!important;font-size:13px!important;line-height:1!important;color:#fff!important}
+.hi-phone .co6-input-row input{display:block!important;position:static!important;box-sizing:content-box!important;flex:0 0 84px!important;width:84px!important;min-width:84px!important;max-width:84px!important;margin:0!important;padding:0!important;border:0!important;text-align:right!important;font-size:20px!important;font-weight:900!important;line-height:1!important;letter-spacing:0!important;color:#fff!important}
 </style>
