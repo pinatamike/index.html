@@ -337,7 +337,8 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
       "Choose Cash-out from Player Actions",
       "Enter chips returned or tap BUSTED; settle payment",
       "Cashier confirms player paid",
-      "BUSTED · zero-chip cash-out example (developer reference)"
+      "BUSTED · zero-chip cash-out example (developer reference)",
+      "SIGN & SETTLE · fully settled example (developer reference)"
     ],
     "status": "draft"
   },
@@ -1220,6 +1221,7 @@ function screenTop(title,detail){return `<div class="screen-top"><b>${esc(title)
 function screenContent(w,step,i){
  if(w.id===6&&i===4){let h=screenContent(w,step,3);return h.replace('class="co6-done"','class="co6-done co6-busted-demo"').replace('PAID · CASHBOX','CHIPS RETURNED').replace('720,000','0').replace('WON','LOST').replace('270,000','450,000').replace('class="co6-paid-stamp"','class="co6-paid-stamp co6-busted-stamp"').replace('<span class="co6-stamp-stars">★ ★ ★</span><strong>PAID</strong><span class="co6-stamp-full">IN FULL</span>','<strong>BUSTED</strong>').replace('PAYMENT CONFIRMED','ZERO CHIPS RETURNED').replace('PAID · CASHBOX','BUSTED · ZERO CHIPS').replace('720,000','0');}
 
+ if(w.id===6&&i===5){let h=screenContent(w,step,3);return h.replace('class="co6-done"','class="co6-done co6-settled-demo"').replace('class="co6-paid-stamp"','class="co6-paid-stamp co6-settled-stamp"').replace('<span class="co6-stamp-stars">★ ★ ★</span><strong>PAID</strong><span class="co6-stamp-full">IN FULL</span>','<span class="co6-stamp-stars">★ ★ ★</span><strong>SETTLED</strong><span class="co6-stamp-full">IN FULL</span>').replace('PAYMENT CONFIRMED','SIGN & SETTLE CLEARED').replace('PAID · CASHBOX','SIGN & SETTLE · CLEARED');}
  const spec=SCREEN_SPECS[w.id],type=spec.types[Math.min(i,spec.types.length-1)],last=i===w.steps.length-1;
  const focus=spec.focus, values=spec.values,cta=spec.cta;
  const profile=screenProfile(), photo=screenProfile('Anna','DEALER · ON SHIFT',true);
@@ -1617,4 +1619,4 @@ function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;loc
 .co6-busted-stamp{color:#ff6269!important;border-color:#ff6269!important;box-shadow:inset 0 0 0 3px #075b45,0 0 0 2px #ff6269!important;width:100px!important;height:76px!important;flex-basis:100px!important;border-radius:22%!important}
 .co6-busted-stamp strong{font-size:19px!important;border:0!important}
 </style>
-<style id="co6-demo-final-fixes">.hi-phone .co6-paid-continue{flex:0 0 62px!important;height:62px!important;min-height:62px!important;font-size:23px!important}.hi-phone .co6-busted-demo .co6-paid-status{color:#ff7777!important}.hi-phone .co6-busted-demo .co6-paid-stamp{color:#ff7777!important;border-color:#ff7777!important;box-shadow:inset 0 0 0 3px #075b45,0 0 0 2px #ff7777!important}.hi-phone .co6-busted-demo .co6-paid-summary{color:#fff}.hi-phone .co6-busted-demo .co6-paid-continue{background:#087a58}</style>
+<style id="co6-demo-final-fixes">.hi-phone .co6-paid-continue{flex:0 0 62px!important;height:62px!important;min-height:62px!important;font-size:23px!important}.hi-phone .co6-busted-demo .co6-paid-status{color:#ff7777!important}.hi-phone .co6-busted-demo .co6-paid-stamp{color:#ff7777!important;border-color:#ff7777!important;box-shadow:inset 0 0 0 3px #075b45,0 0 0 2px #ff7777!important}.hi-phone .co6-busted-demo .co6-paid-summary{color:#fff}.hi-phone .co6-busted-demo .co6-paid-continue{background:#087a58}</style><style id="co6-settled-stamp-styles">.hi-phone .co6-settled-demo .co6-paid-stamp{color:#9ce9ff!important;border-color:#63d9ff!important;box-shadow:inset 0 0 0 3px #075b45,0 0 0 2px #63d9ff!important}.hi-phone .co6-settled-demo .co6-paid-stamp strong{font-size:15px!important;letter-spacing:.3px!important}.hi-phone .co6-settled-demo .co6-paid-status{color:#9ce9ff!important}.hi-phone .co6-settled-demo .co6-paid-continue{height:62px!important;flex:0 0 62px!important}</style>
