@@ -29,3 +29,13 @@ function wf11Phone(w,step,i){
 .wf11-resume-details small{font-size:.65em}.wf11-resume-details em{border:1px solid #b6ffe5;padding:2px 6px;font-style:normal}
 .wf11-phone .wf10-detail-actions{flex-shrink:0;margin-bottom:5px}
 `;const style=document.createElement('style');style.textContent=css;document.head.appendChild(style)})();
+
+/* Register after the review studio initializes; no large index.html rewrite required. */
+window.addEventListener('load',function(){
+ const w=WORKFLOWS.find(x=>x.id===11);
+ if(!w)return;
+ w.steps=['Open Table View','Game Details — tap PAUSE TABLE','Table Paused — tap RESUME TABLE','Game Details — table resumed'];
+ const previous=customPhone;
+ customPhone=function(workflow,step,i){return workflow.id===11&&i>0?wf11Phone(workflow,step,i):previous(workflow,step,i)};
+ if(location.hash==='#workflow-11')show(11);
+});
