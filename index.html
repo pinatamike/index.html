@@ -417,6 +417,16 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .wf10-phone .wf10-close{border:2px solid #e07780!important}
 .wf10-phone .wf10-confirm{border:2px solid #45dba8!important}
 .wf10-phone .nora-cop-unit{font-size:65%!important}
+</style><style>
+/* Workflow 10: align both bottom action buttons to identical vertical baseline */
+.wf10-phone .ux-content.screen-specific{position:relative!important;padding-bottom:0!important}
+.wf10-phone .wf10-detail-actions{margin-top:auto!important;margin-bottom:0!important;padding:0!important;flex-shrink:0!important}
+.wf10-phone .wf10-confirm{margin-top:auto!important;margin-bottom:0!important;flex-shrink:0!important}
+.wf10-phone .wf10-feedback{position:absolute!important;bottom:64px!important;left:0;right:0;pointer-events:none}
+.wf10-phone .wf10-close,.wf10-phone .wf10-confirm{height:62px!important;min-height:62px!important;max-height:62px!important;margin-bottom:0!important}
+.wf10-phone .wf10-grid .wf10-tile.gold span{white-space:normal!important;line-height:1.25!important;font-size:16px!important}
+.wf10-phone .wf10-summary .wf10-summary-total span{white-space:normal!important;line-height:1.25!important;font-size:16px!important;flex:0 0 48%!important}
+.wf10-phone .wf10-summary .wf10-summary-total strong{flex:1 0 auto!important;text-align:right!important}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 70 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 70</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
