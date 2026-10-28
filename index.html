@@ -1694,7 +1694,7 @@ const REPORT_TX=[
 ];
 function reportLedgerMarkup(view,id='all',date='Oct 25, 2026',txIndex=0,page=0){
 const category=REPORT_LEDGERS.find(x=>x.id===id)||REPORT_LEDGERS[0],money=n=>n.toLocaleString('en-US');
-const rows=REPORT_TX.filter(x=>id==='all'||x.category===id);
+const rows=REPORT_TX.filter(x=>{const definition=REPORT_LEDGERS.find(c=>c.id===x.category);return (!definition?.feature||featureAvailable(definition.feature))&&(id==='all'||x.category===id);}).sort((a,b)=>new Date(b.date+' '+b.time)-new Date(a.date+' '+a.time));
 if(view==='menu')return '<div class="ledgercaption">LEDGERS <span>CHOOSE TYPE</span></div><div class="report-ledger-grid">'+REPORT_LEDGERS.filter(x=>!x.feature||featureAvailable(x.feature)).map(x=>'<button class="report-ledger-tile" type="button" onclick="reportLedgerShow(this,\'sessions\',\''+x.id+'\')"><b>'+x.icon+'</b><span>'+x.name+'</span></button>').join('')+'</div>';
 if(view==='sessions'){
 if(id==='rake')return '<button class="audit-back" onclick="reportLedgerShow(this,\'menu\')">‹ LEDGERS</button>'+rakeLedgerMarkup('sessions');
