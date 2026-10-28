@@ -509,8 +509,14 @@
     "title": "View live Snapshot",
     "steps": [
       "Snapshot overview",
-      "Operations and authorized reports",
-      "Accounts and chip reconciliation",
+      "Ledger",
+      "Rake & tables",
+      "Team",
+      "Expenses",
+      "Accounts",
+      "Chip check",
+      "Sign & Settle",
+      "Inventory",
       "Permanent session Snapshot"
     ],
     "status": "draft"
@@ -1252,8 +1258,9 @@ body.innerHTML=snapshotMarkup(view);
 }
 function snapBack(el){const body=el.closest('.snap-body');body.innerHTML=body.dataset.initial||snapshotMarkup('overview');}
 function snapshotStage(w,step,i){
-const views=['overview','team','chips','closed'];
-return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone snap-phone">'+fullHead(i===3?'SESSION SNAPSHOT':'LIVE SESSION',i===3?'Historical summary':'Snapshot')+'<div class="ux-content snap-body">'+snapshotMarkup(views[i])+'</div>'+fixedNav('Snapshot')+'</div><p class="steptext">'+['Tap a tile to explore the session.','Team detail from the overview.','Chip reconciliation from the overview.','The same session after Daily Close.'][i]+'</p></div>';
+const views=['overview','ledger','tables','team','expenses','accounts','chips','ss','inventory','closed'];
+const captions=['Tap a tile to explore the session.','Session ledger; open player history or the next page.','Rake and performance by table.','Staffing, compensation and settlements.','Session expenses and the expense workflow.','Enabled payment accounts and chips held.','Buy-ins plus promotional chips compared with cash-outs plus chip tips.','Outstanding Sign & Settle balances; shown when enabled.','Counts and discrepancies; shown when enabled.','The same session after Daily Close.'];
+return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone snap-phone">'+fullHead(i===9?'SESSION SNAPSHOT':'LIVE SESSION',i===9?'Historical summary':'Snapshot')+'<div class="ux-content snap-body">'+snapshotMarkup(views[i])+'</div>'+fixedNav('Snapshot')+'</div><p class="steptext">'+captions[i]+'</p></div>';
 }
 
 function customPhone(w,step,i){if(w.id===34)return snapshotStage(w,step,i);if(w.id===56)return crm56Screen(w,step,i);if(w.id===11&&i===0){const source=WORKFLOWS.find(x=>x.id===5);return customPhone(source,source.steps[0],0).replace('<div class="stage-title">'+esc(source.steps[0])+'</div>','<div class="stage-title">'+esc(step)+'</div>');}if(w.id===11&&i>0)return ledgerStage(w,step,i);const sp=SCREEN_SPECS[w.id];const t=sp.types[Math.min(i,sp.types.length-1)];let active=w.main==='Live Session'?({Team:'Team',Expenses:'Expenses',Snapshot:'Snapshot',Close:'Close'}[w.sub]||'Table'):w.main==='Players'?'Players':w.main==='Team'?'Team':w.main==='Reporting'?'Snapshot':'Table';let title=w.main==='Live Session'?'LIVE SESSION':w.main.toUpperCase();let subtitle=w.main==='Live Session'?(w.sub==='Table'?(t.includes('rebuy')?'Rebuy':t.includes('cashout')?'Cash-out':t==='quick-actions'?'Player Actions':'Table View'):w.sub==='Nora AI'?'Nora AI':w.sub==='Close'?'Daily Close':w.sub):w.main==='Settings'?'Settings':w.sub;return `<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">${i+1}</div><div class="stage-title">${esc(step)}</div></div><div class="phone hi-phone"><div class="notch"></div>${fullHead(title,subtitle)}<div class="ux-content screen-specific">${w.id===11&&i===0?screenContent(WORKFLOWS.find(x=>x.id===5),WORKFLOWS.find(x=>x.id===5).steps[0],0):screenContent(w,step,i)}</div>${fixedNav(active)}</div><p class="steptext">${esc(sp.focus)} · ${esc(sp.values)}</p></div>`}
