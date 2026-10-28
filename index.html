@@ -399,6 +399,24 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .wf10-phone .wf10-summary{padding:7px 9px!important}
 .wf10-phone .wf10-input-wrap{padding:10px!important}
 .wf10-phone .wf10-input-wrap>span{font-size:65%!important}
+</style><style>
+/* Workflow 10 approved font hierarchy and matching action buttons */
+.wf10-phone .wf10-grid .wf10-tile:not(.wf10-rake) span,
+.wf10-phone .wf10-summary .wf10-summary-tile span{font-size:16px!important}
+.wf10-phone .wf10-grid .wf10-tile:not(.wf10-rake) b,
+.wf10-phone .wf10-grid .wf10-tile.gold b,
+.wf10-phone .wf10-grid .wf10-tile.purple b,
+.wf10-phone .wf10-grid .wf10-tile.cyan:nth-child(2) b,
+.wf10-phone .wf10-summary .wf10-summary-tile strong,
+.wf10-phone .wf10-summary .wf10-summary-total strong{font-size:22px!important}
+.wf10-phone .wf10-grid .wf10-tile.gold span{font-size:16px!important;letter-spacing:-.7px!important}
+.wf10-phone .wf10-summary .wf10-summary-total span{font-size:16px!important;letter-spacing:-.7px!important}
+.wf10-phone .wf10-grid .wf10-rake b{font-size:22px!important}
+.wf10-phone .wf10-close,
+.wf10-phone .wf10-confirm{box-sizing:border-box!important;width:100%!important;height:62px!important;min-height:62px!important;max-height:62px!important;padding:0 10px!important;border-radius:0!important;font-family:inherit!important;font-size:19px!important;font-weight:900!important;line-height:1!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.wf10-phone .wf10-close{border:2px solid #e07780!important}
+.wf10-phone .wf10-confirm{border:2px solid #45dba8!important}
+.wf10-phone .nora-cop-unit{font-size:65%!important}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 70 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 70</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
