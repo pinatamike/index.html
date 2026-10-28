@@ -1650,6 +1650,17 @@ function customPhone(w,step,i){if(w.id>=15&&SCREEN_SPECS[w.id]?.types[i]==='tabl
 
 
 /* Storyboard-only navigation: actions move between the displayed review steps. */
+
+function editReviewAction(el){
+const stage=el.closest('.stage'),content=stage.querySelector('.ux-content');content.dataset.original=content.innerHTML;
+content.innerHTML='<div class="ux-section">EDIT NORA ACTION</div><label for="edit-player">PLAYER</label><input id="edit-player" class="userprofile-input" value="Diego Restrepo"><label for="edit-amount">AMOUNT · COP</label><input id="edit-amount" class="userprofile-input" inputmode="numeric" value="1,000,000"><label for="edit-payment">PAYMENT</label><input id="edit-payment" class="userprofile-input" value="Cashbox"><button type="button" class="userprofile-action" onclick="finishReviewEdit(this)">REVIEW CORRECTION</button><button type="button" class="userprofile-action" onclick="cancelReviewEdit(this)">CANCEL</button>';
+}
+function cancelReviewEdit(el){const c=el.closest('.ux-content');c.innerHTML=c.dataset.original||'';wireReviewStages();}
+function finishReviewEdit(el){
+const c=el.closest('.ux-content'),vals=[...c.querySelectorAll('input')].map(x=>x.value.trim());
+c.innerHTML=screenCard('REVIEW CORRECTED ACTION',screenField('PLAYER',vals[0]||'—')+screenField('AMOUNT','COP '+(vals[1]||'0'))+screenField('PAYMENT',vals[2]||'—'))+'<button type="button" class="userprofile-action" onclick="this.closest(\'.stage\').nextElementSibling.scrollIntoView({behavior:\'smooth\',inline:\'center\',block:\'nearest\'})">CONFIRM</button>';
+}
+
 function wireReviewStages(){
 const content=document.getElementById('content');
 content.querySelectorAll('.stage[data-review-type]').forEach(stage=>{
@@ -1662,7 +1673,7 @@ actions.forEach(action=>{
  const next=stage.nextElementSibling;
  if(!next)return;
  action.setAttribute('role','button');action.setAttribute('tabindex','0');
- const go=()=>next.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+ const go=()=>{if((type==='voice-decision'||type==='multi-review')&&/^EDIT/i.test(action.textContent.trim())){editReviewAction(action);return;}next.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});};
  action.addEventListener('click',go);
  action.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
 });
