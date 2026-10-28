@@ -336,7 +336,8 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
       "Tap the seated player",
       "Choose Cash-out from Player Actions",
       "Enter chips returned or tap BUSTED; settle payment",
-      "Cashier confirms player paid"
+      "Cashier confirms player paid",
+      "BUSTED · zero-chip cash-out example (developer reference)"
     ],
     "status": "draft"
   },
@@ -1217,6 +1218,8 @@ function screenTiles(rows){return `<div class="screen-tiles">${rows.map((r,i)=>`
 function screenForm(title,rows,cta){return screenCard(title,rows.map(r=>screenField(...r)).join(''))+screenBtn(cta)}
 function screenTop(title,detail){return `<div class="screen-top"><b>${esc(title)}</b><span>${esc(detail)}</span></div>`}
 function screenContent(w,step,i){
+ if(w.id===6&&i===4){let h=screenContent(w,step,3);return h.replace('class="co6-done"','class="co6-done co6-busted-demo"').replace('PAID · CASHBOX','CHIPS RETURNED').replace('720,000','0').replace('WON','LOST').replace('270,000','450,000').replace('class="co6-paid-stamp"','class="co6-paid-stamp co6-busted-stamp"').replace('<span class="co6-stamp-stars">★ ★ ★</span><strong>PAID</strong><span class="co6-stamp-full">IN FULL</span>','<strong>BUSTED</strong>').replace('PAYMENT CONFIRMED','ZERO CHIPS RETURNED').replace('PAID · CASHBOX','BUSTED · ZERO CHIPS').replace('720,000','0');}
+
  const spec=SCREEN_SPECS[w.id],type=spec.types[Math.min(i,spec.types.length-1)],last=i===w.steps.length-1;
  const focus=spec.focus, values=spec.values,cta=spec.cta;
  const profile=screenProfile(), photo=screenProfile('Anna','DEALER · ON SHIFT',true);
@@ -1614,24 +1617,4 @@ function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;loc
 .co6-busted-stamp{color:#ff6269!important;border-color:#ff6269!important;box-shadow:inset 0 0 0 3px #075b45,0 0 0 2px #ff6269!important;width:100px!important;height:76px!important;flex-basis:100px!important;border-radius:22%!important}
 .co6-busted-stamp strong{font-size:19px!important;border:0!important}
 </style>
-<script id="wf6-busted-variant-script">
-(function(){
-document.addEventListener('input',function(e){if(e.target.matches('.co6-input-row input'))sessionStorage.setItem('nora_wf6_chips',String(Number(e.target.value.replace(/[^0-9]/g,''))));});
-document.addEventListener('click',function(e){if(e.target.closest('.co6-busted'))sessionStorage.setItem('nora_wf6_chips','0');});
-function update(){
-if(location.hash!=='#workflow-6')return;
-if(sessionStorage.getItem('nora_wf6_chips')!=='0')return;
-const cards=document.querySelectorAll('.co6-done');
-cards.forEach(card=>{
-const stamp=card.querySelector('.co6-paid-stamp');
-if(!stamp||stamp.classList.contains('co6-busted-stamp'))return;
-stamp.classList.add('co6-busted-stamp');stamp.setAttribute('aria-label','Busted');stamp.innerHTML='<strong>BUSTED</strong>';
-const status=card.querySelector('.co6-paid-status>span');if(status)status.textContent='ZERO CHIPS RETURNED';
-const detail=card.querySelector('.co6-done-detail');if(detail){detail.innerHTML=detail.innerHTML.replace('PAID · CASHBOX','CHIPS RETURNED').replace('720,000','0').replace('WON','LOST').replace('270,000','450,000')}
-const summary=card.querySelector('.co6-paid-summary');if(summary){summary.innerHTML=summary.innerHTML.replace('PAID · CASHBOX','BUSTED · ZERO CHIPS').replace('720,000','0')}
-});
-}
-new MutationObserver(update).observe(document.body,{childList:true,subtree:true});
-window.addEventListener('hashchange',update);setTimeout(update,0);
-})();
-</script>
+<style id="co6-demo-final-fixes">.hi-phone .co6-paid-continue{flex:0 0 62px!important;height:62px!important;min-height:62px!important;font-size:23px!important}.hi-phone .co6-busted-demo .co6-paid-status{color:#ff7777!important}.hi-phone .co6-busted-demo .co6-paid-stamp{color:#ff7777!important;border-color:#ff7777!important;box-shadow:inset 0 0 0 3px #075b45,0 0 0 2px #ff7777!important}.hi-phone .co6-busted-demo .co6-paid-summary{color:#fff}.hi-phone .co6-busted-demo .co6-paid-continue{background:#087a58}</style>
