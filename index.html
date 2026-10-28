@@ -61,6 +61,14 @@
 .crm56-card{border:2px solid #23bce6;background:#0a2d43;padding:4px 8px}.crm56-row{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:36px;border-bottom:1px solid #36718a;font-size:12px;font-weight:800}.crm56-row:last-child{border:0}.crm56-row strong{font-size:15px;color:white;text-align:right}
 .crm56-actions{display:grid;grid-template-columns:1fr 1fr;gap:5px}.crm56-btn{border:2px solid #21bdea;background:#0a3852;padding:9px 3px;text-align:center;font-weight:900;font-size:12px;color:white}.crm56-btn.green{background:#00684e;border-color:#36d9a6}
 .crm56-optional{border:1px dashed #7c91a6;padding:5px 7px}.crm56-optional>b{font-size:12px}.crm56-optional>small{display:block;color:#bad5e3;font-size:9px}.crm56-optional-actions{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:5px}.crm56-page{text-align:center;font-weight:900;font-size:18px;padding:5px}
+
+/* Workflow 56: full-bleed player selection portraits matching Workflow 4, and compact CRM detail */
+.crm56-player .person-face{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;border:0!important;border-radius:0!important;background:#183c54!important;overflow:hidden!important;font-size:48px!important;line-height:110px!important;text-align:center!important}
+.crm56-player .person-face img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important}
+.crm56-player b{z-index:2;padding:5px 1px!important;background:linear-gradient(transparent,#00101fe8)!important;font-size:14px!important;text-shadow:0 1px 3px black}
+.crm56-identity .person-face{display:block!important;width:76px!important;height:76px!important;flex:0 0 76px!important;overflow:hidden!important;border-radius:0!important}
+.crm56-identity .person-face img{width:100%!important;height:100%!important;object-fit:cover!important}
+.crm56-body{gap:6px!important}.crm56-body .crm56-row{min-height:32px!important}.crm56-body .crm56-btn{padding:8px 3px!important}.crm56-body .crm56-identity{min-height:76px!important;padding:5px!important}.crm56-body .crm56-page{padding:3px!important}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 73</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 73 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 73</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/ledger-11.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -1185,16 +1193,16 @@ const head=fullHead('PLAYER CRM',['Find Player','Search Results','Player Profile
 let body='';
 if(i<2){
 let list=[['Rafa','R',true],['Uri','U',false],['Alex','A',true],['Costa','C',true],['Sam','S',false],['Udi','U',false],['David','D',false],['Leo','L',false],['Marco','M',false],['Moshe','M',true],['Diego R.','D',true],['Mikey B.','M',true]];
-body='<div class="crm56-search"><b>FIND PLAYER</b><span>⌕ '+(i===0?'Search name or phone':'Diego')+'</span><span class="crm56-plus">＋</span></div><div class="crm56-grid">'+(i===0?list.map((p,j)=>player(...p,j)).join(''):player('Diego R.','D',true,0))+'</div>'+(i===1?btn('OPEN DIEGO RESTREPO PROFILE','green'):'');
+body='<div class="crm56-search"><b>FIND PLAYER</b><span>⌕ '+(i===0?'Search name or phone':'Diego')+'</span><span class="crm56-plus">＋</span></div><div class="crm56-grid">'+(i===0?list.map((p,j)=>player(...p,j)).join(''):player('Diego R.','D',true,0))+'</div>';
 }else if(i===2){
 body='<div class="crm56-identity">'+portrait('Diego R.','D',true)+'<div><b>DIEGO RESTREPO</b><small>PLAYER CRM · CONTACT RECORD</small></div></div>'+
 '<div class="crm56-card">'+row('PHONE / WHATSAPP','+57 300 123 4567')+row('EMAIL','diego@example.com')+row('APP STATUS','NOT REGISTERED')+'</div>'+
 '<div class="crm56-actions">'+btn('WHATSAPP','green')+btn('MESSAGE / EMAIL')+btn('INVITE TO APP','green')+btn('EDIT CONTACT')+'</div>'+
 '<div class="crm56-card">'+row('SESSIONS','14')+row('TOTAL HOURS','62')+row('TOTAL BUY-INS',money('14,500,000'))+row('LIFETIME WIN / LOSS',money('+2,150,000'))+'</div>'+
-'<div class="crm56-optional"><b>REWARDS / PRIVILEGES</b><small>ONLY DISPLAY IF ENABLED IN SETTINGS</small><div class="crm56-optional-actions">'+btn('VIEW REWARDS')+btn('MANAGE REWARDS')+'</div></div>'+btn('TRANSACTION HISTORY →','green');
+btn('TRANSACTION HISTORY →','green');
 }else{
 body='<div class="crm56-identity">'+portrait('Diego R.','D',true)+'<div><b>DIEGO RESTREPO</b><small>14 SESSIONS · 62 HOURS</small></div></div>'+
-'<div class="crm56-card">'+row('1. INITIAL BUY-IN',money('450,000'))+row('7:04 PM','')+row('2. REBUY',money('200,000'))+row('7:45 PM','')+row('3. REBUY',money('300,000'))+row('8:10 PM','')+row('4. REBUY',money('150,000'))+row('8:42 PM','')+'</div><div class="crm56-page">‹ &nbsp; 1 / 2 &nbsp; ›</div>'+btn('VIEW ALL SESSION HISTORY','green');
+'<div class="crm56-card">'+row('1. INITIAL BUY-IN',money('450,000'))+row('TIME','7:04 PM')+row('2. REBUY',money('200,000'))+row('TIME','7:45 PM')+row('3. REBUY',money('300,000'))+row('TIME','8:10 PM')+row('4. REBUY',money('150,000'))+row('TIME','8:42 PM')+'</div><div class="crm56-page">‹ &nbsp; 1 / 2 &nbsp; ›</div>'+btn('VIEW ALL SESSION HISTORY','green');
 }
 return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone crm56-phone"><div class="notch"></div>'+head+'<div class="ux-content crm56-body">'+body+'</div>'+fixedNav('Players')+'</div><p class="steptext">Player CRM · contact, app invitation and optional rewards</p></div>';
 }
