@@ -51,3 +51,53 @@ window.addEventListener('load',function(){
  customPhone=function(workflow,step,i){return workflow.id===11&&i>0?wf11Phone(workflow,step,i):previous(workflow,step,i)};
  if(location.hash==='#workflow-11')show(11);
 });
+
+/* Workflow 11 refinement: compact pause view, persistent banner, and multi-table example. */
+(function(){
+ const extra=document.createElement('style');extra.textContent=`
+ .wf11-phone .ux-content{gap:8px!important;padding-top:5px!important}
+ .wf11-banner{display:flex;align-items:center;justify-content:center;gap:12px;font-size:22px!important;padding:12px 7px!important}
+ .wf11-banner .wf11-pause-icon{font-size:38px;font-weight:1000;line-height:1;letter-spacing:-5px;margin-right:4px}
+ .wf11-banner .wf11-banner-text{line-height:1.15}
+ .wf11-banner .wf11-banner-text small{display:block;font-size:13px;margin-top:4px}
+ .wf11-phone .wf11-status{gap:7px!important}
+ .wf11-phone .wf11-stat{min-height:92px!important;padding:9px 8px!important}
+ .wf11-phone .wf11-hint{font-size:13px;padding:2px 4px!important}
+ .wf11-phone .wf11-action{margin-top:auto!important;margin-bottom:10px!important;height:62px!important;min-height:62px!important;display:flex;align-items:center;justify-content:center;line-height:1.1}
+ .wf11-phone .ux-content>.wf11-action{flex-shrink:0}
+ .wf11-phone .wf11-resumed{padding:8px 5px!important}
+ .wf11-phone .wf11-resume-details{min-height:0}
+ .wf11-phone .wf11-resume-details>div{padding:3px 0!important}
+ .wf11-phone .wf11-resume-details b{font-size:19px!important}
+ .wf11-phone .wf10-detail-actions{margin-bottom:10px!important}
+ .wf11-persistent{background:#925c00;border:2px solid #ffd064;color:#fff;text-align:center;font-size:16px;font-weight:950;padding:11px 5px;display:flex;align-items:center;justify-content:center;gap:10px}
+ .wf11-persistent b{font-size:24px;line-height:1}
+ .wf11-elsewhere{display:flex;flex-direction:column;gap:9px;flex:1}
+ .wf11-elsewhere .wf11-expense-row{display:flex;align-items:center;justify-content:space-between;border:2px solid #24bde6;background:#092b43;padding:14px 10px;font-size:17px;font-weight:900;min-height:85px}
+ .wf11-elsewhere .wf11-expense-row strong{color:#50e6bc}
+ .wf11-elsewhere .wf11-add-expense{margin-top:4px;border:2px solid #4fe5b4;background:#075c49;color:white;font-size:19px;font-weight:900;padding:17px 4px}
+ .wf11-multitable{display:flex;gap:7px}.wf11-multitable span{flex:1;border:2px solid #2cbce8;text-align:center;padding:13px 2px;font-weight:900;font-size:16px;background:#092b43}
+ .wf11-multitable span:first-child{border-color:#ffd05c;background:#634300}
+ .wf11-multitable-status{display:flex;flex-direction:column;gap:10px;flex:1}
+ .wf11-multitable-status>div{border:2px solid #2bbce6;padding:15px 10px;background:#092b43;font-weight:900;font-size:19px}
+ .wf11-multitable-status>div:first-child{border-color:#ffd05c;background:#57400d}
+ .wf11-multitable-status small{display:block;font-size:14px;color:#d0e0ed;margin-top:6px}
+ `;document.head.appendChild(extra);
+ const original=wf11Phone;
+ wf11Phone=function(w,step,i){
+  if(i===1)return original(w,step,i);
+  if(i===2){let out=original(w,step,i);out=out.replace('<div class="wf11-banner">⏸ TABLE PAUSED <span>TABLE 1</span></div>','<div class="wf11-banner"><span class="wf11-pause-icon">Ⅱ</span><span class="wf11-banner-text">TABLE PAUSED</span></div>');out=out.replace('Table 1 paused · runtime frozen','Table paused · runtime frozen');return out;}
+  if(i===3){let out=original(w,step,i);return out.replace('<div class="wf11-resumed"><strong>✓ TABLE RESUMED</strong><span>Playing time is accumulating again.</span></div>','<div class="wf11-resumed"><strong>✓ TABLE RESUMED</strong><span>Playing time is accumulating again.</span></div>');}
+  const multiple=i===5;
+  const body=multiple?
+  '<div class="wf11-persistent"><b>Ⅱ</b> TABLE 1 PAUSED</div><div class="wf11-multitable"><span>TABLE 1<br>⏸</span><span>TABLE 2<br>●</span><span>TABLE 3<br>●</span></div><div class="wf11-multitable-status"><div>TABLE 1 — PAUSED<small>Playing time frozen · 12m paused</small></div><div>TABLE 2 — RUNNING<small>Playing time accumulating</small></div><div>TABLE 3 — RUNNING<small>Playing time accumulating</small></div></div><button class="wf11-action" type="button">RESUME TABLE 1</button>':
+  '<div class="wf11-persistent"><b>Ⅱ</b> TABLE PAUSED</div><div class="wf11-elsewhere"><div class="wf11-expense-row"><span>VENUE RENT</span><strong>COP 150,000</strong></div><div class="wf11-expense-row"><span>FOOD / DRINKS</span><strong>COP 75,000</strong></div><div class="wf11-expense-row"><span>OTHER EXPENSES</span><strong>COP 30,000</strong></div><button class="wf11-add-expense" type="button">+ ADD EXPENSE</button></div><button class="wf11-action" type="button">RETURN TO TABLE / RESUME</button>';
+  return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone wf10-phone wf11-phone"><div class="notch"></div>'+fullHead('LIVE SESSION',multiple?'Tables':'Expenses')+'<div class="ux-content screen-specific">'+body+'</div>'+fixedNav(multiple?'Table':'Expenses')+'</div><p class="steptext">'+(multiple?'Multi-table example: identify the paused table':'Pause warning persists while using other Live Session tabs')+'</p></div>';
+ };
+ window.addEventListener('load',function(){
+  const w=WORKFLOWS.find(x=>x.id===11);
+  if(!w)return;
+  w.steps=['Open Table View','Game Details — tap PAUSE TABLE','Table Paused — tap RESUME TABLE','Game Details — table resumed','While paused — open Expenses','Multiple tables — Table 1 paused'];
+  if(location.hash==='#workflow-11')show(11);
+ });
+})();
