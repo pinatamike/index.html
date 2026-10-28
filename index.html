@@ -1650,9 +1650,9 @@ if(view==='closed')return '<div class="snap-badge">▣ CLOSED · READ ONLY</div>
 function snapNavigate(el,view){
 const body=el.closest('.snap-body'); if(view.startsWith('workflow')){show(displayId(Number(view.slice(8))));return}
 if(!body.dataset.initial)body.dataset.initial=body.innerHTML;
-body.innerHTML=snapshotMarkup(view);const labels={overview:'Snapshot',ledger:'Session Ledger',ledger2:'Session Ledger',player:'Player Ledger',tables:'Rake & Tables',team:'Team Report',expenses:'Expenses',accounts:'Account Balances',chips:'Chip Reconciliation',ss:'Sign & Settle',inventory:'Inventory',closed:'Historical Snapshot',rewards:'Rewards',revenue:'Other Revenue'};el.closest('.phone').querySelector('.ux-headtitle small').textContent=labels[view]||'Snapshot';
+body.innerHTML=snapshotMarkup(view);const labels={overview:'Snapshot',ledger:'Session Ledger',ledger2:'Session Ledger',player:'Player Ledger',tables:'Rake & Tables',team:'Team Report',expenses:'Expenses',accounts:'Account Balances',chips:'Chip Reconciliation',ss:'Sign & Settle',inventory:'Inventory',closed:'Historical Snapshot',rewards:'Rewards',revenue:'Other Revenue'};body.closest('.phone').querySelector('.ux-headtitle small').textContent=labels[view]||'Snapshot';
 }
-function snapBack(el){const body=el.closest('.snap-body');body.innerHTML=snapshotMarkup('overview');el.closest('.phone').querySelector('.ux-headtitle small').textContent='Snapshot';}
+function snapBack(el){const body=el.closest('.snap-body');body.innerHTML=snapshotMarkup('overview');body.closest('.phone').querySelector('.ux-headtitle small').textContent='Snapshot';}
 function snapshotStage(w,step,i){
 const views=snapshotVisibleViews();
 const captions=['Tap a tile to explore the session.','Session ledger; open player history or the next page.','Rake and performance by table.','Staffing, compensation and settlements.','Session expenses and the expense workflow.','Enabled payment accounts and chips held.','Buy-ins plus promotional chips compared with cash-outs plus chip tips.','Outstanding Sign & Settle balances; shown when enabled.','Counts and discrepancies; shown when enabled.','The same session after Daily Close.'];
