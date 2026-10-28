@@ -1438,7 +1438,7 @@ html=html.replace('phone hi-phone ledgerphone','phone hi-phone ledgerphone crm-l
 html=html.replace(/onclick="document\.querySelectorAll\('\.storyboard \.stage'\)\[1\]\.scrollIntoView\(\{behavior:'smooth',inline:'center',block:'nearest'\}\)"/g,'onclick="crmLedgerPage(this,1)"').replace(/onclick="document\.querySelectorAll\('\.storyboard \.stage'\)\[2\]\.scrollIntoView\(\{behavior:'smooth',inline:'center',block:'nearest'\}\)"/g,'onclick="crmLedgerPage(this,2)"');
 return auditLedger(html.replace('<div class="stage-number">'+(page+1)+'</div>','<div class="stage-number">4</div>'),true,page);
 }
-function crmLedgerPage(button,page){let stage=button.closest('.stage'),w=WORKFLOWS.find(x=>x.id===56);stage.outerHTML=crmLedger56(w,w.steps[3],page);}
+function crmLedgerPage(button,page){let stage=button.closest('.stage'),w=WORKFLOWS.find(x=>displayId(x.id)===current),step=w?.steps[3]||'Player ledger';let html=crmLedger56(w,step,page);if(w?.id===70)html=html.replace('PLAYER CRM</b><small>Player Ledger','REPORTING</b><small>Player Ledger');stage.outerHTML=html;}
 function crm56Screen(w,step,i){
 if(i===3)return crmLedger56(w,step,1);
 const row=(label,value)=>'<div class="crm56-row"><span>'+label+'</span><strong>'+value+'</strong></div>';
