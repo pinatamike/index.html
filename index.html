@@ -1459,9 +1459,12 @@ function crmChoosePlayer(el){
 const name=el.querySelector('strong')?.textContent||'Player',face=el.querySelector('.person-face')?.cloneNode(true);
 if(current!==54)show(54);
 const profile=document.querySelector('.crm56-phone .crm56-identity'),stage=profile?.closest('.stage');if(!profile||!stage)return;
+const body=profile.closest('.ux-content');
+if(!body.dataset.crmDefault)body.dataset.crmDefault=body.innerHTML;
+body.innerHTML=body.dataset.crmDefault;delete body.dataset.crmOriginal;
 if(name!=='Diego R.'){
-const old=profile.querySelector('.person-face');if(old&&face)old.replaceWith(face);const title=profile.querySelector('b');if(title)title.textContent=name.toUpperCase();
-const body=profile.closest('.ux-content'),links=body.querySelectorAll('.crm56-contact-link');links.forEach(link=>{link.textContent='Not provided';link.removeAttribute('href')});
+const identity=body.querySelector('.crm56-identity'),old=identity.querySelector('.person-face');if(old&&face)old.replaceWith(face);const title=identity.querySelector('b');if(title)title.textContent=name.toUpperCase();
+const links=body.querySelectorAll('.crm56-contact-link');links.forEach(link=>{link.textContent='Not provided';link.removeAttribute('href')});
 body.querySelectorAll('.crm56-row').forEach(row=>{const value=row.querySelector('strong');if(value&&!row.querySelector('a'))value.textContent='—'});
 }
 stage.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
