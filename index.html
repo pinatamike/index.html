@@ -350,6 +350,18 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .wf10-phone .wf10-summary .wf10-summary-tile strong{font-size:19px!important;text-align:right!important;white-space:nowrap!important}
 .wf10-phone .wf10-summary .wf10-summary-total{background:#075c49!important;margin:4px -6px -5px!important;padding:14px 6px!important;border:0!important}
 .wf10-phone .wf10-summary .wf10-summary-total strong{font-size:21px!important;color:#75ffd1!important}
+</style><style>
+/* Workflow 10 Game Details: data rows with only Rake and Close Table actionable */
+.wf10-phone .wf10-grid{display:flex!important;flex-direction:column!important;gap:0!important;flex:0 1 auto!important;border:2px solid #29c6ed!important;background:#092b43!important;padding:5px 10px!important;grid-template-columns:none!important;grid-template-rows:none!important}
+.wf10-phone .wf10-grid .wf10-tile:not(.wf10-rake){display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important;text-align:right!important;min-height:0!important;flex:0 0 auto!important;border:0!important;border-bottom:1px solid #36718c!important;border-radius:0!important;background:transparent!important;padding:12px 2px!important;gap:10px!important}
+.wf10-phone .wf10-grid .wf10-tile:not(.wf10-rake) span{font-size:13px!important;text-align:left!important;flex:1 1 auto!important}
+.wf10-phone .wf10-grid .wf10-tile:not(.wf10-rake) b{font-size:19px!important;text-align:right!important;flex:0 0 auto!important;line-height:1.2!important}
+.wf10-phone .wf10-grid .wf10-tile.gold b{font-size:17px!important}
+.wf10-phone .wf10-grid .wf10-rake{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important;min-height:61px!important;flex:0 0 auto!important;margin-top:7px!important;padding:10px 36px 10px 10px!important;border:2px solid #45dba8!important;border-radius:0!important;background:#075c49!important}
+.wf10-phone .wf10-grid .wf10-rake span{font-size:16px!important}
+.wf10-phone .wf10-grid .wf10-rake b{font-size:23px!important}
+.wf10-phone .wf10-grid .wf10-rake .wf10-plus{top:50%!important;transform:translateY(-50%)!important;right:7px!important}
+.wf10-phone .wf10-detail-actions{margin-top:auto!important}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 70 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 70</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
