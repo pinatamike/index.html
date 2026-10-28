@@ -1695,7 +1695,7 @@ function settingsSubscription(el){
 const c=el.closest('.ux-content');c.dataset.settingsOriginal=c.innerHTML;
 c.innerHTML='<button type="button" class="audit-back" onclick="settingsReturn(this)">‹ SETTINGS</button>'+screenCard('SUBSCRIPTION',screenField('PLAN','View current plan')+screenField('MODULE ACCESS','Based on subscription')+screenField('FEATURES','Configure inside available modules'))+'<div class="snap-note">Subscription access and individual feature controls are separate.</div>';
 }
-function settingsReturn(el){const c=el.closest('.ux-content');c.innerHTML=c.dataset.settingsOriginal||'';wireReviewStages();}
+function settingsReturn(el){const c=el.closest('.ux-content');c.innerHTML=c.dataset.settingsOriginal||'';c.querySelectorAll('[data-review-wired]').forEach(x=>delete x.dataset.reviewWired);wireReviewStages();}
 function wireReviewStages(){
 const content=document.getElementById('content');
 const picker=content.querySelectorAll('.stage[data-review-type="owner-transfer"]')[1];
@@ -1707,7 +1707,7 @@ if(listTypes.includes(type))actions.push(...stage.querySelectorAll('.screen-list
 if(['service-menu','player-rsvp'].includes(type))actions.push(...stage.querySelectorAll('.screen-tile'));
 actions.forEach(action=>{
  if(action.dataset.reviewWired==='yes')return;
- const next=stage.nextElementSibling;if(!next)return;
+ const next=stage.nextElementSibling;if(!next&&type!=='settings-home')return;
  action.dataset.reviewWired='yes';action.setAttribute('role','button');action.setAttribute('tabindex','0');
  const go=()=>{
   const label=action.querySelector('b')?.textContent?.trim()||action.textContent.trim();
@@ -1722,7 +1722,7 @@ actions.forEach(action=>{
    const role=[...next.querySelectorAll('.screen-field')].find(x=>x.querySelector('small')?.textContent==='ROLE');if(role&&role.querySelector('strong'))role.querySelector('strong').textContent=label;
   }
   if((type==='voice-decision'||type==='multi-review')&&/^EDIT/i.test(label)){editReviewAction(action);return;}
-  next.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+  if(next)next.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
  };
  action.addEventListener('click',go);
  action.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
