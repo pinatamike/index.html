@@ -1425,7 +1425,9 @@ const REVIEW_LEDGER_ENTRIES=[
  {type:'Rebuy',amount:'1,000,000',time:'9:12 PM',date:'Oct 25, 2026',posted:'Costa · Cashier'},
  {type:'Rebuy',amount:'250,000',time:'9:46 PM',date:'Oct 25, 2026',posted:'Anna · Cashier'},
  {type:'Rebuy',amount:'300,000',time:'10:08 PM',date:'Oct 25, 2026',posted:'Costa · Cashier'},
- {type:'Rebuy',amount:'200,000',time:'10:32 PM',date:'Oct 25, 2026',posted:'Anna · Cashier'}
+ {type:'Rebuy',amount:'200,000',time:'10:32 PM',date:'Oct 25, 2026',posted:'Anna · Cashier'},
+ {type:'Cash-out',amount:'2,000,000',time:'11:45 PM',date:'Oct 25, 2026',posted:'Costa · Cashier'},
+ {type:'Cash-out',amount:'1,300,000',time:'11:15 PM',date:'Oct 18, 2026',posted:'Anna · Cashier'}
 ];
 function auditLedger(html,crm,page){
 let index=(page-1)*4;
@@ -1441,14 +1443,14 @@ function auditLedgerBack(el){const content=el.closest('.ux-content');content.inn
 
 /* Lifetime ledger is grouped by session; rows are summaries, not a second ledger. */
 const CRM_SESSIONS=[
- {date:'Oct 25, 2026',buyins:'1,750,000',cashout:'2,000,000',result:'+250,000',entries:[4,5,6,7]},
- {date:'Oct 18, 2026',buyins:'1,100,000',cashout:'1,300,000',result:'+200,000',entries:[0,1,2,3]}
+ {date:'Oct 25, 2026',buyins:'1,750,000',cashout:'2,000,000',result:'+250,000',entries:[4,5,6,7,8]},
+ {date:'Oct 18, 2026',buyins:'1,100,000',cashout:'1,300,000',result:'+200,000',entries:[0,1,2,3,9]}
 ];
 function crmLedgerMarkup(view,sessionIndex=0){
 const sess=CRM_SESSIONS[sessionIndex];
 const header='<div class="ledgerhead"><img class="ledgerportrait" src="'+LOCAL_PORTRAITS['Diego R.']+'" alt="Diego Restrepo"><aside><b>Diego Restrepo</b><span>PLAYER HISTORY</span><span>14 SESSIONS</span></aside></div>';
-if(view==='sessions')return header+'<div class="ledgercaption">SESSIONS <span>NEWEST FIRST</span></div><div class="crm-session-list">'+CRM_SESSIONS.map((v,j)=>'<button class="crm-session-row" type="button" onclick="crmSessionOpen(this,'+j+')"><b>'+v.date+' <span>›</span></b><small>Buy-ins COP '+v.buyins+' · Cash-out COP '+v.cashout+'</small><strong>RESULT COP '+v.result+'</strong></button>').join('')+'</div><div class="crm-session-lifetime"><span>LIFETIME BUY-INS <b>COP 14,500,000</b></span><span>LIFETIME RESULT <b>COP +2,150,000</b></span></div><div class="crm-session-paging">‹ &nbsp; 1 / 7 &nbsp; ›</div>';
-if(view==='session')return '<button type="button" class="audit-back" onclick="crmSessionList(this)">‹ ALL SESSIONS</button><div class="ledgercaption">'+sess.date+' <span>4 ENTRIES</span></div><div class="crm-session-summary"><span>BUY-INS <b>COP '+sess.buyins+'</b></span><span>CASH-OUT <b>COP '+sess.cashout+'</b></span><span>RESULT <b>COP '+sess.result+'</b></span></div><div class="ledgerlist">'+sess.entries.map(id=>{let e=REVIEW_LEDGER_ENTRIES[id];return '<button type="button" class="ledgerrow crm-tx-row" onclick="auditLedgerOpen(this,'+id+',true)"><div><b>'+e.type.toUpperCase()+'</b><small>'+e.time+'</small></div><strong>COP '+e.amount+'</strong></button>'}).join('')+'</div>';
+if(view==='sessions')return header+'<div class="ledgercaption">SESSIONS <span>NEWEST FIRST</span></div><div class="crm-session-list">'+CRM_SESSIONS.map((v,j)=>'<button class="crm-session-row" type="button" onclick="crmSessionOpen(this,'+j+')"><b>'+v.date+' <span>›</span></b><small>Buy-ins COP '+v.buyins+' · Cash-out COP '+v.cashout+'</small><strong>RESULT COP '+v.result+'</strong></button>').join('')+'</div><div class="crm-session-lifetime"><span>LIFETIME BUY-INS <b>COP 14,500,000</b></span><span>LIFETIME RESULT <b>COP +2,150,000</b></span></div><div class="crm-session-paging">Showing 2 example sessions</div>';
+if(view==='session')return '<button type="button" class="audit-back" onclick="crmSessionList(this)">‹ ALL SESSIONS</button><div class="ledgercaption">'+sess.date+' <span>'+sess.entries.length+' ENTRIES</span></div><div class="crm-session-summary"><span>BUY-INS <b>COP '+sess.buyins+'</b></span><span>CASH-OUT <b>COP '+sess.cashout+'</b></span><span>RESULT <b>COP '+sess.result+'</b></span></div><div class="ledgerlist">'+sess.entries.map(id=>{let e=REVIEW_LEDGER_ENTRIES[id];return '<button type="button" class="ledgerrow crm-tx-row" onclick="auditLedgerOpen(this,'+id+',true)"><div><b>'+e.type.toUpperCase()+'</b><small>'+e.time+'</small></div><strong>COP '+e.amount+'</strong></button>'}).join('')+'</div>';
 const e=REVIEW_LEDGER_ENTRIES[sess.entries[0]];
 return '<button type="button" class="audit-back" onclick="crmSessionOpen(this,'+sessionIndex+')">‹ SESSION TRANSACTIONS</button>'+screenCard('TRANSACTION DETAILS',screenField('PLAYER','Diego Restrepo')+screenField('TRANSACTION',e.type)+screenField('AMOUNT','COP '+e.amount)+screenField('DATE & TIME',e.date+' · '+e.time)+screenField('POSTED BY',e.posted));
 }
