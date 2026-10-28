@@ -1736,7 +1736,7 @@ function screenContent(w,step,i){
  if(type==='player-detail')return sharedProfile()+sharedData([['Sessions','14'],['Total hours','62'],['Total buy-ins','COP 14,500,000'],['Win / loss','COP +2,150,000']])+sharedAction('Player ledger','player','▤');
  if(type==='crm-privileges')return SNAPSHOT_SESSION.modules.rewards?screenForm('PLAYER PRIVILEGES',[['PLAYER','Diego Restrepo'],['REWARDS','Enabled'],['ACCESS','Owner only']],'SAVE PRIVILEGES'):sharedCRMProfile();
  if(type==='balances'||type==='close-accounts')return snapshotMarkup('accounts');
- if(type==='account-detail'&&i===2)return sharedLedgerBody(1,true);
+ if(type==='account-detail'&&i===2)return sharedAccountLedger();
  if(type==='account-detail')return sharedData([['Account','Cashbox'],['Session balance','COP 4,500,000'],['Session','Sunday · Oct 25']])+sharedAction('Account movements','accounts-ledger','▤');
  if(type==='chip-reconcile')return snapshotMarkup('chips');
  if(type==='table-performance'&&i===2||type==='reports-table')return screenTop('TABLE 1 · PERFORMANCE','Sunday · Oct 25')+sharedData([['Rake','COP 450,000'],['Table hours','5h 30m'],['Rake / table hour','COP 81,818'],['Average stack','COP 620,000']]);
@@ -1775,6 +1775,8 @@ SCREEN_SPECS[59].types=['onboarding','onboard-game','onboard-rake','onboard-paym
 SCREEN_SPECS[54].types=['crm-list','crm-search','crm-profile','player-transactions'];
 SCREEN_SPECS[13].types=['table','voice-record','voice-review','rebuy-review','table-rebuy'];
 SCREEN_SPECS[14].types=['table','text-command','voice-review','rebuy-review','table-rebuy'];
+
+function sharedAccountLedger(){const h=document.createElement('div');h.innerHTML=sharedLedgerBody(1,true);h.querySelector('.shared-session-identity b').textContent='CASHBOX MOVEMENTS';h.querySelector('.wf9-ledger-heading').innerHTML='<b>ACCOUNT LEDGER</b><strong>3 ENTRIES</strong>';h.querySelector('.wf9-ledger').innerHTML=[['Rafa · Buy-in','8:04 PM','+450,000'],['Venue rental · Expense','7:30 PM','−1,000,000'],['Anna · Advance','7:15 PM','−100,000']].map(([a,b,c])=>'<div class="wf9-entry"><div><b>'+a+'</b><small>'+b+'</small></div><strong>COP '+c+'</strong></div>').join('');h.querySelector('.wf9-pages').remove();h.querySelector('.shared-action').outerHTML='<div class="wf9-total"><span>ACCOUNT BALANCE</span><strong>COP 4,500,000</strong></div>';return h.innerHTML;}
 const SHARED_HEADERS={'rebuy-review':'Rebuy Confirmed',waitlist:'Wait List','waitlist-assign':'Seat from Wait List',
  'table':'Table View','table-rebuy':'Table View','table-cashout':'Table View','table-two':'Table 2','multi-tables':'Select Table',
  'voice-record':'Nora · Voice Note','voice-review':'Nora · Review Action','text-command':'Nora · Text Command','correction':'Correct Action','multi-review':'Nora · Review Actions','ask-nora':'Ask Nora','answer-nora':'Nora · Answer','error':'Nora · Action Not Recorded',
@@ -1795,7 +1797,7 @@ function harmonizedPhone(w,step,i){
  const type=SCREEN_SPECS[w.id].types[Math.min(i,SCREEN_SPECS[w.id].types.length-1)];
  const active=w.main==='Players'?'Players':({Team:'Team',Expenses:'Expenses',Snapshot:'Snapshot',Close:'Close'}[w.sub]||'Table');
  const title=w.main==='Players'?'PLAYER CRM':w.main==='Scheduled'?'SCHEDULED':w.main==='Reporting'?'REPORTING':w.main==='Settings'?'SETTINGS':'LIVE SESSION';
- const subtitle=w.id===54&&i===3?'Player Ledger':type==='crm-privileges'&&!SNAPSHOT_SESSION.modules.rewards?'Player Profile':SHARED_HEADERS[type]||step;
+ const subtitle=w.id===35&&i===2?'Account Movements':w.id===54&&i===3?'Player Ledger':type==='crm-privileges'&&!SNAPSHOT_SESSION.modules.rewards?'Player Profile':SHARED_HEADERS[type]||step;
  let html;
  if(['table','table-rebuy','table-cashout','table-two'].includes(type)){
   // Exact approved Table View shell; only session state, table label and header differ.
@@ -1814,13 +1816,14 @@ function sharedGo(el,target){
  const w=WORKFLOWS.find(x=>x.id===Number(stage.dataset.workflow));
  if(target&&target.startsWith('workflow')){show(Number(target.slice(8)));return;}
  const body=stage.querySelector('.ux-content');
- if(target==='player'){body.dataset.returnHTML=body.innerHTML;body.innerHTML=sharedLedgerBody(1);stage.querySelector('.ux-headtitle small').textContent='Player Ledger';return;}
- if(target==='accounts-ledger'){body.dataset.returnHTML=body.innerHTML;body.innerHTML=sharedLedgerBody(1,true);stage.querySelector('.ux-headtitle small').textContent='Account Movements';return;}
+ if(target==='player'){body.dataset.returnHTML=body.innerHTML;body.dataset.returnHeader=stage.querySelector('.ux-headtitle small').textContent;body.innerHTML=sharedLedgerBody(1)+'<button class="snap-back" data-return="true">‹ BACK</button>';stage.querySelector('.ux-headtitle small').textContent='Player Ledger';return;}
+ if(target==='accounts-ledger'){body.dataset.returnHTML=body.innerHTML;body.dataset.returnHeader=stage.querySelector('.ux-headtitle small').textContent;body.innerHTML=sharedAccountLedger()+'<button class="snap-back" data-return="true">‹ BACK</button>';stage.querySelector('.ux-headtitle small').textContent='Account Movements';return;}
  if(target==='invite'){body.innerHTML=screenForm('INVITE TO NORA',[['PLAYER','Diego Restrepo'],['CHANNEL','WhatsApp / SMS / Email']],'REVIEW INVITATION');return;}
  const next=stage.nextElementSibling;if(next&&next.classList.contains('stage'))next.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
 }
 document.addEventListener('click',e=>{
  const stage=e.target.closest('.harmonized');if(!stage)return;
+ const back=e.target.closest('[data-return]');if(back){const b=stage.querySelector('.ux-content');stage.querySelector('.ux-headtitle small').textContent=b.dataset.returnHeader||'Snapshot';b.innerHTML=b.dataset.returnHTML;return;}
  const page=e.target.closest('[data-page]');if(page){const body=stage.querySelector('.ux-content');body.innerHTML=sharedLedgerBody(Number(page.dataset.page),!!body.querySelector('.shared-session-identity'));return;}
  const action=e.target.closest('[data-view],[data-next],.screen-button,.np4-submit,.crm56-btn');if(action){sharedGo(action,action.dataset.view||'next');return;}
 });
@@ -1831,13 +1834,14 @@ const SETUP_PREVIEW={};
 function editableWizard(html,type){
  const h=document.createElement('div');h.innerHTML=html;
  const choices={LANGUAGE:['English','Español','Português','Français','Deutsch'],CURRENCY:['COP','USD','EUR'],'TIME ZONE':['America/Bogota','America/New_York','Europe/London'],'GAME TYPE':['Hold’em','PLO','Dealer’s Choice'],COLLECTION:['Percentage per pot','Timed rake','No rake'],CASHBOX:['Enabled','Disabled'],NEQUI:['Enabled · •••• 4567','Disabled'],BANCOLOMBIA:['Disabled','Enabled'],'CHIPS BOX':['Enabled'],'SIGN & SETTLE':['Enabled · owner PIN','Disabled'],'FOOD & BEVERAGE':['Enabled','Disabled'],INVENTORY:['Enabled','Disabled'],'REWARDS / PRIVILEGES':['Disabled','Enabled']};
- h.querySelectorAll('.screen-field').forEach(row=>{const label=row.querySelector('small').textContent,old=row.querySelector('strong'),value=SETUP_PREVIEW[label]??old.textContent;let input;if(choices[label]){input=document.createElement('select');choices[label].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===value)o.setAttribute('selected','');input.appendChild(o);});}else{input=document.createElement('input');input.type='text';input.setAttribute('value',value);}input.className='shared-setup-input';input.dataset.setup=label;input.setAttribute('aria-label',label);old.replaceWith(input);});
+ h.querySelectorAll('.screen-field').forEach(row=>{const label=row.querySelector('small').textContent,old=row.querySelector('strong'),value=SETUP_PREVIEW[label]??old.textContent;let input;if(choices[label]){input=document.createElement('select');choices[label].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===value)o.setAttribute('selected','');input.appendChild(o);});}else{input=document.createElement('input');input.type='text';input.setAttribute('value',value);}input.className='shared-setup-input';input.dataset.setup=label;input.setAttribute('aria-label',label);if(input.tagName==='INPUT'&&value.startsWith('COP ')){const wrap=document.createElement('div');wrap.className='shared-setup-money';wrap.innerHTML='<span class="nora-cop-unit">COP</span>';input.setAttribute('value',value.slice(4));input.dataset.currency='COP';wrap.appendChild(input);old.replaceWith(wrap);}else old.replaceWith(input);});
  if(type==='onboard-done'&&Object.keys(SETUP_PREVIEW).length){const data=h.querySelector('.shared-data');data.outerHTML=sharedData([['Game',(SETUP_PREVIEW['GAME NAME']||'Mike’s Game')+' · '+(SETUP_PREVIEW['GAME TYPE']||'Hold’em')],['Currency / time zone',(SETUP_PREVIEW.CURRENCY||'COP')+' · '+(SETUP_PREVIEW['TIME ZONE']||'America/Bogota')],['Rake',(SETUP_PREVIEW.PERCENTAGE||'5%')+' · '+(SETUP_PREVIEW['RAKE CAP']||'COP 50,000')],['Cashbox',SETUP_PREVIEW.CASHBOX||'Enabled'],['Team','Owner · invites optional']]);}
  if(type==='onboard-done'){h.querySelector('.screen-button').dataset.view='workflow1';}
  if(type!=='onboarding')h.insertAdjacentHTML('beforeend','<button type="button" class="shared-wizard-back" data-wizard-back="true">‹ BACK</button>');
  return h.innerHTML;
 }
-document.addEventListener('change',e=>{const key=e.target.dataset.setup;if(!key)return;SETUP_PREVIEW[key]=e.target.value;const flags={'SIGN & SETTLE':'signSettle',INVENTORY:'inventory','REWARDS / PRIVILEGES':'rewards','FOOD & BEVERAGE':'otherRevenue'};if(flags[key])SNAPSHOT_SESSION.modules[flags[key]]=!e.target.value.startsWith('Disabled');const last=document.querySelector('.harmonized[data-workflow="59"][data-step="6"] .ux-content');if(last)last.innerHTML=editableWizard(sharedWizard('onboard-done'),'onboard-done');});
+function syncSetupPreview(e){const key=e.target.dataset.setup;if(!key)return;SETUP_PREVIEW[key]=(e.target.dataset.currency?'COP ':'')+e.target.value;const flags={'SIGN & SETTLE':'signSettle',INVENTORY:'inventory','REWARDS / PRIVILEGES':'rewards','FOOD & BEVERAGE':'otherRevenue'};if(flags[key])SNAPSHOT_SESSION.modules[flags[key]]=!e.target.value.startsWith('Disabled');const last=document.querySelector('.harmonized[data-workflow="59"][data-step="6"] .ux-content');if(last)last.innerHTML=editableWizard(sharedWizard('onboard-done'),'onboard-done');}
+document.addEventListener('input',syncSetupPreview);document.addEventListener('change',syncSetupPreview);
 document.addEventListener('click',e=>{const back=e.target.closest('[data-wizard-back]');if(back)back.closest('.stage').previousElementSibling?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});});
 
 
@@ -2522,4 +2526,6 @@ document.addEventListener('click',e=>{const page=e.target.closest('.snap-phone [
 .harmonized .seat-roster-v3 .seat-roster-toolbar{height:23px!important;min-height:23px!important;max-height:23px!important;flex:0 0 23px!important}
 .harmonized .seat-roster-v3 .seat-roster-toolbar>*{height:23px!important;min-height:23px!important;max-height:23px!important}
 .harmonized .seat-roster-v3 .seat-roster-title-tile{font-size:14px!important}
+</style><style>
+.harmonized .shared-setup-money{width:61%;min-width:0;display:flex;align-items:center;gap:5px;font-size:17px;font-weight:800;background:#06243a;border:1px solid #2381a3;padding-left:5px}.harmonized .shared-setup-money>.shared-setup-input{border:0;width:100%;flex:1;min-width:0;padding:8px 4px}.harmonized .shared-setup-money>.nora-cop-unit{font-size:65%!important}
 </style></body></html>
