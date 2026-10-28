@@ -336,6 +336,20 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .wf10-phone .wf10-input-wrap input{font-size:26px!important}
 .wf10-phone .wf10-entry{flex-shrink:0}
 .wf10-phone .wf10-confirm{flex-shrink:0}
+</style><style>
+/* Workflow 10: read-only Game Details tiles; restore compact rake-entry summary */
+.wf10-phone .wf10-tile:not(.wf10-rake){cursor:default!important}
+.wf10-phone .wf10-tile{justify-content:center!important;align-items:center!important;text-align:center!important;gap:8px!important}
+.wf10-phone .wf10-tile span{font-size:15px!important;line-height:1.15!important}
+.wf10-phone .wf10-tile b{font-size:26px!important;line-height:1.12!important}
+.wf10-phone .wf10-tile.gold b{font-size:19px!important;line-height:1.2!important}
+.wf10-phone .wf10-tile.purple b{font-size:25px!important}
+.wf10-phone .wf10-summary{display:flex!important;flex-direction:column!important;gap:0!important;border:2px solid #29c6ed!important;background:#092b43!important;padding:9px 11px!important}
+.wf10-phone .wf10-summary .wf10-summary-tile{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;min-height:0!important;margin:0!important;padding:14px 0!important;border:0!important;border-bottom:1px solid #36718c!important;background:transparent!important}
+.wf10-phone .wf10-summary .wf10-summary-tile span{font-size:13px!important;text-align:left!important}
+.wf10-phone .wf10-summary .wf10-summary-tile strong{font-size:19px!important;text-align:right!important;white-space:nowrap!important}
+.wf10-phone .wf10-summary .wf10-summary-total{background:#075c49!important;margin:4px -6px -5px!important;padding:14px 6px!important;border:0!important}
+.wf10-phone .wf10-summary .wf10-summary-total strong{font-size:21px!important;color:#75ffd1!important}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 70 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 70</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
