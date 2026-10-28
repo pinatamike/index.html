@@ -1104,7 +1104,7 @@
     "title": "Configure food/beverage menus and inventory",
     "steps": [
       "Open Settings → Food / Beverage",
-      "Enable relevant modules",
+      "Configure individual features available in the plan",
       "Configure menu, prices and inventory",
       "Save"
     ],
@@ -1356,9 +1356,9 @@ function screenContent(w,step,i){
  case 'crm-history':return screenTiles([['SESSIONS','14'],['HOURS','62'],['TOTAL BUY-INS','COP 7,500,000'],['WIN / LOSS','COP +850,000']]);
  case 'onboarding':return screenTop('WELCOME TO NORA','Initial setup · 1 of 3')+screenBtn('CONFIGURE MY GAME');
  case 'onboard-game':return screenForm('YOUR GAME',[['NAME','My Home Game'],['CURRENCY','COP'],['GAME TYPE','Hold’em']],'CONTINUE');
- case 'onboard-payment':return screenForm('PAYMENT SETUP',[['CASHBOX','Enabled'],['NEQUI','Optional'],['S&S','Optional']],'CONTINUE');
+ case 'onboard-payment':return screenTop('PAYMENT SETUP','Choose payment features available in your plan')+screenForm('PAYMENT FEATURES',[['CASHBOX','On'],['NEQUI','Optional'],['SIGN & SETTLE','Plan access required']],'CONTINUE');
  case 'onboard-done':return screenCard('GAME READY',screenField('STATUS','Setup complete'),'green')+screenBtn('OPEN NORA');
- case 'settings-home':return screenTop('SETTINGS','Accessed through profile menu')+screenList([['Game configuration','Blinds, rake, tables','›'],['Payment accounts','Cashbox, Nequi, banks','›'],['Team & access','Roles and permissions','›'],['Food & beverage','Menu and inventory','›']]);
+ case 'settings-home':return screenTop('SETTINGS','Plan controls module access')+screenList([['Subscription','View available modules','›'],['Game configuration','Game, blinds, rake, tables','›'],['Payment features','Accounts and Sign & Settle','›'],['Team & access','Roles and permissions','›'],['Food & beverage','Sales and inventory features','›']]);
  case 'settings-game':return screenForm('GAME RULES',[['GAME TYPE','Hold’em'],['BLINDS','5M / 10M'],['TABLES','1']],'NEXT: RAKE');
  case 'settings-rake':return screenForm('RAKE RULES',[['PERCENT','5%'],['MINIMUM POT','COP 200,000'],['CAP','Configured per game']],'SAVE RULES');
  case 'payment-methods':return screenList([['Cashbox','Enabled','›'],['Nequi','Enabled','›'],['Bancolombia','Enabled','›'],['PayPal / Zelle','Disabled','›']]);
@@ -1367,8 +1367,8 @@ function screenContent(w,step,i){
  case 'settings-pin':return screenForm('OWNER PIN',[['METHOD','4-digit PIN'],['PIN','••••'],['CONFIRM','••••']],'SAVE VERIFICATION');
  case 'settings-roles':return screenList([['Dealer','Table duties','›'],['Cashier','Financial actions','›'],['Host','Player operations','›']]);
  case 'settings-permissions':return screenForm('ROLE PERMISSIONS',[['ROLE','Cashier'],['CASH-OUTS','Enabled'],['REPORTS','Restricted']],'SAVE PERMISSIONS');
- case 'settings-menu':return screenForm('FOOD & BEVERAGE',[['BEVERAGES','Enabled'],['FOOD','Enabled'],['MENU','Upload images']],'NEXT: INVENTORY');
- case 'settings-inventory':return screenForm('INVENTORY SETTINGS',[['UNIT TRACKING','Enabled'],['COUNT AT CLOSE','Optional'],['VARIANCE ALERT','Enabled']],'SAVE SETTINGS');
+ case 'settings-menu':return screenTop('FOOD & BEVERAGE','Available when included in your plan')+screenForm('FEATURES',[['FOOD SALES','On'],['BEVERAGE SALES','On'],['MENU','Items and prices']],'NEXT: INVENTORY');
+ case 'settings-inventory':return screenTop('INVENTORY','Available when included in your plan')+screenForm('FEATURES',[['UNIT TRACKING','On'],['COUNT AT CLOSE','Optional'],['VARIANCE ALERT','On']],'SAVE FEATURES');
  case 'profile-menu':return screenTop('YOUR PROFILE','Owner')+screenList([['Profile','Name and photo','›'],['Settings','Game configuration','›'],['Subscription','Plan and billing','›']]);
  case 'settings-preferences':return screenForm('PREFERENCES',[['LANGUAGE','English'],['PHOTO','Google / Apple / Upload'],['THEME','NORA Dark']],'SAVE PREFERENCES');
  case 'settings-language':return screenTop('LANGUAGE','Choose display language')+screenTiles([['EN','English'],['ES','Español'],['PT','Português'],['FR','Français'],['DE','Deutsch']]);
