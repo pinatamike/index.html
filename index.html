@@ -1428,7 +1428,7 @@ const id=index++, entry=REVIEW_LEDGER_ENTRIES[id];if(crm)inside=inside.replace(/
 }
 function auditLedgerOpen(el,id,crm){
 const content=el.closest('.ux-content'),entry=REVIEW_LEDGER_ENTRIES[id];content.dataset.auditOriginal=content.innerHTML;
-content.innerHTML='<button type="button" class="audit-back" onclick="auditLedgerBack(this)">‹ PLAYER LEDGER</button>'+screenCard('TRANSACTION DETAILS',screenField('PLAYER','Diego Restrepo')+screenField('TRANSACTION',entry.type)+screenField('AMOUNT','COP '+entry.amount)+screenField('DATE & TIME',entry.date+' · '+entry.time)+screenField('POSTED BY',entry.posted))+'<div class="audit-note">Session time: '+(crm?entry.date:'Oct 25, 2026')+' · '+entry.time+'</div>';
+content.innerHTML='<button type="button" class="audit-back" onclick="auditLedgerBack(this)">‹ PLAYER LEDGER</button>'+screenCard('TRANSACTION DETAILS',screenField('PLAYER','Diego Restrepo')+screenField('TRANSACTION',entry.type)+screenField('AMOUNT','COP '+entry.amount)+screenField('DATE & TIME',(crm?entry.date:'Oct 25, 2026')+' · '+entry.time)+screenField('POSTED BY',entry.posted));
 }
 function auditLedgerBack(el){const content=el.closest('.ux-content');content.innerHTML=content.dataset.auditOriginal||'';}
 function crmLedger56(w,step,page){
