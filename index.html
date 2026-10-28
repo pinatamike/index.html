@@ -1658,7 +1658,14 @@ content.innerHTML='<div class="ux-section">EDIT NORA ACTION</div><label for="edi
 function cancelReviewEdit(el){const c=el.closest('.ux-content');c.innerHTML=c.dataset.original||'';wireReviewStages();}
 function finishReviewEdit(el){
 const c=el.closest('.ux-content'),vals=[...c.querySelectorAll('input')].map(x=>x.value.trim());
-c.innerHTML=screenCard('REVIEW CORRECTED ACTION',screenField('PLAYER',vals[0]||'—')+screenField('AMOUNT','COP '+(vals[1]||'0'))+screenField('PAYMENT',vals[2]||'—'))+'<button type="button" class="userprofile-action" onclick="this.closest(\'.stage\').nextElementSibling.scrollIntoView({behavior:\'smooth\',inline:\'center\',block:\'nearest\'})">CONFIRM</button>';
+c.innerHTML=screenCard('REVIEW CORRECTED ACTION',screenField('PLAYER',vals[0]||'—')+screenField('AMOUNT','COP '+(vals[1]||'0'))+screenField('PAYMENT',vals[2]||'—'))+'<button type="button" class="userprofile-action" onclick="confirmReviewEdit(this)">CONFIRM</button>';
+}
+
+
+function confirmReviewEdit(el){
+const stage=el.closest('.stage'),next=stage.nextElementSibling,amount=stage.querySelector('.screen-field:nth-child(2) strong')?.textContent||'';
+const numeric=Number(amount.replace(/[^0-9]/g,''));if(next&&numeric){const seats=[...next.querySelectorAll('.ux-seat')],seat=seats.find(x=>x.textContent.includes('Diego R.'));const total=seat?.querySelector('.ux-seat-label strong');if(total)total.textContent=(450000+numeric).toLocaleString('en-US');}
+if(next)next.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
 }
 
 function wireReviewStages(){
@@ -1670,9 +1677,10 @@ const listTypes=['team-list','team-select','expense-list','expense-detail','inve
 if(listTypes.includes(type))actions.push(...stage.querySelectorAll('.screen-list-item'));
 if(['service-menu','player-rsvp'].includes(type))actions.push(...stage.querySelectorAll('.screen-tile'));
 actions.forEach(action=>{
+ if(action.dataset.reviewWired==='yes')return;
  const next=stage.nextElementSibling;
  if(!next)return;
- action.setAttribute('role','button');action.setAttribute('tabindex','0');
+ action.dataset.reviewWired='yes';action.setAttribute('role','button');action.setAttribute('tabindex','0');
  const go=()=>{if((type==='voice-decision'||type==='multi-review')&&/^EDIT/i.test(action.textContent.trim())){editReviewAction(action);return;}next.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});};
  action.addEventListener('click',go);
  action.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
