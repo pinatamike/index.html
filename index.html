@@ -437,6 +437,12 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .wf10-phone .wf10-summary .wf10-summary-tile{flex:1 1 0!important;min-height:0!important}
 .wf10-phone .wf10-detail-actions,.wf10-phone .wf10-confirm{margin-top:0!important;flex:0 0 62px!important}
 .wf10-phone .wf10-detail-actions .wf10-close{height:62px!important}
+</style><style>
+/* Workflow 10 Game Details: shared action row, one-third Pause and two-thirds Close */
+.wf10-phone .wf10-table-actions{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,2fr)!important;gap:7px!important;width:100%!important;height:62px!important;min-height:62px!important;max-height:62px!important;align-items:stretch!important}
+.wf10-phone .wf10-table-actions .wf10-pause,.wf10-phone .wf10-table-actions .wf10-close{width:100%!important;min-width:0!important;height:62px!important;min-height:62px!important;max-height:62px!important;margin:0!important;padding:0 3px!important;border-radius:0!important;font-family:inherit!important;font-weight:900!important;line-height:1!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.wf10-phone .wf10-table-actions .wf10-pause{background:#9d6900!important;color:#fff!important;border:2px solid #f0b942!important;font-size:14px!important;white-space:nowrap!important}
+.wf10-phone .wf10-table-actions .wf10-close{font-size:19px!important}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 70 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 70</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
