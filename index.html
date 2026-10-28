@@ -262,6 +262,8 @@
 .report-ledger-entry{border:2px solid #19bff4;background:#073851;color:white;font-size:16px;font-weight:900;padding:14px;text-align:left}.report-ledger-entry span{float:right}.report-ledger-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(72px,1fr);gap:6px;flex:1;min-height:0}.report-ledger-tile{background:#083149;border:2px solid #19b8e9;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:850}.report-ledger-tile b{font-size:21px;color:#72e5ff}
 
 .userprofile-input{width:100%;min-height:40px;border:2px solid #1bbbe9;background:#061d30;color:#fff;padding:8px;font-size:15px}.userprofile label{margin:0;color:#b9d8e7;font-size:12px;font-weight:800}
+
+.owner-selected{outline:2px solid #44e5ad;background:#064a3a!important}.crm56-btn{width:100%;cursor:pointer}
 </style><link rel="stylesheet" href="workflows/ledger-11.css"><style>
 .crm56-phone .crm56-body{padding:7px;display:flex;flex-direction:column;gap:7px;overflow:hidden}
 .crm56-search{border:2px solid #26c4ee;background:#092b43;padding:8px;display:flex;align-items:center;gap:7px;font-size:14px}.crm56-search b{font-size:13px}.crm56-search span:nth-child(2){flex:1;color:#c9dce9}.crm56-plus{font-size:24px;font-weight:900;color:#59dfff}
@@ -1477,10 +1479,22 @@ if(typeof view==='number')view='sessions';
 const title=w.id===70?'REPORTING':'PLAYER CRM';
 return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(view==='sessions'?4:view==='session'?5:6)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone ledgerphone crm-ledger">'+fullHead(title,view==='sessions'?'Player Ledger':view==='session'?'Session Transactions':'Transaction Details')+'<div class="ux-content">'+crmLedgerMarkup(view)+'</div>'+fixedNav('Players')+'</div><p class="steptext">'+(view==='sessions'?'Choose a session to review its transactions.':view==='session'?'Tap any transaction to see its audit details.':'Date, time and the team member who posted the transaction.')+'</p></div>';
 }
+
+/* CRM interactions below are review examples; no invitation is sent. */
+function crmProfileAction(el,view){
+const content=el.closest('.ux-content');if(!content.dataset.crmOriginal)content.dataset.crmOriginal=content.innerHTML;
+if(view==='ledger'){content.innerHTML='<button type="button" class="audit-back" onclick="crmProfileReturn(this)">‹ PROFILE</button>'+crmLedgerMarkup('sessions');return}
+if(view==='edit'){content.innerHTML='<div class="userprofile"><div class="snap-label">EDIT CONTACT</div><label for="crm-name">NAME</label><input id="crm-name" class="userprofile-input" value="Diego Restrepo"><label for="crm-phone">PHONE / WHATSAPP</label><input id="crm-phone" class="userprofile-input" type="tel" value="+57 300 123 4567"><label for="crm-email">EMAIL</label><input id="crm-email" class="userprofile-input" type="email" value="diego@example.com"><button type="button" class="userprofile-action" onclick="crmProfileSave(this)">SAVE CONTACT</button><button type="button" class="userprofile-action" onclick="crmProfileReturn(this)">CANCEL</button></div>';return}
+content.innerHTML='<button type="button" class="audit-back" onclick="crmProfileReturn(this)">‹ PROFILE</button><div class="snap-label">INVITE TO NORA</div><div class="snap-note">Choose how to invite Diego to download and register.</div><div class="crm56-actions"><button type="button" class="crm56-btn green" onclick="crmInvitePreview(this,\'WhatsApp\')">WHATSAPP</button><button type="button" class="crm56-btn" onclick="crmInvitePreview(this,\'Email\')">EMAIL</button></div>';
+}
+function crmInvitePreview(el,channel){const content=el.closest('.ux-content');content.innerHTML='<button type="button" class="audit-back" onclick="crmProfileReturn(this)">‹ PROFILE</button>'+screenCard('INVITATION PREVIEW',screenField('PLAYER','Diego Restrepo')+screenField('CHANNEL',channel)+screenField('MESSAGE','Join our game on NORA. Download and register.'))+'<div class="snap-note">Preview only · no invitation has been sent.</div>';}
+function crmProfileReturn(el){const content=el.closest('.ux-content');content.innerHTML=content.dataset.crmOriginal||'';}
+function crmProfileSave(el){const content=el.closest('.ux-content'),values=[...content.querySelectorAll('input')].map(x=>x.value.trim());content.innerHTML=content.dataset.crmOriginal||'';const name=content.querySelector('.crm56-identity b'),links=content.querySelectorAll('.crm56-contact-link');if(name)name.textContent=values[0]||'PLAYER';if(links[0]){links[0].textContent=(values[1]||'Not provided')+' ↗';links[0].href='https://wa.me/'+values[1].replace(/[^0-9]/g,'');}if(links[1]){links[1].textContent=(values[2]||'Not provided')+' ↗';links[1].href='mailto:'+values[2];}content.dataset.crmOriginal=content.innerHTML;}
+
 function crm56Screen(w,step,i){
 if(i>=3)return crmLedger56(w,step,['sessions','session','detail'][i-3]);
 const row=(label,value)=>'<div class="crm56-row"><span>'+label+'</span><strong>'+value+'</strong></div>';
-const btn=(label,kind='blue')=>'<div class="crm56-btn '+kind+'">'+label+'</div>';
+const btn=(label,kind='blue')=>'<button type="button" class="crm56-btn '+kind+'" onclick="crmProfileAction(this,\''+(label.startsWith('INVITE')?'invite':label.startsWith('EDIT')?'edit':'ledger')+'\')">'+label+'</button>';
 let body='';
 if(i<2)body=crmRoster56(i===1);
 else body='<div class="crm56-identity">'+portrait('Diego R.','D',true)+'<div><b>DIEGO RESTREPO</b><small>PLAYER CRM · CONTACT RECORD</small></div></div>'+
@@ -1678,6 +1692,7 @@ if(next)next.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})
 
 function wireReviewStages(){
 const content=document.getElementById('content');
+const picker=content.querySelectorAll('.stage[data-review-type="owner-transfer"]')[1];if(picker){picker.querySelectorAll('.screen-list-item').forEach((item,index)=>{item.setAttribute('role','button');item.setAttribute('tabindex','0');const choose=()=>{picker.querySelectorAll('.screen-list-item').forEach(x=>x.classList.remove('owner-selected'));item.classList.add('owner-selected');const name=index===0?'Partner 1':'Partner 2';const stages=content.querySelectorAll('.stage[data-review-type="owner-transfer"]');for(let k=2;k<stages.length;k++){stages[k].querySelectorAll('.screen-field').forEach(row=>{let label=row.querySelector('small')?.textContent;if(['NEW PRIMARY','TO','PRIMARY'].includes(label)){let v=row.querySelector('strong');if(v)v.textContent=name;}});}};item.addEventListener('click',choose);item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose();}});});}
 content.querySelectorAll('.stage[data-review-type]').forEach(stage=>{
 const type=stage.dataset.reviewType;
 const actions=[...stage.querySelectorAll('.screen-button')];
