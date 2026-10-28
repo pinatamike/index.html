@@ -1398,7 +1398,7 @@ function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;loc
      canvas.width=360;canvas.height=420;
      const context=canvas.getContext('2d');
      const w=source.naturalWidth,h=source.naturalHeight;
-     context.drawImage(source,w*.16,0,w*.84,h*.77,0,0,360,420);
+     context.drawImage(source,w*.31,0,w*.69,h*.65,0,0,360,420);
      const cleaned=canvas.toDataURL('image/jpeg',.92);
      done.set(original,cleaned);
      img.src=cleaned;
@@ -1421,4 +1421,16 @@ function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;loc
 .seat-roster-v3 .seat-roster-card .person-face.photo img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important;transform:none!important}
 .seat-roster-v3 .seat-roster-card>strong{position:absolute!important;bottom:0!important;left:0!important;right:0!important;z-index:50!important;height:auto!important;min-height:0!important;padding:12px 2px 4px!important;background:linear-gradient(to bottom,transparent,rgba(0,0,0,.64))!important;color:white!important;font-size:15px!important;line-height:1!important;font-weight:900!important;text-shadow:0 1px 3px #000!important;display:block!important;text-align:center!important}
 .seat-roster-v3 .seat-roster-card::before,.seat-roster-v3 .seat-roster-card::after{display:none!important;content:none!important}
+</style><style>
+/* Workflow 03 final isolated photo tile rules */
+.seat-roster-v3 .seat-roster-toolbar{height:23px!important;min-height:23px!important;flex:0 0 23px!important;gap:4px!important;align-items:stretch!important}
+.seat-roster-v3 .seat-roster-toolbar>*{box-sizing:border-box!important;margin:0!important}
+.seat-roster-v3 .seat-roster-title-tile{height:23px!important;min-height:23px!important;padding:0 6px!important;display:flex!important;align-items:center!important;font-size:11px!important}
+.seat-roster-v3 button.seat-roster-add-toggle,.seat-roster-v3 button.seat-roster-search-toggle{height:23px!important;min-height:23px!important;width:33px!important;flex:0 0 33px!important;padding:0!important;margin:0!important;display:grid!important;place-items:center!important;line-height:1!important;font-size:21px!important;text-align:center!important;vertical-align:middle!important}
+.seat-roster-v3 .seat-roster-grid{grid-template-rows:repeat(4,minmax(0,1fr))!important;gap:5px!important}
+.seat-roster-v3 .seat-roster-card{padding:0!important;overflow:hidden!important}
+.seat-roster-v3 .seat-roster-card .seat-roster-photo,.seat-roster-v3 .seat-roster-card .person-face{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;clip-path:none!important;overflow:hidden!important}
+.seat-roster-v3 .seat-roster-card .person-face.photo img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;transform:none!important;max-width:none!important}
+.seat-roster-v3 .seat-roster-card>strong{position:absolute!important;bottom:0!important;left:0!important;right:0!important;z-index:90!important;height:24px!important;min-height:0!important;padding:0 2px 3px!important;display:flex!important;align-items:end!important;justify-content:center!important;background:transparent!important;background-image:none!important;color:white!important;font-size:15px!important;font-weight:900!important;line-height:1!important;text-shadow:0 2px 3px #000,0 0 5px #000!important;white-space:nowrap!important}
+.seat-roster-v3 .seat-roster-card::before,.seat-roster-v3 .seat-roster-card::after{display:none!important}
 </style>
