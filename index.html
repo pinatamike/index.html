@@ -1244,8 +1244,8 @@ function screenContent(w,step,i){
  case 'move-choice':return '<div class="move7"><div class="move7-player">'+portrait('Diego R.','D',true)+'<div><strong>Diego Restrepo</strong><b>CURRENT SEAT 7</b></div></div><div class="move7-panel"><div class="move7-heading">CHANGE SEAT</div><div class="move7-label">SELECT ACTION</div><div class="move7-mode"><div class="move7-mode-tile"><strong>→ MOVE TO OPEN SEAT</strong><span>Choose an available seat</span></div><div class="move7-mode-tile"><strong>⇄ SWAP WITH PLAYER</strong><span>Exchange two occupied seats</span></div></div></div></div>';
  case 'move-entry':return '<div class="move7"><div class="move7-player">'+portrait('Diego R.','D',true)+'<div><strong>Diego Restrepo</strong><b>CURRENT SEAT 7</b></div></div><div class="move7-panel"><div class="move7-heading">MOVE TO OPEN SEAT</div><div class="move7-from">FROM <b>SEAT 7</b><span>→</span> TO <b>SEAT 9</b></div><div class="move7-label">SELECT AVAILABLE SEAT</div><div class="move7-seats"><div class="selected">9 <small>OPEN</small></div><div>10 <small>OPEN</small></div></div><div class="move7-multitable"><div class="move7-label">DESTINATION TABLE <small>(ONLY IF MULTIPLE TABLES ACTIVE)</small></div><div class="move7-tables"><span class="selected">TABLE A</span><span>TABLE B</span></div></div></div><div class="move7-confirm">CONFIRM MOVE <span>→</span></div></div>';
  case 'table-moved':if(w.id===7)return '<div class="move7-done"><div class="move7-brand"><strong>NORA</strong><span>YOUR PRIVATE GAME MANAGER</span></div><div class="move7-success"><div>✓</div><strong>PLAYER MOVED</strong><span>Seat change recorded successfully</span></div><div class="move7-result">'+portrait('Diego R.','D',true)+'<div><strong>Diego Restrepo</strong><span>SEAT 7 → SEAT 9</span><b>TABLE A</b></div></div><div class="move7-next">CONTINUE →</div></div>';return '<div class="rebuy-screen-one">'+table+'</div>';
- case 'waitlist':return screenTop('WAIT LIST','1 player waiting')+screenList([['Uri','Waiting since 7:15 PM','NEXT']])+screenBtn('＋ ADD TO WAIT LIST','blue');
- case 'waitlist-assign':return screenForm('SEAT FROM WAIT LIST',[['PLAYER','Uri'],['OPEN SEAT','9'],['INITIAL BUY-IN','COP 500,000']],'CONFIRM SEATING');
+ case 'waitlist':return '<div class="wait8"><div class="approved-player-profile wait8-profile">'+portrait('Uri','U',true)+'<div class="approved-player-info"><strong>Uri</strong><b>WAIT LIST · NEXT</b><span>WAITING SINCE</span><strong class="wait8-time">7:15 PM</strong></div></div><div class="wait8-panel"><div class="wait8-title">WAIT LIST <span>1 WAITING</span></div><div class="wait8-row"><strong>1 · URI</strong><b>NEXT TO SEAT</b></div><div class="wait8-add">＋ ADD PLAYER TO WAIT LIST</div></div></div>';
+ case 'waitlist-assign':return '<div class="wait8"><div class="approved-player-profile wait8-profile">'+portrait('Uri','U',true)+'<div class="approved-player-info"><strong>Uri</strong><b>WAIT LIST · NEXT</b><span>ASSIGN TO OPEN SEAT</span><strong class="wait8-time">SEAT 9</strong></div></div><div class="wait8-panel"><div class="wait8-title">SEAT FROM WAIT LIST</div><div class="wait8-row"><span>OPEN SEAT</span><strong>9</strong></div><div class="wait8-row"><span>INITIAL BUY-IN</span><strong><small>COP</small> 500,000</strong></div><div class="wait8-row"><span>PAYMENT METHOD</span><strong>CASHBOX</strong></div></div><div class="wait8-confirm">CONFIRM SEATING &amp; BUY-IN<br><small>COP</small> 500,000</div></div>';
  case 'player-detail':case 'crm-profile':return profile+screenTiles([['TOTAL BUY-INS','COP 450,000'],['SEAT','7'],['SESSIONS','14'],['TOTAL HOURS','62']])+screenBtn('TRANSACTION HISTORY','blue');
  case 'player-transactions':return profile+screenList([['Initial buy-in','7:04 PM','450,000'],['Rebuy','9:12 PM','1,000,000'],['Cash-out','Pending','—']]);
  case 'rake-entry':case 'rake-review':return screenForm('TABLE RAKE',[['TABLE','Main table'],['DROP / RAKE','COP 50,000'],['PAYMENT ACCOUNT','Cashbox']],'CONFIRM RAKE');
@@ -1753,4 +1753,24 @@ display:flex!important;flex-direction:column!important;justify-content:center!im
 .hi-phone .move7-swap .swap7-choice span{padding:5px 2px!important}
 .hi-phone .move7-swap .swap7-summary{margin-top:0!important;padding-top:4px!important;gap:4px!important}
 .hi-phone .move7-swap .move7-confirm{height:56px!important;flex:0 0 56px!important;font-size:19px!important}
+</style><style id="wait8-approved-profile-and-type">
+.hi-phone .wait8{height:100%;min-height:0;display:flex;flex-direction:column;gap:9px}
+.hi-phone .wait8-profile{box-sizing:border-box;width:100%;height:180px;min-height:180px;flex:0 0 180px;border:3px solid #0eb8fa;background:#072840;display:flex;align-items:center;gap:8px;padding:5px;overflow:hidden}
+.hi-phone .wait8-profile>.person-face{box-sizing:border-box;width:142px;min-width:142px;height:164px;flex:0 0 142px;border:3px solid #22bdf4;border-radius:0;overflow:hidden}
+.hi-phone .wait8-profile>.person-face img{width:100%;height:100%;object-fit:cover;object-position:center 28%;transform:scale(1.34);transform-origin:center 30%}
+.hi-phone .wait8-profile .approved-player-info{display:flex;flex-direction:column;justify-content:center;gap:8px;min-width:0}
+.hi-phone .wait8-profile .approved-player-info>strong:first-child{font-size:22px;font-weight:950;color:white}
+.hi-phone .wait8-profile .approved-player-info>b{font-size:17px;color:white}
+.hi-phone .wait8-profile .approved-player-info>span{font-size:14px;font-weight:900;color:#b2d8ee}
+.hi-phone .wait8-profile .wait8-time{font-size:23px;color:white}
+.hi-phone .wait8-panel{flex:1;min-height:0;border:3px solid #0eb8fa;background:#06263a;padding:10px;display:flex;flex-direction:column;gap:11px}
+.hi-phone .wait8-title{font-size:20px;font-weight:950;color:white;display:flex;justify-content:space-between;align-items:center}
+.hi-phone .wait8-title span{font-size:14px;color:#64e7ff}
+.hi-phone .wait8-row{display:flex;align-items:center;justify-content:space-between;gap:7px;padding:12px 4px;border-bottom:1px solid #34758e;font-size:16px;color:white}
+.hi-phone .wait8-row span{font-size:15px;font-weight:900;color:#bddbea}
+.hi-phone .wait8-row strong{font-size:20px;font-weight:950}
+.hi-phone .wait8-row b{font-size:16px;color:#4ce5ba}
+.hi-phone .wait8-row small,.hi-phone .wait8-confirm small{font-size:70%;color:#d1f5ee}
+.hi-phone .wait8-add{margin-top:auto;border:2px solid #27c8f6;background:#0b5471;text-align:center;padding:17px 5px;font-size:18px;font-weight:950}
+.hi-phone .wait8-confirm{height:70px;flex:0 0 70px;border:3px solid #4ce5ba;background:#00654e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;text-align:center;color:white;font-size:19px;font-weight:950}
 </style>
