@@ -57,6 +57,193 @@
 /* Live Snapshot only: summaries are data; reports are links. */
 .snap-phone .ux-head,.snap-phone .ux-bottom{flex-shrink:0}.snap-body{gap:6px;padding:4px 1px 8px}.snap-label{font-size:12px;font-weight:850;color:#62dfff;letter-spacing:.7px}.snap-session{font-size:13px;line-height:1.5;color:#bcd0df;border-bottom:1px solid #294b63;padding-bottom:8px}.snap-session b{color:#fff}.snap-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.snap-data{padding:5px 2px;text-align:center;border-bottom:1px solid #28485c;min-width:0}.snap-data b{display:block;font-size:21px;line-height:1.2;color:#fff}.snap-data small{display:block;font-size:12px;color:#b9cedf;margin-top:5px}.snap-data em{font-size:11px;font-style:normal;color:#a7bbd0}.snap-link{display:flex;align-items:center;gap:9px;text-decoration:none;border:2px solid #138dcc;background:#092b43;color:#fff;padding:10px;font-size:14px;font-weight:800;min-height:53px}.snap-link span{font-size:23px;color:#58dfff}.snap-link small{display:block;font-size:12px;font-weight:500;color:#b8d3e5;margin-top:3px}.snap-link:after{content:'›';margin-left:auto;font-size:23px;color:#5bdeff}.snap-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.snap-links .snap-link{display:flex;flex-direction:column;justify-content:center;gap:2px;text-align:center;font-size:12px;padding:4px 2px;min-height:52px}.snap-links .snap-link small{display:none}.snap-links .snap-link span{display:block;font-size:21px}.snap-links .snap-link:after{display:none}.snap-row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid #274256;font-size:14px;color:#bcd0df}.snap-row strong{font-size:15px;color:#fff;text-align:right}.snap-note{font-size:13px;line-height:1.4;color:#b2c8d9;padding:8px;background:#082237}.snap-alert{border-left:3px solid #ffc857;padding:9px;background:#30271a;font-size:14px;color:#ffd376}.snap-good{color:#56e7b3}.snap-footer{margin-top:auto}.snap-badge{font-size:13px;color:#50e4ac;font-weight:850}
 .snap-back{background:transparent;border:0;padding:2px 0;text-align:left;color:#63dcff;font-size:13px;font-weight:800}.snap-pager{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#bcd0df}.snap-pager button{background:#082b42;color:white;border:1px solid #21afe9;padding:7px;font-weight:800}.snap-body button.snap-link{width:100%;cursor:pointer}.snap-links .snap-link{min-height:48px}.snap-body>.snap-link{flex-shrink:0}
+
+.seat-roster-v3{display:flex;flex-direction:column;gap:8px;height:100%}
+.seat-roster-search{border:2px solid #00baff;padding:12px;color:#fff;font-size:14px;font-weight:800;display:flex;justify-content:space-between}
+.seat-roster-v3 .screen-list{flex:1;overflow:auto}
+.seat-roster-v3 .screen-list-item{min-height:65px}
+.seat-roster-v3{overflow:hidden}
+.seat-roster-heading{border:2px solid #00baff;padding:10px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:13px}
+.seat-roster-heading span{font-size:10px;color:#9edcff}
+.seat-roster-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:7px;flex:1;min-height:0}
+.seat-roster-card{border:2px solid #00baff;background:#082c44;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:0;padding:5px;color:white;text-align:center}
+.seat-roster-photo{width:74px;height:74px;max-height:55%;overflow:hidden}
+.seat-roster-photo .person-face{width:100%;height:100%;display:block}
+.seat-roster-photo img{width:100%;height:100%;object-fit:cover}
+.seat-roster-card strong{font-size:15px}
+.seat-roster-card span{font-size:11px;color:#a6d8ee}
+.seat-roster-pages{display:flex;justify-content:space-between;align-items:center;color:#fff;font-weight:800;font-size:12px;padding:5px;border:1px solid #1689b6}
+.seat-roster-v3 .screen-button{flex-shrink:0}
+
+.seat-roster-v3 .seat-roster-card{flex-direction:row;justify-content:flex-start;text-align:left;padding:5px 7px;gap:9px}
+
+.seat-roster-v3 .seat-roster-photo{width:72px;height:100%;max-height:100%;flex:0 0 72px}
+
+.seat-roster-v3 .seat-roster-photo .person-face.photo img{height:100%;width:100%;object-fit:cover;object-position:center 20%}
+
+.seat-roster-v3 .seat-roster-card strong{font-size:17px}
+
+.seat-roster-v3 .seat-roster-search{height:52px;flex:0 0 52px;box-sizing:border-box;padding:8px 11px;display:flex;align-items:center;justify-content:space-between;font-size:18px;background:#082b43}
+
+.seat-roster-v3 .seat-roster-search span{font-size:13px;color:#9edcff}
+
+.seat-roster-v3 .seat-roster-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-template-rows:repeat(3,minmax(0,1fr))!important;gap:6px!important}
+
+.seat-roster-v3 .seat-roster-card{min-width:0;min-height:0;display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:stretch!important;gap:0!important;padding:0!important;overflow:hidden;position:relative}
+
+.seat-roster-v3 .seat-roster-photo{width:100%!important;height:100%!important;max-height:none!important;flex:1 1 auto!important;min-height:0;overflow:hidden}
+
+.seat-roster-v3 .seat-roster-photo .person-face,.seat-roster-v3 .seat-roster-photo img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 22%!important}
+
+.seat-roster-v3 .seat-roster-photo .person-face{position:relative}
+
+.seat-roster-v3 .seat-roster-photo .person-face .person-label,.seat-roster-v3 .seat-roster-photo .person-face .person-caption,.seat-roster-v3 .seat-roster-photo .person-face .person-info{display:none!important}
+
+.seat-roster-v3 .seat-roster-card>strong{flex:0 0 31px;display:flex;align-items:center;justify-content:center;background:#082b43;font-size:16px!important;line-height:1.05;white-space:nowrap}
+
+.seat-roster-v3 .seat-roster-pages{flex:0 0 33px;box-sizing:border-box;font-size:13px;cursor:pointer}
+
+.seat-roster-v3>.screen-button{flex:0 0 46px!important;min-height:46px!important;font-size:17px!important}
+
+.seat-roster-v3 .seat-roster-toolbar{height:37px;flex:0 0 37px;display:flex;align-items:center;justify-content:space-between;gap:8px;color:#fff}
+
+.seat-roster-v3 .seat-roster-toolbar strong{font-size:15px;letter-spacing:.1px}
+
+.seat-roster-v3 .seat-roster-search-toggle{height:36px;width:42px;flex:0 0 42px;border:2px solid #00baff;background:#073552;color:#fff;font-size:29px;font-weight:900;cursor:pointer;display:grid;place-items:center;padding:0;line-height:1}
+
+.seat-roster-v3 .seat-roster-search-field{display:none;flex:0 0 45px}
+
+.seat-roster-v3.search-open .seat-roster-search-field{display:block}
+
+.seat-roster-v3 .seat-roster-search-field input{box-sizing:border-box;width:100%;height:45px;border:2px solid #00baff;background:#082b43;color:white;font-size:17px;font-weight:700;padding:8px 12px;outline:none}
+
+.seat-roster-v3 .seat-roster-grid{grid-template-rows:repeat(3,minmax(0,1fr))!important;gap:6px!important}
+
+.seat-roster-v3 .seat-roster-card>strong{flex-basis:32px}
+
+.seat-roster-v3 .seat-roster-pages{display:none!important}
+
+ case 'roster':if(w.id===3||w.id===4)return '<div class="seat-roster-v3"><div class="seat-roster-toolbar"><strong class="seat-roster-title-tile">SELECT PLAYER · SEAT 9</strong><button type="button" class="seat-roster-add-toggle" aria-label="Add player" title="Add player"><span class="roster-icon-center">+</span></button><button type="button" class="seat-roster-search-toggle" aria-label="Search players" onclick="this.closest(\'.seat-roster-v3\').classList.toggle(\'search-open\')"><span class="roster-icon-center">⌕</span></button></div><div class="seat-roster-search-field"><input aria-label="Search players" placeholder="Search players…" oninput="this.closest(\'.seat-roster-v3\').querySelectorAll(\'.seat-roster-card\').forEach(c=>c.style.display=c.querySelector(\'strong\').textContent.toLowerCase().includes(this.value.toLowerCase())?\'\':\'none\')"></div><div class="seat-roster-grid">'+['Rafa','Uri','Alex','Costa','Sam','Udi','David','Leo','Marco','Moshe','Diego R.','Mikey B.'].map(n=>'<div class="seat-roster-card"><div class="seat-roster-photo">'+portrait(n,n[0],true)+'</div><strong>'+n+'</strong></div>').join('')+'</div></div>';return screenTop('ALL PLAYERS','Search players')+screenField('SEARCH','Diego Restrepo  🔎')+people+screenBtn('＋ ADD PLAYER','blue');
+ case 'seat-entry':if(w.id===3)return '<div class="rebuy-entry-v2 seat-entry-v3"><div class="rebuy-entry-person"><div class="rebuy-entry-picture">'+portrait('Rafa','R',true)+'</div><div class="rebuy-entry-person-details"><b>Rafa</b><strong>SEAT 9</strong><span>TOTAL BUY-INS</span><div class="rebuy-entry-money"><small>COP</small> 0</div></div></div>'+screenCard('INITIAL BUY-IN AMOUNT','<div class="screen-action-grid">'+['500K','1M','2M','CUSTOM'].map(x=>screenBtn(x,'blue')).join('')+'</div><div class="screen-field"><small>AMOUNT</small><strong><span class="rebuy-cop">COP</span> 500,000</strong></div><div class="rebuy-payment"><div class="rebuy-payment-heading">PAYMENT METHOD</div><div class="rebuy-payment-options"><div class="rebuy-payment-choice selected">✓ Cashbox</div></div></div>')+screenBtn('CONFIRM BUY-IN')+'</div>';return screenProfile('Rafa','SEAT 9 · NEW BUY-IN',true)+screenForm('SEAT PLAYER',[['SEAT','9'],['INITIAL BUY-IN','COP 500,000'],['PAYMENT METHOD','Cashbox']],'CONFIRM SEATING');
+ case 'seat-review':return '<div class="nora-confirm"><div class="nora-confirm-brand"><span class="nora-confirm-logo">N</span><strong>NORA</strong><span>YOUR PRIVATE GAME MANAGER</span></div><div class="nora-confirm-hero"><div class="nora-confirm-check">✓</div><strong>INITIAL BUY-IN CONFIRMED</strong><span>Successfully recorded by Nora</span></div><div class="nora-confirm-summary"><strong>'+ (w.id===4?'Sofia Alvarez':'Rafa') +'</strong><span>SEAT 9</span><div class="nora-confirm-amount"><small>BUY-IN · CASHBOX</small><b>COP 500,000</b></div><div class="nora-confirm-total">TOTAL BUY-INS <b>COP 500,000</b></div></div><div class="screen-button nora-confirm-next">CONTINUE <span aria-hidden="true">→</span></div></div>';
+ case 'table-seated':return '<div class="rebuy-screen-one">'+table+'</div>';
+ case 'new-player':if(w.id===4)return '<div class="np4"><section class="np4-player"><div class="np4-heading">ADD NEW PLAYER</div><div class="np4-profile"><div class="np4-avatar" aria-label="Player photo">📷</div><div class="np4-photo-actions"><label>📷 TAKE PHOTO<input type="file" accept="image/*" capture="environment" onchange="const f=this.files[0];if(f){const p=this.closest(\'.np4-profile\').querySelector(\'.np4-avatar\');p.style.backgroundImage=\'url(\'+URL.createObjectURL(f)+\')\';p.textContent=\'\'}
+.seat-roster-v3 .seat-roster-card{gap:5px;padding:7px;justify-content:center}
+.seat-roster-v3 .seat-roster-photo{width:100%;height:calc(100% - 27px);max-height:none;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#173c54}
+.seat-roster-v3 .seat-roster-photo .person-face{height:100%;width:100%;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900}
+.seat-roster-v3 .seat-roster-photo .person-face.photo img{height:135%;width:100%;object-fit:cover;object-position:top;align-self:flex-start}
+.seat-roster-v3 .seat-roster-card strong{font-size:17px;line-height:1.15}
+.seat-roster-v3 .seat-roster-heading{justify-content:center;font-size:16px}
+.seat-roster-v3 .seat-roster-search{padding:9px 12px}
+.seat-roster-v3 .seat-roster-pages{min-height:30px}
+.seat-roster-v3 .seat-roster-toolbar{justify-content:flex-start}
+.seat-roster-v3 .seat-roster-toolbar strong{margin-right:auto}
+.seat-roster-v3 .seat-roster-add-toggle{height:36px;width:42px;flex:0 0 42px;border:2px solid #00baff;background:#073552;color:#fff;font-size:29px;font-weight:900;display:grid;place-items:center;padding:0;line-height:1}
+.seat-roster-v3 .seat-roster-grid{grid-template-rows:repeat(3,minmax(0,1fr))!important;flex:1;min-height:0}
+.seat-roster-v3 .seat-roster-card{padding:0!important;gap:0!important;position:relative}
+.seat-roster-v3 .seat-roster-photo{height:100%!important;width:100%!important;flex:1 1 auto!important;position:relative}
+.seat-roster-v3 .seat-roster-card>strong{position:absolute;bottom:0;left:0;right:0;min-height:28px;flex:none!important;background:linear-gradient(transparent,rgba(0,12,25,.94))!important;padding:7px 2px 3px;color:#fff;font-size:16px!important;text-shadow:0 1px 3px #000;z-index:2}
+.seat-roster-v3 .seat-roster-photo .person-face.photo img{height:100%!important;object-fit:cover!important;object-position:center 20%!important}
+.seat-roster-v3 .seat-roster-card .person-face .ux-seatno,.seat-roster-v3 .seat-roster-card .person-face .person-label,.seat-roster-v3 .seat-roster-card .person-face .person-caption,.seat-roster-v3 .seat-roster-card .person-face .person-info,.seat-roster-v3 .seat-roster-card .person-face .ux-seat-label{display:none!important}
+.seat-roster-v3 .seat-roster-card>strong{background:#020b15!important;padding:4px 2px!important;min-height:25px!important;line-height:1.1!important;text-shadow:none!important}
+.seat-roster-v3 .seat-roster-photo .person-face.photo{overflow:hidden!important}
+.seat-roster-v3 .seat-roster-photo .person-face.photo img{height:130%!important;width:115%!important;max-width:none!important;object-fit:cover!important;object-position:center center!important;transform:translate(-6.5%,-10%)!important}
+.seat-roster-v3 .seat-roster-card>strong{bottom:0!important;left:0!important;right:0!important;z-index:5!important;background:#020b15!important;min-height:27px!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.seat-roster-v3 .seat-roster-title-tile{border:2px solid #00baff!important;background:#082b43!important}
+.seat-roster-v3 .seat-roster-photo{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;display:block!important}
+.seat-roster-v3 .seat-roster-photo .person-face{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}
+.seat-roster-v3 .seat-roster-photo .person-face.photo img{position:absolute!important;left:0!important;top:0!important;width:100%!important;height:100%!important;transform:none!important;object-fit:cover!important;object-position:center 15%!important}
+.seat-roster-v3 .seat-roster-card::before{content:"";position:absolute;z-index:3;top:0;left:0;width:15px;height:22px;background:#173c54;display:none}
+.seat-roster-v3 .seat-roster-card>strong{position:absolute!important;z-index:10!important;bottom:0!important;left:0!important;right:0!important;height:30px!important;min-height:30px!important;background:#020b15!important;color:white!important;font-size:16px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:2px!important;white-space:nowrap!important;overflow:hidden!important}
+.seat-roster-v3 .seat-roster-card .person-face.photo{clip-path:inset(0 0 30px 0)!important}
+.seat-roster-v3 .seat-roster-card .person-face.photo img{object-position:center top!important}
+.seat-roster-v3 .seat-roster-card .seat-roster-photo{clip-path:inset(0 0 0 17px)!important}
+.seat-roster-v3 .seat-roster-card>strong{z-index:21!important}
+.seat-roster-v3 .seat-roster-card .seat-roster-photo{clip-path:none!important;inset:0!important;overflow:hidden!important}
+.seat-roster-v3 .seat-roster-card .person-face.photo{clip-path:none!important;overflow:hidden!important}
+.seat-roster-v3 .seat-roster-card .person-face.photo img{position:absolute!important;left:-23px!important;top:0!important;width:calc(100% + 28px)!important;height:100%!important;max-width:none!important;transform:none!important;object-fit:cover!important;object-position:center top!important}
+.seat-roster-v3 .seat-roster-card>strong{z-index:10!important;background:#020b15!important}
+.seat-roster-v3 .seat-roster-card:has(.person-face.photo) .seat-roster-photo{clip-path:inset(0 0 0 5px)!important}
+.seat-roster-v3 .seat-roster-card>strong{z-index:31!important}
+.seat-roster-v3 .seat-roster-card .seat-roster-photo{clip-path:none!important;overflow:hidden!important}
+.seat-roster-v3 .seat-roster-card .person-face.photo{clip-path:none!important;overflow:hidden!important}
+.seat-roster-v3 .seat-roster-card .person-face.photo img{position:absolute!important;top:0!important;left:-28%!important;width:138%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center top!important;transform:none!important}
+.seat-roster-v3 .seat-roster-card>strong{z-index:40!important}
+.seat-roster-v3 .seat-roster-toolbar{height:34px!important;flex:0 0 34px!important;gap:5px!important}
+.seat-roster-v3 .seat-roster-title-tile{height:34px!important;flex:1 1 auto!important;font-size:13px!important}
+.seat-roster-v3 .seat-roster-add-toggle,.seat-roster-v3 .seat-roster-search-toggle{height:34px!important;width:39px!important;flex:0 0 39px!important}
+.seat-roster-v3 .seat-roster-grid{gap:5px!important;grid-template-rows:repeat(3,minmax(0,1fr))!important}
+.seat-roster-v3 .seat-roster-card{padding:0!important;position:relative!important;overflow:hidden!important}
+.seat-roster-v3 .seat-roster-card .seat-roster-photo{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;overflow:hidden!important;clip-path:none!important}
+.seat-roster-v3 .seat-roster-card .person-face{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;overflow:hidden!important;clip-path:none!important}
+.seat-roster-v3 .seat-roster-card .person-face.photo img{position:absolute!important;inset:0!important;left:0!important;top:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important;transform:scale(1.28)!important;transform-origin:right center!important}
+.seat-roster-v3 .seat-roster-card>strong{position:absolute!important;bottom:0!important;left:0!important;right:0!important;height:28px!important;background:#020b15!important;z-index:40!important}
+.seat-roster-v3 .seat-roster-card::before,.seat-roster-v3 .seat-roster-card::after{display:none!important;content:none!important}
+.seat-roster-v3 .seat-roster-toolbar{height:30px!important;flex-basis:30px!important}
+.seat-roster-v3 .seat-roster-title-tile,.seat-roster-v3 .seat-roster-add-toggle,.seat-roster-v3 .seat-roster-search-toggle{height:30px!important}
+.seat-roster-v3 .seat-roster-card>strong{background:linear-gradient(transparent,rgba(0,0,0,.5))!important}
+.seat-roster-v3 .seat-roster-card .person-face.photo img{transform:scale(1.45)!important;transform-origin:right center!important}
+
+.seat-roster-v3 .seat-roster-title-tile{height:26px!important;min-height:26px!important;display:flex!important;align-items:center!important;padding:0 7px!important;font-size:12px!important}
+
+.seat-roster-v3 .seat-roster-add-toggle,.seat-roster-v3 .seat-roster-search-toggle{height:26px!important;min-height:26px!important;width:33px!important;flex:0 0 33px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;line-height:1!important;font-size:24px!important}
+
+.seat-roster-v3 .seat-roster-grid{grid-template-rows:repeat(4,minmax(0,1fr))!important;gap:5px!important}
+
+.seat-roster-v3 .seat-roster-card{position:relative!important;overflow:hidden!important;padding:0!important}
+
+.seat-roster-v3 .seat-roster-card .seat-roster-photo,.seat-roster-v3 .seat-roster-card .person-face{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;overflow:hidden!important;clip-path:none!important}
+
+.seat-roster-v3 .seat-roster-card .person-face.photo img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important;transform:none!important}
+
+.seat-roster-v3 .seat-roster-card>strong{position:absolute!important;bottom:0!important;left:0!important;right:0!important;z-index:50!important;height:auto!important;min-height:0!important;padding:12px 2px 4px!important;background:linear-gradient(to bottom,transparent,rgba(0,0,0,.64))!important;color:white!important;font-size:15px!important;line-height:1!important;font-weight:900!important;text-shadow:0 1px 3px #000!important;display:block!important;text-align:center!important}
+
+.seat-roster-v3 .seat-roster-card::before,.seat-roster-v3 .seat-roster-card::after{display:none!important;content:none!important}
+
+.seat-roster-v3 .seat-roster-toolbar>*{box-sizing:border-box!important;margin:0!important}
+
+.seat-roster-v3 .seat-roster-title-tile{height:23px!important;min-height:23px!important;padding:0 6px!important;display:flex!important;align-items:center!important;font-size:11px!important}
+
+.seat-roster-v3 button.seat-roster-add-toggle,.seat-roster-v3 button.seat-roster-search-toggle{height:23px!important;min-height:23px!important;width:33px!important;flex:0 0 33px!important;padding:0!important;margin:0!important;display:grid!important;place-items:center!important;line-height:1!important;font-size:21px!important;text-align:center!important;vertical-align:middle!important}
+
+.seat-roster-v3 .seat-roster-grid{grid-template-rows:repeat(4,minmax(0,1fr))!important;gap:5px!important}
+
+.seat-roster-v3 .seat-roster-card{padding:0!important;overflow:hidden!important}
+
+.seat-roster-v3 .seat-roster-card .seat-roster-photo,.seat-roster-v3 .seat-roster-card .person-face{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;clip-path:none!important;overflow:hidden!important}
+
+.seat-roster-v3 .seat-roster-card .person-face.photo img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;transform:none!important;max-width:none!important}
+
+.seat-roster-v3 .seat-roster-card>strong{position:absolute!important;bottom:0!important;left:0!important;right:0!important;z-index:90!important;height:24px!important;min-height:0!important;padding:0 2px 3px!important;display:flex!important;align-items:end!important;justify-content:center!important;background:transparent!important;background-image:none!important;color:white!important;font-size:15px!important;font-weight:900!important;line-height:1!important;text-shadow:0 2px 3px #000,0 0 5px #000!important;white-space:nowrap!important}
+
+.seat-roster-v3 .seat-roster-card::before,.seat-roster-v3 .seat-roster-card::after{display:none!important}
+.seat-roster-v3 .roster-icon-center{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;height:100%!important;line-height:1!important;margin:0!important;padding:0!important;transform:none!important;font-size:23px!important;font-weight:800!important}
+
+.seat-roster-v3 .seat-roster-toolbar{height:23px!important;min-height:23px!important;max-height:23px!important;flex:0 0 23px!important;gap:4px!important;align-items:stretch!important}
+
+.seat-roster-v3 .seat-roster-title-tile{height:23px!important;min-height:23px!important;max-height:23px!important;display:flex!important;align-items:center!important;line-height:1!important;padding:0 6px!important}
+
+.seat-roster-v3 .seat-roster-add-toggle,.seat-roster-v3 .seat-roster-search-toggle{height:23px!important;min-height:23px!important;max-height:23px!important;width:34px!important;flex:0 0 34px!important;display:block!important;position:relative!important;padding:0!important;line-height:0!important}
+
+.seat-roster-v3 .roster-icon-center{font-size:0!important;line-height:0!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;display:block!important;transform:none!important}
+
+.seat-roster-v3 .seat-roster-add-toggle .roster-icon-center::before{content:""!important;position:absolute!important;width:16px!important;height:3px!important;background:#fff!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important}
+
+.seat-roster-v3 .seat-roster-add-toggle .roster-icon-center::after{content:""!important;position:absolute!important;width:3px!important;height:16px!important;background:#fff!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important}
+
+.seat-roster-v3 .seat-roster-search-toggle .roster-icon-center::before{content:""!important;position:absolute!important;width:11px!important;height:11px!important;border:2.5px solid #fff!important;border-radius:50%!important;box-sizing:border-box!important;top:45%!important;left:44%!important;transform:translate(-50%,-50%)!important}
+
+.seat-roster-v3 .seat-roster-search-toggle .roster-icon-center::after{content:""!important;position:absolute!important;width:9px!important;height:2.5px!important;background:#fff!important;top:65%!important;left:61%!important;transform:rotate(47deg)!important;transform-origin:left center!important}
+
+.seat-roster-v3 .seat-roster-grid{grid-template-rows:repeat(4,minmax(0,1fr))!important;gap:5px!important}
+
+.seat-roster-v3 .seat-roster-card>strong{position:absolute!important;bottom:0!important;left:0!important;right:0!important;z-index:100!important;background:none!important;background-color:transparent!important;background-image:none!important;box-shadow:none!important;color:#fff!important;font-size:15px!important;text-shadow:0 2px 3px #000,0 0 5px #000!important;padding:0 2px 4px!important;height:auto!important;min-height:0!important;display:block!important;text-align:center!important}
+
+.seat-roster-v3 .seat-roster-card::before,.seat-roster-v3 .seat-roster-card::after{display:none!important}
+.seat-roster-v3 .seat-roster-add-toggle .roster-icon-center::after{height:14px!important;width:2.5px!important}
+.seat-roster-v3 .seat-roster-search-toggle .roster-icon-center::before{width:10px!important;height:10px!important;border-width:2px!important}
+.seat-roster-v3 .seat-roster-search-toggle .roster-icon-center::after{width:8px!important;height:2px!important}
+.crm56-phone .ux-content{min-height:0}.crm56-phone .ux-bottom{flex-shrink:0}.crm56-phone .seat-roster-v3{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}.crm56-phone .seat-roster-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));flex:1;min-height:0;gap:5px}.crm56-phone .seat-roster-card{position:relative;border:2px solid #00baff;background:#173c54;min-height:0;overflow:hidden;text-align:center}.crm56-phone .seat-roster-photo,.crm56-phone .seat-roster-photo .person-face{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center;font-size:45px}.crm56-phone .seat-roster-photo img{width:100%;height:100%;object-fit:cover}.crm56-phone .seat-roster-card>strong{position:absolute;bottom:0;left:0;right:0;color:white;font-size:15px;text-shadow:0 1px 4px black;z-index:2}.crm56-phone .seat-roster-toolbar{display:flex}.crm56-phone .seat-roster-title-tile{flex:1}.crm56-phone .seat-roster-search-field input{font-size:14px}.crm56-contact-link{color:#fff;text-decoration:underline;text-decoration-color:#3ed4f3;text-underline-offset:3px}.crm56-identity .person-face{width:76px;height:75px;overflow:hidden;flex:none}.crm56-identity img{width:100%;height:100%;object-fit:cover;object-position:top;transform:scale(1.35);transform-origin:50% 15%}
 </style><link rel="stylesheet" href="workflows/ledger-11.css"><style>
 .crm56-phone .crm56-body{padding:7px;display:flex;flex-direction:column;gap:7px;overflow:hidden}
 .crm56-search{border:2px solid #26c4ee;background:#092b43;padding:8px;display:flex;align-items:center;gap:7px;font-size:14px}.crm56-search b{font-size:13px}.crm56-search span:nth-child(2){flex:1;color:#c9dce9}.crm56-plus{font-size:24px;font-weight:900;color:#59dfff}
@@ -787,7 +974,7 @@
       "Find player in CRM",
       "Search results / select player",
       "Player CRM profile and contact actions",
-      "Player history and transactions"
+      "Player ledger"
     ],
     "status": "draft"
   },
@@ -1197,28 +1384,31 @@ function screenContent(w,step,i){
  default:return screenTop(focus,values)+screenForm(esc(step),[['DETAILS',values]],cta);
  }
 }
+
+function crmRoster56(results){
+const names=results?['Diego R.']:['Rafa','Uri','Alex','Costa','Sam','Udi','David','Leo','Marco','Moshe','Diego R.','Mikey B.'];
+return '<div class="seat-roster-v3'+(results?' search-open':'')+'"><div class="seat-roster-toolbar"><strong class="seat-roster-title-tile">FIND PLAYER</strong><button type="button" class="seat-roster-add-toggle" aria-label="Add player"><span class="roster-icon-center">+</span></button><button type="button" class="seat-roster-search-toggle" aria-label="Search players" onclick="this.closest(\'.seat-roster-v3\').classList.toggle(\'search-open\')"><span class="roster-icon-center">⌕</span></button></div><div class="seat-roster-search-field"><input aria-label="Search players" placeholder="Search players…" value="'+(results?'Diego':'')+'" oninput="this.closest(\'.seat-roster-v3\').querySelectorAll(\'.seat-roster-card\').forEach(c=>c.style.visibility=c.querySelector(\'strong\').textContent.toLowerCase().includes(this.value.toLowerCase())?\'visible\':\'hidden\')"></div><div class="seat-roster-grid">'+names.map(n=>'<div class="seat-roster-card"><div class="seat-roster-photo">'+portrait(n,n[0],true)+'</div><strong>'+esc(n)+'</strong></div>').join('')+'</div></div>';
+}
+function crmLedger56(w,step,page){
+let html=ledgerStage(w,step,page);
+html=html.replace('LIVE SESSION</b><small>Table View','PLAYER CRM</b><small>Player Ledger').replace(fixedNav('Table'),fixedNav('Players')).replaceAll(' · COMPLETED','');
+html=html.replace(/onclick="document\.querySelectorAll\('\.storyboard \.stage'\)\[1\]\.scrollIntoView\(\{behavior:'smooth',inline:'center',block:'nearest'\}\)"/g,'onclick="crmLedgerPage(this,1)"').replace(/onclick="document\.querySelectorAll\('\.storyboard \.stage'\)\[2\]\.scrollIntoView\(\{behavior:'smooth',inline:'center',block:'nearest'\}\)"/g,'onclick="crmLedgerPage(this,2)"');
+return html.replace('<div class="stage-number">'+(page+1)+'</div>','<div class="stage-number">4</div>');
+}
+function crmLedgerPage(button,page){let stage=button.closest('.stage'),w=WORKFLOWS.find(x=>x.id===56);stage.outerHTML=crmLedger56(w,w.steps[3],page);}
 function crm56Screen(w,step,i){
-const money=(n)=>'<span style="font-size:.65em;vertical-align:baseline">COP</span> '+n;
+if(i===3)return crmLedger56(w,step,1);
 const row=(label,value)=>'<div class="crm56-row"><span>'+label+'</span><strong>'+value+'</strong></div>';
 const btn=(label,kind='blue')=>'<div class="crm56-btn '+kind+'">'+label+'</div>';
-const player=(name,initial,photo,j)=>'<div class="crm56-player tone-'+(j%6)+'">'+portrait(name,initial,photo)+'<b>'+name+'</b></div>';
-const head=fullHead('PLAYER CRM',['Find Player','Search Results','Player Profile','Transaction History'][i]);
 let body='';
-if(i<2){
-let list=[['Rafa','R',true],['Uri','U',false],['Alex','A',true],['Costa','C',true],['Sam','S',false],['Udi','U',false],['David','D',false],['Leo','L',false],['Marco','M',false],['Moshe','M',true],['Diego R.','D',true],['Mikey B.','M',true]];
-body='<div class="crm56-search"><b>FIND PLAYER</b><span>⌕ '+(i===0?'Search name or phone':'Diego')+'</span><span class="crm56-plus">＋</span></div><div class="crm56-grid">'+(i===0?list.map((p,j)=>player(...p,j)).join(''):player('Diego R.','D',true,0))+'</div>';
-}else if(i===2){
-body='<div class="crm56-identity">'+portrait('Diego R.','D',true)+'<div><b>DIEGO RESTREPO</b><small>PLAYER CRM · CONTACT RECORD</small></div></div>'+
-'<div class="crm56-card">'+row('PHONE / WHATSAPP','+57 300 123 4567')+row('EMAIL','diego@example.com')+row('APP STATUS','NOT REGISTERED')+'</div>'+
-'<div class="crm56-actions">'+btn('WHATSAPP','green')+btn('MESSAGE / EMAIL')+btn('INVITE TO APP','green')+btn('EDIT CONTACT')+'</div>'+
-'<div class="crm56-card">'+row('SESSIONS','14')+row('TOTAL HOURS','62')+row('TOTAL BUY-INS',money('14,500,000'))+row('LIFETIME WIN / LOSS',money('+2,150,000'))+'</div>'+
-btn('TRANSACTION HISTORY →','green');
-}else{
-body='<div class="crm56-identity">'+portrait('Diego R.','D',true)+'<div><b>DIEGO RESTREPO</b><small>14 SESSIONS · 62 HOURS</small></div></div>'+
-'<div class="crm56-card">'+row('1. INITIAL BUY-IN',money('450,000'))+row('TIME','7:04 PM')+row('2. REBUY',money('200,000'))+row('TIME','7:45 PM')+row('3. REBUY',money('300,000'))+row('TIME','8:10 PM')+row('4. REBUY',money('150,000'))+row('TIME','8:42 PM')+'</div><div class="crm56-page">‹ &nbsp; 1 / 2 &nbsp; ›</div>'+btn('VIEW ALL SESSION HISTORY','green');
+if(i<2)body=crmRoster56(i===1);
+else body='<div class="crm56-identity">'+portrait('Diego R.','D',true)+'<div><b>DIEGO RESTREPO</b><small>PLAYER CRM · CONTACT RECORD</small></div></div>'+
+'<div class="crm56-card">'+row('PHONE / WHATSAPP','<a class="crm56-contact-link" href="https://wa.me/573001234567">+57 300 123 4567 ↗</a>')+row('EMAIL','<a class="crm56-contact-link" href="mailto:diego@example.com">diego@example.com ↗</a>')+row('APP STATUS','NOT REGISTERED')+'</div>'+
+'<div class="crm56-actions">'+btn('INVITE TO APP','green')+btn('EDIT CONTACT')+'</div>'+
+'<div class="crm56-card">'+row('SESSIONS','14')+row('TOTAL HOURS','62')+row('TOTAL BUY-INS','COP 14,500,000')+row('LIFETIME WIN / LOSS','COP +2,150,000')+'</div>'+btn('PLAYER LEDGER →','green');
+return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone crm56-phone">'+fullHead('PLAYER CRM',['Find Player','Search Results','Player Profile'][i])+'<div class="ux-content crm56-body">'+body+'</div>'+fixedNav('Players')+'</div><p class="steptext">'+['Find a player','Search results','Contact details and player statistics'][i]+'</p></div>';
 }
-return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone crm56-phone"><div class="notch"></div>'+head+'<div class="ux-content crm56-body">'+body+'</div>'+fixedNav('Players')+'</div><p class="steptext">Player CRM · contact, app invitation and optional rewards</p></div>';
-}
+(function(){const done=new Map();function clean(){document.querySelectorAll('.crm56-phone .seat-roster-card img, .crm56-phone .crm56-identity img').forEach(img=>{if(img.dataset.cleanPending)return;const original=img.getAttribute('src');if(!original||!original.startsWith('data:image/'))return;img.dataset.cleanPending='yes';if(done.has(original)){img.src=done.get(original);return}const source=new Image();source.onload=function(){const canvas=document.createElement('canvas');canvas.width=360;canvas.height=420;const context=canvas.getContext('2d');context.drawImage(source,source.naturalWidth*.31,0,source.naturalWidth*.69,source.naturalHeight*.65,0,0,360,420);const cleaned=canvas.toDataURL('image/jpeg',.92);done.set(original,cleaned);img.src=cleaned};source.src=original;});}new MutationObserver(clean).observe(document.body,{childList:true,subtree:true});clean()})();
 
 /* Illustrative session model shared by every Live Snapshot state.
    Daily Close verifies/finalizes this session record; it must not recalculate it.
