@@ -1423,7 +1423,7 @@ const REVIEW_LEDGER_ENTRIES=[
 function auditLedger(html,crm,page){
 let index=(page-1)*4;
 return html.replace(/<div class="ledgerrow">([\s\S]*?)<\/div><strong>([\s\S]*?)<\/strong><\/div>/g,(match,inside,amount)=>{
-const id=index++, entry=REVIEW_LEDGER_ENTRIES[id];if(crm)inside=inside.replace(/<small>([^<]+)<\/small>/,'<small>'+entry.date+' · '+entry.time+'</small>');return '<div class="ledgerrow audit-ledger-row" role="button" tabindex="0" onclick="auditLedgerOpen(this,'+id+','+(crm?'true':'false')+')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();this.click()}"><div>'+inside+'</div><strong>'+amount+'</strong></div>';
+const id=index++, entry=REVIEW_LEDGER_ENTRIES[id];if(crm)inside=inside.replace(/<small>([^<]+)<\/small>/,'<small>'+entry.date+' · '+entry.time+'</small>');return '<div class="ledgerrow audit-ledger-row" role="button" tabindex="0" onclick="auditLedgerOpen(this,'+id+','+(crm?'true':'false')+')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();this.click()}">'+inside+'</div><strong>'+amount+'</strong></div>';
 });
 }
 function auditLedgerOpen(el,id,crm){
