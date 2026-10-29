@@ -1316,6 +1316,7 @@ const method=el.value;SNAPSHOT_SESSION.ssMethod=method;const subtitle=next.query
 body.innerHTML=method==='PIN'?screenForm('OWNER PIN',[['METHOD','4-digit PIN'],['PIN','••••'],['CONFIRM','••••']],'SAVE VERIFICATION'):screenCard('VERIFICATION SETUP',screenField('METHOD',method)+screenField('SELECTION','Only one method is active'))+screenBtn('SAVE VERIFICATION');
 wireReviewStages();
 }
+let REVIEW_LANGUAGE='English';
 function screenContent(w,step,i){
  const spec=SCREEN_SPECS[w.id],type=spec.types[Math.min(i,spec.types.length-1)],last=i===w.steps.length-1;
  const focus=spec.focus, values=spec.values,cta=spec.cta;
@@ -1424,7 +1425,7 @@ function screenContent(w,step,i){
  case 'onboard-game':return screenForm('YOUR GAME',[['NAME','My Home Game'],['CURRENCY','COP'],['GAME TYPE','Hold’em']],'CONTINUE');
  case 'onboard-payment':return screenTop('REVIEW SETUP','Confirm your initial configuration')+screenForm('YOUR GAME',[['GAME','My Home Game'],['CURRENCY','COP'],['PAYMENT ACCOUNT','Cashbox']],'FINISH SETUP');
  case 'onboard-done':return screenCard('GAME READY',screenField('STATUS','Setup complete'),'green')+screenBtn('OPEN NORA');
- case 'settings-home':return screenTop('SETTINGS','Plan controls module access')+screenList([['Subscription','View available modules','›'],['Game configuration','Game, blinds, rake, tables','›'],['Payment features','Accounts and Sign & Settle','›'],['Player features','Rewards and privileges','›'],['Team & access','Roles and permissions','›'],['Food & beverage','Sales and inventory features','›']]);
+ case 'settings-home':return screenTop('SETTINGS','Plan controls module access')+screenList([['Subscription','View available modules','›'],['Game configuration','Game, blinds, rake, tables','›'],['Payment features','Accounts and Sign & Settle','›'],['Player features','Rewards and privileges','›'],['Team & access','Roles and permissions','›'],['Food & beverage','Sales and inventory features','›'],['Account preferences','Language and profile','›']]);
  case 'settings-game':return screenForm('GAME RULES',[['GAME TYPE','Hold’em'],['BLINDS','5M / 10M'],['TABLES','1']],'NEXT: RAKE');
  case 'settings-player':return screenTop('PLAYER FEATURES','Available if included in your plan')+screenCard('FEATURES',screenFeatureRow('REWARDS','rewards')+screenFeatureRow('PRIVILEGES','privileges'))+screenBtn('SAVE FEATURES');
  case 'settings-rake':return screenForm('RAKE RULES',[['PERCENT','5%'],['MINIMUM POT','COP 200,000'],['CAP','Configured per game']],'SAVE RULES');
@@ -1437,8 +1438,8 @@ function screenContent(w,step,i){
  case 'settings-menu':return screenTop('FOOD & BEVERAGE','Available if included in your plan')+screenCard('FEATURES',screenFeatureRow('FOOD SALES','foodSales')+screenFeatureRow('BEVERAGE SALES','beverageSales')+screenField('MENU ITEMS','Prices and photos'))+screenBtn('NEXT: INVENTORY');
  case 'settings-inventory':return screenTop('INVENTORY','Available if included in your plan')+screenCard('FEATURES',screenFeatureRow('UNIT TRACKING','inventory')+screenFeatureRow('COUNT AT CLOSE','inventoryClose',true)+screenFeatureRow('VARIANCE ALERT','inventoryAlert',true))+screenBtn('SAVE FEATURES');
  case 'profile-menu':return screenTop('YOUR PROFILE','Owner')+screenList([['Profile','Name and photo','›'],['Settings','Game configuration','›'],['Subscription','Plan and billing','›']]);
- case 'settings-preferences':return screenForm('PREFERENCES',[['LANGUAGE','English'],['PHOTO','Google / Apple / Upload'],['THEME','NORA Dark']],'SAVE PREFERENCES');
- case 'settings-language':return screenTop('LANGUAGE','Choose display language')+screenList([['English','Selected','✓'],['Español','','›'],['Português','','›'],['Français','','›'],['Deutsch','','›']]);
+ case 'settings-preferences':return screenCard('PREFERENCES',screenField('LANGUAGE',REVIEW_LANGUAGE)+screenField('PHOTO','Google / Apple / Upload')+screenField('THEME','NORA Dark'))+screenBtn('CHOOSE LANGUAGE','blue')+screenBtn('SAVE PREFERENCES');
+ case 'settings-language':return screenTop('LANGUAGE','Choose display language')+screenList(['English','Español','Português','Français','Deutsch'].map(name=>[name,name===REVIEW_LANGUAGE?'Selected':'',name===REVIEW_LANGUAGE?'✓':'›']));
  case 'team-invite':return screenForm('INVITE TEAM',[['NAME','Anna'],['ROLE','Dealer'],['CHANNEL','WhatsApp']],'CONTINUE');
  case 'reports-home':return screenTop('REPORTING','Historical records')+'<button type="button" class="report-ledger-entry" onclick="reportLedgerShow(this,\'menu\')">▤ &nbsp; LEDGERS <span>›</span></button>'+screenTiles([['SESSIONS','14'],['PLAYERS','62'],['RAKE','COP 780,000'],['TEAM','3']])+screenBtn('SEARCH REPORTS','blue');
  case 'reports-filter':return screenForm('FIND SESSION',[['DATE','Oct 25'],['GAME','Hold’em'],['STATUS','Closed']],'SEARCH');
@@ -1635,7 +1636,7 @@ const wa='<svg viewBox="0 0 24 24" aria-label="WhatsApp" role="img"><path d="M12
 const profile='<div class="userprofile"><div class="userprofile-hero"><div class="userprofile-photo">'+portrait('Mikey B.','M',true)+'</div><div><b>MIKE</b><small>ACCOUNT PROFILE</small></div></div><div class="userprofile-card"><div class="userprofile-row"><span>NAME</span><strong>Mike</strong></div><div class="userprofile-row"><span>EMAIL</span><strong>mike@example.com</strong></div><div class="userprofile-row"><span>PHONE · OPTIONAL</span><strong>+57 300 123 4567</strong></div></div><div class="userprofile-wa">'+wa+'<span>Phone number needed for WhatsApp notifications.</span></div><div class="userprofile-actions"><button type="button" class="userprofile-action" onclick="profileEdit(this)">EDIT PROFILE</button><button type="button" class="userprofile-action" onclick="profileSettings(this)">SETTINGS</button></div><button class="userprofile-logout" type="button" onclick="profileLogout(this)">LOG OUT</button></div>';
 const drawer='<div class="userprofile-drawer"><div class="userprofile-navitem">Live Session</div><div class="userprofile-navitem">Scheduled</div><div class="userprofile-navitem">Reporting</div><div class="userprofile-navitem">Players</div><div class="userprofile-navitem">Team</div><button class="userprofile-avatar" type="button" onclick="this.closest(\'.stage\').nextElementSibling.scrollIntoView({behavior:\'smooth\',inline:\'center\',block:\'nearest\'})">'+portrait('Mikey B.','M',true)+'<span>Mike<small>View profile ›</small></span></button></div>';
 const bodies=[drawer,profile,screenContent(w,w.steps[2],1),screenContent(w,w.steps[3],2),profile];
-return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone userprofile-phone">'+fullHead(i===0?'NORA':'PROFILE',i===0?'Navigation':(i===1||i===4)?'My Profile':i===3?'Language':'Preferences')+'<div class="ux-content">'+bodies[i]+'</div>'+fixedNav('Players')+'</div><p class="steptext">'+['Tap the user photo in the left navigation.','Phone is optional; WhatsApp requires a phone number.','Manage account preferences.','Choose a language.','Return to your profile after saving.'][i]+'</p></div>';
+return '<div class="stage hi-stage"'+(i===2?' data-review-type="settings-preferences"':i===3?' data-review-type="settings-language"':'')+'><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone userprofile-phone">'+fullHead(i===0?'NORA':'PROFILE',i===0?'Navigation':(i===1||i===4)?'My Profile':i===3?'Language':'Preferences')+'<div class="ux-content">'+bodies[i]+'</div>'+fixedNav('Players')+'</div><p class="steptext">'+['Tap the user photo in the left navigation.','Phone is optional; WhatsApp requires a phone number.','Manage account preferences.','Choose a language.','Return to your profile after saving.'][i]+'</p></div>';
 }
 
 function ownerTransferStage(w,step,i){
@@ -1783,7 +1784,7 @@ const picker=content.querySelectorAll('.stage[data-review-type="owner-transfer"]
 if(picker&&!picker.dataset.ownerWired){picker.dataset.ownerWired='yes';picker.querySelectorAll('.screen-list-item').forEach((item,index)=>{item.setAttribute('role','button');item.setAttribute('tabindex','0');const choose=()=>{picker.querySelectorAll('.screen-list-item').forEach(x=>x.classList.remove('owner-selected'));item.classList.add('owner-selected');const name=index===0?'Partner 1':'Partner 2';const stages=content.querySelectorAll('.stage[data-review-type="owner-transfer"]');for(let k=2;k<stages.length;k++){stages[k].querySelectorAll('.screen-field').forEach(row=>{let label=row.querySelector('small')?.textContent;if(['NEW PRIMARY','TO','PRIMARY'].includes(label)){let v=row.querySelector('strong');if(v)v.textContent=name;}});}};item.addEventListener('click',choose);item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose();}});});}
 content.querySelectorAll('.stage[data-review-type]').forEach(stage=>{
 const type=stage.dataset.reviewType,actions=[...stage.querySelectorAll('.screen-button')];
-const listTypes=['team-list','team-select','expense-list','expense-detail','inventory-list','settings-home','settings-roles','payment-methods','reports-player','guest-list','invite-list'];
+const listTypes=['team-list','team-select','expense-list','expense-detail','inventory-list','settings-home','settings-roles','settings-language','payment-methods','reports-player','guest-list','invite-list'];
 if(listTypes.includes(type))actions.push(...stage.querySelectorAll('.screen-list-item'));
 if(['service-menu','player-rsvp'].includes(type))actions.push(...stage.querySelectorAll('.screen-tile'));
 actions.forEach(action=>{
@@ -1792,6 +1793,14 @@ actions.forEach(action=>{
  action.dataset.reviewWired='yes';action.setAttribute('role','button');action.setAttribute('tabindex','0');
  const go=()=>{
   const label=action.querySelector('b')?.textContent?.trim()||action.textContent.trim();
+  if(type==='settings-language'&&action.classList.contains('screen-list-item')){
+   REVIEW_LANGUAGE=label;stage.querySelectorAll('.screen-list-item').forEach(item=>{const selected=item.querySelector('b')?.textContent.trim()===label;item.querySelector('small').textContent=selected?'Selected':'';item.querySelector('strong').textContent=selected?'✓':'›';});
+   const pref=content.querySelector('.stage[data-review-type="settings-preferences"]');pref?.querySelectorAll('.screen-field').forEach(row=>{if(row.querySelector('small')?.textContent==='LANGUAGE')row.querySelector('strong').textContent=label;});
+   if(next)next.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;
+  }
+  if(type==='settings-preferences'&&label==='SAVE PREFERENCES'){
+   const target=content.querySelectorAll('.stage')[4];if(target)target.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;
+  }
   if(type==='service-menu'&&action.classList.contains('screen-tile')){
    const item=action.querySelector('small')?.textContent||'Item',price=action.querySelector('strong')?.textContent||'';
    if(price==='FREE'&&current!==28){show(28);const dest=document.querySelector('.stage[data-review-type="service-comp"], .stage[data-review-type="service-item"]');if(dest)dest.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;}
@@ -1815,7 +1824,7 @@ actions.forEach(action=>{
    if(input&&!(Number(input.value)>0)){input.focus();return;}
   }
   if(type==='settings-home'&&action.classList.contains('screen-list-item')){
-   if(label==='Subscription'){settingsSubscription(action);return;}if(label==='Player features'){if(current!==60)show(60);const target=document.querySelector('.stage[data-review-type="settings-player"]');if(target)target.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;}
+   if(label==='Subscription'){settingsSubscription(action);return;}if(label==='Account preferences'){show(65);const target=document.querySelector('.stage[data-review-type="settings-preferences"]');if(target)target.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;}if(label==='Player features'){if(current!==60)show(60);const target=document.querySelector('.stage[data-review-type="settings-player"]');if(target)target.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;}
    const routes={'Game configuration':60,'Payment features':61,'Team & access':63,'Food & beverage':64};
    if(routes[label]&&routes[label]!==current){show(routes[label]);return;}
   }
