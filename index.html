@@ -681,6 +681,27 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .snap32-detail-v4 .snap32-expense-total strong{font-size:19px}
 .snap32-detail-v4 .snap32-expense-items{flex:1;overflow-y:auto;min-height:0}
 .snap32-detail-v4 .snap-link{font-size:15px!important}
+</style><style id="wf32-batch-5">
+/* Keep all storyboard screens at the approved identical mobile width. */
+.stage:has(.snap-phone){min-width:0!important;width:365px!important;flex:0 0 365px!important;max-width:365px!important}
+.stage:has(.snap-phone) .snap-phone{box-sizing:border-box!important;width:365px!important;min-width:365px!important;max-width:365px!important;flex:0 0 365px!important;overflow:hidden!important}
+.snap-phone .snap-body{box-sizing:border-box!important;min-width:0!important;max-width:100%!important;width:100%!important;overflow:hidden!important}
+.snap-phone .snap32-detail-v4{box-sizing:border-box!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important}
+.snap-phone .review-ledger-tabs{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
+.snap-phone .review-ledger-list{width:100%!important;min-width:0!important;overflow-y:auto!important;overflow-x:hidden!important}
+.snap-phone .snap32-detail-v4 .wf9-entry{min-height:62px!important;padding:6px 8px!important}
+.snap-phone .snap32-detail-v4 .snap-row{padding:9px 3px!important;font-size:16px!important;min-width:0!important}
+.snap-phone .snap32-detail-v4 .snap-row strong{font-size:17px!important;white-space:nowrap}
+.snap-phone .snap32-detail-v4 .snap-row span{min-width:0}
+.snap-phone .snap32-detail-v4 .snap-note{font-size:14px!important;line-height:1.35!important}
+.snap-phone .snap32-detail-v4 .snap-link{min-height:49px!important;padding:8px!important;font-size:15px!important}
+.snap-phone .snap32-detail-v4 .snap-back{margin-top:auto!important;flex-shrink:0!important}
+.snap-phone .snap32-detail-v4 .snap32-expense-items{flex:1!important}
+.snap-phone .snap32-overview .snap-links{grid-auto-rows:83px!important}
+.snap-phone .snap32-overview .snap-links .snap-link{height:83px!important;min-height:83px!important}
+.snap-phone .snap32-overview .snap32-finance .snap32-money-tile{min-height:90px!important}
+.snap-phone .snap32-overview .snap32-secondary button{min-height:80px!important}
+.snap-phone .snap32-overview .snap32-secondary button span{font-size:13px!important}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -3029,5 +3050,29 @@ snapshotMarkup=function(view){
  const html=snap32BeforeV4(view);
  if(view==='closed')return html;
  return '<div class="snap32-detail-v4">'+html+'</div>';
+};
+</script><script id="wf32-batch-5">
+const snap32BeforeV5=snapshotMarkup;
+snapshotMarkup=function(view){
+ const d=SNAPSHOT_SESSION;
+ const fmt=n=>'COP '+Number(n).toLocaleString('en-US');
+ const row=(label,value)=>'<div class="snap-row"><span>'+label+'</span><strong>'+value+'</strong></div>';
+ const back='<button type="button" class="snap-back snap-footer" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button>';
+ const detail=(title,body)=>'<div class="snap32-detail-v4"><div class="snap-label">'+title+'</div>'+body+back+'</div>';
+ if(view==='accounts')return detail('ACCOUNT BALANCES',
+   d.accounts.map(a=>row(a[0],fmt(a[1]))).join('')+row('Chips held',fmt(d.chipsHeld))+
+   '<button type="button" class="snap-link" onclick="snapNavigate(this,\'ledger\')">▤ View ledger ›</button>');
+ if(view==='chips'){
+  const v=d.buyIns+d.promoChips-d.cashOuts-d.chipTips;
+  return detail('CHIP RECONCILIATION',row('Buy-ins',fmt(d.buyIns))+row('Promo chips',fmt(d.promoChips))+
+   row('Cash-outs',fmt(d.cashOuts))+row('Chip tips',fmt(d.chipTips))+
+   '<div class="snap32-expense-total"><span>VARIANCE</span><strong>'+fmt(v)+'</strong></div>'+
+   '<div class="snap-note">Review any difference before Daily Close. Closing is permitted with a recorded warning.</div>');
+ }
+ if(view==='ss'||view==='inventory'||view==='closed'){
+  const original=snap32BeforeV5(view);
+  return original.startsWith('<div class="snap32-detail-v4">')?original:'<div class="snap32-detail-v4">'+original+'</div>';
+ }
+ return snap32BeforeV5(view);
 };
 </script></body></html>
