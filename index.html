@@ -592,6 +592,29 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .storyboard>.stage:nth-child(3) .np4-profile .np4-photo-actions label{box-sizing:border-box!important;width:27px!important;height:27px!important;min-height:27px!important;border:1px solid #26c4f4!important;border-radius:3px!important;background:#07334b!important;display:flex!important;align-items:center!important;justify-content:center!important;box-shadow:0 1px 3px #001d2c!important}
 .storyboard>.stage:nth-child(3) .np4-profile .np4-photo-actions label:first-child::after{font-size:17px!important}
 .storyboard>.stage:nth-child(3) .np4-profile .np4-photo-actions label:last-of-type::after{font-size:20px!important}
+</style><style id="wf32-snapshot-priority-layout">
+/* Workflow 32 screen 1 only: financial story first, large drill-down tiles. */
+.snap-body:has(.snap32-overview){padding:4px 1px 8px!important;gap:6px!important}
+.snap32-overview{display:flex;flex-direction:column;gap:7px;height:100%;min-height:0}
+.snap32-meta{font-size:13px;line-height:1.35;color:#d2e5f0}
+.snap32-meta b{color:#fff}
+.snap32-runtime{display:flex;align-items:center;justify-content:space-between;border:1px solid #23658a;background:#082d45;padding:7px 9px;font-size:15px;font-weight:850;color:#fff}
+.snap32-runtime strong{color:#6de8ff;font-size:19px}
+.snap32-finance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.snap32-finance>div{min-width:0;text-align:center;background:#0a3048;border:1px solid #2c779a;padding:9px 2px 8px}
+.snap32-finance b{display:block;color:#fff;font-size:21px;line-height:1.2}
+.snap32-finance small{display:block;font-size:12px;color:#c2dce9;margin-top:4px;font-weight:750}
+.snap32-finance .snap32-negative{color:#ffcf80}
+.snap32-equation{text-align:center;font-size:12px;font-weight:850;color:#a9d7ed;letter-spacing:.2px}
+.snap32-secondary{display:flex;justify-content:space-around;gap:6px;border-bottom:1px solid #294b63;padding:5px 0 7px}
+.snap32-secondary div{text-align:center;font-size:13px;color:#c0d5e4}
+.snap32-secondary b{font-size:18px;color:#fff;display:block}
+.snap32-overview .snap-links{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-auto-rows:minmax(66px,1fr)!important;gap:7px!important;flex:1 1 auto!important;min-height:0!important}
+.snap32-overview .snap-links .snap-link{min-height:66px!important;height:100%!important;padding:6px 2px!important;font-size:13px!important;gap:4px!important}
+.snap32-overview .snap-links .snap-link span{font-size:24px!important}
+.snap32-expense-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:8px 0}
+.snap32-expense-tabs button{background:#0a314a;color:#fff;border:2px solid #198db8;padding:9px 4px;font-size:14px;font-weight:850}
+.snap32-expense-tabs button.active{background:#075947;border-color:#4de7b7}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -2805,4 +2828,26 @@ rnGo=function(route,stage,remember=true){const m=String(route).match(/^(\d+):(\d
 const reviewDecorateBeforeGlobalPause=rnDecorate;
 rnDecorate=function(){reviewDecorateBeforeGlobalPause();document.querySelectorAll('.storyboard>.stage').forEach(stage=>{const header=stage.querySelector('.ux-headtitle');if(!header)return;const type=stage.dataset.rnType||'';const tableContext=stage.dataset.rnWorkflow==='11'||['table','table-rebuy','table-cashout','table-two','table-controls','table-paused','multi-tables'].includes(type);const shouldShow=tableContext&&(reviewTablePaused||(stage.dataset.rnWorkflow==='11'&&stage.dataset.rnStep==='2'));let badge=header.querySelector('.review-paused-indicator');if(shouldShow&&!badge){badge=document.createElement('span');badge.className='review-paused-indicator';badge.textContent='TABLE 1 PAUSED · TIMER STOPPED';header.appendChild(badge);}else if(!shouldShow&&badge)badge.remove();});};
 window.addEventListener('load',rnDecorate);
+</script><script id="wf32-snapshot-financial-story">
+/* Snapshot read-only illustration: derive figures from the existing session record. */
+const snap32PreviousMarkup=snapshotMarkup;
+snapshotMarkup=function(view){
+ const d=SNAPSHOT_SESSION;
+ if(view==='overview'){
+ const fmt=n=>(Math.abs(n)>=1000000?(Math.abs(n)/1000000).toFixed(2)+'M':Math.round(Math.abs(n)/1000)+'K');
+ const profit=d.rake-d.expenses;
+ const metric=(label,value,extra='')=>'<div><b class="'+extra+'">'+value+'</b><small>'+label+'</small></div>';
+ const go=(symbol,label,target)=>'<button type="button" class="snap-link" onclick="snapNavigate(this,\''+target+'\')"><span>'+symbol+'</span><div>'+label+'</div></button>';
+ return '<div class="snap32-overview"><div class="snap-badge">● LIVE · SESSION SNAPSHOT</div><div class="snap32-meta"><b>Sunday · Oct 25 · '+d.id+'</b><div>Hold’em · '+d.tables+' tables · Rake 5% per pot</div></div><div class="snap32-runtime"><span>◷ SESSION RUNTIME</span><strong>'+d.duration+'</strong></div><div class="snap32-finance">'+metric('RAKE',fmt(d.rake))+metric('EXPENSES','−'+fmt(d.expenses))+metric('NET PROFIT',(profit<0?'−':'')+fmt(profit),profit<0?'snap32-negative':'')+'</div><div class="snap32-equation">RAKE − EXPENSES = NET PROFIT · LIVE ESTIMATE</div><div class="snap32-secondary"><div><b>'+fmt(d.buyIns)+'</b>Buy-ins</div><div><b>'+fmt(d.cashOuts)+'</b>Cash-outs</div><div><b>'+d.players+'</b>Players</div><div><b>'+d.tables+'</b>Tables</div></div><div class="snap-links">'+go('▤','Ledger','ledger')+go('▥','Rake & tables','tables')+go('▤','Expenses','expenses')+go('♟','Team','team')+go('▣','Accounts','accounts')+go('⚖','Chip check','chips')+(d.modules.signSettle?go('✍','Sign & Settle','ss'):'')+(d.modules.inventory?go('▦','Inventory','inventory'):'')+go('◷','Table hours','tables')+'</div></div>';
+ }
+ if(view==='expenses'||view.startsWith('expenses-')){
+ const selected=view==='expenses'?'all':view.slice(9);
+ const buckets=[['venue','Venue',1000000],['drinks','Drinks',150000],['other','Other',85000]];
+ const money=n=>'COP '+n.toLocaleString('en-US');
+ const tabs=[['all','All expenses'],...buckets.map(x=>[x[0],x[1]])].map(x=>'<button type="button" class="'+(selected===x[0]?'active':'')+'" onclick="snapNavigate(this,\'expenses-'+x[0]+'\')">'+x[1]+'</button>').join('');
+ const rows=buckets.filter(x=>selected==='all'||selected===x[0]).map(x=>'<div class="snap-row"><span>'+x[1]+'</span><strong>'+money(x[2])+'</strong></div>').join('');
+ return '<div class="snap-label">EXPENSES · SESSION DETAIL</div><div class="snap-row"><span>Total expenses</span><strong>'+money(d.expenses)+'</strong></div><div class="snap32-expense-tabs">'+tabs+'</div>'+rows+'<div class="snap-note">Illustrative category totals · expense records can be reviewed in the existing expense workflow.</div><button type="button" class="snap-link" onclick="snapNavigate(this,\'workflow25\')"><span>▤</span>Open expense workflow</button><button type="button" class="snap-back snap-footer" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button>';
+ }
+ return snap32PreviousMarkup(view);
+};
 </script></body></html>
