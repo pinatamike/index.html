@@ -1381,9 +1381,9 @@ function screenContent(w,step,i){
  case 'expense-review':return screenForm('REVIEW EXPENSE',[['DESCRIPTION','Venue rental'],['AMOUNT','COP 1,000,000'],['ACCOUNT','Cashbox']],'SAVE EXPENSE');
  case 'service-menu':return screenTop('FOOD & BEVERAGE','Select an item')+screenTiles([['AGUILA','COP 10,000'],['RED BULL','COP 10,000'],['MINI BURGER','COP 15,000'],['WATER','FREE']]);
  case 'service-item':return w.id===30?screenForm('COMPLIMENTARY ITEM',[['ITEM','Water'],['QUANTITY','1'],['PLAYER','Diego Restrepo'],['CHARGE','COP 0']],'CONTINUE'):screenForm('SALE ITEM',[['ITEM','Aguila beer'],['QUANTITY','1'],['PLAYER','Diego Restrepo'],['TOTAL','COP 10,000']],'CHOOSE PAYMENT');
- case 'service-payment':return screenForm('SALE PAYMENT',[['ITEM','Aguila beer'],['TOTAL','COP 10,000'],['PAYMENT METHOD','Chips  /  Cash']],'CONFIRM SALE');
+ case 'service-payment':return screenCard('SALE PAYMENT',screenField('ITEM','Aguila beer')+screenField('TOTAL','COP 10,000')+screenField('PAYMENT METHOD','Choose one')+'<div class="screen-action-grid">'+screenBtn('CHIPS','blue')+screenBtn('CASH','blue')+'</div>')+screenBtn('CONFIRM SALE');
  case 'service-comp':return screenForm('COMPLIMENTARY ITEM',[['ITEM','Water'],['PLAYER','Diego Restrepo'],['CHARGE','COP 0']],'RECORD COMP');
- case 'service-confirm':return screenCard('ITEM RECORDED',screenField('ITEM',w.id===30?'Water · Complimentary':'Aguila beer')+screenField('STATUS','Recorded in session'),'green')+screenBtn('BACK TO MENU','blue');
+ case 'service-confirm':return screenCard('ITEM RECORDED',screenField('ITEM',w.id===30?'Water · Complimentary':'Aguila beer')+(w.id===30?'':screenField('PAYMENT METHOD','Choose one'))+screenField('STATUS','Recorded in session'),'green')+screenBtn('BACK TO MENU','blue');
  case 'inventory-list':return screenTop('INVENTORY','Beverages · Unit counts')+screenList([['Aguila','24 beginning','17 ending'],['Red Bull','12 beginning','9 ending'],['Water','36 beginning','28 ending']]);
  case 'inventory-start':return screenForm('BEGINNING COUNT',[['ITEM','Aguila'],['COUNT','24 units']],'SAVE START COUNT');
  case 'inventory-end':return screenForm('ENDING COUNT',[['ITEM','Aguila'],['COUNT','17 units']],'SAVE END COUNT');
@@ -1807,6 +1807,14 @@ actions.forEach(action=>{
   }
   if(type==='settings-preferences'&&label==='SAVE PREFERENCES'){
    const target=content.querySelectorAll('.stage')[4];if(target)target.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;
+  }
+  if(type==='service-payment'&&['CHIPS','CASH'].includes(label)){
+   stage.dataset.payment=label;stage.querySelectorAll('.screen-field').forEach(row=>{if(row.querySelector('small')?.textContent==='PAYMENT METHOD')row.querySelector('strong').textContent=label;});
+   stage.querySelectorAll('.screen-button').forEach(button=>{if(['CHIPS','CASH'].includes(button.textContent.trim()))button.setAttribute('aria-pressed',String(button.textContent.trim()===label));});
+   next?.querySelectorAll('.screen-field').forEach(row=>{if(row.querySelector('small')?.textContent==='PAYMENT METHOD')row.querySelector('strong').textContent=label;});return;
+  }
+  if(type==='service-payment'&&label==='CONFIRM SALE'&&!stage.dataset.payment){
+   stage.querySelectorAll('.screen-field').forEach(row=>{if(row.querySelector('small')?.textContent==='PAYMENT METHOD')row.querySelector('strong').textContent='Choose chips or cash';});return;
   }
   if(type==='service-menu'&&action.classList.contains('screen-tile')){
    const item=action.querySelector('small')?.textContent||'Item',price=action.querySelector('strong')?.textContent||'';
