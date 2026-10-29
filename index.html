@@ -1661,13 +1661,24 @@ const RAKE_SESSIONS=[
  {date:'Oct 18, 2026',total:'420,000',entries:[
   {time:'11:30 PM',table:'Table 1',amount:'420,000',posted:'Anna · Cashier'}]}
 ];
-function rakeLedgerMarkup(view,index=0,entryIndex=0){
+function rakeLedgerMarkup(view,index=0,entryIndex=0,page=0){
 const session=RAKE_SESSIONS[index],entry=session.entries[entryIndex];
-if(view==='sessions')return '<div class="ledgercaption">RAKE LEDGER <span>NEWEST FIRST</span></div><div class="crm-session-list">'+RAKE_SESSIONS.map((x,j)=>'<button type="button" class="crm-session-row" onclick="rakeOpen(this,\'session\','+j+')"><b>'+x.date+' <span>›</span></b><small>'+x.entries.length+' '+(x.entries.length===1?'collection':'collections')+'</small><strong>SESSION RAKE · COP '+x.total+'</strong></button>').join('')+'</div><div class="crm-session-paging">Showing 2 example sessions</div>';
-if(view==='session')return '<button type="button" class="audit-back" onclick="rakeOpen(this,\'sessions\',0)">‹ ALL SESSIONS</button><div class="ledgercaption">'+session.date+' <span>'+session.entries.length+' '+(session.entries.length===1?'COLLECTION':'COLLECTIONS')+'</span></div><div class="ledgerlist">'+session.entries.map((x,j)=>'<button type="button" class="ledgerrow crm-tx-row" onclick="rakeOpen(this,\'detail\','+index+','+j+')"><div><b>'+x.table+'</b><small>'+x.time+'</small></div><strong>COP '+x.amount+'</strong></button>').join('')+'</div><div class="ledgertotal"><span>SESSION RAKE</span><span>COP '+session.total+'</span></div>';
-return '<button type="button" class="audit-back" onclick="rakeOpen(this,\'session\','+index+')">‹ COLLECTIONS</button>'+screenCard('RAKE COLLECTION',screenField('SESSION DATE',session.date)+screenField('TIME',entry.time)+screenField('TABLE',entry.table)+screenField('AMOUNT','COP '+entry.amount)+screenField('POSTED BY',entry.posted));
+if(view==='sessions'){
+ const pages=Math.max(1,Math.ceil(RAKE_SESSIONS.length/3));page=Math.max(0,Math.min(page,pages-1));
+ return '<div class="ledgercaption">RAKE LEDGER <span>NEWEST FIRST</span></div><div class="crm-session-list">'+RAKE_SESSIONS.slice(page*3,page*3+3).map((x,k)=>{const j=page*3+k;return '<button type="button" class="crm-session-row" onclick="rakeOpen(this,\'session\','+j+')"><b>'+x.date+' <span>›</span></b><small>'+x.entries.length+' '+(x.entries.length===1?'collection':'collections')+'</small><strong>SESSION RAKE · COP '+x.total+'</strong></button>';}).join('')+'</div>'+(pages>1?'<div class="snap-pager">'+(page>0?'<button onclick="rakeOpen(this,\'sessions\',0,0,'+(page-1)+')">‹ PREV</button>':'<span></span>')+'<span>'+(page+1)+' / '+pages+'</span>'+(page+1<pages?'<button onclick="rakeOpen(this,\'sessions\',0,0,'+(page+1)+')">NEXT ›</button>':'<span></span>')+'</div>':'<div class="crm-session-paging">Showing '+RAKE_SESSIONS.length+' example sessions</div>');
 }
-function rakeOpen(el,view,index=0,entry=0){const content=el.closest('.ux-content');let html=rakeLedgerMarkup(view,index,entry);if(view==='sessions'&&content.dataset.reportLedger==='yes')html='<button class="audit-back" onclick="reportLedgerShow(this,\'menu\')">‹ LEDGERS</button>'+html;content.innerHTML=html;}
+if(view==='session'){
+ const pages=Math.max(1,Math.ceil(session.entries.length/4));page=Math.max(0,Math.min(page,pages-1));
+ return '<button type="button" class="audit-back" onclick="rakeOpen(this,\'sessions\',0,0,-1)">‹ ALL SESSIONS</button><div class="ledgercaption">'+session.date+' <span>'+session.entries.length+' '+(session.entries.length===1?'COLLECTION':'COLLECTIONS')+'</span></div><div class="ledgerlist">'+session.entries.slice(page*4,page*4+4).map((x,k)=>{const j=page*4+k;return '<button type="button" class="ledgerrow crm-tx-row" onclick="rakeOpen(this,\'detail\','+index+','+j+')"><div><b>'+x.table+'</b><small>'+x.time+'</small></div><strong>COP '+x.amount+'</strong></button>';}).join('')+'</div>'+(pages>1?'<div class="snap-pager">'+(page>0?'<button onclick="rakeOpen(this,\'session\','+index+',0,'+(page-1)+')">‹ PREV</button>':'<span></span>')+'<span>'+(page+1)+' / '+pages+'</span>'+(page+1<pages?'<button onclick="rakeOpen(this,\'session\','+index+',0,'+(page+1)+')">NEXT ›</button>':'<span></span>')+'</div>':'')+'<div class="ledgertotal"><span>SESSION RAKE</span><span>COP '+session.total+'</span></div>';
+}
+return '<button type="button" class="audit-back" onclick="rakeOpen(this,\'session\','+index+',0,-1)">‹ COLLECTIONS</button>'+screenCard('RAKE COLLECTION',screenField('SESSION DATE',session.date)+screenField('TIME',entry.time)+screenField('TABLE',entry.table)+screenField('AMOUNT','COP '+entry.amount)+screenField('POSTED BY',entry.posted));
+}
+function rakeOpen(el,view,index=0,entry=0,page=0){
+ const content=el.closest('.ux-content');
+ if(view==='sessions'){if(page<0)page=Number(content.dataset.rakeSessionsPage||0);content.dataset.rakeSessionsPage=page;}
+ if(view==='session'){if(page<0)page=Number(content.dataset.rakeEntriesPage||0);content.dataset.rakeEntriesPage=page;}
+ let html=rakeLedgerMarkup(view,index,entry,page);if(view==='sessions'&&content.dataset.reportLedger==='yes')html='<button class="audit-back" onclick="reportLedgerShow(this,\'menu\')">‹ LEDGERS</button>'+html;content.innerHTML=html;
+}
 function rakeLedgerStage(w,step,i){
 const view=['sessions','session','detail'][i-3];
 return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone ledgerphone crm-ledger">'+fullHead('REPORTING',view==='sessions'?'Rake Ledger':view==='session'?'Session Collections':'Collection Details')+'<div class="ux-content">'+rakeLedgerMarkup(view)+'</div>'+fixedNav('Snapshot')+'</div><p class="steptext">'+['One entry per session.','Collection timing follows the recorded entries.','Date, time and team member are available for each collection.'][i-3]+'</p></div>';
