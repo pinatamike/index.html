@@ -3457,4 +3457,78 @@ snapshotMarkup=function(view){
  if(view==='wf32-close')return page('<div class="wf32-badge">DAILY CLOSE · FINALIZED · READ ONLY</div>'+row('Session','Sunday, October 25, 2026')+row('Buy-ins',money(totalBuy))+row('Cash-outs',money(totalCash))+row('Chip tips',money(chipTips))+row('Chip variance',money(variance))+row('Rake',money(780000))+row('Expenses',money(totalExpenses))+row('Net profit',money(profit))+note('This is an immutable demonstration view. Actual database enforcement requires production integration.')+action('Final session summary','closed'));
  return wf32OriginalV10(view);
 };
+</script><style id="wf32-visual-qa-v11">
+/* Screenshot QA: prevent inner ledger scrollbar and duplicate scrolling surfaces. */
+.snap-phone .wf32-complete .wf32-content{scrollbar-width:none}
+.snap-phone .wf32-complete .wf32-content::-webkit-scrollbar{display:none}
+.snap-phone .wf32-complete .wf32-row{min-height:43px;box-sizing:border-box}
+.snap-phone .wf32-complete details{overflow:hidden}
+.snap-phone .wf32-complete summary{align-items:center;min-height:26px}
+.snap-phone .wf32-complete .wf32-alert{border-radius:4px}
+.snap-phone .wf32-complete .wf32-finance button{min-height:60px}
+.snap-phone .wf32-complete .wf32-grid button{min-height:66px}
+.snap-phone .wf32-complete .wf32-mini button{min-height:68px}
+.snap-phone .wf32-complete .wf32-footer{border-top:1px solid #2783ad;text-align:left}
+.snap-phone .wf32-complete .wf32-content>details:first-child{margin-top:0}
+.snap-phone .wf32-complete .wf32-meta{line-height:1.35}
+.snap-phone .wf32-complete .wf32-badge{letter-spacing:0}
+</style>
+<script id="wf32-visual-qa-v11">
+/* Preserve historical context on drilldowns; distinguish demonstration from live production. */
+(function(){
+ const oldStage=snapshotStage;
+ snapshotStage=function(w,step,i){
+  let html=oldStage(w,step,i);
+  if(w.id===32){
+   const v=snapshotVisibleViews()[i];
+   html=html.replace('class="phone hi-phone snap-phone"','class="phone hi-phone snap-phone" data-wf32-view="'+v+'"');
+   html=html.replace('class="ux-content snap-body"','class="ux-content snap-body" data-wf32-root="'+v+'"');
+   if(v==='closed')html=html.replace('LIVE SESSION</b>','FINAL SESSION</b>');
+  }
+  return html;
+ };
+ const oldNavigate=snapNavigate;
+ snapNavigate=function(el,view){
+  const body=el.closest('.snap-body');
+  if(!body)return oldNavigate(el,view);
+  const root=body.dataset.wf32Root||'overview';
+  const historical=root==='closed';
+  if(historical&&view.startsWith('workflow')){
+   body.innerHTML='<div class="wf32-complete"><div class="wf32-content"><div class="wf32-badge">FINAL SESSION · READ ONLY</div><div class="wf32-alert">This historical record cannot be edited.</div></div><button type="button" class="snap-back wf32-footer" onclick="snapBack(this)">‹ BACK TO FINAL SUMMARY</button></div>';
+   return;
+  }
+  if(historical&&view==='overview')view='closed';
+  oldNavigate(el,view);
+  if(historical){
+   const h=body.closest('.phone').querySelector('.ux-headtitle');
+   if(h){h.querySelector('b').textContent='FINAL SESSION';}
+  }
+  const title=body.closest('.phone').querySelector('.ux-headtitle small');
+  if(title){
+   const names={'session-players':'Players','closed-players':'Players','session-runtime':'Session Runtime','session-profit':'Net Profit','session-buyins':'Buy-ins / Rebuys','session-cashouts':'Cash-outs','session-tables':'Rake & Tables','wf32-close':'Daily Close'};
+   title.textContent=names[view]||(view.startsWith('ledger-')?'Ledger · '+decodeURIComponent(view.slice(7)):title.textContent);
+  }
+ };
+ snapBack=function(el){
+  const body=el.closest('.snap-body');
+  if(!body)return;
+  const historical=body.dataset.wf32Root==='closed';
+  body.innerHTML=snapshotMarkup(historical?'closed':'overview');
+  const head=body.closest('.phone').querySelector('.ux-headtitle');
+  if(head){head.querySelector('b').textContent=historical?'FINAL SESSION':'LIVE SESSION';head.querySelector('small').textContent=historical?'Historical Snapshot':'Snapshot';}
+ };
+ const previous=snapshotMarkup;
+ snapshotMarkup=function(view){
+  let html=previous(view);
+  /* Avoid falsely representing fabricated start/stop timestamps as session records. */
+  if(view==='session-runtime')html=html.replace(/<div class="wf32-row"><span>Table started<\/span><strong>7:00 PM<\/strong><\/div>/g,'').replace(/<div class="wf32-row"><span>Table stopped<\/span><strong>(?:12:30 AM|12:00 AM)<\/strong><\/div>/g,'');
+  if(view==='ledger'||view.startsWith('ledger-')){
+   /* Exclude account balance snapshots from the transactional ledger. */
+   html=html.replace(/<details><summary><span>(?:Cashbox|Nequi|Bancolombia) · Balance<\/span>[\s\S]*?<\/details>/g,'');
+   html=html.replace('demonstration records · tap an entry for details','demonstration entries · tap to expand details');
+  }
+  if(view==='closed')html=html.replace('LIVE SESSION · DEMONSTRATION','FINAL SESSION · READ ONLY');
+  return html;
+ };
+})();
 </script></body></html>
