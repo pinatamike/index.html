@@ -1312,7 +1312,7 @@ if(key==='signSettle')el.closest('.stage').querySelectorAll('.settings-ss-option
 
 function setReviewVerification(el){
 const next=el.closest('.stage').nextElementSibling,body=next?.querySelector('.ux-content');if(!body)return;
-const method=el.value;
+const method=el.value;SNAPSHOT_SESSION.ssMethod=method;const subtitle=next.querySelector('.ux-headtitle small');if(subtitle)subtitle.textContent=method==='PIN'?'Owner PIN':method+' verification';
 body.innerHTML=method==='PIN'?screenForm('OWNER PIN',[['METHOD','4-digit PIN'],['PIN','••••'],['CONFIRM','••••']],'SAVE VERIFICATION'):screenCard('VERIFICATION SETUP',screenField('METHOD',method)+screenField('SELECTION','Only one method is active'))+screenBtn('SAVE VERIFICATION');
 wireReviewStages();
 }
@@ -1430,7 +1430,7 @@ function screenContent(w,step,i){
  case 'settings-rake':return screenForm('RAKE RULES',[['PERCENT','5%'],['MINIMUM POT','COP 200,000'],['CAP','Configured per game']],'SAVE RULES');
  case 'payment-methods':return screenList([['Cashbox','Enabled','›'],['Nequi','Enabled','›'],['Bancolombia','Enabled','›'],['PayPal / Zelle','Disabled','›']]);
  case 'payment-account':return screenForm('NEQUI ACCOUNT',[['ENABLED','Yes'],['ACCOUNT NAME','Game cashier'],['ACCOUNT NUMBER','•••• 4567']],'SAVE ACCOUNT');
- case 'settings-ss':return screenTop('SIGN & SETTLE','Available if included in your plan')+screenCard('FEATURE & VERIFICATION',screenFeatureRow('SIGN & SETTLE','signSettle')+'<div class="settings-ss-options"'+(featureAvailable('signSettle')?'':' hidden')+'><label for="ss-method" class="snap-label">VERIFICATION METHOD · CHOOSE ONE</label><select id="ss-method" class="userprofile-input" onchange="setReviewVerification(this)"><option value="PIN">4-digit PIN</option><option value="Biometric">Biometric</option><option value="Photo">Photo</option><option value="Voice">Voice</option></select></div>')+'<div class="settings-ss-setup"'+(featureAvailable('signSettle')?'':' hidden')+'>'+screenBtn('CONFIGURE METHOD')+'</div>';
+ case 'settings-ss':return screenTop('SIGN & SETTLE','Available if included in your plan')+screenCard('FEATURE & VERIFICATION',screenFeatureRow('SIGN & SETTLE','signSettle')+'<div class="settings-ss-options"'+(featureAvailable('signSettle')?'':' hidden')+'><label for="ss-method" class="snap-label">VERIFICATION METHOD · CHOOSE ONE</label><select id="ss-method" class="userprofile-input" onchange="setReviewVerification(this)">'+[['PIN','4-digit PIN'],['Biometric','Biometric'],['Photo','Photo'],['Voice','Voice']].map(([value,label])=>'<option value="'+value+'"'+((SNAPSHOT_SESSION.ssMethod||'PIN')===value?' selected':'')+'>'+label+'</option>').join('')+'</select></div>')+'<div class="settings-ss-setup"'+(featureAvailable('signSettle')?'':' hidden')+'>'+screenBtn('CONFIGURE METHOD')+'</div>';
  case 'settings-pin':return screenForm('OWNER PIN',[['METHOD','4-digit PIN'],['PIN','••••'],['CONFIRM','••••']],'SAVE VERIFICATION');
  case 'settings-roles':return screenTop('TEAM & ACCESS','Configure roles before inviting staff')+screenList([['Game Owner','Full game access','›'],['Dealer','Table duties','›'],['Cashier','Financial actions','›'],['Host','Player operations','›']]);
  case 'settings-permissions':return screenForm('CASHIER PERMISSIONS',[['ROLE','Cashier'],['CASH-OUTS','Allowed'],['REPORTS','Restricted']],'SAVE PERMISSIONS');
