@@ -1794,6 +1794,7 @@ actions.forEach(action=>{
   const label=action.querySelector('b')?.textContent?.trim()||action.textContent.trim();
   if(type==='service-menu'&&action.classList.contains('screen-tile')){
    const item=action.querySelector('small')?.textContent||'Item',price=action.querySelector('strong')?.textContent||'';
+   if(price==='FREE'&&current!==28){show(28);const dest=document.querySelector('.stage[data-review-type="service-comp"], .stage[data-review-type="service-item"]');if(dest)dest.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;}
    let dest=stage.nextElementSibling;while(dest){dest.querySelectorAll('.screen-field').forEach(row=>{const key=row.querySelector('small')?.textContent,value=row.querySelector('strong');if(!value)return;if(key==='ITEM')value.textContent=item;else if(key==='TOTAL'&&price)value.textContent=price==='FREE'?'COP 0':price;});dest=dest.nextElementSibling;}
   }
   if(type==='quick-actions'){
