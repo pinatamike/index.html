@@ -2675,4 +2675,22 @@ rnHandle=function(e,s,r){if(r==='reporting-ledgers'){rnPane(s,'Reporting · Ledg
 const reviewOriginalRnDecorate=rnDecorate;
 rnDecorate=function(){reviewOriginalRnDecorate();document.querySelectorAll('.storyboard>.stage').forEach(stage=>{const header=stage.querySelector('.ux-headtitle');if(!header)return;const isPaused=stage.dataset.rnWorkflow==='11'&&stage.dataset.rnStep==='2';let badge=header.querySelector('.review-paused-indicator');if(isPaused&&!badge){badge=document.createElement('span');badge.className='review-paused-indicator';badge.textContent='⏸ TABLE 1 PAUSED · TIMER STOPPED';header.appendChild(badge);}else if(!isPaused&&badge)badge.remove();stage.querySelectorAll('[data-review-ledger]').forEach(e=>rnMark(e,'ledger-category:'+e.dataset.reviewLedger));});};
 window.addEventListener('load',rnDecorate);
+</script><script id="review-close-account-pause-consistency">
+/* Cross-workflow session consistency: one read-only illustrative session source. */
+const reviewOriginalContentConsistency=screenContent;
+screenContent=function(w,step,i){const type=SCREEN_SPECS[w.id]?.types[Math.min(i,SCREEN_SPECS[w.id].types.length-1)];const d=SNAPSHOT_SESSION;const money=n=>'COP '+Number(n).toLocaleString('en-US');const variance=d.buyIns+d.promoChips-d.cashOuts-d.chipTips;
+ if(type==='close-report')return screenTop('FINAL DAILY CLOSE','Sunday · Oct 25 · '+d.id+' · READ ONLY')+screenTiles([['BUY-INS',money(d.buyIns)],['CASH-OUTS',money(d.cashOuts)],['RAKE',money(d.rake)],['EXPENSES',money(d.expenses)],['TEAM DUE',money(d.teamDue)],['CHIP VARIANCE',money(variance)]])+screenBtn('VIEW FINAL SNAPSHOT','blue');
+ if(type==='close-accounts')return screenTop('RECONCILE PAYMENT ACCOUNTS','Same balances as Snapshot')+screenTiles(d.accounts.map(a=>[a[0].toUpperCase(),money(a[1])]))+screenBtn('REVIEW RECONCILIATION','blue');
+ if(type==='close-warnings')return screenCard('REVIEW WARNINGS',screenField('CHIP VARIANCE',money(variance))+screenField('STATUS','Acknowledgment required · close permitted'),'red')+screenBtn('ACKNOWLEDGE WARNING','yellow');
+ if(type==='chip-reconcile')return screenCard('CHIP RECONCILIATION',screenField('BUY-INS',money(d.buyIns))+screenField('PROMO CHIPS',money(d.promoChips))+screenField('CASH-OUTS + CHIP TIPS',money(d.cashOuts+d.chipTips))+screenField('VARIANCE',money(variance)),'yellow');
+ if(type==='balances')return screenTop('ACCOUNT BALANCES','Enabled accounts · session preview')+screenTiles([...d.accounts.map(a=>[a[0].toUpperCase(),money(a[1])]),['S&S OUTSTANDING',money(d.ssDue)],['CHIPS BOX',money(d.chipsHeld)] ]);
+ return reviewOriginalContentConsistency(w,step,i);
+};
+/* Persist the preview table pause state when navigating to other workflows. */
+let reviewTablePaused=false;
+const reviewGoBeforePause=rnGo;
+rnGo=function(route,stage,remember=true){const m=String(route).match(/^(\\d+):(\\d+)$/);if(m&&Number(m[1])===11){if(Number(m[2])===2)reviewTablePaused=true;else if(Number(m[2])===1&&stage?.dataset.rnType==='table-paused')reviewTablePaused=false;}const ok=reviewGoBeforePause(route,stage,remember);if(ok)rnDecorate();return ok;};
+const reviewDecorateBeforeGlobalPause=rnDecorate;
+rnDecorate=function(){reviewDecorateBeforeGlobalPause();document.querySelectorAll('.storyboard>.stage').forEach(stage=>{const header=stage.querySelector('.ux-headtitle');if(!header)return;const type=stage.dataset.rnType||'';const tableContext=stage.dataset.rnWorkflow==='11'||['table','table-rebuy','table-cashout','table-two','table-controls','table-paused','multi-tables'].includes(type);const shouldShow=tableContext&&(reviewTablePaused||(stage.dataset.rnWorkflow==='11'&&stage.dataset.rnStep==='2'));let badge=header.querySelector('.review-paused-indicator');if(shouldShow&&!badge){badge=document.createElement('span');badge.className='review-paused-indicator';badge.textContent='TABLE 1 PAUSED · TIMER STOPPED';header.appendChild(badge);}else if(!shouldShow&&badge)badge.remove();});};
+window.addEventListener('load',rnDecorate);
 </script></body></html>
