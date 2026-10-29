@@ -1438,8 +1438,8 @@ function screenContent(w,step,i){
  case 'reports-session':return screenCard('SUNDAY HOLD’EM · OCT 25',screenField('STATUS','Closed')+screenField('RAKE','COP 780,000')+screenField('PLAYERS','8'));
  case 'reports-player':return screenTop('PLAYER REPORTS','Choose player')+people;
  case 'reports-player-detail':return screenProfile('Diego Restrepo','14 SESSIONS · 62 HOURS',true)+screenTiles([['WIN / LOSS','+2,150,000'],['SESSIONS','14'],['HOURS','62'],['BUY-INS','14,500,000']]);
- case 'reports-rake':return screenTiles([['TOTAL RAKE','780,000'],['RAKE / HOUR','145,000'],['TABLE HOURS','10.5'],['TABLES','2']]);
- case 'reports-table':return screenTiles([['TABLE A','COP 450,000'],['TABLE B','COP 330,000'],['TABLE A / HR','COP 145,000'],['TABLE B / HR','COP 125,000']]);
+ case 'reports-rake':return screenTiles([['TOTAL RAKE','780,000'],['RAKE / TABLE HOUR','74,286'],['TABLE HOURS','10.5'],['TABLES','2']]);
+ case 'reports-table':return screenTiles([['TABLE 1','COP 450,000'],['TABLE 2','COP 330,000'],['TABLE 1 / HR','COP 81,818'],['TABLE 2 / HR','COP 66,000']]);
  case 'reports-team':return screenTop('TEAM REPORT','Shift totals')+team;
  case 'reports-expense':return screenTop('EXPENSE REPORT','Session costs')+screenList(entries);
  case 'reports-export':return screenForm('EXPORT REPORT',[['REPORT','Session summary'],['FORMAT','PDF / CSV'],['DATE','Oct 25']],'GENERATE EXPORT');
@@ -1606,10 +1606,10 @@ return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-nu
 
 
 
-function profileSettings(el){el.closest('.stage').nextElementSibling.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}
+function profileSettings(el){show(60);}
 function profileEdit(el){
 const content=el.closest('.ux-content');content.dataset.profileOriginal=content.innerHTML;
-content.innerHTML='<div class="userprofile"><div class="snap-label">EDIT PROFILE</div><label for="profile-name">NAME</label><input id="profile-name" class="userprofile-input" value="Mike"><label for="profile-email">EMAIL</label><input id="profile-email" class="userprofile-input" type="email" value="mike@example.com"><label for="profile-phone">PHONE · OPTIONAL</label><input id="profile-phone" class="userprofile-input" type="tel" value="+57 300 123 4567"><div class="userprofile-wa">Phone number needed for WhatsApp notifications.</div><button type="button" class="userprofile-action" onclick="profileRestore(this,true)">SAVE PROFILE</button><button type="button" class="userprofile-action" onclick="profileRestore(this)">CANCEL</button></div>';
+const values=[...content.querySelectorAll('.userprofile-row strong')].map(x=>x.textContent.trim());content.innerHTML='<div class="userprofile"><div class="snap-label">EDIT PROFILE</div><label for="profile-name">NAME</label><input id="profile-name" class="userprofile-input" value="'+esc(values[0]||'')+'"><label for="profile-email">EMAIL</label><input id="profile-email" class="userprofile-input" type="email" value="'+esc(values[1]||'')+'"><label for="profile-phone">PHONE · OPTIONAL</label><input id="profile-phone" class="userprofile-input" type="tel" value="'+esc(values[2]==='Not provided'?'':values[2]||'')+'"><div class="userprofile-wa">Phone number needed for WhatsApp notifications.</div><button type="button" class="userprofile-action" onclick="profileRestore(this,true)">SAVE PROFILE</button><button type="button" class="userprofile-action" onclick="profileRestore(this)">CANCEL</button></div>';
 }
 function profileRestore(el,save=false){let content=el.closest('.ux-content');const values=save?[...content.querySelectorAll('.userprofile-input')].map(x=>x.value.trim()):null;content.innerHTML=content.dataset.profileOriginal||'';if(values){const rows=content.querySelectorAll('.userprofile-row strong');rows.forEach((r,i)=>r.textContent=values[i]||(i===2?'Not provided':'—'));const name=content.querySelector('.userprofile-hero b');if(name)name.textContent=values[0]||'USER';content.dataset.profileOriginal=content.innerHTML;}}
 
@@ -1765,10 +1765,15 @@ actions.forEach(action=>{
    const routes={'Game configuration':60,'Payment features':61,'Team & access':63,'Food & beverage':64};
    if(routes[label]&&routes[label]!==current){show(routes[label]);return;}
   }
+  if(type==='payment-methods'&&action.classList.contains('screen-list-item')){
+   const title=next.querySelector('.screen-card-title');if(title)title.textContent=label.toUpperCase()+' ACCOUNT';
+   const state=action.querySelector('small')?.textContent.trim()==='Enabled';
+   next.querySelectorAll('.screen-field').forEach(row=>{const key=row.querySelector('small')?.textContent;const value=row.querySelector('strong');if(!value)return;if(key==='ENABLED')value.textContent=state?'Yes':'No';else if(key==='ACCOUNT NAME')value.textContent=label==='Cashbox'?'Cashbox':label==='Nequi'?'Game cashier':'Not configured';else if(key==='ACCOUNT NUMBER')value.textContent=label==='Nequi'?'•••• 4567':'Not provided';});
+  }
   if(type==='settings-roles'&&action.classList.contains('screen-list-item')){
    if(label==='Game Owner'){const owner=content.querySelector('.stage[data-review-type="owner-transfer"]');if(owner)owner.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;}
    const title=next.querySelector('.screen-card-title');if(title)title.textContent=label.toUpperCase()+' PERMISSIONS';
-   const role=[...next.querySelectorAll('.screen-field')].find(x=>x.querySelector('small')?.textContent==='ROLE');if(role&&role.querySelector('strong'))role.querySelector('strong').textContent=label;
+   const role=[...next.querySelectorAll('.screen-field')].find(x=>x.querySelector('small')?.textContent==='ROLE');if(role&&role.querySelector('strong'))role.querySelector('strong').textContent=label;if(label!=='Cashier')next.querySelectorAll('.screen-field').forEach(row=>{if(row.querySelector('small')?.textContent!=='ROLE'&&row.querySelector('strong'))row.querySelector('strong').textContent='Set for this role';});
   }
   if(type==='player-rsvp'&&action.classList.contains('screen-button')){
    const body=stage.querySelector('.ux-content'),choice=label.toUpperCase().includes('DECLINE')?'DECLINED':'GOING';
