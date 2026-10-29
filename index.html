@@ -3546,4 +3546,59 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
 @media(max-width:1450px){.storyboard:has(.snap-phone){grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:980px){.storyboard:has(.snap-phone){grid-template-columns:minmax(0,1fr)!important;max-width:440px!important;margin:auto!important}}
 @media(max-width:480px){.storyboard:has(.snap-phone){max-width:100%!important;gap:14px!important}.storyboard:has(.snap-phone) .wf32-finance button strong{font-size:14px!important}.storyboard:has(.snap-phone) .wf32-grid button strong{font-size:15px!important}}
-</style></body></html>
+</style><style id="wf32-qa-v13-style">
+.storyboard:has(.snap-phone) .wf32-qa-status{font-size:14px;font-weight:800;color:#9de8ff;padding:8px;border:1px solid #2a789b;background:#0a3047}
+.storyboard:has(.snap-phone) .wf32-qa-status[data-result="fail"]{color:#ffcb9e;border-color:#c67d3c}
+.storyboard:has(.snap-phone) .wf32-qa-status[data-result="pass"]{color:#9ff3ca;border-color:#339a72}
+</style>
+<script id="wf32-qa-v13">
+/* Non-destructive runtime QA: executed on actual rendered DOM when Workflow 32 opens.
+   This does not certify production persistence or replace manual browser testing. */
+(function(){
+ function check(){
+  const phones=[...document.querySelectorAll('.storyboard .snap-phone')];
+  if(phones.length!==10)return;
+  const results=[];
+  const test=(label,fn)=>{try{results.push({label,pass:!!fn()})}catch(e){results.push({label,pass:false,error:String(e)})}};
+  const d=WF32_DATA;
+  const sum=xs=>xs.reduce((a,b)=>a+b,0);
+  test('Ten screens rendered',()=>phones.length===10&&phones.every(p=>p.querySelector('.snap-body')));
+  test('Eight players',()=>d.players.length===8);
+  test('Buy-ins reconcile',()=>sum(d.players.map(p=>p[4]))===5500000);
+  test('Cash-outs reconcile',()=>sum(d.players.map(p=>p[5]))===5420000);
+  test('Rake reconciles',()=>sum(d.tables.map(t=>t.rake))===780000);
+  test('Expenses reconcile',()=>sum(d.expenses.flatMap(c=>c.items.map(i=>i[1])))===1235000);
+  test('Chip tips reconcile',()=>sum(d.staff.map(p=>p.tips))===30000);
+  test('Chip variance',()=>sum(d.players.map(p=>p[4]))-sum(d.players.map(p=>p[5]))-sum(d.staff.map(p=>p.tips))===50000);
+  test('Team due reconciles',()=>sum(d.staff.map(p=>p.due))===120000);
+  test('Sign & Settle reconciles',()=>sum(d.debtors.map(p=>p.balance))===200000);
+  test('All inventory groups present',()=>['Beverages','Food','Bar'].every(c=>d.inventory.some(p=>p.category===c)));
+  test('All detail screens render',()=>['ledger','tables','team','expenses','accounts','chips','ss','inventory','closed','wf32-close','session-players'].every(v=>typeof snapshotMarkup(v)==='string'&&snapshotMarkup(v).length>100));
+  test('Ledger category filtering',()=>snapshotMarkup('ledger-Chip%20tips').includes('Chip tips')&&snapshotMarkup('ledger-Expenses').includes('Venue'));
+  test('Historical mode labeled',()=>phones[9].querySelector('.ux-headtitle b')?.textContent==='FINAL SESSION');
+  test('Historical navigation context',()=>phones[9].querySelector('.snap-body')?.dataset.wf32Root==='closed');
+  test('No horizontal storyboard overflow',()=>{const b=phones[0].closest('.storyboard');return b.scrollWidth<=b.clientWidth+2});
+  test('All cards within their preview',()=>phones.every(p=>p.scrollWidth<=p.clientWidth+2));
+  test('Module toggles honored',()=>{
+    const saved={...SNAPSHOT_SESSION.modules};
+    try{
+      SNAPSHOT_SESSION.modules.signSettle=false;SNAPSHOT_SESSION.modules.inventory=false;
+      const views=snapshotVisibleViews();
+      return !views.includes('ss')&&!views.includes('inventory');
+    }finally{Object.assign(SNAPSHOT_SESSION.modules,saved)}
+  });
+  test('Read-only view contains no editable input',()=>!snapshotMarkup('closed').includes('<input')&&!snapshotMarkup('wf32-close').includes('<input'));
+  const passed=results.filter(r=>r.pass).length;
+  let panel=document.getElementById('wf32-qa-results');
+  if(!panel){panel=document.createElement('div');panel.id='wf32-qa-results';panel.className='wf32-qa-status';const board=phones[0].closest('.storyboard');board.parentNode.insertBefore(panel,board);}
+  panel.dataset.result=passed===results.length?'pass':'fail';
+  panel.textContent='WORKFLOW 32 · AUTOMATED DOM CHECKS: '+passed+'/'+results.length+' passed'+(passed===results.length?'':' · Failed: '+results.filter(r=>!r.pass).map(r=>r.label).join(', '));
+  panel.title=results.map(r=>(r.pass?'PASS ':'FAIL ')+r.label+(r.error?' — '+r.error:'')).join('\n');
+  window.WF32_QA_RESULTS=results;
+ }
+ let scheduled=false;
+ const observer=new MutationObserver(()=>{if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;check()})});
+ function init(){const root=document.getElementById('content')||document.body;observer.observe(root,{childList:true,subtree:true});check()}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script></body></html>
