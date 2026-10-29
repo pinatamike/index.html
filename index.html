@@ -471,6 +471,15 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .crm56-identity .person-face{display:block!important;width:76px!important;height:76px!important;flex:0 0 76px!important;overflow:hidden!important;border-radius:0!important}
 .crm56-identity .person-face img{width:100%!important;height:100%!important;object-fit:cover!important}
 .crm56-body{gap:6px!important}.crm56-body .crm56-row{min-height:32px!important}.crm56-body .crm56-btn{padding:8px 3px!important}.crm56-body .crm56-identity{min-height:76px!important;padding:5px!important}.crm56-body .crm56-page{padding:3px!important}
+</style><style id="review-8pm-enhancements">
+/* 8pm-backup follow-up: persistent table status, ledger category views, reporting consistency */
+.review-paused-indicator{display:block;margin:4px 0 0;padding:4px 7px;border:2px solid #f2bf55;background:#5a3909;color:#fff;font-size:12px;font-weight:900;letter-spacing:.3px;text-align:center}
+.review-ledger-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:5px 0 8px}
+.review-ledger-tabs button{background:#0a314a;border:2px solid #279fc9;color:white;font-size:13px;font-weight:850;padding:9px 3px;min-height:38px}
+.review-ledger-tabs button.selected{background:#075947;border-color:#4de7b7}
+.review-ledger-note{font-size:12px;color:#a8d6e7;margin:5px 0}
+.review-ledger-list{overflow-y:auto;min-height:0;max-height:205px}
+.review-ledger-list .wf9-entry{min-height:47px}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -2635,4 +2644,35 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-rn-route]
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-rn-route][role="button"]')){e.preventDefault();e.target.click();}},true);
 document.addEventListener('click',e=>{const p=e.target.closest('[data-page]'),s=p?.closest('.stage');if(!p||!s)return;e.preventDefault();e.stopImmediatePropagation();rnHandle(p,s,'page:'+p.dataset.page);},true);
 window.addEventListener('load',rnDecorate);rnDecorate();
-</script><style id="review-navigation-style">[data-rn-route]:focus-visible{outline:3px solid #fff;outline-offset:-4px}.rn-current>.stage-head{color:#62e6c4}.shared-action.rn-invite,.shared-action.rn-close{min-height:40px;font-size:15px;padding:6px;color:white;background:#074936;border:2px solid #4ce5ba}.rn-correct{font-size:14px;min-height:24px}.rn-seat-wait{min-height:40px!important;font-size:15px!important}.harmonized .seat-roster-card[aria-pressed="true"]{border-color:#4ce5ba}</style></body></html>
+</script><style id="review-navigation-style">[data-rn-route]:focus-visible{outline:3px solid #fff;outline-offset:-4px}.rn-current>.stage-head{color:#62e6c4}.shared-action.rn-invite,.shared-action.rn-close{min-height:40px;font-size:15px;padding:6px;color:white;background:#074936;border:2px solid #4ce5ba}.rn-correct{font-size:14px;min-height:24px}.rn-seat-wait{min-height:40px!important;font-size:15px!important}.harmonized .seat-roster-card[aria-pressed="true"]{border-color:#4ce5ba}</style><script id="review-8pm-enhancements-script">
+/* Targeted review enhancements. All data are sample-only, with the 8pm backup preserved. */
+const REVIEW_LEDGER_CATEGORIES=['All','Rake','Buy-ins','Rebuys','Cash-outs','Expenses','Team','Accounts','Sign & Settle'];
+const REVIEW_LEDGER_EVENTS=[
+ ['Cash-outs','Diego · Cash-out','10:20 PM','−720,000'],
+ ['Rebuys','Diego · Rebuy','9:12 PM','+1,000,000'],
+ ['Rake','Table 1 · Rake','8:45 PM','+50,000'],
+ ['Buy-ins','Rafa · Buy-in','8:04 PM','+450,000'],
+ ['Expenses','Venue rental','7:30 PM','−1,000,000'],
+ ['Team','Anna · Team advance','7:15 PM','−100,000'],
+ ['Rebuys','Diego · Rebuy','7:45 PM','+200,000'],
+ ['Buy-ins','Moshe · Buy-in','7:10 PM','+1,200,000'],
+ ['Buy-ins','Diego · Buy-in','7:04 PM','+450,000'],
+ ['Accounts','Cashbox · Deposit','8:04 PM','+450,000'],
+ ['Sign & Settle','Player debt · Outstanding','10:20 PM','150,000']
+];
+function reviewLedgerCategory(category='All'){
+ const rows=REVIEW_LEDGER_EVENTS.filter(x=>category==='All'||x[0]===category);
+ return '<div class="review-ledger-tabs">'+REVIEW_LEDGER_CATEGORIES.map(c=>'<button type="button" data-review-ledger="'+c+'" class="'+(c===category?'selected':'')+'">'+c+'</button>').join('')+'</div><div class="review-ledger-note">'+rows.length+' sample entries · most recent first · COP</div><div class="review-ledger-list">'+rows.map(x=>'<div class="wf9-entry"><div><b>'+x[1]+'</b><small>'+x[2]+'</small></div><strong>COP '+x[3]+'</strong></div>').join('')+'</div>';
+}
+const reviewOriginalSnapshotMarkup=snapshotMarkup;
+snapshotMarkup=function(view){if(view==='ledger')return '<div class="snap-label">SESSION LEDGER · ALL TRANSACTIONS</div>'+reviewLedgerCategory()+'<button type="button" class="snap-back snap-footer" data-rn-route="snapshot-back">‹ BACK TO SNAPSHOT</button>';return reviewOriginalSnapshotMarkup(view)};
+const reviewOriginalScreenContent=screenContent;
+screenContent=function(w,step,i){const type=SCREEN_SPECS[w.id]?.types[Math.min(i,SCREEN_SPECS[w.id].types.length-1)];if(type==='reports-home')return screenTop('REPORTING','Historical records · sample data')+screenTiles([['SESSIONS','14'],['PLAYERS','62'],['RAKE','COP 780,000'],['TEAM','3']])+screenBtn('OPEN LEDGERS','blue');return reviewOriginalScreenContent(w,step,i)};
+const reviewOriginalRnRoute=rnRoute;
+rnRoute=function(s,e){if(e.matches('[data-review-ledger]'))return 'ledger-category:'+e.dataset.reviewLedger;if(s.dataset.rnType==='reports-home'&&e.matches('.screen-button'))return 'reporting-ledgers';return reviewOriginalRnRoute(s,e)};
+const reviewOriginalRnHandle=rnHandle;
+rnHandle=function(e,s,r){if(r==='reporting-ledgers'){rnPane(s,'Reporting · Ledgers','<div class="snap-label">REPORTING → LEDGERS</div>'+reviewLedgerCategory()+'<button class="screen-button blue" data-rn-route="back">‹ BACK TO REPORTING</button>');return;}if(r.startsWith('ledger-category:')){const cat=r.slice(16),body=s.querySelector('.ux-content');const pane=body.querySelector('.review-ledger-tabs');if(pane){const note=pane.nextElementSibling,list=note?.nextElementSibling,wrapper=document.createElement('div');wrapper.innerHTML=reviewLedgerCategory(cat);pane.replaceWith(wrapper.children[0]);note?.replaceWith(wrapper.children[0]);list?.replaceWith(wrapper.children[0]);rnDecorate();}return;}return reviewOriginalRnHandle(e,s,r)};
+const reviewOriginalRnDecorate=rnDecorate;
+rnDecorate=function(){reviewOriginalRnDecorate();document.querySelectorAll('.storyboard>.stage').forEach(stage=>{const header=stage.querySelector('.ux-headtitle');if(!header)return;const isPaused=stage.dataset.rnWorkflow==='11'&&stage.dataset.rnStep==='2';let badge=header.querySelector('.review-paused-indicator');if(isPaused&&!badge){badge=document.createElement('span');badge.className='review-paused-indicator';badge.textContent='⏸ TABLE 1 PAUSED · TIMER STOPPED';header.appendChild(badge);}else if(!isPaused&&badge)badge.remove();stage.querySelectorAll('[data-review-ledger]').forEach(e=>rnMark(e,'ledger-category:'+e.dataset.reviewLedger));});};
+window.addEventListener('load',rnDecorate);
+</script></body></html>
