@@ -3314,4 +3314,14 @@ snapshotMarkup=function(view){
  }
  return wf32BeforeV8(view);
 };
+</script><script id="wf32-qa-v9">
+/* Correct category routing without presenting unrelated entries as chip tips. */
+const wf32PreviousRenderer=snapshotMarkup;
+snapshotMarkup=function(view){
+ if(view==='ledger-Chip tips'){
+  const d=SNAPSHOT_SESSION;
+  return '<div class="snap32-v8"><div class="v8-section">CHIP TIPS · COP '+d.chipTips.toLocaleString('en-US')+'</div><div class="v8-scroll"><div class="v8-note">Individual chip-tip transactions are not available in this illustrative session. The total is from the sample session summary; no unrelated team advances are shown.</div></div><button type="button" class="snap-back v8-footer" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button></div>';
+ }
+ return wf32PreviousRenderer(view);
+};
 </script></body></html>
