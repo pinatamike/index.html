@@ -1559,7 +1559,7 @@ function featureAvailable(key){if(key==='sales')return featureAvailable('foodSal
 const SNAP_AUDIT=[
 {label:'Diego cash-out',amount:'−2,000,000',time:'11:45 PM',posted:'Costa · Cashier'},
 {label:'Diego rebuy',amount:'+1,000,000',time:'9:12 PM',posted:'Costa · Cashier'},
-{label:'Table A rake',amount:'+200,000',time:'9:00 PM',posted:'Anna · Cashier'},
+{label:'Table 1 rake',amount:'+200,000',time:'9:00 PM',posted:'Anna · Cashier'},
 {label:'Rafa buy-in',amount:'+450,000',time:'8:04 PM',posted:'Anna · Cashier'},
 {label:'Diego rebuy',amount:'+250,000',time:'9:46 PM',posted:'Anna · Cashier'},
 {label:'Moshe buy-in',amount:'+1,200,000',time:'7:10 PM',posted:'Anna · Cashier'},
@@ -1581,7 +1581,7 @@ if(view==='overview')return '<div class="snap-badge">● LIVE · SESSION SUMMARY
 if(view==='ledger')return detail('SESSION LEDGER · COP','<div class="snap-note">All session transactions · most recent first</div>'+snapAuditRow(0,'ledger')+snapAuditRow(1,'ledger')+snapAuditRow(2,'ledger')+snapAuditRow(3,'ledger')+'<div class="snap-pager"><button onclick="snapNavigate(this,\'ledger2\')">NEXT PAGE ›</button><span>1 / 2</span></div>'+tile('♟','Open player ledger','player'));
 if(view==='ledger2')return detail('SESSION LEDGER · COP','<div class="snap-note">All session transactions · page 2</div>'+snapAuditRow(4,'ledger2')+snapAuditRow(5,'ledger2')+snapAuditRow(6,'ledger2')+'<div class="snap-pager"><button onclick="snapNavigate(this,\'ledger\')">‹ PREVIOUS PAGE</button><span>2 / 2</span></div>'+tile('♟','Open player ledger','player'));
 if(view==='player')return detail('PLAYER LEDGER · DIEGO',snapAuditRow(6,'player')+snapAuditRow(4,'player')+snapAuditRow(1,'player')+snapAuditRow(0,'player')+'<div class="snap-note">Player detail and transaction history · example entries.</div>'+tile('▤','Return to session ledger','ledger'));
-if(view==='tables')return detail('RAKE & TABLE PERFORMANCE',row('Total rake',money(d.rake))+row('Table A rake','COP 450,000')+row('Table B rake','COP 330,000')+row('Session duration',d.duration)+row('Accumulated table hours',d.tableHours)+'<div class="snap-note">Table hours add the running time of each table.</div>');
+if(view==='tables')return detail('RAKE & TABLE PERFORMANCE',row('Total rake',money(d.rake))+row('Table 1 rake','COP 450,000')+row('Table 2 rake','COP 330,000')+row('Session duration',d.duration)+row('Accumulated table hours',d.tableHours)+'<div class="snap-note">Table hours add the running time of each table.</div>');
 if(view==='team')return detail('TEAM REPORT',row('Staff / hours','3 · 16h 30m')+row('Compensation',money(d.teamPay))+row('Outstanding settlements',money(d.teamDue))+row('Chip tips',money(d.chipTips))+'<div class="snap-note">Open the existing Team report for each shift, tips, advances and settlement.</div>'+tile('♟','Team workflow','workflow26'));
 if(view==='expenses')return detail('EXPENSES',row('Total expenses',money(d.expenses))+row('Venue','COP 1,000,000')+row('Drinks','COP 150,000')+row('Other','COP 85,000')+'<div class="snap-note">Existing expense records and permitted corrections.</div>'+tile('▤','Expense workflow','workflow27'));
 if(view==='accounts')return detail('ACCOUNT BALANCES · COP',d.accounts.map(a=>row(a[0],a[1].toLocaleString('en-US'))).join('')+row('Chips held · face value',d.chipsHeld.toLocaleString('en-US'))+'<div class="snap-note">Only enabled accounts appear. Account movements are in the session ledger.</div>'+tile('▤','View ledger','ledger'));
@@ -1613,9 +1613,12 @@ content.innerHTML='<div class="userprofile"><div class="snap-label">EDIT PROFILE
 }
 function profileRestore(el,save=false){let content=el.closest('.ux-content');const values=save?[...content.querySelectorAll('.userprofile-input')].map(x=>x.value.trim()):null;content.innerHTML=content.dataset.profileOriginal||'';if(values){const rows=content.querySelectorAll('.userprofile-row strong');rows.forEach((r,i)=>r.textContent=values[i]||(i===2?'Not provided':'—'));const name=content.querySelector('.userprofile-hero b');if(name)name.textContent=values[0]||'USER';content.dataset.profileOriginal=content.innerHTML;}}
 
+function profileLogout(el){el.outerHTML='<div class="userprofile-confirm">Log out of this account?<div class="userprofile-actions"><button type="button" class="userprofile-action" onclick="profileLogoutDone(this)">CONFIRM</button><button type="button" class="userprofile-action" onclick="profileLogoutCancel(this)">CANCEL</button></div></div>';}
+function profileLogoutCancel(el){el.closest('.userprofile-confirm').outerHTML='<button class="userprofile-logout" type="button" onclick="profileLogout(this)">LOG OUT</button>';}
+function profileLogoutDone(el){el.closest('.userprofile-confirm').outerHTML='<div class="userprofile-confirm">Log out confirmed · preview only. <button type="button" class="userprofile-action" onclick="profileLogoutCancel(this)">BACK TO PROFILE</button></div>';}
 function userProfileStage(w,step,i){
 const wa='<svg viewBox="0 0 24 24" aria-label="WhatsApp" role="img"><path d="M12 2a10 10 0 0 0-8.55 15.18L2 22l4.98-1.31A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.08-1.12l-.29-.17-2.96.78.79-2.89-.19-.3A8 8 0 1 1 12 20zm4.39-5.99c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.46-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.58 4.09 3.62.57.25 1.02.39 1.37.5.58.18 1.1.15 1.51.09.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/></svg>';
-const profile='<div class="userprofile"><div class="userprofile-hero"><div class="userprofile-photo">'+portrait('Mikey B.','M',true)+'</div><div><b>MIKE</b><small>ACCOUNT PROFILE</small></div></div><div class="userprofile-card"><div class="userprofile-row"><span>NAME</span><strong>Mike</strong></div><div class="userprofile-row"><span>EMAIL</span><strong>mike@example.com</strong></div><div class="userprofile-row"><span>PHONE · OPTIONAL</span><strong>+57 300 123 4567</strong></div></div><div class="userprofile-wa">'+wa+'<span>Phone number needed for WhatsApp notifications.</span></div><div class="userprofile-actions"><button type="button" class="userprofile-action" onclick="profileEdit(this)">EDIT PROFILE</button><button type="button" class="userprofile-action" onclick="profileSettings(this)">SETTINGS</button></div><button class="userprofile-logout" type="button" onclick="this.outerHTML=\'<div class=&quot;userprofile-confirm&quot;>Log out? Your session will end. <strong>Confirm or cancel</strong></div>\'">LOG OUT</button></div>';
+const profile='<div class="userprofile"><div class="userprofile-hero"><div class="userprofile-photo">'+portrait('Mikey B.','M',true)+'</div><div><b>MIKE</b><small>ACCOUNT PROFILE</small></div></div><div class="userprofile-card"><div class="userprofile-row"><span>NAME</span><strong>Mike</strong></div><div class="userprofile-row"><span>EMAIL</span><strong>mike@example.com</strong></div><div class="userprofile-row"><span>PHONE · OPTIONAL</span><strong>+57 300 123 4567</strong></div></div><div class="userprofile-wa">'+wa+'<span>Phone number needed for WhatsApp notifications.</span></div><div class="userprofile-actions"><button type="button" class="userprofile-action" onclick="profileEdit(this)">EDIT PROFILE</button><button type="button" class="userprofile-action" onclick="profileSettings(this)">SETTINGS</button></div><button class="userprofile-logout" type="button" onclick="profileLogout(this)">LOG OUT</button></div>';
 const drawer='<div class="userprofile-drawer"><div class="userprofile-navitem">Live Session</div><div class="userprofile-navitem">Scheduled</div><div class="userprofile-navitem">Reporting</div><div class="userprofile-navitem">Players</div><div class="userprofile-navitem">Team</div><button class="userprofile-avatar" type="button" onclick="this.closest(\'.stage\').nextElementSibling.scrollIntoView({behavior:\'smooth\',inline:\'center\',block:\'nearest\'})">'+portrait('Mikey B.','M',true)+'<span>Mike<small>View profile ›</small></span></button></div>';
 const bodies=[drawer,profile,screenContent(w,w.steps[2],1),screenContent(w,w.steps[3],2),profile];
 return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone userprofile-phone">'+fullHead(i===0?'NORA':'PROFILE',i===0?'Navigation':(i===1||i===4)?'My Profile':i===3?'Language':'Preferences')+'<div class="ux-content">'+bodies[i]+'</div>'+fixedNav('Players')+'</div><p class="steptext">'+['Tap the user photo in the left navigation.','Phone is optional; WhatsApp requires a phone number.','Manage account preferences.','Choose a language.','Return to your profile after saving.'][i]+'</p></div>';
@@ -1637,12 +1640,12 @@ function formatLaterCurrency(html){return html.replace(/\bCOP(?=\s|<)/g,'<span c
 /* Rake records grouped by session; collection times reflect the actual entries. */
 const RAKE_SESSIONS=[
  {date:'Oct 25, 2026',total:'780,000',entries:[
-  {time:'7:30 PM',table:'Table B',amount:'150,000',posted:'Anna · Cashier'},
-  {time:'8:30 PM',table:'Table B',amount:'180,000',posted:'Costa · Cashier'},
-  {time:'9:00 PM',table:'Table A',amount:'200,000',posted:'Anna · Cashier'},
-  {time:'10:30 PM',table:'Table A',amount:'250,000',posted:'Costa · Cashier'}]},
+  {time:'7:30 PM',table:'Table 2',amount:'150,000',posted:'Anna · Cashier'},
+  {time:'8:30 PM',table:'Table 2',amount:'180,000',posted:'Costa · Cashier'},
+  {time:'9:00 PM',table:'Table 1',amount:'200,000',posted:'Anna · Cashier'},
+  {time:'10:30 PM',table:'Table 1',amount:'250,000',posted:'Costa · Cashier'}]},
  {date:'Oct 18, 2026',total:'420,000',entries:[
-  {time:'11:30 PM',table:'Table A',amount:'420,000',posted:'Anna · Cashier'}]}
+  {time:'11:30 PM',table:'Table 1',amount:'420,000',posted:'Anna · Cashier'}]}
 ];
 function rakeLedgerMarkup(view,index=0,entryIndex=0){
 const session=RAKE_SESSIONS[index],entry=session.entries[entryIndex];
@@ -1678,10 +1681,10 @@ const REPORT_TX=[
  {date:'Oct 25, 2026',time:'10:32 PM',category:'buyin',label:'Diego · Rebuy',amount:200000,posted:'Anna · Cashier'},
  {date:'Oct 25, 2026',time:'9:12 PM',category:'buyin',label:'Diego · Rebuy',amount:1000000,posted:'Costa · Cashier'},
  {date:'Oct 25, 2026',time:'11:45 PM',category:'cashout',label:'Diego · Cash-out',amount:2000000,posted:'Costa · Cashier'},
- {date:'Oct 25, 2026',time:'7:30 PM',category:'rake',label:'Table B · Rake',amount:150000,posted:'Anna · Cashier'},
- {date:'Oct 25, 2026',time:'8:30 PM',category:'rake',label:'Table B · Rake',amount:180000,posted:'Costa · Cashier'},
- {date:'Oct 25, 2026',time:'9:00 PM',category:'rake',label:'Table A · Rake',amount:200000,posted:'Anna · Cashier'},
- {date:'Oct 25, 2026',time:'10:30 PM',category:'rake',label:'Table A · Rake',amount:250000,posted:'Costa · Cashier'},
+ {date:'Oct 25, 2026',time:'7:30 PM',category:'rake',label:'Table 2 · Rake',amount:150000,posted:'Anna · Cashier'},
+ {date:'Oct 25, 2026',time:'8:30 PM',category:'rake',label:'Table 2 · Rake',amount:180000,posted:'Costa · Cashier'},
+ {date:'Oct 25, 2026',time:'9:00 PM',category:'rake',label:'Table 1 · Rake',amount:200000,posted:'Anna · Cashier'},
+ {date:'Oct 25, 2026',time:'10:30 PM',category:'rake',label:'Table 1 · Rake',amount:250000,posted:'Costa · Cashier'},
  {date:'Oct 25, 2026',time:'9:00 PM',category:'tips',label:'Anna · Chip tip',amount:30000,posted:'Costa · Cashier'},
  {date:'Oct 25, 2026',time:'9:30 PM',category:'sales',label:'Food & beverage sales',amount:50000,posted:'Anna · Cashier'},
  {date:'Oct 25, 2026',time:'8:00 PM',category:'expenses',label:'Venue rental',amount:1000000,posted:'Anna · Cashier'},
