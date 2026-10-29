@@ -1770,6 +1770,12 @@ c.innerHTML='<button type="button" class="audit-back" onclick="settingsReturn(th
 }
 function settingsReturn(el){const c=el.closest('.ux-content');c.innerHTML=c.dataset.settingsOriginal||'';c.querySelectorAll('[data-review-wired]').forEach(x=>delete x.dataset.reviewWired);wireReviewStages();}
 function rsvpReturn(el){const body=el.closest('.ux-content');body.innerHTML=body.dataset.rsvpOriginal||'';body.querySelectorAll('[data-review-wired]').forEach(x=>delete x.dataset.reviewWired);wireReviewStages();}
+function reviewRebuyAmount(stage,amount){
+if(!(amount>0))return;const formatted=amount.toLocaleString('en-US');
+const tile=[...stage.querySelectorAll('.screen-tile')].find(x=>x.querySelector('small')?.textContent==='REBUY AMOUNT');if(tile)tile.querySelector('strong').textContent='COP '+formatted;
+const review=stage.nextElementSibling,reviewRow=[...(review?.querySelectorAll('.screen-field')||[])].find(x=>x.querySelector('small')?.textContent==='AMOUNT');if(reviewRow)reviewRow.querySelector('strong').textContent='COP '+formatted;
+const table=review?.nextElementSibling;table?.querySelectorAll('.ux-seat-label').forEach(label=>{if(label.querySelector('b')?.textContent==='Diego R.'){const value=label.querySelector('strong');if(value)value.textContent=(450000+amount).toLocaleString('en-US');}});
+}
 function reviewTerminalBack(el){const body=el.closest('.ux-content');body.innerHTML=body.dataset.terminalOriginal||'';body.querySelectorAll('[data-review-wired]').forEach(x=>delete x.dataset.reviewWired);wireReviewStages();}
 function wireReviewStages(){
 const content=document.getElementById('content');
@@ -1794,10 +1800,14 @@ actions.forEach(action=>{
   if(type==='table-controls'&&label==='CLOSE TABLE'){const target=content.querySelector('.stage[data-review-type="table-closed"]');if(target){target.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;}}
   if((type==='rebuy-entry'||type==='amount-entry')&&['500K','1M','2M','CUSTOM'].includes(label)){
    const row=[...stage.querySelectorAll('.screen-field')].find(x=>x.querySelector('small')?.textContent==='AMOUNT');
-   const amount={'500K':'500,000','1M':'1,000,000','2M':'2,000,000'}[label];
-   if(row&&amount){row.querySelector('strong').textContent=amount;const tile=[...stage.querySelectorAll('.screen-tile')].find(x=>x.querySelector('small')?.textContent==='REBUY AMOUNT');if(tile)tile.querySelector('strong').textContent='COP '+amount;const review=stage.nextElementSibling;const reviewRow=[...(review?.querySelectorAll('.screen-field')||[])].find(x=>x.querySelector('small')?.textContent==='AMOUNT');if(reviewRow)reviewRow.querySelector('strong').textContent='COP '+amount;}
-   if(row&&label==='CUSTOM')row.querySelector('strong').innerHTML='<input aria-label="Custom rebuy amount" class="userprofile-input" type="number" min="1" placeholder="Enter amount">';
+   const amount={'500K':500000,'1M':1000000,'2M':2000000}[label];
+   if(row&&amount){row.querySelector('strong').textContent=amount.toLocaleString('en-US');reviewRebuyAmount(stage,amount);}
+   if(row&&label==='CUSTOM')row.querySelector('strong').innerHTML='<input aria-label="Custom rebuy amount" class="userprofile-input" type="number" min="1" placeholder="Enter amount" oninput="reviewRebuyAmount(this.closest(\'.stage\'),Number(this.value))">';
    return;
+  }
+  if((type==='rebuy-entry'||type==='amount-entry')&&/^CONFIRM/.test(label)){
+   const input=stage.querySelector('input[aria-label="Custom rebuy amount"]');
+   if(input&&!(Number(input.value)>0)){input.focus();return;}
   }
   if(type==='settings-home'&&action.classList.contains('screen-list-item')){
    if(label==='Subscription'){settingsSubscription(action);return;}if(label==='Player features'){if(current!==60)show(60);const target=document.querySelector('.stage[data-review-type="settings-player"]');if(target)target.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;}
