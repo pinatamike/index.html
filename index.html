@@ -3324,4 +3324,137 @@ snapshotMarkup=function(view){
  }
  return wf32PreviousRenderer(view);
 };
+</script><style id="wf32-complete-v10-css">
+.snap-phone .snap-body{overflow:hidden!important}
+.snap-phone .wf32-complete{display:flex;flex-direction:column;height:100%;min-height:0;gap:7px;overflow:hidden;color:#fff}
+.snap-phone .wf32-complete .wf32-content{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;overscroll-behavior:contain}
+.snap-phone .wf32-complete .wf32-footer{flex:none;margin-top:auto;min-height:42px}
+.snap-phone .wf32-complete .wf32-row{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid #24526a;padding:9px 2px;font-size:16px;line-height:1.3}
+.snap-phone .wf32-complete .wf32-row strong{font-size:16px;text-align:right;max-width:55%;overflow-wrap:anywhere}
+.snap-phone .wf32-complete .wf32-item{padding:9px 4px;border-bottom:1px solid #25546d;font-size:16px}
+.snap-phone .wf32-complete .wf32-item small{display:block;font-size:14px;color:#c4dfed;margin-top:4px}
+.snap-phone .wf32-complete .wf32-item strong{font-size:16px}
+.snap-phone .wf32-complete details{margin:5px 0;border:1px solid #2a83ac;border-radius:7px;padding:9px;background:#0b354f}
+.snap-phone .wf32-complete summary{font-size:16px;font-weight:850;cursor:pointer;display:flex;justify-content:space-between;gap:5px}
+.snap-phone .wf32-complete summary strong{font-size:16px}
+.snap-phone .wf32-complete select{width:100%;min-height:42px;font-size:16px;font-weight:800;background:#103b55;color:#fff;border:1px solid #44a4ce;border-radius:6px}
+.snap-phone .wf32-complete button{cursor:pointer}
+.snap-phone .wf32-complete .wf32-action{width:100%;min-height:44px;padding:9px;background:#104b6e;color:white;border:1px solid #3da7d4;border-radius:7px;font-size:16px;font-weight:800}
+.snap-phone .wf32-complete .wf32-alert{background:#49371c;border-left:4px solid #f6bf52;padding:10px;font-size:16px;font-weight:850}
+.snap-phone .wf32-complete .wf32-total{font-size:18px;font-weight:900;padding:10px;background:#0d3e5c;border:1px solid #398bb4}
+.snap-phone .wf32-complete .wf32-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.snap-phone .wf32-complete .wf32-grid button{min-width:0;min-height:66px;background:#103a56;border:1px solid #398fba;color:#fff;border-radius:6px;padding:7px 3px;font-size:14px;font-weight:800}
+.snap-phone .wf32-complete .wf32-grid button strong{display:block;font-size:16px;overflow-wrap:anywhere}
+.snap-phone .wf32-complete .wf32-finance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.snap-phone .wf32-complete .wf32-finance button{min-width:0;background:#0d3c59;border:1px solid #3a91bd;border-radius:6px;color:white;padding:9px 2px;font-size:14px;font-weight:850}
+.snap-phone .wf32-complete .wf32-finance button strong{display:block;font-size:15px;letter-spacing:-.45px;overflow-wrap:anywhere}
+.snap-phone .wf32-complete .wf32-mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.snap-phone .wf32-complete .wf32-mini button{min-height:64px;background:#0b3d5a;border:1px solid #358fba;border-radius:6px;color:white;font-size:14px;font-weight:800}
+.snap-phone .wf32-complete .wf32-mini button span{display:block;font-size:20px}
+.snap-phone .wf32-complete .wf32-meta{padding:9px;background:#0d3b56;border:1px solid #317ca5;font-size:16px;font-weight:850}
+.snap-phone .wf32-complete .wf32-meta small{display:block;font-size:15px;margin-top:4px}
+.snap-phone .wf32-complete .wf32-help{font-size:14px;line-height:1.4;color:#d0e4ed;padding:8px 3px}
+.snap-phone .wf32-complete .wf32-badge{font-size:15px;font-weight:900;padding:7px;background:#145071}
+</style>
+<script id="wf32-complete-v10">
+/* Self-contained, fully reconciled DEMONSTRATION records for UX review.
+   Never treated as real player, accounting or production data. */
+const WF32_DATA={
+ players:[
+ ['Rafa',1,1,'Cashed out',600000,780000,'4h 50m'],
+ ['Diego',1,7,'Cashed out',1650000,720000,'5h 10m'],
+ ['Moshe',2,2,'Cashed out',1200000,1500000,'4h 20m'],
+ ['Sofia',1,3,'Cashed out',400000,450000,'3h 15m'],
+ ['Costa',2,4,'Cashed out',500000,650000,'5h 00m'],
+ ['Sam',2,5,'Cashed out',350000,390000,'2h 45m'],
+ ['Pikachu',1,6,'Cashed out',450000,430000,'3h 50m'],
+ ['Uri',2,8,'Cashed out',350000,500000,'3h 05m']
+ ],
+ tables:[{name:'Table 1',rake:450000,minutes:330,stack:625000},{name:'Table 2',rake:330000,minutes:300,stack:535000}],
+ staff:[{name:'Anna',hours:'5h 30m',earn:150000,advance:100000,settled:50000,due:0,tips:15000},{name:'Carlos',hours:'5h 30m',earn:120000,advance:0,settled:0,due:120000,tips:10000},{name:'Mia',hours:'5h 30m',earn:90000,advance:0,settled:90000,due:0,tips:5000}],
+ expenses:[{name:'Venue',items:[['Venue rental',1000000]]},{name:'Drinks',items:[['Beer purchases',90000],['Mixers',60000]]},{name:'Other',items:[['Supplies',50000],['Transport',35000]]}],
+ accounts:[['Cashbox',4500000],['Nequi',500000],['Bancolombia',300000]],
+ debtors:[{name:'Diego',balance:150000,status:'Unpaid'},{name:'Uri',balance:50000,status:'Unpaid'}],
+ inventory:[
+ {name:'Aguila',category:'Beverages',start:24,sold:5,comp:0,end:17,unit:10000},
+ {name:'Corona',category:'Beverages',start:18,sold:6,comp:1,end:11,unit:10000},
+ {name:'Smirnoff Ice',category:'Beverages',start:12,sold:3,comp:0,end:9,unit:15000},
+ {name:'Mini burger',category:'Food',start:16,sold:6,comp:1,end:9,unit:15000},
+ {name:'Fries',category:'Food',start:20,sold:5,comp:2,end:13,unit:5000},
+ {name:'Patron Silver shots',category:'Bar',start:15,sold:4,comp:0,end:11,unit:25000},
+ {name:'Jack Daniel’s shots',category:'Bar',start:15,sold:3,comp:1,end:11,unit:20000}
+ ],
+ events:[]
+};
+(function buildWf32Events(){
+ const a=WF32_DATA.events;
+ const add=(cat,description,amount,time,detail)=>a.push({id:'T'+String(a.length+1).padStart(3,'0'),cat,description,amount,time,detail});
+ WF32_DATA.players.forEach((p,i)=>add('Buy-ins',p[0]+' · Initial buy-in',p[4], '7:'+String(5+i*3).padStart(2,'0')+' PM','Table '+p[1]+' · Seat '+p[2]));
+ WF32_DATA.players.forEach((p,i)=>add('Cash-outs',p[0]+' · Cash-out',-p[5], '11:'+String(5+i*3).padStart(2,'0')+' PM','Full cash-out · Table '+p[1]));
+ WF32_DATA.tables.forEach((t,i)=>add('Rake',t.name+' · Rake',t.rake,'11:55 PM','Total table rake'));
+ WF32_DATA.expenses.forEach((c,i)=>c.items.forEach((x,j)=>add('Expenses',c.name+' · '+x[0],-x[1],'8:'+String(10+i*10+j*3).padStart(2,'0')+' PM',c.name)));
+ WF32_DATA.staff.forEach((p,i)=>{if(p.advance)add('Team',p.name+' · Advance',-p.advance,'8:30 PM','Team advance');if(p.settled)add('Team',p.name+' · Settlement',-p.settled,'11:40 PM','Team payment')});
+ WF32_DATA.staff.forEach((p,i)=>add('Chip tips',p.name+' · Chip tips',-p.tips,'11:45 PM','Paid in chips'));
+ WF32_DATA.debtors.forEach((p,i)=>add('Sign & Settle',p.name+' · Outstanding',p.balance,'11:50 PM',p.status));
+ WF32_DATA.accounts.forEach((p,i)=>add('Accounts',p[0]+' · Balance',p[1],'11:59 PM','Balance snapshot, not cash movement'));
+})();
+const wf32OriginalV10=snapshotMarkup;
+snapshotMarkup=function(view){
+ const d=SNAPSHOT_SESSION, demo=WF32_DATA;
+ const sum=(a)=>a.reduce((n,x)=>n+x,0);
+ const money=n=>(n<0?'−':'')+'COP '+Math.abs(Number(n)).toLocaleString('en-US');
+ const row=(a,b)=>'<div class="wf32-row"><span>'+a+'</span><strong>'+b+'</strong></div>';
+ const note=t=>'<div class="wf32-help">'+t+'</div>';
+ const detail=(a,b,inside)=>'<details><summary><span>'+a+'</span><strong>'+b+'</strong></summary>'+inside+'</details>';
+ const action=(label,to)=>'<button type="button" class="wf32-action" onclick="snapNavigate(this,\''+to+'\')">'+label+'</button>';
+ const footer='<button type="button" class="snap-back wf32-footer" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button>';
+ const page=(content)=>'<div class="wf32-complete"><div class="wf32-content">'+content+'</div>'+footer+'</div>';
+ const item=(a,b,c)=>'<div class="wf32-item"><strong>'+a+'</strong><small>'+b+'</small>'+(c?'<small>'+c+'</small>':'')+'</div>';
+ const transaction=e=>detail(e.description,money(e.amount),row('Transaction ID',e.id)+row('Time',e.time)+row('Category',e.cat)+row('Amount',money(e.amount))+row('Details',e.detail));
+ const player=p=>detail(p[0],money(p[5]-p[4]),row('Table / seat',p[1]+' / '+p[2])+row('Status',p[3])+row('Hours played',p[6])+row('Total buy-ins',money(p[4]))+row('Full cash-out',money(p[5]))+row('Win / loss',money(p[5]-p[4])));
+ const table=t=>detail(t.name,money(t.rake),row('Table hours',(t.minutes/60).toFixed(1)+'h')+row('Rake',money(t.rake))+row('Average rake/hour',money(Math.round(t.rake*60/t.minutes)))+row('Average stack',money(t.stack))+action('View rake transactions','ledger-Rake'));
+ const expense=c=>detail(c.name,money(sum(c.items.map(x=>x[1]))),c.items.map(x=>row(x[0],money(x[1]))).join(''));
+ const inventory=p=>{const expected=p.start-p.sold-p.comp,variance=expected-p.end;return detail(p.name,variance?'Short '+variance:'Balanced',row('Beginning',p.start+' units')+row('Sold',p.sold+' units')+row('Complimentary',p.comp+' units')+row('Expected ending',expected+' units')+row('Counted ending',p.end+' units')+row('Discrepancy',variance+' units')+row('Recorded sales',money(p.sold*p.unit)))};
+ const totalExpenses=sum(demo.expenses.flatMap(c=>c.items.map(x=>x[1])));
+ const totalBuy=sum(demo.players.map(p=>p[4])),totalCash=sum(demo.players.map(p=>p[5]));
+ const chipTips=sum(demo.staff.map(p=>p.tips));
+ const variance=totalBuy-totalCash-chipTips;
+ const profit=sum(demo.tables.map(t=>t.rake))-totalExpenses;
+ const isFinal=view==='closed';
+ const isOverview=view==='overview'||isFinal;
+ if(isOverview){
+  const finance=(label,n,to)=>'<button type="button" onclick="snapNavigate(this,\''+to+'\')"><strong>'+money(n)+'</strong>'+label+'</button>';
+  const quick=(label,n,to)=>'<button type="button" onclick="snapNavigate(this,\''+to+'\')"><strong>'+n+'</strong>'+label+'</button>';
+  const nav=(symbol,label,to)=>'<button type="button" onclick="snapNavigate(this,\''+to+'\')"><span>'+symbol+'</span>'+label+'</button>';
+  return '<div class="wf32-complete"><div class="wf32-content">'+
+   (isFinal?'<div class="wf32-badge">FINAL SESSION · READ ONLY</div>':'<div class="wf32-badge">LIVE SESSION · DEMONSTRATION</div>')+
+   '<div class="wf32-meta">Sunday, October 25, 2026<small>Hold’em · 2 Tables · Rake 5%</small></div>'+
+   action('◷ Session runtime · 5h 30m','session-runtime')+
+   '<div class="wf32-finance">'+finance('RAKE',780000,'tables')+finance('EXPENSES',totalExpenses,'expenses')+finance('NET PROFIT',profit,'session-profit')+'</div>'+
+   '<div class="wf32-grid">'+quick('Buy-ins / Rebuys',money(totalBuy),'session-buyins')+quick('Cash-outs',money(totalCash),'session-cashouts')+quick('Players',demo.players.length,isFinal?'closed-players':'session-players')+quick('Tables',demo.tables.length,'tables')+'</div>'+
+   '<div class="wf32-mini">'+nav('▤','Ledger','ledger')+nav('♟','Team','team')+nav('▣','Accounts','accounts')+nav('⚖','Chip check','chips')+(d.modules.signSettle?nav('✍','Sign & Settle','ss'):'')+(d.modules.inventory?nav('▦','Inventory','inventory'):'')+'</div>'+
+   (isFinal?'<div class="wf32-alert">Recorded chip variance: '+money(variance)+'</div>'+action('View Daily Close (read-only)','wf32-close')+action('Session Ledger','ledger'):'')+
+   '</div></div>';
+ }
+ if(view==='session-players'||view==='closed-players')return page(demo.players.map(player).join(''));
+ if(view==='session-runtime')return page(row('Session runtime','5h 30m')+row('Combined table hours','10h 30m')+demo.tables.map(t=>detail(t.name,(t.minutes/60).toFixed(1)+'h',row('Table started','7:00 PM')+row('Table stopped',t.name==='Table 1'?'12:30 AM':'12:00 AM')+row('Table duration',(t.minutes/60).toFixed(1)+'h'))).join(''));
+ if(view==='tables'||view==='session-tables')return page(row('Total rake',money(780000))+demo.tables.map(table).join(''));
+ if(view==='ledger'||view.startsWith('ledger-')){
+  const cats=['All','Rake','Buy-ins','Rebuys','Cash-outs','Chip tips','Expenses','Team','Accounts','Sign & Settle'];
+  const selected=view==='ledger'?'All':decodeURIComponent(view.slice(7));
+  const filtered=demo.events.filter(e=>selected==='All'||e.cat===selected);
+  const opts=cats.map(c=>'<option value="'+c+'"'+(c===selected?' selected':'')+'>'+c+'</option>').join('');
+  return page('<select aria-label="Ledger category" onchange="snapNavigate(this,\'ledger-\'+encodeURIComponent(this.value))">'+opts+'</select>'+note(filtered.length+' demonstration records · tap an entry for details')+filtered.map(transaction).join('')+(filtered.length?'':note('No recorded transactions in this category.')));
+ }
+ if(view==='team')return page(row('Team on shift','3')+row('Total team hours','16h 30m')+row('Total compensation',money(360000))+row('Outstanding',money(120000))+row('Chip tips',money(chipTips))+demo.staff.map(p=>detail(p.name,p.hours,row('Compensation',money(p.earn))+row('Advance',money(p.advance))+row('Settled',money(p.settled))+row('Outstanding',money(p.due))+row('Chip tips',money(p.tips)))).join('')+action('Team workflow','workflow24'));
+ if(view==='expenses')return page('<div class="wf32-total">TOTAL EXPENSES · '+money(totalExpenses)+'</div>'+demo.expenses.map(expense).join('')+action('Expense ledger','ledger-Expenses'));
+ if(view==='accounts')return page(demo.accounts.filter(a=>a[2]!==false).map(a=>row(a[0],money(a[1]))).join('')+detail('Chips held',money(d.chipsHeld),note('Chip-box face value; not a cash payment account.'))+detail('Sign & Settle due',money(sum(demo.debtors.map(p=>p.balance))),demo.debtors.map(p=>row(p.name,money(p.balance))).join(''))+action('Account ledger','ledger-Accounts'));
+ if(view==='chips')return page(row('Total buy-ins',money(totalBuy))+row('Promo chips',money(0))+row('Total cash-outs','− '+money(totalCash))+row('Chip tips','− '+money(chipTips))+'<div class="wf32-alert">⚠ VARIANCE · '+money(variance)+'</div>'+action('Buy-in ledger','ledger-Buy-ins')+action('Cash-out ledger','ledger-Cash-outs')+action('Chip tips ledger','ledger-Chip tips')+note('Variance is recorded in this demonstration Daily Close and Final Summary.'));
+ if(view==='ss')return page('<div class="wf32-total">TOTAL OUTSTANDING · '+money(sum(demo.debtors.map(p=>p.balance)))+'</div>'+demo.debtors.map(p=>detail(p.name,money(p.balance),row('Status',p.status)+row('Outstanding',money(p.balance)))).join('')+action('Sign & Settle ledger','ledger-Sign & Settle'));
+ if(view==='inventory')return page(['Beverages','Food','Bar'].map(cat=>detail(cat,demo.inventory.filter(p=>p.category===cat).length+' products',demo.inventory.filter(p=>p.category===cat).map(inventory).join(''))).join('')+action('Inventory workflow','workflow30'));
+ if(view==='session-profit')return page(row('Total rake',money(780000))+row('Total expenses','− '+money(totalExpenses))+'<div class="wf32-total">NET PROFIT · '+money(profit)+'</div>'+action('Rake & tables','tables')+action('Expense details','expenses'));
+ if(view==='session-buyins'||view==='session-cashouts')return page('<div class="wf32-total">'+(view==='session-buyins'?'BUY-INS':'CASH-OUTS')+' · '+money(view==='session-buyins'?totalBuy:totalCash)+'</div>'+demo.events.filter(e=>e.cat===(view==='session-buyins'?'Buy-ins':'Cash-outs')).map(transaction).join(''));
+ if(view==='wf32-close')return page('<div class="wf32-badge">DAILY CLOSE · FINALIZED · READ ONLY</div>'+row('Session','Sunday, October 25, 2026')+row('Buy-ins',money(totalBuy))+row('Cash-outs',money(totalCash))+row('Chip tips',money(chipTips))+row('Chip variance',money(variance))+row('Rake',money(780000))+row('Expenses',money(totalExpenses))+row('Net profit',money(profit))+note('This is an immutable demonstration view. Actual database enforcement requires production integration.')+action('Final session summary','closed'));
+ return wf32OriginalV10(view);
+};
 </script></body></html>
