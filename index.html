@@ -1530,7 +1530,7 @@ content.innerHTML='<button type="button" class="audit-back" onclick="crmProfileR
 }
 function crmInvitePreview(el,channel){const content=el.closest('.ux-content');content.innerHTML='<button type="button" class="audit-back" onclick="crmProfileReturn(this)">‹ PROFILE</button>'+screenCard('INVITATION PREVIEW',screenField('PLAYER',content.dataset.crmName||'Player')+screenField('CHANNEL',channel)+screenField('MESSAGE','Join our game on NORA. Download and register.'))+'<div class="snap-note">Preview only · no invitation has been sent.</div>';}
 function crmProfileReturn(el){const content=el.closest('.ux-content');content.innerHTML=content.dataset.crmOriginal||'';}
-function crmProfileSave(el){const content=el.closest('.ux-content'),values=[...content.querySelectorAll('input')].map(x=>x.value.trim());content.innerHTML=content.dataset.crmOriginal||'';const name=content.querySelector('.crm56-identity b'),links=content.querySelectorAll('.crm56-contact-link');if(name)name.textContent=values[0]||'PLAYER';if(links[0]){links[0].textContent=(values[1]||'Not provided')+' ↗';links[0].href='https://wa.me/'+values[1].replace(/[^0-9]/g,'');}if(links[1]){links[1].textContent=(values[2]||'Not provided')+' ↗';links[1].href='mailto:'+values[2];}content.dataset.crmOriginal=content.innerHTML;}
+function crmProfileSave(el){const content=el.closest('.ux-content'),values=[...content.querySelectorAll('input')].map(x=>x.value.trim());content.innerHTML=content.dataset.crmOriginal||'';const name=content.querySelector('.crm56-identity b'),links=content.querySelectorAll('.crm56-contact-link');if(name)name.textContent=values[0]||'PLAYER';if(links[0]){links[0].textContent=values[1]?values[1]+' ↗':'Not provided';if(values[1])links[0].href='https://wa.me/'+values[1].replace(/[^0-9]/g,'');else links[0].removeAttribute('href');}if(links[1]){links[1].textContent=values[2]?values[2]+' ↗':'Not provided';if(values[2])links[1].href='mailto:'+values[2];else links[1].removeAttribute('href');}content.dataset.crmOriginal=content.innerHTML;}
 
 function crm56Screen(w,step,i){
 if(i>=3)return crmLedger56(w,step,['sessions','session','detail'][i-3]);
@@ -1738,6 +1738,7 @@ const c=el.closest('.ux-content');c.dataset.settingsOriginal=c.innerHTML;
 c.innerHTML='<button type="button" class="audit-back" onclick="settingsReturn(this)">‹ SETTINGS</button>'+screenCard('SUBSCRIPTION',screenField('PLAN','View current plan')+screenField('MODULE ACCESS','Based on subscription')+screenField('FEATURES','Configure inside available modules'))+'<div class="snap-note">Subscription access and individual feature controls are separate.</div>';
 }
 function settingsReturn(el){const c=el.closest('.ux-content');c.innerHTML=c.dataset.settingsOriginal||'';c.querySelectorAll('[data-review-wired]').forEach(x=>delete x.dataset.reviewWired);wireReviewStages();}
+function rsvpReturn(el){const body=el.closest('.ux-content');body.innerHTML=body.dataset.rsvpOriginal||'';body.querySelectorAll('[data-review-wired]').forEach(x=>delete x.dataset.reviewWired);wireReviewStages();}
 function wireReviewStages(){
 const content=document.getElementById('content');
 const picker=content.querySelectorAll('.stage[data-review-type="owner-transfer"]')[1];
@@ -1762,6 +1763,12 @@ actions.forEach(action=>{
    if(label==='Game Owner'){const owner=content.querySelector('.stage[data-review-type="owner-transfer"]');if(owner)owner.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;}
    const title=next.querySelector('.screen-card-title');if(title)title.textContent=label.toUpperCase()+' PERMISSIONS';
    const role=[...next.querySelectorAll('.screen-field')].find(x=>x.querySelector('small')?.textContent==='ROLE');if(role&&role.querySelector('strong'))role.querySelector('strong').textContent=label;
+  }
+  if(type==='player-rsvp'&&action.classList.contains('screen-button')){
+   const body=stage.querySelector('.ux-content'),choice=label.toUpperCase().includes('DECLINE')?'DECLINED':'GOING';
+   if(!body.dataset.rsvpOriginal)body.dataset.rsvpOriginal=body.innerHTML;
+   body.innerHTML=screenTop('YOUR RSVP','Sunday · 7:00 PM')+screenCard('RESPONSE',screenField('STATUS',choice),'green')+'<div class="snap-note">Preview only · no response was sent.</div><button type="button" class="screen-button" onclick="rsvpReturn(this)">CHANGE RESPONSE</button>';
+   return;
   }
   if((type==='voice-decision'||type==='multi-review')&&/^EDIT/i.test(label)){editReviewAction(action);return;}
   if(next)next.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
