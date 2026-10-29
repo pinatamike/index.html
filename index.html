@@ -1792,6 +1792,10 @@ actions.forEach(action=>{
  action.dataset.reviewWired='yes';action.setAttribute('role','button');action.setAttribute('tabindex','0');
  const go=()=>{
   const label=action.querySelector('b')?.textContent?.trim()||action.textContent.trim();
+  if(type==='service-menu'&&action.classList.contains('screen-tile')){
+   const item=action.querySelector('small')?.textContent||'Item',price=action.querySelector('strong')?.textContent||'';
+   let dest=stage.nextElementSibling;while(dest){dest.querySelectorAll('.screen-field').forEach(row=>{const key=row.querySelector('small')?.textContent,value=row.querySelector('strong');if(!value)return;if(key==='ITEM')value.textContent=item;else if(key==='TOTAL'&&price&&price!=='FREE')value.textContent=price;});dest=dest.nextElementSibling;}
+  }
   if(type==='quick-actions'){
    const routes={'Buy-in':5,'Rebuy':5,'Cash-out':6,'Move':7,'Details':9};
    if(routes[label]&&routes[label]!==current){show(routes[label]);return;}
