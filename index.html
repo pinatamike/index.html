@@ -1507,16 +1507,23 @@ const CRM_SESSIONS=[
  {date:'Oct 25, 2026',buyins:'1,750,000',cashout:'2,000,000',result:'+250,000',entries:[4,5,6,7,8]},
  {date:'Oct 18, 2026',buyins:'1,100,000',cashout:'1,300,000',result:'+200,000',entries:[0,1,2,3,9]}
 ];
-function crmLedgerMarkup(view,sessionIndex=0){
+function crmLedgerMarkup(view,sessionIndex=0,page=0){
 const sess=CRM_SESSIONS[sessionIndex];
 const header='<div class="ledgerhead"><img class="ledgerportrait" src="'+LOCAL_PORTRAITS['Diego R.']+'" alt="Diego Restrepo"><aside><b>Diego Restrepo</b><span>PLAYER HISTORY</span><span>14 SESSIONS</span></aside></div>';
-if(view==='sessions')return header+'<div class="ledgercaption">SESSIONS <span>NEWEST FIRST</span></div><div class="crm-session-list">'+CRM_SESSIONS.map((v,j)=>'<button class="crm-session-row" type="button" onclick="crmSessionOpen(this,'+j+')"><b>'+v.date+' <span>›</span></b><small>Buy-ins COP '+v.buyins+' · Cash-out COP '+v.cashout+'</small><strong>RESULT COP '+v.result+'</strong></button>').join('')+'</div><div class="crm-session-lifetime"><span>LIFETIME BUY-INS <b>COP 14,500,000</b></span><span>LIFETIME RESULT <b>COP +2,150,000</b></span></div><div class="crm-session-paging">Showing 2 example sessions</div>';
-if(view==='session')return '<button type="button" class="audit-back" onclick="crmSessionList(this)">‹ ALL SESSIONS</button><div class="ledgercaption">'+sess.date+' <span>'+sess.entries.length+' ENTRIES</span></div><div class="crm-session-summary"><span>BUY-INS <b>COP '+sess.buyins+'</b></span><span>CASH-OUT <b>COP '+sess.cashout+'</b></span><span>RESULT <b>COP '+sess.result+'</b></span></div><div class="ledgerlist">'+sess.entries.map(id=>{let e=REVIEW_LEDGER_ENTRIES[id];return '<button type="button" class="ledgerrow crm-tx-row" onclick="auditLedgerOpen(this,'+id+',true)"><div><b>'+e.type.toUpperCase()+'</b><small>'+e.time+'</small></div><strong>COP '+e.amount+'</strong></button>'}).join('')+'</div>';
+if(view==='sessions'){
+ const pages=Math.max(1,Math.ceil(CRM_SESSIONS.length/3));page=Math.max(0,Math.min(page,pages-1));
+ const items=CRM_SESSIONS.slice(page*3,page*3+3);
+ return header+'<div class="ledgercaption">SESSIONS <span>NEWEST FIRST</span></div><div class="crm-session-list">'+items.map((v,k)=>{const j=page*3+k;return '<button class="crm-session-row" type="button" onclick="crmSessionOpen(this,'+j+')"><b>'+v.date+' <span>›</span></b><small>Buy-ins COP '+v.buyins+' · Cash-out COP '+v.cashout+'</small><strong>RESULT COP '+v.result+'</strong></button>';}).join('')+'</div><div class="crm-session-lifetime"><span>LIFETIME BUY-INS <b>COP 14,500,000</b></span><span>LIFETIME RESULT <b>COP +2,150,000</b></span></div>'+(pages>1?'<div class="snap-pager">'+(page>0?'<button onclick="crmSessionList(this,'+(page-1)+')">‹ PREV</button>':'<span></span>')+'<span>'+(page+1)+' / '+pages+'</span>'+(page+1<pages?'<button onclick="crmSessionList(this,'+(page+1)+')">NEXT ›</button>':'<span></span>')+'</div>':'<div class="crm-session-paging">Showing '+CRM_SESSIONS.length+' example sessions</div>');
+}
+if(view==='session'){
+ const pages=Math.max(1,Math.ceil(sess.entries.length/4));page=Math.max(0,Math.min(page,pages-1));
+ return '<button type="button" class="audit-back" onclick="crmSessionList(this)">‹ ALL SESSIONS</button><div class="ledgercaption">'+sess.date+' <span>'+sess.entries.length+' ENTRIES</span></div><div class="crm-session-summary"><span>BUY-INS <b>COP '+sess.buyins+'</b></span><span>CASH-OUT <b>COP '+sess.cashout+'</b></span><span>RESULT <b>COP '+sess.result+'</b></span></div><div class="ledgerlist">'+sess.entries.slice(page*4,page*4+4).map(id=>{let e=REVIEW_LEDGER_ENTRIES[id];return '<button type="button" class="ledgerrow crm-tx-row" onclick="auditLedgerOpen(this,'+id+',true)"><div><b>'+e.type.toUpperCase()+'</b><small>'+e.time+'</small></div><strong>COP '+e.amount+'</strong></button>';}).join('')+'</div>'+(pages>1?'<div class="snap-pager">'+(page>0?'<button onclick="crmSessionOpen(this,'+sessionIndex+','+(page-1)+')">‹ PREV</button>':'<span></span>')+'<span>'+(page+1)+' / '+pages+'</span>'+(page+1<pages?'<button onclick="crmSessionOpen(this,'+sessionIndex+','+(page+1)+')">NEXT ›</button>':'<span></span>')+'</div>':'');
+}
 const e=REVIEW_LEDGER_ENTRIES[sess.entries[0]];
 return '<button type="button" class="audit-back" onclick="crmSessionOpen(this,'+sessionIndex+')">‹ SESSION TRANSACTIONS</button>'+screenCard('TRANSACTION DETAILS',screenField('PLAYER','Diego Restrepo')+screenField('TRANSACTION',e.type)+screenField('AMOUNT','COP '+e.amount)+screenField('DATE & TIME',e.date+' · '+e.time)+screenField('POSTED BY',e.posted));
 }
-function crmSessionOpen(el,sessionIndex){const content=el.closest('.ux-content');content.innerHTML=crmLedgerMarkup('session',sessionIndex);}
-function crmSessionList(el){const content=el.closest('.ux-content');content.innerHTML=(content.dataset.crmOriginal?'<button type="button" class="audit-back" onclick="crmProfileReturn(this)">‹ PROFILE</button>':'')+crmLedgerMarkup('sessions');}
+function crmSessionOpen(el,sessionIndex,page=0){const content=el.closest('.ux-content');content.innerHTML=crmLedgerMarkup('session',sessionIndex,page);}
+function crmSessionList(el,page){const content=el.closest('.ux-content');if(page===undefined)page=Number(content.dataset.crmSessionPage||0);content.dataset.crmSessionPage=page;content.innerHTML=(content.dataset.crmOriginal?'<button type="button" class="audit-back" onclick="crmProfileReturn(this)">‹ PROFILE</button>':'')+crmLedgerMarkup('sessions',0,page);}
 function crmLedger56(w,step,view='sessions'){
 if(typeof view==='number')view='sessions';
 const title=w.id===70?'REPORTING':'PLAYER CRM';
