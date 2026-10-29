@@ -1328,7 +1328,7 @@ wireReviewStages();
 function reviewTableView(number){
  const names=[['Rafa','R','450,000',true],['Uri','U','500,000',false],['Alex','A','600,000',true],['Costa','C','750,000',true],['Sam','S','500,000',false],['Udi','U','500,000',false]];
  const seats=names.map(([name,initial,amount,photo],j)=>'<div class="ux-seat tone-'+(j%6)+'"><span class="ux-seatno">'+(j+1)+'</span>'+portrait(name,initial,photo)+'<div class="ux-seat-label"><b>'+esc(name)+'</b><strong>'+amount+'</strong></div></div>').join('');
- const table2='<div class="ux-seats">'+seats+'<div class="ux-seat empty"><strong>⊕</strong><b>Open Seat</b></div>'.repeat(4)+'<div class="ux-seat tone-4">'+portrait('Anna','A',true)+'<div class="ux-seat-label"><b>DEALER</b><strong>Anna</strong></div></div><div class="ux-seat empty"><strong>♙</strong><b>WAIT LIST</b><span>0 waiting</span></div></div>';
+ const table2='<div class="ux-seats">'+seats+'<div class="ux-seat empty"><strong>⊕</strong><b>Open Seat</b></div>'.repeat(4)+'<div class="ux-seat tone-4">'+portrait('Dealer','D',false)+'<div class="ux-seat-label"><b>DEALER</b><strong>Not assigned</strong></div></div><div class="ux-seat empty"><strong>♙</strong><b>WAIT LIST</b><span>0 waiting</span></div></div>';
  return screenTop('SUNDAY HOLD’EM',number===2?'6 seated · 4 open':'8 seated · 2 open · 1 waiting')+'<div class="table-switch"><button type="button" class="'+(number===1?'selected':'')+'" onclick="reviewSwitchTable(this,1)">TABLE 1 · 8</button><button type="button" class="'+(number===2?'selected':'')+'" onclick="reviewSwitchTable(this,2)">TABLE 2 · 6</button></div>'+(number===2?table2:miniTable());
 }
 function reviewSwitchTable(el,number){const body=el.closest('.ux-content');body.innerHTML=reviewTableView(number);}
