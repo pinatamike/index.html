@@ -2689,7 +2689,7 @@ screenContent=function(w,step,i){const type=SCREEN_SPECS[w.id]?.types[Math.min(i
 /* Persist the preview table pause state when navigating to other workflows. */
 let reviewTablePaused=false;
 const reviewGoBeforePause=rnGo;
-rnGo=function(route,stage,remember=true){const m=String(route).match(/^(\\d+):(\\d+)$/);if(m&&Number(m[1])===11){if(Number(m[2])===2)reviewTablePaused=true;else if(Number(m[2])===1&&stage?.dataset.rnType==='table-paused')reviewTablePaused=false;}const ok=reviewGoBeforePause(route,stage,remember);if(ok)rnDecorate();return ok;};
+rnGo=function(route,stage,remember=true){const m=String(route).match(/^(\d+):(\d+)$/);if(m&&Number(m[1])===11){if(Number(m[2])===2)reviewTablePaused=true;else if(Number(m[2])===1&&stage?.dataset.rnType==='table-paused')reviewTablePaused=false;}const ok=reviewGoBeforePause(route,stage,remember);if(ok)rnDecorate();return ok;};
 const reviewDecorateBeforeGlobalPause=rnDecorate;
 rnDecorate=function(){reviewDecorateBeforeGlobalPause();document.querySelectorAll('.storyboard>.stage').forEach(stage=>{const header=stage.querySelector('.ux-headtitle');if(!header)return;const type=stage.dataset.rnType||'';const tableContext=stage.dataset.rnWorkflow==='11'||['table','table-rebuy','table-cashout','table-two','table-controls','table-paused','multi-tables'].includes(type);const shouldShow=tableContext&&(reviewTablePaused||(stage.dataset.rnWorkflow==='11'&&stage.dataset.rnStep==='2'));let badge=header.querySelector('.review-paused-indicator');if(shouldShow&&!badge){badge=document.createElement('span');badge.className='review-paused-indicator';badge.textContent='TABLE 1 PAUSED · TIMER STOPPED';header.appendChild(badge);}else if(!shouldShow&&badge)badge.remove();});};
 window.addEventListener('load',rnDecorate);
