@@ -3591,8 +3591,10 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
   const passed=results.filter(r=>r.pass).length;
   let panel=document.getElementById('wf32-qa-results');
   if(!panel){panel=document.createElement('div');panel.id='wf32-qa-results';panel.className='wf32-qa-status';const board=phones[0].closest('.storyboard');board.parentNode.insertBefore(panel,board);}
-  panel.dataset.result=passed===results.length?'pass':'fail';
-  panel.textContent='WORKFLOW 32 · AUTOMATED DOM CHECKS: '+passed+'/'+results.length+' passed'+(passed===results.length?'':' · Failed: '+results.filter(r=>!r.pass).map(r=>r.label).join(', '));
+  const nextResult=passed===results.length?'pass':'fail';
+  const nextText='WORKFLOW 32 · AUTOMATED DOM CHECKS: '+passed+'/'+results.length+' passed'+(passed===results.length?'':' · Failed: '+results.filter(r=>!r.pass).map(r=>r.label).join(', '));
+  if(panel.dataset.result!==nextResult)panel.dataset.result=nextResult;
+  if(panel.textContent!==nextText)panel.textContent=nextText;
   panel.title=results.map(r=>(r.pass?'PASS ':'FAIL ')+r.label+(r.error?' — '+r.error:'')).join('\n');
   window.WF32_QA_RESULTS=results;
  }
