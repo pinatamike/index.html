@@ -1471,7 +1471,7 @@ return '<div class="seat-roster-v3"><div class="seat-roster-toolbar"><strong cla
 }
 
 
-function crmAddPlayer(){show(55);const target=document.querySelectorAll('.storyboard .stage')[1];if(target)target.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}
+function crmAddPlayer(){show(55);const target=document.querySelectorAll('.storyboard .stage[data-review-type="crm-new"]');if(target.length)target[target.length-1].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}
 function crmChoosePlayer(el){
 const name=el.querySelector('strong')?.textContent||'Player',face=el.querySelector('.person-face')?.cloneNode(true);
 if(current!==54)show(54);
@@ -1803,6 +1803,9 @@ actions.forEach(action=>{
  action.dataset.reviewWired='yes';action.setAttribute('role','button');action.setAttribute('tabindex','0');
  const go=()=>{
   const label=action.querySelector('b')?.textContent?.trim()||action.textContent.trim();
+  if(type==='crm-new'&&label==='SAVE PLAYER'&&next?.dataset.reviewType==='crm-new'){
+   const profile=next.nextElementSibling;if(profile)profile.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});return;
+  }
   if(type==='settings-language'&&action.classList.contains('screen-list-item')){
    REVIEW_LANGUAGE=label;stage.querySelectorAll('.screen-list-item').forEach(item=>{const selected=item.querySelector('b')?.textContent.trim()===label;item.querySelector('small').textContent=selected?'Selected':'';item.querySelector('strong').textContent=selected?'✓':'›';});
    const pref=content.querySelector('.stage[data-review-type="settings-preferences"]');pref?.querySelectorAll('.screen-field').forEach(row=>{if(row.querySelector('small')?.textContent==='LANGUAGE')row.querySelector('strong').textContent=label;});
