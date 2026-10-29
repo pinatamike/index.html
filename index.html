@@ -1737,7 +1737,7 @@ const tx=REPORT_TX[txIndex];return '<button class="audit-back" onclick="reportLe
 }
 function reportLedgerShow(el,view,id='all',date='SUN-1025',txIndex=0,page=0){let content=el.closest('.ux-content');if(view==='sessions'&&id==='rake')content.dataset.reportLedger='yes';else if(view==='menu')delete content.dataset.reportLedger;if(view==='sessions'&&id!=='rake'){if(page<0)page=Number(content.dataset.reportSessionsPage||0);content.dataset.reportSessionsPage=page;}if(view==='session')content.dataset.reportPage=page;if(view==='detail')page=Number(content.dataset.reportPage||0);content.innerHTML=reportLedgerMarkup(view,id,date,txIndex,page);}
 function reportLedgerStage(w,step,i){
-let views=['menu','sessions','session','detail'],view=views[i-3],id=view==='menu'?'all':'buyin',html=reportLedgerMarkup(view,id,'SUN-1025',0);
+let views=['menu','sessions','session','detail'],view=views[i-3],id=view==='menu'?'all':'buyin',html=reportLedgerMarkup(view,id,'SUN-1025',view==='detail'?2:0);
 return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone ledgerphone crm-ledger">'+fullHead('REPORTING',view==='menu'?'Ledgers':view==='sessions'?'Buy-ins Ledger':view==='session'?'Session Transactions':'Transaction Details')+'<div class="ux-content">'+html+'</div>'+fixedNav('Snapshot')+'</div><p class="steptext">'+['Select a ledger. Optional features appear when available.','One entry per session.','Open a session to see its transactions.','Tap an entry for date, time and posting team member.'][i-3]+'</p></div>';
 }
 
