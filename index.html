@@ -3194,4 +3194,22 @@ snapshotMarkup=function(view){
   action('▦ Inventory details','workflow30'));
  return wf32BeforeV6(view);
 };
+</script><style id="wf32-qa-v7-style">.snap-phone .snap32-v6 .snap-row,.snap-phone .snap32-v6 .snap-row strong{font-size:16px;line-height:1.4}.snap-phone .snap32-v6 .snap32-v6-sub{font-size:15px}.snap-phone .snap32-v6 details summary{cursor:pointer}.snap-phone .snap32-v6 .snap32-v6-finance b{font-size:15px;letter-spacing:-.6px}.snap-phone .snap32-v6 .qa-note{padding:10px 6px;color:#c3e8f7;font-size:15px;line-height:1.4;background:#0b263a}</style><script id="wf32-qa-v7">
+const wf32PriorQA=snapshotMarkup;
+snapshotMarkup=function(view){
+ const d=SNAPSHOT_SESSION, money=n=>'COP '+Math.abs(n).toLocaleString('en-US');
+ const row=(a,b)=>'<div class="snap-row"><span>'+a+'</span><strong>'+b+'</strong></div>';
+ const note=t=>'<div class="qa-note">'+t+'</div>';
+ const details=(a,b,c)=>'<details><summary><span>'+a+'</span><strong>'+b+'</strong></summary><div class="snap32-v6-sub">'+c+'</div></details>';
+ const action=(a,b)=>'<button type="button" class="snap-link" onclick="snapNavigate(this,\''+b+'\')">'+a+'</button>';
+ const page=x=>'<div class="snap32-v6">'+x+'<button type="button" class="snap-back snap-footer" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button></div>';
+ const events=cat=>REVIEW_LEDGER_EVENTS.filter(x=>x[0]===cat).map(x=>row(x[1]+' · '+x[2],'COP '+x[3])).join('');
+ if(view==='tables')return page(details('TOTAL RAKE',money(d.rake),row('Table 1',money(450000))+row('Table 2',money(330000)))+details('TABLE 1',money(450000),note('Table runtime, average rake/hour and average stack require recorded table data; unavailable in this sample.'))+details('TABLE 2',money(330000),note('Table runtime, average rake/hour and average stack require recorded table data; unavailable in this sample.'))+details('SESSION RUNTIME',d.duration,row('Combined table hours',d.tableHours))+action('▤ Rake transactions','ledger-Rake'));
+ if(view==='team')return page(details('TEAM ON SHIFT','3',row('Total hours','16h 30m')+note('Individual shift hours not in sample.'))+details('COMPENSATION',money(d.teamPay),note('Individual staff earnings require team records.'))+details('OUTSTANDING',money(d.teamDue),note('Staff settlement details require team records.'))+details('CHIP TIPS',money(d.chipTips),note('Chip-paid tips only.'))+details('RECORDED TRANSACTIONS','View',events('Team'))+action('♟ Team workflow','workflow24'));
+ if(view==='expenses'||view.startsWith('expenses-'))return page('<div class="snap32-expense-total"><span>TOTAL EXPENSES</span><strong>'+money(d.expenses)+'</strong></div>'+details('VENUE',money(1000000),row('Venue rental',money(1000000)))+details('DRINKS',money(150000),note('Individual purchase records unavailable in sample.'))+details('OTHER',money(85000),note('Individual expense records unavailable in sample.'))+details('RECORDED TRANSACTIONS','View',events('Expenses')+note('Partial sample ledger; not a complete expense breakdown.'))+action('▤ Expense workflow','workflow25'));
+ if(view==='ss')return page('<div class="snap32-expense-total"><span>OUTSTANDING</span><strong>'+money(d.ssDue)+'</strong></div>'+details('DIEGO · UNSETTLED',money(d.ssDue),row('Status','Unpaid')+note('Illustrative balance; verify signed debt and settlement records.'))+details('RECORDED EVENTS','View',events('Sign & Settle')+note('Sample event does not constitute full debt history.'))+action('✍ Collection workflow','workflow37'));
+ if(view==='inventory')return page(details('AGUILA · UNITS','2 variance',row('Beginning','24')+row('Sold','5')+row('Expected ending','19')+row('Counted ending','17')+row('Shortage','2 units'))+note('Unit costs and itemized sales not provided in sample.')+action('▦ Inventory workflow','workflow30'));
+ if(view==='closed'){let h=wf32PriorQA(view);return h.replace('<div class="snap32-v6-alert">Chip variance','<div class="snap32-v6-alert">Recorded chip variance').replace('<div class="snap32-v6-actions">',note('Final player win/loss, hours and seat history require completed player records; not supplied in this sample.')+'<div class="snap32-v6-actions">');}
+ return wf32PriorQA(view);
+};
 </script></body></html>
