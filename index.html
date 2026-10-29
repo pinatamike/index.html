@@ -615,6 +615,27 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .snap32-expense-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:8px 0}
 .snap32-expense-tabs button{background:#0a314a;color:#fff;border:2px solid #198db8;padding:9px 4px;font-size:14px;font-weight:850}
 .snap32-expense-tabs button.active{background:#075947;border-color:#4de7b7}
+</style><style id="wf32-session-summary-hierarchy-v2">
+.snap32-overview .snap-badge{display:none!important}
+.snap32-session-card{border:1px solid #24799e;background:#0a3048;padding:9px 10px;display:flex;flex-direction:column;gap:3px;color:#d5e9f3;font-size:13px}
+.snap32-session-card strong{color:white;font-size:15px}
+.snap32-session-card span{font-size:13px}
+.snap32-overview .snap32-runtime{padding:5px 9px;font-size:13px}
+.snap32-overview .snap32-runtime strong{font-size:17px}
+.snap32-overview .snap32-finance>div{padding:7px 2px 6px}
+.snap32-overview .snap32-finance b{font-size:20px}
+.snap32-overview .snap32-equation{font-size:11px}
+.snap32-overview .snap32-secondary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:0;border:0}
+.snap32-overview .snap32-secondary button{background:#0a3048;border:1px solid #2695c4;min-width:0;min-height:58px;padding:5px 1px;color:#fff;cursor:pointer}
+.snap32-overview .snap32-secondary button b{display:block;font-size:19px;line-height:1.2}
+.snap32-overview .snap32-secondary button span{display:block;font-size:11px;line-height:1.1;margin-top:4px;font-weight:800}
+.snap32-overview .snap-links{grid-auto-rows:minmax(58px,1fr)!important;gap:6px!important}
+.snap32-overview .snap-links .snap-link{min-height:58px!important}
+.snap32-drill-row{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #284a5d;padding:10px 3px;font-size:13px;color:#d4e4ee}
+.snap32-drill-row b{color:white;font-size:14px}
+.snap32-drill-row small{display:block;color:#9cc5dc;font-size:12px;margin-top:4px}
+.snap32-drill-row strong{color:#fff;text-align:right}
+.snap32-drill-note{font-size:12px;color:#b7d0df;padding:9px 2px;line-height:1.4}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -2849,5 +2870,48 @@ snapshotMarkup=function(view){
  return '<div class="snap-label">EXPENSES · SESSION DETAIL</div><div class="snap-row"><span>Total expenses</span><strong>'+money(d.expenses)+'</strong></div><div class="snap32-expense-tabs">'+tabs+'</div>'+rows+'<div class="snap-note">Illustrative category totals · expense records can be reviewed in the existing expense workflow.</div><button type="button" class="snap-link" onclick="snapNavigate(this,\'workflow25\')"><span>▤</span>Open expense workflow</button><button type="button" class="snap-back snap-footer" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button>';
  }
  return snap32PreviousMarkup(view);
+};
+</script><script id="wf32-session-summary-hierarchy-v2">
+const snap32PriorV2=snapshotMarkup;
+snapshotMarkup=function(view){
+ const d=SNAPSHOT_SESSION;
+ const money=n=>'COP '+n.toLocaleString('en-US');
+ const back='<button type="button" class="snap-back snap-footer" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button>';
+ const detail=(title,content)=>'<div class="snap-label">'+title+'</div>'+content+back;
+ const go=(label,target)=>'<button type="button" onclick="snapNavigate(this,\''+target+'\')">'+label+'</button>';
+ if(view==='overview'){
+  let html=snap32PriorV2(view);
+  html=html.replace('<div class="snap-badge">● LIVE · SESSION SNAPSHOT</div><div class="snap32-meta"><b>Sunday · Oct 25 · '+d.id+'</b><div>Hold’em · '+d.tables+' tables · Rake 5% per pot</div></div>',
+   '<div class="snap32-session-card"><strong>Sunday · October 25 · '+d.id+'</strong><span>Hold’em · '+d.tables+' tables · Rake 5% per pot</span></div>');
+  const original='<div class="snap32-secondary"><div><b>5.50M</b>Buy-ins</div><div><b>5.42M</b>Cash-outs</div><div><b>'+d.players+'</b>Players</div><div><b>'+d.tables+'</b>Tables</div></div>';
+  const replacement='<div class="snap32-secondary">'+go('<b>5.50M</b><span>Buy-ins / Rebuys</span>','session-buyins')+go('<b>5.42M</b><span>Cash-outs</span>','session-cashouts')+go('<b>'+d.players+'</b><span>Players</span>','session-players')+go('<b>'+d.tables+'</b><span>Tables</span>','session-tables')+'</div>';
+  return html.replace(original,replacement);
+ }
+ if(view==='session-buyins'||view==='session-cashouts'){
+  const allowed=view==='session-buyins'?['Buy-ins','Rebuys']:['Cash-outs'];
+  const entries=REVIEW_LEDGER_EVENTS.filter(x=>allowed.includes(x[0]));
+  return detail(view==='session-buyins'?'BUY-INS / REBUYS · SESSION':'CASH-OUTS · SESSION',
+   '<div class="snap32-drill-note">Session transaction examples · most recent first</div>'+entries.map(x=>'<div class="snap32-drill-row"><div><b>'+x[1]+'</b><small>'+x[2]+'</small></div><strong>COP '+x[3]+'</strong></div>').join('')+
+   '<div class="snap32-drill-note">Totals above represent the full illustrative session; only sample transactions are shown here.</div>');
+ }
+ if(view==='session-players'||view==='closed-players'){
+  const closed=view==='closed-players';
+  const sample=[['Rafa','Table 1 · Seat 1','Playing'],['Diego Restrepo','Table 1 · Seat 7','Cashed out'],['Moshe','Table 2 · Seat 2','Playing'],['Sofia Alvarez','Table 1 · Seat 9','Playing']];
+  return detail(closed?'PLAYERS · FINAL SESSION SUMMARY':'PLAYERS · LIVE SESSION',
+   '<div class="snap32-drill-note">'+(closed?'Finalized sessions show every player’s hours and win/loss once recorded.':'Includes seated and already cashed-out players.')+' · Sample player list</div>'+
+   sample.map(x=>'<div class="snap32-drill-row"><div><b>'+x[0]+'</b><small>'+x[1]+'</small></div><strong>'+(closed?'Hours: —<br>Win/loss: —':x[2])+'</strong></div>').join('')+
+   '<div class="snap32-drill-note">'+(closed?'Hours and win/loss are not available in this preview’s sample data; no values have been invented.':'This preview shows representative players, not the complete eight-player ledger.')+'</div>');
+ }
+ if(view==='session-tables')return detail('TABLES · SESSION', '<div class="snap32-drill-note">Table-level activity and performance</div>'+
+   '<div class="snap32-drill-row"><div><b>Table 1</b><small>Rake and table activity</small></div><strong>COP 450,000</strong></div>'+
+   '<div class="snap32-drill-row"><div><b>Table 2</b><small>Rake and table activity</small></div><strong>COP 330,000</strong></div>'+
+   '<div class="snap32-drill-row"><div><b>Total table hours</b></div><strong>'+d.tableHours+'</strong></div>'+
+   '<button type="button" class="snap-link" onclick="snapNavigate(this,\'tables\')">▥ Detailed rake & tables</button>');
+ if(view==='closed'){
+  const original=snap32PriorV2(view);
+  return original.replace('<div class="snap-badge">▣ CLOSED · READ ONLY</div>','<div class="snap-badge">▣ FINAL SESSION SUMMARY · READ ONLY</div>')+
+   '<button type="button" class="snap-link" onclick="snapNavigate(this,\'closed-players\')">♟ View all players · hours · win/loss</button>';
+ }
+ return snap32PriorV2(view);
 };
 </script></body></html>
