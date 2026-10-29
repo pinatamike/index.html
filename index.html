@@ -1573,7 +1573,7 @@ return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-nu
 /* Illustrative session model shared by every Live Snapshot state.
    Daily Close verifies/finalizes this session record; it must not recalculate it.
    Report permissions and module flags come from Settings in the production app. */
-const SNAPSHOT_SESSION={id:'SUN-1025',currency:'COP',buyIns:5500000,promoChips:0,cashOuts:5420000,chipTips:30000,rake:780000,foodRevenue:50000,expenses:1235000,teamPay:360000,teamDue:120000,ssDue:200000,duration:'5h 30m',tableHours:'10h 30m',players:8,tables:2,entitlements:{signSettle:true,inventory:true,inventoryClose:true,inventoryAlert:true,foodSales:true,beverageSales:true,rewards:true,privileges:true,otherRevenue:true},features:{signSettle:true,inventory:true,inventoryClose:true,inventoryAlert:true,foodSales:true,beverageSales:true,rewards:false,privileges:false,otherRevenue:false},accounts:[['Cashbox',4500000],['Nequi',500000],['Bancolombia',300000]],chipsHeld:5500000};
+const SNAPSHOT_SESSION={id:'SUN-1025',currency:'COP',buyIns:5500000,promoChips:0,cashOuts:5420000,chipTips:30000,rake:780000,foodRevenue:30000,beverageRevenue:20000,expenses:1235000,teamPay:360000,teamDue:120000,ssDue:200000,duration:'5h 30m',tableHours:'10h 30m',players:8,tables:2,entitlements:{signSettle:true,inventory:true,inventoryClose:true,inventoryAlert:true,foodSales:true,beverageSales:true,rewards:true,privileges:true,otherRevenue:true},features:{signSettle:true,inventory:true,inventoryClose:true,inventoryAlert:true,foodSales:true,beverageSales:true,rewards:false,privileges:false,otherRevenue:false},accounts:[['Cashbox',4500000],['Nequi',500000],['Bancolombia',300000]],chipsHeld:5500000};
 
 function featureAvailable(key){if(key==='sales')return featureAvailable('foodSales')||featureAvailable('beverageSales');return Boolean(SNAPSHOT_SESSION.entitlements[key]&&SNAPSHOT_SESSION.features[key]);}
 
@@ -1612,7 +1612,7 @@ if(view==='accounts')return detail('ACCOUNT BALANCES · COP',d.accounts.map(a=>r
 if(view==='chips')return detail('CHIP RECONCILIATION · COP',row('Buy-ins',d.buyIns.toLocaleString('en-US'))+row('+ Promotional chips',d.promoChips.toLocaleString('en-US'))+row('Cash-outs',d.cashOuts.toLocaleString('en-US'))+row('+ Chip tips',d.chipTips.toLocaleString('en-US'))+'<div class="snap-alert"><b>Difference '+money(variance)+'</b><br>Buy-ins + promo chips − cash-outs − chip tips</div><div class="snap-note">Review the difference with the session activity before Daily Close.</div>');
 if(view==='ss')return detail('SIGN & SETTLE',row('Outstanding',money(d.ssDue))+row('Diego · balance due',money(d.ssDue))+'<div class="snap-note">Review outstanding player balances and use the authorized collection workflow.</div>'+tile('✍','Collection workflow','workflow39'));
 if(view==='inventory')return detail('INVENTORY',row('Aguila · start / end','24 / 17')+row('Aguila · sold','5')+row('Aguila · variance','2 units')+'<div class="snap-note">Existing inventory report includes counts, sales and discrepancies.</div>'+tile('▦','Inventory workflow','workflow32'));
-if(view==='revenue')return detail(featureAvailable('otherRevenue')?'OTHER REVENUE':'FOOD & BEVERAGE SALES',(featureAvailable('foodSales')||featureAvailable('beverageSales')?row('Food & beverage sales',money(d.foodRevenue)):'')+(featureAvailable('otherRevenue')?row('Other sales','COP 0'):'')+'<div class="snap-note">Only enabled revenue sources appear; rake is reported separately.</div>');
+if(view==='revenue')return detail(featureAvailable('otherRevenue')?'OTHER REVENUE':'FOOD & BEVERAGE SALES',(featureAvailable('foodSales')?row('Food sales',money(d.foodRevenue)):'')+(featureAvailable('beverageSales')?row('Beverage sales',money(d.beverageRevenue)):'')+(featureAvailable('otherRevenue')?row('Other sales','COP 0'):'')+'<div class="snap-note">Only enabled revenue sources appear; rake is reported separately.</div>');
 if(view==='rewards')return detail('PLAYER FEATURES',(featureAvailable('rewards')?row('Session rewards','COP 0'):'')+(featureAvailable('privileges')?row('Privileges','View in Player CRM'):'')+'<div class="snap-note">Enabled player rewards and privileges are managed in Player CRM.</div>'+tile('☆','Player privileges','workflow59'));
 if(view==='closed')return '<div class="snap-badge">▣ CLOSED · SESSION SUMMARY</div>'+session+'<div class="snap-label">FINAL TOTALS · COP</div><div class="snap-grid">'+data('Buy-ins','5.50M')+data('Cash-outs','5.42M')+data('Rake','780K')+'</div><div class="snap-label">OPERATIONS</div><div class="snap-grid">'+data('Players','8')+data('Tables','2')+data('Team members','3')+'</div>'+nav.slice(0,-6)+tile('☑','Daily Close','workflow49')+'</div>';
 }
@@ -1721,7 +1721,8 @@ const REPORT_TX=[
  {session:'SUN-1025',date:'Oct 25, 2026',time:'9:00 PM',category:'rake',label:'Table 1 · Rake',amount:200000,posted:'Anna · Cashier'},
  {session:'SUN-1025',date:'Oct 25, 2026',time:'10:30 PM',category:'rake',label:'Table 1 · Rake',amount:250000,posted:'Costa · Cashier'},
  {session:'SUN-1025',date:'Oct 25, 2026',time:'9:00 PM',category:'tips',label:'Anna · Chip tip',amount:30000,posted:'Costa · Cashier'},
- {session:'SUN-1025',date:'Oct 25, 2026',time:'9:30 PM',category:'sales',label:'Food & beverage sales',amount:50000,posted:'Anna · Cashier'},
+ {session:'SUN-1025',date:'Oct 25, 2026',time:'9:30 PM',category:'sales',feature:'foodSales',label:'Food sales',amount:30000,posted:'Anna · Cashier'},
+ {session:'SUN-1025',date:'Oct 25, 2026',time:'9:45 PM',category:'sales',feature:'beverageSales',label:'Beverage sales',amount:20000,posted:'Anna · Cashier'},
  {session:'SUN-1025',date:'Oct 25, 2026',time:'8:00 PM',category:'expenses',label:'Venue rental',amount:1000000,posted:'Anna · Cashier'},
  {session:'SUN-1025',date:'Oct 25, 2026',time:'10:00 PM',category:'team',label:'Costa · Advance',amount:100000,posted:'Anna · Cashier'},
  {session:'SUN-1025',date:'Oct 25, 2026',time:'7:15 PM',category:'accounts',label:'Nequi · Receipt',amount:500000,posted:'Costa · Cashier'},
@@ -1735,7 +1736,7 @@ const REPORT_TX=[
 ];
 function reportLedgerMarkup(view,id='all',date='SUN-1025',txIndex=0,page=0){
 const category=REPORT_LEDGERS.find(x=>x.id===id)||REPORT_LEDGERS[0],money=n=>n.toLocaleString('en-US');
-const rows=REPORT_TX.filter(x=>{const definition=REPORT_LEDGERS.find(c=>c.id===x.category);return (!definition?.feature||featureAvailable(definition.feature))&&(id==='all'||x.category===id);}).sort((a,b)=>new Date(b.date+' '+b.time)-new Date(a.date+' '+a.time));
+const rows=REPORT_TX.filter(x=>{const definition=REPORT_LEDGERS.find(c=>c.id===x.category);return (!definition?.feature||featureAvailable(definition.feature))&&(!x.feature||featureAvailable(x.feature))&&(id==='all'||x.category===id);}).sort((a,b)=>new Date(b.date+' '+b.time)-new Date(a.date+' '+a.time));
 if(view==='menu')return '<div class="ledgercaption">LEDGERS <span>CHOOSE TYPE</span></div><div class="report-ledger-grid">'+REPORT_LEDGERS.filter(x=>!x.feature||featureAvailable(x.feature)).map(x=>'<button class="report-ledger-tile" type="button" onclick="reportLedgerShow(this,\'sessions\',\''+x.id+'\')"><b>'+x.icon+'</b><span>'+x.name+'</span></button>').join('')+'</div>';
 if(view==='sessions'){
 if(id==='rake')return '<button class="audit-back" onclick="reportLedgerShow(this,\'menu\')">‹ LEDGERS</button>'+rakeLedgerMarkup('sessions');
