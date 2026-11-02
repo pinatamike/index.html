@@ -4636,13 +4636,13 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
     [41,'♟','Players','8 / 8 Cashed out'],
     [42,'♙','Team',money(teamDue)+' due'],
     [43,'▤','Expenses',money(costs+wages)],
-    [43,'▣','Inventory',shortages+' discrepancy'],
+    ['43:2','▣','Inventory',shortages+' discrepancy'],
     [44,'▥','Account Balances','Review accounts'],
-    [44,'⚖','Chip Reconciliation',money(variance)+' variance'],
-    [45,'✍','Sign & Settle',money(due)+' due'],
+    ['44:1','⚖','Chip Reconciliation',money(variance)+' variance'],
+    ['37:0','✍','Sign & Settle',money(due)+' due'],
     [45,'⚠','Warnings','Review exceptions']
   ];
-  const nav=(wf)=>"show(displayId("+wf+"))";
+  const nav=(wf)=>{const dest=String(wf);return dest.includes(':')?"rnGo('"+dest+"',this.closest('.stage'))":"show(displayId("+dest+"))";};
   const dashboard='<div class="dc-review dc-dashboard"><div class="dc-scroll">'+
     '<div class="dc-date">Sunday, October 25, 2026</div>'+
     '<div class="dc-grid">'+categories.map(([wf,icon,label,detail])=>'<button type="button" class="dc-tile" onclick="'+nav(wf)+'"><span class="dc-icon">'+icon+'</span><strong>'+label+'</strong><span class="dc-sub">'+detail+'</span></button>').join('')+'</div>'+
