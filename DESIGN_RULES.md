@@ -34,3 +34,10 @@
 ## Process
 - Before/after full-phone comparison for every screen before approval
 - Check for clipping, wrapping, and scrollbars before sending
+
+## Added rules (approved 19:58)
+- Player/team detail and data-entry screens use the same oversize thumbnail and player tile as the approved Select Player and Initial Buy-in screens (workflow 3, screens 2-3)
+- Bottom large action tiles share one height across all screens
+- Spacing between tiles, cards and rows is consistent across screens
+- While editing any screen, brighten colors slightly for a cleaner look (no dull grays on key text or borders)
+- Initials on empty tiles: 34px bold minimum
