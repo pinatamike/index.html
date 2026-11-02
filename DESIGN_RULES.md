@@ -52,3 +52,6 @@
 - No text under 14px; summary/route lines at least 17px
 - Player photos crop out the burned-in name caption
 - Every render is checked for clipping, overflow, phone width and COP ratio before it is shown
+
+## Added rules (approved Nov 2)
+- All tiles, pills, buttons and inputs have straight (square) corners; only check icons and stamps stay round
