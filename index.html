@@ -3723,18 +3723,240 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
 .storyboard:has(.snap-phone) .wf32-qa-status[data-result="fail"]{color:#ffcb9e;border-color:#c67d3c}
 .storyboard:has(.snap-phone) .wf32-qa-status[data-result="pass"]{color:#9ff3ca;border-color:#339a72}
 </style>
+
+<style id="wf32-39-unified-design">
+/* Consolidated Snapshot / financial-workflow display system. Read-only data is not styled as action tiles. */
+.snap-phone .wf32-report{display:flex;flex-direction:column;height:100%;min-height:0;color:#fff;gap:8px}
+.snap-phone .wf32-report>.wf32-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:1px 0 6px}
+.snap-phone .wf32-report>.wf32-return{flex:none;min-height:44px;margin-top:auto}
+.snap-phone .wf32-report .wf32-metadata{padding:8px 10px;background:#123c54;border:1px solid #38819f;border-radius:7px;font-size:16px;font-weight:800}
+.snap-phone .wf32-report .wf32-metadata span{display:block;color:#ccdfeb;font-size:16px;font-weight:650;margin-top:3px}
+.snap-phone .wf32-report .wf32-statgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:8px 0}
+.snap-phone .wf32-report button.wf32-tap{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;text-align:center;min-height:69px;min-width:0;border:1px solid #3d91b8;border-radius:9px;background:#123c58;color:#fff;padding:8px 6px;cursor:pointer;font-size:16px!important;line-height:1.25;font-weight:800}
+.snap-phone .wf32-report button.wf32-tap:focus-visible{outline:3px solid #ffcf6a;outline-offset:2px}
+.snap-phone .wf32-report button.wf32-tap b{font-size:18px!important;font-weight:900;overflow-wrap:anywhere}
+.snap-phone .wf32-report .wf32-financegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:8px 0}
+.snap-phone .wf32-report .wf32-financegrid button:last-child:nth-child(odd){grid-column:1/-1}
+.snap-phone .wf32-report .wf32-financegrid button{background:#143a50}
+.snap-phone .wf32-report .wf32-primary{width:100%;min-height:51px;margin:5px 0;background:#144d64}
+.snap-phone .wf32-report .wf32-section{margin:10px 0 5px;font-size:16px;font-weight:900;color:#bde8ff;letter-spacing:.1px}
+.snap-phone .wf32-report .wf32-info{font-size:16px;line-height:1.4;padding:9px 7px;color:#d5e9f2}
+.snap-phone .wf32-report .wf32-line{display:flex;justify-content:space-between;align-items:start;gap:10px;border-bottom:1px solid #2a5366;padding:10px 3px;font-size:16px;line-height:1.25}
+.snap-phone .wf32-report .wf32-line span{min-width:0;flex:1}
+.snap-phone .wf32-report .wf32-line strong{max-width:58%;text-align:right;font-size:16px;overflow-wrap:anywhere}
+.snap-phone .wf32-report .wf32-total{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#124660;border:1px solid #3987a7;padding:10px 9px;margin:8px 0;border-radius:7px;font-size:17px;font-weight:900}
+.snap-phone .wf32-report .wf32-total b{font-size:18px;text-align:right;overflow-wrap:anywhere}
+.snap-phone .wf32-report .wf32-note{font-size:16px;line-height:1.35;color:#d4e5eb;padding:8px 5px}
+.snap-phone .wf32-report .wf32-warning{background:#513a20;border-left:4px solid #f1bd4f;padding:11px;margin:8px 0;font-size:17px;font-weight:850;line-height:1.35}
+.snap-phone .wf32-report .wf32-group{margin:6px 0;background:#0c344b;border:1px solid #327d9f;border-radius:8px;padding:5px 9px}
+.snap-phone .wf32-report .wf32-group>summary{min-height:45px;display:flex;align-items:center;justify-content:space-between;gap:9px;cursor:pointer;font-size:17px!important;font-weight:850}
+.snap-phone .wf32-report .wf32-group>summary b{text-align:right;font-size:16px;overflow-wrap:anywhere}
+.snap-phone .wf32-report .wf32-group .wf32-line{font-size:16px}
+.snap-phone .wf32-report .wf32-select{width:100%;height:45px;border:1px solid #4388aa;border-radius:8px;background:#0c384d;color:#fff;font-size:17px;font-weight:800;margin:7px 0}
+.snap-phone .wf32-report .wf32-return{display:block;width:100%;background:#155477;border:1px solid #56a7cd;border-radius:8px;color:#fff;font-size:17px;font-weight:850;padding:9px}
+.snap-phone .wf32-report .wf32-chiplink{display:block;margin-top:8px;border-radius:7px;padding:10px 9px;background:#174761;border:1px solid #337eaa;color:#fff;font-size:16px;font-weight:850}
+.snap-phone .wf32-report .wf32-badge{background:#104661;color:#dcf4ff;border-radius:5px;padding:6px 8px;font-size:16px;font-weight:900}
+.snap-phone .wf32-report .wf32-quickgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:8px 0}
+.snap-phone .wf32-report .wf32-quickgrid button{min-height:53px;font-size:16px!important}
+.shared-phone .wf32-workflow{display:flex;flex-direction:column;gap:8px;padding:4px 2px 10px;color:#fff}
+.shared-phone .wf32-workflow .wf32-section{font-size:18px;font-weight:900;color:#b9e7ff;margin:8px 0 2px}
+.shared-phone .wf32-workflow .wf32-line{display:flex;align-items:baseline;justify-content:space-between;gap:9px;border-bottom:1px solid #2e6078;padding:11px 3px;font-size:17px}
+.shared-phone .wf32-workflow .wf32-line b{font-size:17px;text-align:right}
+.shared-phone .wf32-workflow .wf32-note{font-size:16px;color:#d1e5f0;line-height:1.4;padding:9px 3px}
+.shared-phone .wf32-workflow .wf32-alert{padding:11px;background:#513b20;border-left:4px solid #eec05e;font-size:17px;font-weight:800}
+.shared-phone .wf32-workflow .wf32-item{padding:10px 3px;border-bottom:1px solid #2e6078;font-size:17px}
+.shared-phone .wf32-workflow .wf32-item small{font-size:16px;display:block;color:#c6e3ef}
+.shared-phone .wf32-workflow .wf32-footer-button{font-size:18px;min-height:54px;background:#0e5c80;border:1px solid #51a9cf;color:#fff;border-radius:9px;font-weight:900;padding:9px}
+@media(max-width:480px){.storyboard:has(.snap-phone) .wf32-report .wf32-tap b,.storyboard:has(.snap-phone) .wf32-report .wf32-tap{font-size:16px!important}}
+</style>
+<script id="wf32-39-unified-finance">
+/* The storyboard is illustrative. A single financial demo source supports ALL screens 32–39. */
+(function(){
+ const d=WF32_DATA,session=SNAPSHOT_SESSION;
+ const total=arr=>arr.reduce((a,b)=>a+b,0);
+ const money=n=>(n<0?'−':'')+'COP '+Math.abs(Number(n)).toLocaleString('en-US');
+ const salary=total(d.staff.map(s=>s.earn));
+ const operationalExpenses=total(d.expenses.flatMap(c=>c.items.map(e=>e[1])));
+ const inventorySales=()=>session.modules.inventory?total(d.inventory.map(x=>x.sold*x.unit)):0;
+ const totalExpenses=()=>operationalExpenses+salary;
+ const grossRevenue=()=>total(d.tables.map(t=>t.rake))+inventorySales();
+ const netProfit=()=>grossRevenue()-totalExpenses();
+ const buyIn=()=>total(d.players.map(p=>p[4]));
+ const cashOut=()=>total(d.players.map(p=>p[5]));
+ const tips=()=>total(d.staff.map(s=>s.tips));
+ const chipVariance=()=>buyIn()+session.promoChips-cashOut()-tips();
+ const totalDebt=()=>total(d.debtors.map(x=>x.balance));
+ const events=[];
+ const add=(cat,description,amount,time,detail)=>events.push({id:'DEMO-'+String(events.length+1).padStart(3,'0'),cat,description,amount,time,detail});
+ const buyBreakdown=[['Rafa',500000,100000,0],['Diego',450000,1000000,200000],['Moshe',1000000,200000,0],['Sofia',400000,0,0],['Costa',500000,0,0],['Sam',350000,0,0],['Pikachu',450000,0,0],['Uri',350000,0,0]];
+ const playerFor=name=>d.players.find(p=>p[0]===name);
+ buyBreakdown.forEach((b,i)=>{
+  add('Buy-ins',b[0]+' · Initial buy-in',b[1],'7:'+String(5+i*4).padStart(2,'0')+' PM','Table '+playerFor(b[0])[1]);
+  if(b[2])add('Rebuys',b[0]+' · Rebuy',b[2],'9:'+String(3+i*4).padStart(2,'0')+' PM','Demo rebuy entry');
+  if(b[3])add('Rebuys',b[0]+' · Additional rebuy',b[3],'10:10 PM','Demo rebuy entry');
+ });
+ d.players.forEach((p,i)=>add('Cash-outs',p[0]+' · Full cash-out',-p[5],'11:'+String(4+i*5).padStart(2,'0')+' PM','Table '+p[1]+' · Seat '+p[2]));
+ d.tables.forEach((t,i)=>{const amounts=i===0?Array(9).fill(50000):[50000,50000,50000,50000,50000,50000,30000];amounts.forEach((amount,j)=>add('Rake',t.name+' · Rake entry '+(j+1),amount,'8:'+String(3+j*6).padStart(2,'0')+' PM','Individual demo rake event · '+t.name));});
+ d.expenses.forEach((c,i)=>c.items.forEach((x,j)=>add('Expenses',c.name+' · '+x[0],-x[1],'8:'+String(10+i*10+j*3).padStart(2,'0')+' PM','Operating expense · '+c.name)));
+ d.staff.forEach((s,i)=>{
+  add('Expenses',s.name+' · Compensation earned',-s.earn,'11:40 PM','Team wage accrued for this session');
+  if(s.advance)add('Team',s.name+' · Advance paid',-s.advance,'8:30 PM','Staff payment · advance');
+  if(s.settled)add('Team',s.name+' · Settlement paid',-s.settled,'11:40 PM','Staff payment · settlement');
+  add('Chip tips',s.name+' · Chip tips',-s.tips,'11:45 PM','Chips paid as tips');
+ });
+ if(session.modules.inventory)d.inventory.filter(p=>p.sold>0).forEach((p,i)=>add('F&B sales',p.name+' · Sales',p.sold*p.unit,'10:'+String(5+i*5).padStart(2,'0')+' PM','Demo aggregate · '+p.sold+' sold; individual receipt/payment records unavailable'));
+ /* No account-balance snapshots or S&S outstanding balances are falsely entered as transactions. */
+ d.events=events;
+ const buyEvents=events.filter(e=>e.cat==='Buy-ins'||e.cat==='Rebuys');
+ const sumEvents=(cat)=>total(events.filter(e=>e.cat===cat).map(e=>Math.abs(e.amount)));
+ if(total(buyBreakdown.map(x=>x[1]+x[2]+x[3]))!==buyIn()||sumEvents('Rake')!==780000||sumEvents('Cash-outs')!==cashOut()||sumEvents('Chip tips')!==tips()||sumEvents('Expenses')!==totalExpenses())throw Error('WF32 finance fixture does not reconcile');
+ const line=(a,b)=>'<div class="wf32-line"><span>'+a+'</span><strong>'+b+'</strong></div>';
+ const title=t=>'<div class="wf32-section">'+t+'</div>';
+ const note=t=>'<div class="wf32-note">'+t+'</div>';
+ const group=(label,value,inside)=>'<details class="wf32-group"><summary><span>'+label+'</span><b>'+value+'</b></summary>'+inside+'</details>';
+ const amount=(label,value)=>'<div class="wf32-total"><span>'+label+'</span><b>'+money(value)+'</b></div>';
+ const warning=t=>'<div class="wf32-warning">'+t+'</div>';
+ const tap=(label,value,route,cls='')=>'<button type="button" class="wf32-tap '+cls+'" onclick="snapNavigate(this,\''+route+'\')"><b>'+value+'</b><span>'+label+'</span></button>';
+ const link=(label,view)=>'<button class="wf32-chiplink" type="button" onclick="snapNavigate(this,\''+view+'\')">'+label+' ›</button>';
+ const readonly=(html,overview=false)=>'<div class="wf32-report"><div class="wf32-scroll">'+html+'</div>'+(overview?'':'<button type="button" class="wf32-return" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button>')+'</div>';
+ const playerCard=p=>group(p[0]+' · '+p[3],money(p[5]-p[4]),line('Table / seat',p[1]+' / '+p[2])+line('Hours played',p[6])+line('Buy-ins + rebuys',money(p[4]))+line('Cash-out',money(p[5]))+line('Net win / loss',money(p[5]-p[4])));
+ const eventCard=e=>group(e.description,money(e.amount),line('Reference',e.id)+line('Time (demo)',e.time)+line('Category',e.cat)+line('Amount',money(e.amount))+note(e.detail));
+ const tableCard=t=>group(t.name,money(t.rake),line('Rake',money(t.rake))+line('Table runtime',(t.minutes/60).toFixed(1)+' hours')+line('Avg rake / hour',money(Math.round(t.rake*60/t.minutes)))+line('Avg stack (illustrative)',money(t.stack))+note('In production, average stack requires recorded stack samples over time.')+link('View rake ledger','ledger-Rake'));
+ const incomeRow=()=>line('Rake revenue',money(780000))+line('F&B sales (enabled inventory)',money(inventorySales()));
+ const expenseRows=()=>d.expenses.map(c=>group(c.name,money(total(c.items.map(i=>i[1]))),c.items.map(i=>line(i[0],money(i[1]))).join(''))).join('')+group('Team compensation',money(salary),d.staff.map(s=>line(s.name,money(s.earn))).join(''));
+ const inventoryRow=p=>{const expected=p.start-p.sold-p.comp,variance=expected-p.end;return group(p.name,variance?'Variance '+variance:'Balanced',line('Beginning',p.start+' units')+line('Sold',p.sold+' units')+line('Complimentary',p.comp+' units')+line('Expected ending',expected+' units')+line('Counted ending',p.end+' units')+line('Variance',variance+' units')+line('Sales value (demo)',money(p.sold*p.unit)));};
+ Object.assign(SNAPSHOT_LABELS,{
+ 'session-buyins':'Buy-ins / Rebuys','session-cashouts':'Cash-outs','session-players':'Players','closed-players':'Players',
+ 'session-runtime':'Session Runtime','session-profit':'Net Profit','session-tables':'Rake & Tables','wf32-close':'Daily Close'
+ });
+ snapshotVisibleViews=function(){
+  const m=session.modules;
+  return ['overview','session-buyins','session-cashouts','session-players','tables','expenses','session-profit','session-runtime','ledger','team','accounts',...(m.signSettle?['ss']:[]),...(m.inventory?['inventory']:[]),'chips','closed'];
+ };
+ const previousSnapshot=snapshotMarkup;
+ snapshotMarkup=function(view){
+  const isFinal=view==='closed';
+  if(view==='overview'||isFinal){
+   const top='<div class="wf32-badge">'+(isFinal?'FINAL SESSION · READ ONLY':'LIVE SESSION · READ-ONLY REPORT · DEMO')+'</div>'+
+    '<div class="wf32-metadata">Sunday, October 25, 2026<span>Hold’em · 2 tables · Rake 5% · '+session.duration+'</span></div>';
+   const choices='<div class="wf32-statgrid">'+tap('Buy-ins / Rebuys',money(buyIn()),'session-buyins')+tap('Cash-outs',money(cashOut()),'session-cashouts')+tap('Players',d.players.length,'session-players')+tap('Tables',d.tables.length,'tables')+'</div>';
+   const finances='<div class="wf32-financegrid">'+tap('Rake',money(780000),'tables')+tap('Expenses incl. team',money(totalExpenses()),'expenses')+tap('Net Profit',money(netProfit()),'session-profit')+'</div>';
+   const operations='<button class="wf32-tap wf32-primary" onclick="snapNavigate(this,\'session-runtime\')"><b>◷ Session runtime · '+session.duration+'</b><span>View per-table hours</span></button>';
+   const options='<div class="wf32-quickgrid">'+tap('Session Ledger','▤','ledger')+tap('Team','♟','team')+tap('Account Balances','▣','accounts')+(session.modules.signSettle?tap('Sign & Settle','✍','ss'):'')+(session.modules.inventory?tap('Inventory','▦','inventory'):'')+tap('Chip Reconciliation','⚖','chips')+'</div>';
+   return readonly(top+choices+finances+operations+options+(chipVariance()?warning('Chip variance: '+money(chipVariance())+' · review required'):'')+(isFinal?link('Final Daily Close record','wf32-close'):''),true);
+  }
+  if(view==='session-buyins'){
+   return readonly(amount('TOTAL BUY-INS + REBUYS',buyIn())+line('Initial buy-ins',money(sumEvents('Buy-ins')))+line('Rebuys',money(sumEvents('Rebuys')))+title('Transactions · newest first')+buyEvents.slice().reverse().map(eventCard).join('')+note('Each rebuy is a distinct transaction, not an invented single total.'));
+  }
+  if(view==='session-cashouts')return readonly(amount('TOTAL CASH-OUTS',cashOut())+title('All completed cash-outs')+events.filter(e=>e.cat==='Cash-outs').slice().reverse().map(eventCard).join(''));
+  if(view==='session-players'||view==='closed-players')return readonly(line('Players in session',String(d.players.length))+line('Still seated',String(d.players.filter(p=>p[3]==='Playing').length))+line('Cashed out',String(d.players.filter(p=>p[3]==='Cashed out').length))+d.players.map(playerCard).join(''));
+  if(view==='tables'||view==='session-tables')return readonly(amount('TOTAL RAKE',780000)+line('Tables',String(d.tables.length))+line('Combined table hours','10h 30m')+d.tables.map(tableCard).join(''));
+  if(view==='session-runtime')return readonly(line('Session runtime',session.duration)+line('Combined table hours','10h 30m')+d.tables.map(t=>group(t.name,(t.minutes/60).toFixed(1)+' hours',line('Recorded runtime',t.minutes+' minutes')+note('Start/stop timestamps are not present in this demonstration.'))).join(''));
+  if(view==='session-profit')return readonly(title('Revenue')+incomeRow()+amount('TOTAL REVENUE',grossRevenue())+title('Expenses')+line('Operating expenses',money(operationalExpenses))+line('Team compensation',money(salary))+amount('TOTAL EXPENSES',totalExpenses())+amount('NET PROFIT / LOSS',netProfit())+note('Team wages count once as expenses. Outstanding team pay remains a payable; account balances are not revenue.')+link('Review expenses','expenses'));
+  if(view==='expenses')return readonly(amount('TOTAL EXPENSES · INCLUDING TEAM',totalExpenses())+line('Operating expenses',money(operationalExpenses))+line('Team compensation',money(salary))+title('Expense categories')+expenseRows()+link('Expense transaction ledger','ledger-Expenses'));
+  if(view==='ledger'||view.startsWith('ledger-')){
+   const cats=['All','Buy-ins','Rebuys','Cash-outs','Rake','Expenses','Team','Chip tips','F&B sales','Sign & Settle'];
+   const current=view==='ledger'?'All':decodeURIComponent(view.slice(7));
+   const matching=events.filter(e=>current==='All'||e.cat===current);
+   const select='<label class="wf32-section" for="wf32-ledger-filter">Filter by transaction type</label><select id="wf32-ledger-filter" class="wf32-select" aria-label="Transaction type" onchange="snapNavigate(this,\'ledger-\'+encodeURIComponent(this.value))">'+cats.map(cat=>'<option value="'+cat+'"'+(cat===current?' selected':'')+'>'+cat+'</option>').join('')+'</select>';
+   return readonly(select+note(matching.length+' demo entries · category '+current+' · tap for transaction details')+matching.slice().reverse().map(eventCard).join('')+(matching.length?'':note('No recorded '+current+' events in this demonstration; no balances are fabricated as transactions.')));
+  }
+  if(view==='team')return readonly(line('Team members on shift',String(d.staff.length))+line('Total hours','16h 30m')+amount('TOTAL COMPENSATION',salary)+line('Already paid',money(total(d.staff.map(s=>s.advance+s.settled))))+line('Outstanding to staff',money(total(d.staff.map(s=>s.due))))+line('Chip tips',money(tips()))+title('Individual staff')+d.staff.map(s=>group(s.name,s.hours,line('Compensation',money(s.earn))+line('Advance',money(s.advance))+line('Final payment',money(s.settled))+line('Outstanding',money(s.due))+line('Chip tips',money(s.tips)))).join('')+link('Team payment ledger','ledger-Team'));
+  if(view==='accounts')return readonly(title('Enabled account balances · not transaction totals')+d.accounts.filter(a=>a[2]!==false).map(a=>line(a[0],money(a[1]))).join('')+line('PayPal / Zelle','Not enabled / no demo balance')+title('Separate balances')+line('Chips Box (recorded)',money(session.chipsHeld))+line('Sign & Settle receivable',money(totalDebt()))+note('Do not add chips or outstanding credit to cash balances. The source does not provide individual account movements.'));
+  if(view==='ss')return readonly(amount('OUTSTANDING SIGN & SETTLE',totalDebt())+d.debtors.map(p=>group(p.name,money(p.balance),line('Collection status',p.status)+line('Outstanding',money(p.balance)))).join('')+note('This is a read-only outstanding balance report, not the credit-issuance or collection form.')+link('View recorded S&S transactions','ledger-Sign%20%26%20Settle'));
+  if(view==='inventory')return readonly(title('Inventory · all enabled categories')+line('Recorded sale value (demo)',money(inventorySales()))+['Beverages','Food','Bar'].map(cat=>group(cat,d.inventory.filter(p=>p.category===cat).length+' products',d.inventory.filter(p=>p.category===cat).map(inventoryRow).join(''))).join('')+note('Expected ending = beginning − sold − complimentary. Discrepancies are shown per item, not silently ignored.'));
+  if(view==='chips')return readonly(title('Chip reconciliation')+line('Total buy-ins + rebuys',money(buyIn()))+line('Promotional chips',money(session.promoChips))+line('Total cash-outs','− '+money(cashOut()))+line('Chip tips paid','− '+money(tips()))+amount('CHIP VARIANCE',chipVariance())+(chipVariance()?warning('Variance requires a typed explanation in Daily Close. This demonstration has no recorded explanation.'):'')+link('Buy-in ledger','ledger-Buy-ins')+link('Cash-out ledger','ledger-Cash-outs')+link('Chip tip ledger','ledger-Chip%20tips'));
+  if(view==='wf32-close')return readonly('<div class="wf32-badge">DAILY CLOSE · FINALIZED · READ ONLY</div>'+line('Date','Sunday, October 25, 2026')+line('Total buy-ins + rebuys',money(buyIn()))+line('Cash-outs',money(cashOut()))+line('Rake',money(780000))+line('F&B sales',money(inventorySales()))+line('Operating expenses',money(operationalExpenses))+line('Team compensation',money(salary))+amount('NET PROFIT',netProfit())+line('Chip variance',money(chipVariance()))+line('S&S outstanding',money(totalDebt()))+warning('Chip variance explanation was not supplied in this demo. Production Daily Close must require and persist a reason.')+note('Historical records must be immutable in production.')+link('Final Session Summary','closed'));
+  return previousSnapshot(view);
+ };
+ /* The remaining workflows are distinct read-only/detail/action paths; they are not extra Snapshot pages. */
+ const definitions={
+  33:['Open Snapshot player report','Player financial details','Read-only player transactions'],
+  34:['Open Session Ledger','Inspect source transaction','Review authorized correction','Audit-safe correction preview'],
+  35:['Open Account Balances','Inspect enabled account','Read account movements'],
+  36:['Sign & Settle overview','Choose eligible player','Enter proposed credit','Review credit authorization'],
+  37:['Outstanding S&S balances','Select debtor','Review collection split','Collection confirmation preview'],
+  38:['Chip reconciliation summary','Inspect variance sources','Daily Close warning requirements'],
+  39:['Per-table performance','Table 1 detailed metrics','Table 2 detailed metrics']
+ };
+ for(const [num,steps] of Object.entries(definitions)){
+  const w=WORKFLOWS.find(x=>x.id===Number(num));if(w)w.steps=steps;
+ }
+ SCREEN_SPECS[36].types=['snapshot','ss-player','ss-credit','ss-summary'];
+ SNAPSHOT_LABELS.closed='Historical Snapshot';
+ const prevScreen=screenContent;
+ const wf=(content)=>'<div class="wf32-workflow">'+content+'</div>';
+ const wr=(a,b)=>'<div class="wf32-line"><span>'+a+'</span><b>'+b+'</b></div>';
+ const wh=t=>'<div class="wf32-section">'+t+'</div>';
+ const wn=t=>'<div class="wf32-note">'+t+'</div>';
+ const wa=t=>'<div class="wf32-alert">'+t+'</div>';
+ const wb=(t,route)=>'<button class="wf32-footer-button screen-button" data-rn-route="'+route+'">'+t+'</button>';
+ const trRow=e=>'<div class="wf32-item"><strong>'+e.description+'</strong><small>'+money(e.amount)+' · '+e.time+' · '+e.id+'</small></div>';
+ screenContent=function(w,step,i){
+  if(!w||w.id<33||w.id>39)return prevScreen(w,step,i);
+  if(w.id===33){
+   if(i===0)return wf(wh('SESSION PLAYERS')+wr('Players in session',String(d.players.length))+d.players.map(p=>'<div class="wf32-item">'+p[0]+' · '+p[3]+'<small>Table '+p[1]+' · Seat '+p[2]+'</small></div>').join('')+wb('VIEW DIEGO FINANCES','33:1'));
+   if(i===1){const p=playerFor('Diego');return wf(wh('DIEGO · SESSION FINANCES')+wr('Total buy-ins + rebuys',money(p[4]))+wr('Cash-out',money(p[5]))+wr('Net win / loss',money(p[5]-p[4]))+wr('Hours played',p[6])+wr('Table / seat',p[1]+' / '+p[2])+wb('VIEW HIS TRANSACTIONS','33:2'));}
+   return wf(wh('DIEGO · TRANSACTIONS')+events.filter(e=>e.description.startsWith('Diego ·')&&(e.cat==='Buy-ins'||e.cat==='Rebuys'||e.cat==='Cash-outs')).map(trRow).join('')+wn('Read-only history. Corrections belong to Workflow 34.'));
+  }
+  if(w.id===34){
+   const selected=events.find(e=>e.description==='Diego · Rebuy'&&e.amount===1000000);
+   if(i===0)return wf(wh('SESSION LEDGER')+wn('Choose an actual recorded transaction; never edit a ledger row in place.')+events.filter(e=>e.cat==='Rebuys').map(trRow).join('')+wb('INSPECT DIEGO REBUY','34:1'));
+   if(i===1)return wf(wh('ORIGINAL TRANSACTION')+wr('Reference',selected.id)+wr('Player','Diego')+wr('Type','Rebuy')+wr('Amount',money(selected.amount))+wr('Timestamp',selected.time)+wn('Original entry is immutable. Any correction must be linked to its reference.')+wb('REQUEST CORRECTION','34:2'));
+   if(i===2)return wf(wh('CORRECTION REVIEW · DEMO')+wr('Original',money(selected.amount))+wr('Proposed corrected value',money(950000))+wr('Difference','− '+money(50000))+wr('Authorization','Owner / permitted role required')+wa('Preview only. No transaction has been changed, and financial totals remain based on the original record.')+wb('REVIEW AUDIT ENTRY','34:3'));
+   return wf(wh('AUDIT TRAIL PREVIEW')+wr('Original reference',selected.id)+wr('Original amount',money(selected.amount))+wr('Correction proposal',money(950000))+wr('State','Not posted')+wn('Production must require authorization, identity, reason, timestamp and a linked adjustment event. Never silently modify historical entries.'));
+  }
+  if(w.id===35){
+   if(i===0)return wf(wh('ACCOUNT BALANCES')+d.accounts.map(a=>wr(a[0],money(a[1]))).join('')+wr('Chips Box · separate',money(session.chipsHeld))+wr('S&S receivables · separate',money(totalDebt()))+wb('INSPECT CASHBOX','35:1'));
+   if(i===1)return wf(wh('CASHBOX')+wr('Recorded balance',money(d.accounts[0][1]))+wr('Account status','Enabled')+wn('An account balance is a point-in-time amount, not a transaction.')+wb('ACCOUNT MOVEMENTS','35:2'));
+   return wf(wh('CASHBOX · MOVEMENTS')+wn('The sample data has no validated cashbox movement ledger. Do not fabricate movements from the closing balance.')+wr('Recorded closing balance',money(d.accounts[0][1]))+wn('Production: show timestamp, amount, direction, transaction reference and recorded-by for every actual movement.'));
+  }
+  if(w.id===36){
+   if(i===0)return wf(wh('SIGN & SETTLE · CREDIT')+wr('Currently outstanding',money(totalDebt()))+wn('Issuing credit changes a financial balance. This is an authorized operation, not a read-only Snapshot drill-down.')+wb('CHOOSE PLAYER','36:1'));
+   if(i===1)return wf(wh('PLAYER SELECTED')+wr('Player','Sofia')+wr('Current S&S balance',money(0))+wn('Eligible-player validation and permissions are required in production.')+wb('PROPOSE CREDIT','36:2'));
+   if(i===2)return wf(wh('PROPOSED CREDIT · NOT POSTED')+wr('Player','Sofia')+wr('Amount',money(500000))+wr('Verification','Owner-selected PIN or biometric / photo / voice')+wn('Credit amount and verification are mandatory. No change to Snapshot data until successful posting.')+wb('REVIEW AUTHORIZATION','36:3'));
+   return wf(wh('CREDIT AUTHORIZATION PREVIEW')+wr('Player','Sofia')+wr('Proposed credit',money(500000))+wr('Current outstanding',money(totalDebt()))+wr('If authorized and posted',money(totalDebt()+500000))+wa('Demonstration only. No credit issued or balance changed.'));
+  }
+  if(w.id===37){
+   if(i===0)return wf(wh('SIGN & SETTLE · COLLECTIONS')+wr('Total outstanding',money(totalDebt()))+d.debtors.map(p=>'<div class="wf32-item">'+p.name+'<small>Owes '+money(p.balance)+'</small></div>').join('')+wb('SELECT DIEGO','37:1'));
+   if(i===1)return wf(wh('DIEGO · BALANCE')+wr('Amount owed',money(150000))+wr('Status','Unpaid')+wn('At cash-out, collect returned chips first; pay the residual through a supported method. Outside cash-out, record the actual collection method.')+wb('REVIEW COLLECTION','37:2'));
+   if(i===2)return wf(wh('COLLECTION ALLOCATION · DEMO')+wr('Opening debt',money(150000))+wr('Chips collected',money(100000))+wr('Cashbox payment',money(50000))+wr('Remaining',money(0))+wn('Cashier confirmation is required before any settlement is posted.')+wb('REVIEW CONFIRMATION','37:3'));
+   return wf(wh('COLLECTION RECEIPT PREVIEW')+wr('Player','Diego')+wr('Amount allocated',money(150000))+wr('Remaining if posted',money(0))+wr('S&S outstanding if posted',money(50000))+wa('Demo preview only. The Snapshot still correctly shows the pre-collection outstanding balance of '+money(totalDebt())+'.'));
+  }
+  if(w.id===38){
+   if(i===0)return wf(wh('CHIP RECONCILIATION')+wr('Buy-ins + rebuys',money(buyIn()))+wr('Promotional chips',money(session.promoChips))+wr('Cash-outs','− '+money(cashOut()))+wr('Chip tips','− '+money(tips()))+wa('Variance '+money(chipVariance()))+wb('REVIEW SOURCES','38:1'));
+   if(i===1)return wf(wh('VARIANCE DETAIL')+wr('Buy-in transactions',String(events.filter(e=>['Buy-ins','Rebuys'].includes(e.cat)).length))+wr('Cash-outs',String(events.filter(e=>e.cat==='Cash-outs').length))+wr('Chip-tip entries',String(events.filter(e=>e.cat==='Chip tips').length))+wr('Variance',money(chipVariance()))+wn('Inspect source ledgers, do not hide or auto-correct a discrepancy.')+wb('DAILY CLOSE RULE','38:2'));
+   return wf(wh('DAILY CLOSE WARNING')+wa('Variance of '+money(chipVariance())+' remains unresolved.')+wr('Typed explanation','REQUIRED before permanent close')+wr('Close allowed?','Yes, after explanation + authorized confirmation')+wn('The report screen itself is read-only. Daily Close owns the actual explanation input, persistence and final confirmation.'));
+  }
+  if(w.id===39){
+   if(i===0)return wf(wh('TABLE FINANCIAL PERFORMANCE')+wr('Combined rake',money(780000))+wr('Combined table hours','10h 30m')+d.tables.map(t=>'<div class="wf32-item">'+t.name+'<small>Rake '+money(t.rake)+' · '+(t.minutes/60).toFixed(1)+'h · '+money(Math.round(t.rake*60/t.minutes))+'/hr</small></div>').join('')+wb('TABLE 1 DETAILS','39:1'));
+   const t=d.tables[i===1?0:1];
+   return wf(wh(t.name.toUpperCase()+' · PERFORMANCE')+wr('Total rake',money(t.rake))+wr('Table runtime',(t.minutes/60).toFixed(1)+' hours')+wr('Avg rake per table hour',money(Math.round(t.rake*60/t.minutes)))+wr('Average stack · demo',money(t.stack))+wn('Actual average stack requires timestamped stack samples. Rake totals must reconcile to per-rake transaction entries.')+(i===1?wb('TABLE 2 DETAILS','39:2'):''));
+  }
+  return prevScreen(w,step,i);
+ };
+ window.WF32_39_AUDIT={
+  source:'GitHub UX prototype, illustrative fixture only',
+  views:snapshotVisibleViews(),
+  totals:{buyins:buyIn(),cashouts:cashOut(),rake:sumEvents('Rake'),fbSales:inventorySales(),operatingExpenses,teamCompensation:salary,totalExpenses:totalExpenses(),profit:netProfit(),chipTips:tips(),chipVariance:chipVariance(),ssOutstanding:totalDebt()},
+  ledgers:{initialBuyins:sumEvents('Buy-ins'),rebuys:sumEvents('Rebuys'),expenseEntries:sumEvents('Expenses'),rakeEvents:events.filter(e=>e.cat==='Rake').length},
+  verified:sumEvents('Buy-ins')+sumEvents('Rebuys')===buyIn()&&sumEvents('Rake')===780000&&totalExpenses()===1595000&&netProfit()===-385000
+ };
+})();
+</script>
+
 <script id="wf32-qa-v13">
 /* Non-destructive runtime QA: executed on actual rendered DOM when Workflow 32 opens.
    This does not certify production persistence or replace manual browser testing. */
 (function(){
  function check(){
   const phones=[...document.querySelectorAll('.storyboard .snap-phone')];
-  if(phones.length!==10)return;
+  if(phones.length!==snapshotVisibleViews().length)return;
   const results=[];
   const test=(label,fn)=>{try{results.push({label,pass:!!fn()})}catch(e){results.push({label,pass:false,error:String(e)})}};
   const d=WF32_DATA;
   const sum=xs=>xs.reduce((a,b)=>a+b,0);
-  test('Ten screens rendered',()=>phones.length===10&&phones.every(p=>p.querySelector('.snap-body')));
+  test('All Snapshot screens rendered',()=>phones.length===snapshotVisibleViews().length&&phones.every(p=>p.querySelector('.snap-body')));
   test('Eight players',()=>d.players.length===8);
   test('Buy-ins reconcile',()=>sum(d.players.map(p=>p[4]))===5500000);
   test('Cash-outs reconcile',()=>sum(d.players.map(p=>p[5]))===5420000);
@@ -3747,8 +3969,8 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
   test('All inventory groups present',()=>['Beverages','Food','Bar'].every(c=>d.inventory.some(p=>p.category===c)));
   test('All detail screens render',()=>['ledger','tables','team','expenses','accounts','chips','ss','inventory','closed','wf32-close','session-players'].every(v=>typeof snapshotMarkup(v)==='string'&&snapshotMarkup(v).length>100));
   test('Ledger category filtering',()=>snapshotMarkup('ledger-Chip%20tips').includes('Chip tips')&&snapshotMarkup('ledger-Expenses').includes('Venue'));
-  test('Historical mode labeled',()=>phones[9].querySelector('.ux-headtitle b')?.textContent==='FINAL SESSION');
-  test('Historical navigation context',()=>phones[9].querySelector('.snap-body')?.dataset.wf32Root==='closed');
+  test('Historical mode labeled',()=>phones[phones.length-1].querySelector('.ux-headtitle b')?.textContent==='FINAL SESSION');
+  test('Historical navigation context',()=>phones[phones.length-1].querySelector('.snap-body')?.dataset.wf32Root==='closed');
   test('No horizontal storyboard overflow',()=>{const b=phones[0].closest('.storyboard');return b.scrollWidth<=b.clientWidth+2});
   test('All cards within their preview',()=>phones.every(p=>p.scrollWidth<=p.clientWidth+2));
   test('Module toggles honored',()=>{
