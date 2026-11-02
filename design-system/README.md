@@ -18,7 +18,10 @@ These must stay the **last elements inside `<head>`**, in this order. They hold 
 | `nora-system` | style | Global tokens: square corners, 5-tab nav, icons, COP baseline, footers |
 | `nora-system-js` | script | Unified bottom nav + routes, SVG icon family, duplicate-title removal, header fit |
 | `nora-final` | style | WF40 dashboard, visual balance for Nora AI / Settings / Reporting |
+| `nora-chat-css` | style | Nora chat & voice: composer, round mic, recording/processing states, review cards, overlay |
 | `nora-guard` | script | Nav routes, routing for new tiles, quantity steppers, **missing-block alarm** |
+
+`nora-chat-js` is the **last script before `</body>`**: WF13–18 screens and the context-aware Nora overlay opened from any portrait.
 
 `nora-guard` shows a red banner and a console error if any block is missing. If you see it, restore the block from git before continuing.
 
@@ -56,3 +59,14 @@ These must stay the **last elements inside `<head>`**, in this order. They hold 
 2. Never shrink fonts to fit content. Wrap labels to two lines or let lists scroll.
 3. Every change: render at 340px, check clipping, COP ratio, button height, and run the 260-screen audit before pushing.
 4. Production code should move these tokens into the app's real stylesheet/theme. The override blocks are only how the prototype carries them.
+
+## Nora chat & voice (frozen Nov 2)
+
+- **Open:** tap Nora's portrait on any screen. The panel opens over the content with a context bar (module · player · read-only state), a greeting, 0–3 context tiles and the composer. The mic is never auto-activated.
+- **Tiles:** live table → Live Action + Ask Nora (Help is the ? icon); task screens → only that task + Ask; read-only screens (Snapshot, Reporting, ledgers, closed sessions) → no transaction tiles. Context rules are in `context()` inside `nora-chat-js`.
+- **Composer:** text input + 62px round mic. Typing swaps the mic for Send. Tap mic → recording bar (Cancel · live waveform + timer · round red Stop with pulsing rings). Stop → "Nora is interpreting…" → answer.
+- **Money actions:** always a REVIEW card (player, action, amount, table/seat, account) with CHANGE / CONFIRM (63px). Authorization step where required. Result shows the ledger reference only after backend posting (prototype says "Preview: not posted").
+- **Read-only questions:** answered directly, no confirmation.
+- **Multiple actions:** each action reviewed separately; batch confirm; each posts with its own reference.
+- **Errors:** clear message, nothing recorded, CANCEL / TRY AGAIN; retries reuse the same request ID (no double posting).
+- **Motion:** idle mic breathes; recording rings + waveform; processing dots; all disabled under `prefers-reduced-motion`. The round mic and rings are the only intentional round shapes besides check icons and stamps.
