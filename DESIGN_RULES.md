@@ -55,3 +55,11 @@
 
 ## Added rules (approved Nov 2)
 - All tiles, pills, buttons and inputs have straight (square) corners; only check icons and stamps stay round
+
+## Master sweep (Nov 2)
+- One bottom nav on every screen: Tables · Players · Team · Reporting · Settings (24px line icons, 11.5px labels)
+- One line-icon family (SVG) replaces emoji and text glyphs inside screens
+- No screen title repeated under the header subtitle
+- Footer actions: 63px, full width; a single action spans the full width
+- Table View names/amounts 18px in every variant
+- System layer lives in <style id="nora-system"> and <script id="nora-system-js">; keep them last in <head>
