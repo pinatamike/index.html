@@ -5279,4 +5279,76 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  };
  screenContent=function(w,step,i){return w&&views[w.id]?views[w.id][Math.min(i,views[w.id].length-1)]:previous(w,step,i)};
 })();
+</script>
+<style id="nora-scheduled-48-53-css">
+.harmonized .sch-panel{height:100%;display:flex;flex-direction:column;gap:7px;min-height:0;color:white}
+.harmonized .sch-content{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none}
+.harmonized .sch-title{font-size:20px;font-weight:900;color:#bbecff;margin-bottom:6px}
+.harmonized .sch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:8px 0}
+.harmonized .sch-tile{border:1px solid #3599c5;border-radius:9px;background:#10445f;color:white;min-height:88px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;font-size:17px;font-weight:900;padding:8px;cursor:pointer;text-align:center}
+.harmonized .sch-tile small{font-size:14px;color:#d8edf6}
+.harmonized .sch-row{display:flex;align-items:center;justify-content:space-between;gap:9px;font-size:16px;padding:8px 2px;border-bottom:1px solid #335c75}
+.harmonized .sch-row strong{font-size:17px;text-align:right}
+.harmonized .sch-panel label{font-size:16px;font-weight:800;display:block;margin:8px 0 4px}
+.harmonized .sch-panel input,.harmonized .sch-panel select{font-size:17px;color:#fff;background:#0b3753;border:1px solid #59a9cf;border-radius:8px;min-height:44px;padding:8px;width:100%}
+.harmonized .sch-action{border:1px solid #63bcdd;border-radius:8px;background:#155c80;color:white;min-height:46px;font-size:16px;font-weight:900;cursor:pointer}
+.harmonized .sch-footer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;flex:none}
+.harmonized .sch-note{font-size:15px;line-height:1.3;color:#cbe4f0;padding:5px 0}
+.harmonized .sch-good{background:#15563c;border-left:4px solid #78d5a8;padding:9px;font-size:16px}
+.harmonized .sch-warn{background:#573b1e;border-left:4px solid #e8b85d;padding:9px;font-size:16px}
+</style>
+<script id="nora-scheduled-48-53-js">
+(function(){
+ const previous=screenContent;
+ const defs={
+ 48:['Scheduled games','Create game','Review schedule'],
+ 49:['Select invited players','Choose channels','Review invitations'],
+ 50:['Player invitation','RSVP response','RSVP status'],
+ 51:['Attendance dashboard','Roster and waitlist','Manage a player'],
+ 52:['My arrival status','Set ETA','Arrival confirmation'],
+ 53:['Session readiness','Confirm game setup','Start session preview']
+ };
+ const titles={48:'Create and schedule poker game',49:'Invite players to scheduled game',50:'Player RSVP and decline',51:'Manage attendance and waitlist',52:'Player ETA and arrival status',53:'Start a scheduled live session'};
+ Object.entries(defs).forEach(([id,steps])=>{let w=WORKFLOWS.find(x=>x.id===+id);if(w){w.title=titles[id];w.steps=steps;}if(SCREEN_SPECS[id])SCREEN_SPECS[id].types=steps.map((_,i)=>'sch-'+id+'-'+i);});
+ const go=(route,label)=>'<button type="button" class="sch-action" onclick="rnGo(\''+route+'\',this.closest(\'.stage\'))">'+label+'</button>';
+ const row=(a,b)=>'<div class="sch-row"><span>'+a+'</span><strong>'+b+'</strong></div>';
+ const tile=(a,b,route)=>'<button type="button" class="sch-tile" onclick="rnGo(\''+route+'\',this.closest(\'.stage\'))">'+a+'<small>'+b+'</small></button>';
+ const input=(label,value,type='text')=>'<label>'+label+'</label><input type="'+type+'" value="'+value+'">';
+ const select=(label,values)=>'<label>'+label+'</label><select>'+values.map(x=>'<option>'+x+'</option>').join('')+'</select>';
+ const page=(title,body,actions='')=>'<div class="sch-panel"><div class="sch-content"><div class="sch-title">'+title+'</div>'+body+'</div>'+(actions?'<div class="sch-footer">'+actions+'</div>':'')+'</div>';
+ const demo='<div class="sch-note">UX preview — invitations, RSVP changes and live sessions are not actually created or sent.</div>';
+ const views={
+ 48:[
+ page('Scheduled games',row('Sunday Hold’em','Nov 8 · 7:00 PM')+row('Venue','Provenza')+row('RSVP deadline','6:00 PM')+'<div class="sch-grid">'+tile('＋ Create Game','Schedule a new game','48:1')+tile('♧ Attendance','Confirmed and waitlist','51:0')+tile('✉ Invite Players','WhatsApp / SMS / email','49:0')+tile('▶ Start Session','When ready','53:0')+'</div>'),
+ page('Create game',input('Game name','Sunday Hold’em')+input('Date','2026-11-08','date')+input('Start time','19:00','time')+select('Game type',['Hold’em','Pot Limit Omaha','Mixed'])+select('Tables',['1','2','3','4'])+input('Venue','Provenza')+input('RSVP deadline','18:00','time'),go('48:0','CANCEL')+go('48:2','REVIEW')),
+ page('Review schedule',row('Game','Sunday Hold’em')+row('Date','Nov 8, 2026')+row('Starts','7:00 PM')+row('RSVP deadline','6:00 PM')+row('Tables','2')+demo,go('48:1','EDIT')+go('49:0','SAVE PREVIEW · INVITE'))
+ ],
+ 49:[
+ page('Invite players',row('Scheduled game','Sunday Hold’em')+'<div class="sch-grid">'+tile('☑ Rafa','Selected','49:1')+tile('☑ Diego','Selected','49:1')+tile('□ Moshe','Not selected','49:1')+tile('□ Sofia','Not selected','49:1')+'</div>'+input('Search players',''),go('51:0','ATTENDANCE')+go('49:1','CHANNELS')),
+ page('Invitation channels',select('Delivery',['WhatsApp','SMS','Email'])+row('Selected recipients','2')+row('Game','Sunday Hold’em')+row('RSVP deadline','6:00 PM')+demo,go('49:0','BACK')+go('49:2','REVIEW')),
+ page('Review invitations',row('Game','Sunday · Nov 8 · 7 PM')+row('Recipients','2 selected (demo)')+row('Channel','WhatsApp')+row('Venue','Provenza')+demo,go('49:1','EDIT')+go('50:0','SEND · DEMO'))
+ ],
+ 50:[
+ page('Sunday poker invitation',row('When','Nov 8 · 7:00 PM')+row('Where','Provenza')+row('Reply by','6:00 PM')+demo,go('50:1','RSVP')),
+ page('Are you coming?','<div class="sch-grid">'+tile('✓ Going','Confirm my seat','50:2')+tile('✕ Decline','Cannot attend','50:2')+tile('? Maybe','Unconfirmed','50:2')+tile('✉ Contact host','Ask a question','50:2')+'</div>',go('50:0','BACK')),
+ page('RSVP status','<div class="sch-good">Response preview only. In production the status reflects your selected RSVP.</div>'+row('Game','Sunday Hold’em')+demo,go('52:0','MY ETA')+go('50:1','CHANGE RSVP'))
+ ],
+ 51:[
+ page('Attendance dashboard',row('Confirmed','6')+row('Invited · no reply','3')+row('Waitlist','2')+row('Capacity','2 tables')+'<div class="sch-grid">'+tile('✓ Confirmed','Review players','51:1')+tile('◷ Waitlist','Review queue','51:1')+tile('✉ Invite More','Add invitations','49:0')+tile('▶ Start','Review game setup','53:0')+'</div>'),
+ page('Confirmed and waiting',row('Rafa','Confirmed')+row('Diego','Confirmed')+row('Sofia','Confirmed')+row('Moshe','Waitlist · 1')+row('Anna','No reply')+demo,go('51:0','BACK')+go('51:2','PLAYER OPTIONS')),
+ page('Player attendance actions','<div class="sch-grid">'+tile('✓ Confirm','Mark attending','51:1')+tile('◷ Waitlist','Move to waitlist','51:1')+tile('✕ Cancel','Remove RSVP','51:1')+tile('✉ Reminder','Send follow-up','49:1')+'</div>'+demo,go('51:1','ROSTER'))
+ ],
+ 52:[
+ page('Game-day arrival',row('Game','Sunday · 7:00 PM')+row('My RSVP','Going')+'<div class="sch-grid">'+tile('➜ On My Way','Notify the host','52:1')+tile('⌚ Set ETA','Expected arrival','52:1')+tile('✓ I Am Here','At the venue','52:2')+tile('✕ Not Coming','Change RSVP','50:1')+'</div>'),
+ page('Set estimated arrival',select('Arrival time',['7:00 PM','7:15 PM','7:30 PM','7:45 PM','8:00 PM'])+row('Game starts','7:00 PM')+demo,go('52:0','BACK')+go('52:2','UPDATE STATUS')),
+ page('Arrival status preview','<div class="sch-good">Host can see ETA and arrival status in the production roster.</div>'+row('Status','On My Way / Here')+demo,go('52:0','CHANGE')+go('51:0','HOST ROSTER'))
+ ],
+ 53:[
+ page('Ready to start?',row('Game','Sunday Hold’em')+row('Tables','2 scheduled')+row('Confirmed players','6')+row('Waitlist','2')+row('Start time','7:00 PM')+demo,go('51:0','ROSTER')+go('53:1','REVIEW SETUP')),
+ page('Confirm game setup',row('Game type','Hold’em')+row('Blinds','<small style="font-size:.65em">COP</small> 5,000 / 10,000')+row('Rake','5%')+row('Tables','2')+'<div class="sch-warn">Starting a session does not automatically seat players or collect buy-ins. Seat each player with an initial buy-in.</div>',go('48:1','EDIT SCHEDULE')+go('53:2','START · DEMO')),
+ page('Live session preview','<div class="sch-good">Setup preview complete. The production action must create a session exactly once and then open Live Tables.</div>'+row('Player seating','Pending individual buy-ins')+row('Scheduled game','Linked to new session')+demo,go('53:1','BACK')+go('1:2','OPEN LIVE TABLE VIEW'))
+ ]
+ };
+ screenContent=function(w,step,i){return w&&views[w.id]?views[w.id][Math.min(i,views[w.id].length-1)]:previous(w,step,i)};
+})();
 </script></body></html>
