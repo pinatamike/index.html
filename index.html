@@ -5226,4 +5226,57 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   return tpl.innerHTML;
  };
 })();
+</script>
+<style id="nora-ai-workflows-13-18-update">
+.harmonized .nora-ai-panel{height:100%;display:flex;flex-direction:column;gap:8px;min-height:0;color:#fff}
+.harmonized .nora-ai-content{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none}
+.harmonized .nora-ai-head{font-size:20px;font-weight:900;color:#c6f2ff;margin:3px 0 7px}
+.harmonized .nora-ai-text{font-size:16px;line-height:1.3;color:#d5e8f2;margin:7px 0}
+.harmonized .nora-ai-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:8px 0}
+.harmonized .nora-ai-tile{min-height:88px;padding:9px 6px;border:1px solid #41a4cc;border-radius:9px;background:#104667;color:white;font-size:17px;font-weight:850;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-align:center;cursor:pointer}
+.harmonized .nora-ai-tile small{font-size:14px;line-height:1.15;color:#d4f1fb}
+.harmonized .nora-ai-tile .nora-ai-icon{font-size:25px}
+.harmonized .nora-ai-tile.nora-ai-emphasis{background:#15694f;border-color:#5ad3a9}
+.harmonized .nora-ai-row{display:flex;justify-content:space-between;align-items:center;gap:6px;border-bottom:1px solid #306581;min-height:41px;font-size:16px}
+.harmonized .nora-ai-row strong{font-size:17px;text-align:right}
+.harmonized .nora-ai-panel input,.harmonized .nora-ai-panel textarea,.harmonized .nora-ai-panel select{width:100%;color:white;background:#0a3855;border:1px solid #64b1d4;border-radius:8px;font-size:18px;padding:9px;min-height:44px}
+.harmonized .nora-ai-panel label{display:block;font-size:16px;font-weight:800;margin:8px 0 4px}
+.harmonized .nora-ai-foot{flex:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.harmonized .nora-ai-foot button{border:1px solid #51a9d4;background:#11577c;border-radius:8px;min-height:46px;color:white;font-size:16px;font-weight:900;cursor:pointer}
+.harmonized .nora-ai-warning{border-left:4px solid #f5be54;padding:9px;background:#483718;font-size:16px;line-height:1.25;margin:7px 0}
+.harmonized .nora-ai-good{border-left:4px solid #67dcb0;padding:9px;background:#124c3b;font-size:16px;line-height:1.25;margin:7px 0}
+.harmonized .nora-ai-panel .nora-ai-cop{font-size:.65em}
+</style>
+<script id="nora-ai-workflows-13-18-script">
+(function(){
+ const previous=screenContent;
+ const specs={
+ 13:['Nora · choose task','Record a live action','Review interpretation','Confirm or change','Result / audit'],
+ 14:['Nora · choose task','Type command','Review interpretation','Confirm or change','Result / audit'],
+ 15:['Review proposed action','Correct details','Review correction','Confirm change'],
+ 16:['Nora · choose task','Dictate multiple actions','Review action batch','Confirm batch'],
+ 17:['Nora · choose task','Ask a question','Read-only answer'],
+ 18:['Failed action','Explain failure','Correct and retry','Confirm successful post']
+ };
+ const titles={13:'Nora voice actions — review and confirm',14:'Nora text commands — review and confirm',15:'Correct Nora interpretation',16:'Nora multi-action batch approval',17:'Ask Nora about the live game',18:'Nora error handling and safe retry'};
+ Object.entries(specs).forEach(([id,steps])=>{const w=WORKFLOWS.find(w=>w.id===+id);if(w){w.title=titles[id];w.steps=steps;}if(SCREEN_SPECS[id])SCREEN_SPECS[id].types=steps.map((_,i)=>'nora-ai-'+id+'-'+i);});
+ const route=(id,i)=>'<button type="button" onclick="rnGo(\''+id+':'+i+'\',this.closest(\'.stage\'))">';
+ const tile=(icon,title,sub,next)=>'<button class="nora-ai-tile" type="button" onclick="rnGo(\''+next+'\',this.closest(\'.stage\'))"><span class="nora-ai-icon">'+icon+'</span>'+title+'<small>'+sub+'</small></button>';
+ const next=(id,i,label)=>route(id,i)+label+'</button>';
+ const row=(a,b)=>'<div class="nora-ai-row"><span>'+a+'</span><strong>'+b+'</strong></div>';
+ const box=(head,body,buttons='')=>'<div class="nora-ai-panel"><div class="nora-ai-content"><div class="nora-ai-head">'+head+'</div>'+body+'</div>'+(buttons?'<div class="nora-ai-foot">'+buttons+'</div>':'')+'</div>';
+ const warn=a=>'<div class="nora-ai-warning">'+a+'</div>';
+ const good=a=>'<div class="nora-ai-good">'+a+'</div>';
+ const chooser=id=>box('What can Nora help with?','<div class="nora-ai-grid">'+tile('♣','Live Action','Buy-in · Rebuy · Cash-out',id+':1')+tile('◇','Ask Nora','Balances · Players · Rake','17:1')+tile('▤','Technical Help','How to use NORA','17:1')+tile('▣',id===14?'Voice Command':'Text Command','Switch input mode',id===14?'13:1':'14:1')+'</div><div class="nora-ai-text">Select the task first, then speak or type. Nora prepares the correct review before posting anything.</div>');
+ const review=box('Nora understood',row('Player','Diego Restrepo')+row('Action','Rebuy')+row('Amount','<span class="nora-ai-cop">COP</span> 1,000,000')+row('Account','Cashbox')+warn('Review carefully. No financial transaction has been posted.'),next(15,1,'CHANGE')+next(13,3,'CONFIRM'));
+ const views={
+ 13:[chooser(13),box('Record live action',tile('🎙','Start recording','Voice note preview','13:2')+row('Example','Diego rebuy one million cash')+warn('Permission and audio capture require the live app.'),next(13,2,'REVIEW AUDIO')),review,box('Confirm or change',row('Action','Rebuy Diego')+row('Amount','<span class="nora-ai-cop">COP</span> 1,000,000')+row('Account','Cashbox')+warn('Confirmation is required. This preview does not alter the ledger.'),next(15,1,'CHANGE')+next(13,4,'CONFIRM · DEMO')),box('Result / audit',good('Action preview accepted; NOT posted in production.')+row('Posting user','Current authorized user')+row('Audit status','Demo only'),next(13,0,'BACK TO NORA'))],
+ 14:[chooser(14),box('Type a live action','<label>Command</label><textarea rows="3">Diego rebuy 1,000,000 cash</textarea>'+tile('♣','Common actions','Buy-in · Rebuy · Cash-out','14:2'),next(14,2,'REVIEW COMMAND')),review.replaceAll("rnGo('13:3'","rnGo('14:3'"),box('Confirm text command',row('Player','Diego')+row('Rebuy','<span class="nora-ai-cop">COP</span> 1,000,000')+row('Account','Cashbox')+warn('No ledger entry until explicit authorized confirmation.'),next(15,1,'CORRECT')+next(14,4,'CONFIRM · DEMO')),box('Result / audit',good('Preview acknowledged; no production posting.')+row('Posted by','Current user (when implemented)'),next(14,0,'ASK NORA'))],
+ 15:[review,box('Correct Nora', '<label>Player</label><select><option>Diego Restrepo</option><option>Rafa</option></select><label>Action</label><select><option>Rebuy</option><option>Buy-in</option><option>Cash-out</option></select><label>Amount (COP)</label><input type="number" value="1000000"><label>Account</label><select><option>Cashbox</option><option>Nequi</option><option>Bancolombia</option></select>',next(15,2,'REVIEW CORRECTION')),box('Verify corrected instruction',row('Action','Rebuy')+row('Player','Diego')+row('Amount','<span class="nora-ai-cop">COP</span> 1,000,000')+warn('In the production flow, show the exact edits entered on the previous step.'),next(15,1,'EDIT AGAIN')+next(15,3,'CONFIRM · DEMO')),box('Correction accepted',good('Review confirmation only; no ledger was changed.'),next(13,0,'NORA HOME'))],
+ 16:[chooser(16),box('Dictate multiple actions',row('1','Diego rebuy one million')+row('2','Rafa rebuy five hundred thousand')+warn('Nora must identify and validate each action independently.'),next(16,2,'REVIEW BOTH')),box('Review transaction batch',row('1 · Diego','Rebuy · <span class="nora-ai-cop">COP</span> 1,000,000')+row('2 · Rafa','Rebuy · <span class="nora-ai-cop">COP</span> 500,000')+tile('✎','Edit individual action','Correct before approval','15:1'),next(16,3,'CONFIRM BATCH')),box('Batch confirmation',warn('No partial or duplicate posting. Each action must return a distinct transaction ID; failures require review.')+row('Actions','2 pending')+row('Posted','0 · demo'),next(16,0,'BACK TO NORA'))],
+ 17:[chooser(17),box('Ask Nora',tile('▤','Buy-ins','Total and per-player','17:2')+tile('♧','Players','Seated / cashed out','17:2')+tile('♜','Rake','Tables and rates','17:2')+'<label>Your question</label><input value="How much is in buy-ins?">',next(17,2,'ASK NORA')),box('Nora answer · read-only',row('Total buy-ins + rebuys','<span class="nora-ai-cop">COP</span> 5,500,000')+row('Players','8')+good('No transaction created.')+tile('◇','Another question','Ask or choose tiles','17:1'),next(13,0,'NORA HOME'))],
+ 18:[review,box('Action not recorded',warn('Player not found or insufficient permissions.')+row('Ledger impact','None')+row('Transaction ID','Not created')+row('Suggested fix','Check player / amount'),next(18,2,'CORRECT DETAILS')),box('Correct and retry',row('Player','Choose valid roster entry')+row('Amount','Verify against rules')+warn('Use original request idempotency key to avoid duplicate posting.'),next(15,1,'EDIT')+next(18,3,'RETRY · DEMO')),box('Retry review',good('Demo retry only; production requires confirmation and an issued transaction ID before success is shown.')+row('Ledger','Unchanged in preview'),next(13,0,'BACK TO NORA'))]
+ };
+ screenContent=function(w,step,i){return w&&views[w.id]?views[w.id][Math.min(i,views[w.id].length-1)]:previous(w,step,i)};
+})();
 </script></body></html>
