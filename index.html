@@ -4186,7 +4186,7 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
    const finances='<div class="wf32-financegrid wf32-finance-pair">'+tap('Rake',money(780000),'tables')+tap('Expenses',money(totalExpenses()),'expenses')+'</div>'+'<button type="button" class="wf32-profit-card" onclick="snapNavigate(this,\'session-profit\')"><span>NET PROFIT / LOSS</span><strong>'+money(netProfit())+'</strong></button>';
    const operations='<button class="wf32-tap wf32-primary" onclick="snapNavigate(this,\'session-runtime\')"><b>◷ Session runtime · '+session.duration+'</b><span>View per-table hours</span></button>';
    const options='<div class="wf32-quickgrid">'+tap('Session Ledger','▤','ledger')+tap('Team','♟','team')+tap('Account Balances','▣','accounts')+(session.modules.signSettle?tap('Sign & Settle','✍','ss'):'')+(session.modules.inventory?tap('Inventory','▦','inventory'):'')+tap('Chip Reconciliation',money(chipVariance()),'chips')+'</div>';
-   return readonly(top+choices+finances+operations+options+(isFinal?link('Final Daily Close record','wf32-close'):''),true);
+   return readonly(top+finances+choices+operations+options+(isFinal?link('Final Daily Close record','wf32-close'):''),true);
   }
   if(view==='session-buyins'){
    return readonly(amount('TOTAL BUY-INS + REBUYS',buyIn())+line('Initial buy-ins',money(sumEvents('Buy-ins')))+line('Rebuys',money(sumEvents('Rebuys')))+title('Transactions · newest first')+buyEvents.slice().reverse().map(eventCard).join('')+note('Each rebuy is a distinct transaction, not an invented single total.'));
