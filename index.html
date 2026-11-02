@@ -4383,4 +4383,109 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
  function init(){const root=document.getElementById('content')||document.body;observer.observe(root,{childList:true,subtree:true});check()}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
+</script>
+<style id="daily-close-40-47-v1-style">
+.shared-phone .dc-review{height:100%;display:flex;flex-direction:column;gap:6px;color:#f5fbff;min-height:0}
+.shared-phone .dc-scroll{overflow-y:auto;min-height:0;flex:1;scrollbar-width:none}
+.shared-phone .dc-title{font-size:18px;font-weight:900;color:#a9e8ff;padding:5px 1px}
+.shared-phone .dc-line{display:flex;justify-content:space-between;align-items:center;gap:9px;min-height:36px;border-bottom:1px solid #2d5369;font-size:16px;padding:5px 3px}
+.shared-phone .dc-line b{font-size:16px;text-align:right}
+.shared-phone .dc-alert{border-left:4px solid #ffbf55;background:#49371d;padding:9px;font-size:16px;font-weight:800;margin:5px 0}
+.shared-phone .dc-good{border-left:4px solid #64dbb4;background:#124a43;padding:9px;font-size:16px;font-weight:800;margin:5px 0}
+.shared-phone .dc-panel{border:1px solid #3288b4;background:#10384e;padding:9px;border-radius:7px;margin:5px 0}
+.shared-phone .dc-panel strong{font-size:17px}
+.shared-phone .dc-note{font-size:15px;line-height:1.3;color:#d1e8f2;padding:5px 2px}
+.shared-phone .dc-action{min-height:45px;background:#115c82;border:1px solid #4ba7d1;color:white;border-radius:8px;font-size:17px;font-weight:900;padding:7px 10px;text-align:center}
+.shared-phone .dc-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.shared-phone .dc-actions .dc-action{min-width:0;font-size:15px}
+.shared-phone .dc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.shared-phone .dc-tile{background:#13445f;border:1px solid #2e92be;border-radius:7px;padding:9px 5px;text-align:center;font-size:15px;font-weight:800}
+.shared-phone .dc-tile strong{display:block;font-size:18px;margin-bottom:4px}
+.shared-phone .dc-lock{color:#83f1c4;font-size:19px;font-weight:900}
+.shared-phone .dc-review input,.shared-phone .dc-review textarea{width:100%;background:#0c304a;color:#fff;border:2px solid #53aed3;border-radius:7px;font-size:16px;padding:9px}
+.shared-phone .dc-review label{font-size:16px;font-weight:800;display:block;margin:6px 0}
+.shared-phone .dc-bottom{flex:none;display:flex;gap:6px}
+.shared-phone .dc-bottom .dc-action{flex:1}
+.shared-phone .dc-review details{border:1px solid #2e7398;background:#0b3046;border-radius:7px;margin:5px 0;padding:8px}
+.shared-phone .dc-review summary{font-weight:800;font-size:16px;cursor:pointer}
+</style>
+<script id="daily-close-40-47-v1">
+/* UX storyboard only. Close submissions and ledger mutations require the production backend. */
+(function(){
+const prev=screenContent;
+const d=WF32_DATA, ss=SNAPSHOT_SESSION, n=x=>Number(x).toLocaleString('en-US');
+const money=x=>(x<0?'−':'')+'<small style="font-size:.65em">COP</small> '+n(Math.abs(x));
+const sum=a=>a.reduce((s,v)=>s+v,0);
+const buy=sum(d.players.map(p=>p[4])),cash=sum(d.players.map(p=>p[5]));
+const rake=sum(d.tables.map(t=>t.rake)),tip=sum(d.staff.map(t=>t.tips));
+const wages=sum(d.staff.map(t=>t.earn)),operating=sum(d.expenses.flatMap(c=>c.items.map(i=>i[1])));
+const sales=ss.modules.inventory?sum(d.inventory.map(p=>p.sold*p.unit)):0;
+const expenses=wages+operating,net=rake+sales-expenses,variance=buy+ss.promoChips-cash-tip;
+const due=sum(d.debtors.map(p=>p.balance)),teamDue=sum(d.staff.map(p=>p.due));
+const row=(a,b)=>'<div class="dc-line"><span>'+a+'</span><b>'+b+'</b></div>';
+const title=a=>'<div class="dc-title">'+a+'</div>';
+const note=a=>'<div class="dc-note">'+a+'</div>';
+const warn=a=>'<div class="dc-alert">'+a+'</div>';
+const ok=a=>'<div class="dc-good">'+a+'</div>';
+const btn=a=>'<div class="dc-action">'+a+'</div>';
+const panel=(a,b)=>'<div class="dc-panel"><strong>'+a+'</strong>'+b+'</div>';
+const page=(content,footer='')=>'<div class="dc-review"><div class="dc-scroll">'+content+'</div>'+(footer?'<div class="dc-bottom">'+btn(footer)+'</div>':'')+'</div>';
+const inventoryVariance=d.inventory.filter(x=>x.start-x.sold-x.comp!==x.end);
+const allSettled=d.players.every(p=>p[3]==='Cashed out');
+const checklist=()=>[
+['Players',allSettled?'8 of 8 cashed out':'Action required'],
+['Team',money(teamDue)+' unpaid'],
+['Expenses / inventory',money(expenses)+' costs · '+inventoryVariance.length+' inventory variance'],
+['Chip reconciliation',money(variance)+' variance'],
+['Sign & Settle',money(due)+' outstanding']
+].map(x=>row(x[0],x[1])).join('');
+const summary=()=>row('Buy-ins + rebuys',money(buy))+row('Cash-outs',money(cash))+row('Rake',money(rake))+row('F&B sales',money(sales))+row('Operating expenses',money(operating))+row('Team compensation',money(wages))+row('Total expenses',money(expenses))+panel('NET PROFIT / LOSS',row('Net',money(net)))+row('Chip variance',money(variance))+row('Sign & Settle outstanding',money(due));
+const closeViews={
+40:[
+()=>page(title('BEGIN DAILY CLOSE')+note('Sunday, October 25, 2026 · Hold’em · 2 tables')+panel('Session snapshot',row('Players',String(d.players.length))+row('Team',String(d.staff.length))+row('Runtime',ss.duration))+warn('Review and confirm all financial areas before permanent closure.'),'REVIEW CLOSE CHECKLIST'),
+()=>page(title('CLOSE CHECKLIST')+checklist()+note('Each item opens its own review. Outstanding balances must be explicitly recorded.')),
+()=>page(title('REQUIREMENTS')+ok('All eight players have completed cash-outs in this demo.')+warn('Chip variance requires a typed explanation.')+warn('Outstanding staff and Sign & Settle balances remain visible, not silently marked paid.')+note('Final confirmation is an authorized Owner/Partner action.'))
+],
+41:[
+()=>page(title('PLAYER SETTLEMENTS')+row('Total players',String(d.players.length))+row('Cashed out',String(d.players.filter(p=>p[3]==='Cashed out').length))+row('Still seated',String(d.players.filter(p=>p[3]!=='Cashed out').length)),'REVIEW PLAYER DETAILS'),
+()=>page(title('CASH-OUT DETAILS')+d.players.map(p=>'<details><summary>'+p[0]+' · '+money(p[5])+'</summary>'+row('Buy-ins + rebuys',money(p[4]))+row('Win / loss',money(p[5]-p[4]))+row('Status',p[3])+'</details>').join('')),
+()=>page(ok('All 8 sample players are fully cashed out.')+row('Total buy-ins',money(buy))+row('Total cash-outs',money(cash))+warn('Sign & Settle outstanding remains '+money(due)+' and is reported separately.'))
+],
+42:[
+()=>page(title('TEAM CLOSE')+row('Members',String(d.staff.length))+row('Wages earned',money(wages))+row('Already paid',money(wages-teamDue))+row('Outstanding',money(teamDue)),'REVIEW TEAM'),
+()=>page(title('STAFF DETAILS')+d.staff.map(p=>'<details><summary>'+p.name+' · '+p.hours+'</summary>'+row('Earned',money(p.earn))+row('Advance',money(p.advance))+row('Settled',money(p.settled))+row('Unpaid',money(p.due))+row('Chip tips',money(p.tips))+'</details>').join('')),
+()=>page(warn('Outstanding staff pay: '+money(teamDue))+note('Unpaid amounts stay recorded as payables. Do not change them to “paid” without a recorded transaction.')+row('Team chip tips',money(tip)))
+],
+43:[
+()=>page(title('EXPENSE REVIEW')+row('Venue / drinks / other',money(operating))+row('Team compensation',money(wages))+row('Total expenses',money(expenses)),'REVIEW DETAILS'),
+()=>page(title('EXPENSE CATEGORIES')+d.expenses.map(c=>panel(c.name,c.items.map(i=>row(i[0],money(i[1]))).join(''))).join('')+panel('Team pay',row('Earned',money(wages)))),
+()=>page(title('INVENTORY REVIEW')+row('Recorded sales',money(sales))+row('Products',String(d.inventory.length))+row('Items with variance',String(inventoryVariance.length))+d.inventory.map(p=>row(p.name,'Expected '+(p.start-p.sold-p.comp)+' · Counted '+p.end)).join('')+warn('Discrepancies must remain visible in close records.'))
+],
+44:[
+()=>page(title('RECONCILE ACCOUNTS')+d.accounts.map(a=>row(a[0],money(a[1]))).join('')+row('Chips Box',money(ss.chipsHeld))+row('S&S receivable',money(due))+note('Balances are separate; do not add chips or debt to cash.') ,'CHECK CHIP BALANCE'),
+()=>page(title('CHIP RECONCILIATION')+row('Buy-ins + rebuys',money(buy))+row('Promo chips',money(ss.promoChips))+row('Cash-outs','− '+money(cash))+row('Tips in chips','− '+money(tip))+panel('VARIANCE',row('Difference',money(variance)))+warn('Nonzero variance requires a typed explanation.')),
+()=>page(title('ACCOUNT VERIFICATION')+warn('Recorded balance is not proof of physical cash counted.')+row('Chip variance',money(variance))+note('Production close must record who counted, verified and acknowledged the accounts.'))
+],
+45:[
+()=>page(title('CLOSE WARNINGS')+warn('Chip variance: '+money(variance))+warn('Team pay outstanding: '+money(teamDue))+warn('Sign & Settle outstanding: '+money(due))+warn('Inventory variance: '+inventoryVariance.length+' items'),'REVIEW EXCEPTIONS'),
+()=>page(title('VARIANCE EXPLANATION')+row('Chip discrepancy',money(variance))+'<label for="daily-close-variance-reason">Required explanation</label><textarea id="daily-close-variance-reason" rows="3" placeholder="Enter reason before final close"></textarea>'+note('Preview only. Saving and user attribution require the application backend.')),
+()=>page(title('ACKNOWLEDGEMENTS')+warn('Chip variance may be closed with a recorded explanation, not ignored.')+note('Owner/Partner must approve unresolved items as permitted. Staff and debtor balances carry forward as obligations.'))
+],
+46:[
+()=>page(title('FINAL CLOSE REVIEW')+summary()+warn('Permanent close is irreversible. Verify that warning explanations and account checks have been recorded.'),'REVIEW AUTHORIZATION'),
+()=>page(title('OWNER CONFIRMATION')+row('Status','Ready only after checks')+row('Session','Sunday, Oct 25, 2026')+warn('Owner or authorized Partner must confirm. This mockup cannot execute permanent closure.')+'<label>Confirmation</label><input readonly value="Preview only — no session will be closed">','CONFIRM PERMANENT CLOSE · DEMO'),
+()=>page(title('LOCKED STATE · DEMO')+ok('Demonstration of the post-close screen.')+note('The real application must atomically lock the session and all new live transactions. No closure has occurred here.')+row('Record','Historical / read-only'))
+],
+47:[
+()=>page(title('FINAL DAILY CLOSE')+ok('Historical summary · read-only demonstration')+row('Sunday, October 25, 2026','2 tables')+summary()),
+()=>page(title('FINAL FINANCIAL DETAIL')+summary()+row('Team payable',money(teamDue))+warn('A variance explanation is required in the real finalized record; none exists in this demo.')),
+()=>page(title('PERMANENT RECORD')+ok('Read-only reporting layout')+row('Total rake',money(rake))+row('Net profit / loss',money(net))+row('Chip variance',money(variance))+note('Real final reports must preserve user attribution, timestamps, explanations and immutable transactions. Export is not simulated.'))
+]
+};
+for(const [id,steps] of Object.entries(closeViews)){
+const w=WORKFLOWS.find(x=>x.id===+id);
+if(w){w.steps=({40:['Start close','Close checklist','Review requirements'],41:['Player status','Player cash-outs','Settlement status'],42:['Team totals','Individual staff','Outstanding balances'],43:['Expenses total','Expense details','Inventory verification'],44:['Account balances','Chip reconciliation','Account verification'],45:['Warning overview','Variance explanation','Owner acknowledgements'],46:['Final review','Authorization','Locked state preview'],47:['Final summary','Financial details','Permanent record']})[id];}
+}
+screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][Math.min(i,closeViews[w.id].length-1)]();return prev(w,step,i)};
+})();
 </script></body></html>
