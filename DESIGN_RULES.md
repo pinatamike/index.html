@@ -1,4 +1,7 @@
-# NORA Design Rules (approved so far)
+# NORA Design Rules — AUTHORITATIVE (frozen Nov 2, 2026)
+
+These rules and `design-system/README.md` are the single UI specification for NORA. Where an older rule below conflicts with a newer one, the newer section wins.
+
 
 ## Font sizes (minimum)
 - Screen titles / card titles: 20px
@@ -63,3 +66,8 @@
 - Footer actions: 63px, full width; a single action spans the full width
 - Table View names/amounts 18px in every variant
 - System layer lives in <style id="nora-system"> and <script id="nora-system-js">; keep them last in <head>
+
+## Final items (Nov 2)
+- WF40 Daily Close: all 8 checks on one screen, no scroll; 26px status squares (green ✓ done, amber ! review, red ✗ action required)
+- Team figures follow the session staff record: Anna compensation COP 150,000, advance 100,000, final payment 50,000, outstanding 0, chip tips 15,000
+- Blinds are written COP 5,000 / 10,000; minimum buy-in COP 500,000 (never 5M / 10M / 500K)
