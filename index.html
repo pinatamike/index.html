@@ -4679,4 +4679,102 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   };
   /* Static storyboard steps can be reached via their normal workflow links; no fake database close. */
 })();
+</script>
+<style id="nora-onboarding-settings-refresh">
+.shared-phone .ns-panel{height:100%;min-height:0;display:flex;flex-direction:column;gap:7px;color:#effaff}
+.shared-phone .ns-scroll{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none}
+.shared-phone .ns-scroll::-webkit-scrollbar{display:none}
+.shared-phone .ns-heading{font-size:19px;font-weight:900;color:#b9ebff;padding:4px 0}
+.shared-phone .ns-progress{font-size:15px;font-weight:850;color:#77dcff}
+.shared-phone .ns-info{font-size:15px;line-height:1.3;color:#d1e4ed;padding:4px 1px}
+.shared-phone .ns-field{display:flex;flex-direction:column;gap:3px;margin:6px 0}
+.shared-phone .ns-field label{font-size:15px;font-weight:800}
+.shared-phone .ns-field input,.shared-phone .ns-field select{width:100%;min-height:43px;background:#103d58;border:1px solid #4ca9d4;border-radius:7px;color:white;font-size:17px;padding:6px 10px}
+.shared-phone .ns-choice{display:flex;justify-content:space-between;align-items:center;border:1px solid #317ba3;border-radius:7px;background:#0c354f;padding:9px;font-size:16px;font-weight:800;gap:9px;margin:5px 0}
+.shared-phone .ns-choice input{width:21px;height:21px;accent-color:#4ed4ce}
+.shared-phone .ns-headingline{font-size:16px;font-weight:900;color:#89ddfc;margin:10px 0 5px}
+.shared-phone .ns-note{font-size:14px;color:#c8dfed;padding:5px 2px;line-height:1.3}
+.shared-phone .ns-footer{flex:none;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.shared-phone .ns-btn{min-height:46px;border-radius:8px;border:1px solid #54add5;background:#10547a;color:#fff;font-size:16px;font-weight:900;padding:6px;cursor:pointer}
+.shared-phone .ns-btn.primary{background:#116954;border-color:#6ed8bb}
+.shared-phone .ns-stat{display:flex;justify-content:space-between;gap:8px;padding:8px 1px;border-bottom:1px solid #2c5b76;font-size:16px}
+.shared-phone .ns-stat strong{text-align:right}
+.shared-phone .ns-badge{padding:9px;background:#125343;border:1px solid #53b99b;font-weight:900;font-size:17px}
+.shared-phone .ns-panel .ns-currency{display:inline-flex;align-items:baseline;gap:3px;white-space:nowrap}
+.shared-phone .ns-panel .ns-currency small{font-size:.65em}
+</style>
+<script id="nora-onboarding-settings-refresh-script">
+(function(){
+ const prior=screenContent;
+ const W=WORKFLOWS, T=SCREEN_SPECS;
+ const definitions={
+ 59:['Your game','Game rules','Rake configuration','Optional modules','Setup review'],
+ 60:['Game settings','Blinds and buy-ins','Rake and tables'],
+ 61:['Enabled accounts','Configure accounts','Review balances'],
+ 62:['Sign & Settle','Verification method','Security review'],
+ 63:['Team roles','Permission matrix','Review access'],
+ 64:['Food & beverage','Menu and stock','Inventory controls'],
+ 65:['Profile and language','Preferences review'],
+ 66:['Team access','Invite member','Invitation review']
+ };
+ const titles={59:'Quick onboarding — essential setup',60:'Game rules and tables',61:'Account Balances setup',62:'Sign & Settle verification',63:'Team permissions',64:'Food, beverage and inventory',65:'Profile and preferences',66:'Invite and manage team access'};
+ Object.entries(definitions).forEach(([id,steps])=>{
+  const w=W.find(w=>w.id===+id);
+  if(w){w.title=titles[id];w.steps=steps;}
+  if(T[id])T[id].types=steps.map((_,i)=>'nora-settings-'+id+'-'+i);
+ });
+ const row=(a,b)=>'<div class="ns-stat"><span>'+a+'</span><strong>'+b+'</strong></div>';
+ const fld=(name,value,type='text')=>'<div class="ns-field"><label>'+name+'</label><input type="'+type+'" value="'+value+'"></div>';
+ const sel=(name,values)=>'<div class="ns-field"><label>'+name+'</label><select>'+values.map(v=>'<option>'+v+'</option>').join('')+'</select></div>';
+ const toggle=(name,checked=false)=>'<label class="ns-choice">'+name+'<input type="checkbox" '+(checked?'checked':'')+'></label>';
+ const note=t=>'<div class="ns-note">'+t+'</div>';
+ const page=(id,i,body)=>'<div class="ns-panel"><div class="ns-scroll"><div class="ns-progress">'+(id===59?'QUICK SETUP':'SETTINGS')+' · '+(i+1)+' / '+definitions[id].length+'</div><div class="ns-heading">'+definitions[id][i]+'</div>'+body+'</div><div class="ns-footer">'+(i>0?'<button class="ns-btn" type="button" onclick="rnGo(\''+id+':'+(i-1)+'\',this.closest(\'.stage\'))">BACK</button>':'<button class="ns-btn" type="button" onclick="show(59)">SETUP HOME</button>')+'<button class="ns-btn primary" type="button" onclick="'+(i+1<definitions[id].length?'rnGo(\''+id+':'+(i+1)+'\',this.closest(\'.stage\'))':'show('+(id===59?60:id)+')')+'">'+(i+1<definitions[id].length?'CONTINUE':id===59?'FINISH PREVIEW':'DONE')+'</button></div></div>';
+ const body={
+ 59:[
+ fld('Game / club name','My Poker Game')+sel('Currency',['COP','USD','EUR'])+sel('Language',['English','Español'])+note('Only essentials are required before starting. Team invitations and advanced modules can wait.'),
+ sel('Game type',['Texas Hold’em','Pot Limit Omaha','Mixed'])+fld('Small blind','5000','number')+fld('Big blind','10000','number')+sel('Tables',['1','2','3','4'])+sel('Seats per table',['9','10','8']),
+ sel('Rake method',['Percentage per pot','Timed collection','No rake'])+fld('Rake percentage','5','number')+fld('Cap per pot (COP)','50000','number')+note('Edit advanced rake options later under Game Settings.'),
+ toggle('Sign & Settle',false)+toggle('Food & beverage',false)+toggle('Inventory',false)+note('Optional modules default off. Enable them only when needed.'),
+ '<div class="ns-badge">READY TO START · DEMONSTRATION</div>'+row('Game','Hold’em · 1 table')+row('Blinds','COP 5,000 / 10,000')+row('Rake','5% · cap COP 50,000')+note('Review screen is illustrative: inputs in this storyboard are not persisted. In the product, show the actual saved selections and allow Edit before activation.')
+ ],
+ 60:[
+ row('Game','Texas Hold’em')+row('Tables','2')+row('Blinds','COP 5,000 / 10,000')+note('Select the part you wish to edit; do not repeat the onboarding wizard.'),
+ fld('Small blind','5000','number')+fld('Big blind','10000','number')+fld('Minimum buy-in','500000','number')+fld('Maximum buy-in','2000000','number'),
+ sel('Rake method',['Percentage','Timed','None'])+fld('Rake (%)','5','number')+fld('Rake cap','50000','number')+sel('Number of tables',['1','2','3','4'])+note('Session-specific overrides require authorized confirmation.')
+ ],
+ 61:[
+ toggle('Cash',true)+toggle('Nequi',true)+toggle('Bancolombia',true)+toggle('PayPal / Zelle',false)+row('Chips Box','Separate balance')+note('Chips Box and S&S receivables are not cash payment accounts.'),
+ fld('Nequi account label','Nequi')+fld('Bancolombia label','Bancolombia')+fld('PayPal / Zelle label','PayPal / Zelle')+note('Account identifiers and credentials must be secured in production.'),
+ row('Cash','Enabled')+row('Nequi','Enabled')+row('Bancolombia','Enabled')+row('PayPal / Zelle','Disabled')+note('No financial transaction is created by changing an account setting.')
+ ],
+ 62:[
+ toggle('Enable Sign & Settle',true)+note('Only Owner and authorized roles may issue credit or record collection.'),
+ sel('Choose ONE confirmation method',['PIN','Biometric','Photo','Voice'])+fld('PIN length','6','number')+note('Production verification requires device and identity checks. Never store PINs in plaintext.'),
+ row('Enabled','Yes')+row('Confirmation','One method only')+row('Outstanding balance','Separate receivable')+note('This is configuration, not a credit or debt collection transaction.')
+ ],
+ 63:[
+ row('Owner / Partners','Control access')+row('Cashier','Transactions')+row('Dealer','Table operations')+row('Waitress / Bartender / Chef','Service modules')+note('Permissions are assigned by role, then customized only where necessary.'),
+ toggle('Cashier: buy-ins / cash-outs',true)+toggle('Dealer: seating / rake',true)+toggle('Service staff: F&B entries',true)+toggle('Only Owner / Partner: permanent close',true)+note('Changes require authorized approval and an audit log.'),
+ row('Financial corrections','Authorized only')+row('Issue credit','Authorized only')+row('Permanent close','Owner / permitted Partner')+note('No access has been changed by this preview.')
+ ],
+ 64:[
+ toggle('Enable food & beverage',true)+toggle('Enable inventory',true)+note('Inventory can be enabled only for products that need tracking.'),
+ fld('Menu item','Aguila')+fld('Price (COP)','10000','number')+sel('Category',['Beverages','Food','Bar'])+note('Menu images: upload up to three pages in production settings.'),
+ toggle('Count starting / ending stock',true)+toggle('Track complimentary items',true)+toggle('Flag shortages at close',true)+note('Food quantities can be estimated. Beverage counts use units.')
+ ],
+ 65:[
+ fld('Club / game display name','My Poker Game')+sel('Language',['English','Español','Português'])+sel('Time zone',['America/Bogota','America/New_York','Europe/London'])+sel('Currency',['COP','USD']),
+ row('Language','English')+row('Time zone','America/Bogota')+row('Currency','COP')+note('Profile preferences are separate from financial transaction records.')
+ ],
+ 66:[
+ row('Owner','Primary owner')+row('Partners','Equal owners permitted')+row('Pending invitations','0')+note('Invite members once the game is configured; not required during fast onboarding.'),
+ fld('Invitee name','')+fld('Email or WhatsApp','')+sel('Role',['Partner','Cashier','Dealer','Waitress / Bartender','Chef'])+note('Only authorized owners can grant privileged access.'),
+ row('Invitation','Preview only')+row('Role','Selected in prior step')+note('No message has been sent. A production invite must show recipient, permissions, expiry and confirmation.')
+ ]
+ };
+ screenContent=function(w,step,i){
+  if(w&&definitions[w.id])return page(w.id,Math.min(i,definitions[w.id].length-1),body[w.id][Math.min(i,body[w.id].length-1)]);
+  return prior(w,step,i);
+ };
+})();
 </script></body></html>
