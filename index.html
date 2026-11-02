@@ -1247,6 +1247,16 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .storyboard>.stage:nth-child(5) .hi-phone .co6-done .co6-paid-stamp.co6-busted-stamp{width:auto!important;min-width:84px!important;flex:0 0 84px!important;height:84px!important;padding:0 12px!important;display:flex!important;align-items:center!important;justify-content:center!important}
 .storyboard>.stage:nth-child(5) .hi-phone .co6-done .co6-busted-stamp strong{font-size:22px!important;white-space:nowrap!important}
 </style>
+
+<style id="wf32-profit-directly-below-rake-expenses">
+/* Workflow 32: Rake + Expenses form a pair directly above the prominent profit result. */
+.snap-phone .wf32-finance-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:7px 0 0}
+.snap-phone .wf32-finance-pair .wf32-tap{grid-column:auto!important;min-height:74px}
+.snap-phone .wf32-profit-card{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;width:100%;min-height:88px;margin:0 0 8px;padding:12px 14px;text-align:left;border:2px solid #67cabf;border-radius:9px;background:linear-gradient(120deg,#124a50,#0c393c);color:#fff;cursor:pointer}
+.snap-phone .wf32-profit-card span{font-size:17px;font-weight:850;color:#a5eee2}
+.snap-phone .wf32-profit-card strong{font-size:25px;font-weight:900;color:#ff9f99;letter-spacing:-.4px}
+.snap-phone .wf32-profit-card:focus-visible{outline:3px solid #ffcf6a;outline-offset:2px}
+</style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -4173,7 +4183,7 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
    const top='<div class="wf32-badge">'+(isFinal?'FINAL SESSION · READ ONLY':'LIVE SESSION · READ-ONLY REPORT · DEMO')+'</div>'+
     '<div class="wf32-metadata">Sunday, October 25, 2026<span>Hold’em · 2 tables · Rake 5% · '+session.duration+'</span></div>';
    const choices='<div class="wf32-statgrid">'+tap('Buy-ins / Rebuys',money(buyIn()),'session-buyins')+tap('Cash-outs',money(cashOut()),'session-cashouts')+tap('Players',d.players.length,'session-players')+tap('Tables',d.tables.length,'tables')+'</div>';
-   const finances='<div class="wf32-financegrid">'+tap('Rake',money(780000),'tables')+tap('Expenses incl. team',money(totalExpenses()),'expenses')+tap('Net Profit',money(netProfit()),'session-profit')+'</div>';
+   const finances='<div class="wf32-financegrid wf32-finance-pair">'+tap('Rake',money(780000),'tables')+tap('Expenses',money(totalExpenses()),'expenses')+'</div>'+'<button type="button" class="wf32-profit-card" onclick="snapNavigate(this,\'session-profit\')"><span>NET PROFIT / LOSS</span><strong>'+money(netProfit())+'</strong></button>';
    const operations='<button class="wf32-tap wf32-primary" onclick="snapNavigate(this,\'session-runtime\')"><b>◷ Session runtime · '+session.duration+'</b><span>View per-table hours</span></button>';
    const options='<div class="wf32-quickgrid">'+tap('Session Ledger','▤','ledger')+tap('Team','♟','team')+tap('Account Balances','▣','accounts')+(session.modules.signSettle?tap('Sign & Settle','✍','ss'):'')+(session.modules.inventory?tap('Inventory','▦','inventory'):'')+tap('Chip Reconciliation',money(chipVariance()),'chips')+'</div>';
    return readonly(top+choices+finances+operations+options+(isFinal?link('Final Daily Close record','wf32-close'):''),true);
