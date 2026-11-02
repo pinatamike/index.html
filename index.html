@@ -5077,4 +5077,50 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  };
  screenContent=function(w,step,i){if(w&&views[w.id])return views[w.id][Math.min(i,views[w.id].length-1)];return prior(w,step,i)};
 })();
+</script>
+<style id="settings-report-final-audit">
+.shared-phone .ns-panel input:focus-visible,.shared-phone .ns-panel select:focus-visible,.shared-phone .nr-panel select:focus-visible{outline:3px solid #66d8ed}
+.shared-phone .ns-save-note{font-size:14px;color:#ffd18a;line-height:1.25;padding:5px}
+.shared-phone .nr-panel .nr-filter-note{font-size:14px;color:#ffd18a;padding:4px}
+.shared-phone .nr-panel .nr-ledger-empty{padding:15px 4px;font-size:16px}
+.shared-phone .nr-panel .nr-filter select{width:100%}
+</style>
+<script id="settings-report-final-audit-script">
+(function(){
+ const before=screenContent;
+ const money=x=>(x<0?'−':'')+'<span class="nr-currency"><small>COP</small><span>'+Math.abs(x).toLocaleString('en-US')+'</span></span>';
+ const entries=WF32_DATA.events||[];
+ const escText=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function reportLedger(cat){
+  const opts=['All','Buy-ins','Rebuys','Cash-outs','Rake','Expenses','Team','Chip tips','F&B sales','Sign & Settle'];
+  const filtered=entries.filter(e=>cat==='All'||e.cat===cat);
+  const cards=filtered.slice().reverse().map(e=>'<details class="nr-card"><summary>'+escText(e.description)+' · '+money(e.amount)+'</summary><div class="nr-row"><span>Reference</span><strong>'+escText(e.id)+'</strong></div><div class="nr-row"><span>Time</span><strong>'+escText(e.time)+'</strong></div><div class="nr-row"><span>Posted by</span><strong>'+escText(e.postedBy||'Not recorded (demo)')+'</strong></div><div class="nr-row"><span>Type</span><strong>'+escText(e.cat)+'</strong></div><div class="nr-info">'+escText(e.detail)+'</div></details>').join('');
+  return '<div class="nr-panel"><div class="nr-body"><div class="nr-head">Transaction ledgers</div>'+
+  '<label class="nr-filter">Transaction type<select onchange="this.closest(\'.nr-panel\').outerHTML=window.noraReportingLedger(this.value)">'+opts.map(x=>'<option'+(cat===x?' selected':'')+'>'+x+'</option>').join('')+'</select></label>'+
+  '<div class="nr-info">'+filtered.length+' sample records · choose category to filter. Individual records include audit attribution where available.</div>'+
+  (cards||'<div class="nr-ledger-empty">No transactions in this category.</div>')+
+  '<div class="nr-filter-note">Read-only demo. Category totals must be derived from posted events, not account balances.</div></div></div>';
+ }
+ window.noraReportingLedger=reportLedger;
+ screenContent=function(w,step,i){
+  let html=before(w,step,i);
+  if(!w)return html;
+  if(w.id===69&&i===2)return reportLedger('All');
+  if(w.id===59&&i===4){
+    html=html.replace('READY TO START · DEMONSTRATION','REVIEW DEFAULT SETUP · DEMO');
+    html=html.replace('Review screen is illustrative: inputs in this storyboard are not persisted. In the product, show the actual saved selections and allow Edit before activation.','The numbers shown are illustrative defaults, not your selections. Production must review actual entered values before activating the game.');
+  }
+  if(w.id>=59&&w.id<=66){
+    html=html.replace('>DONE</button>','>EXIT PREVIEW</button>');
+    html=html.replace('>FINISH PREVIEW</button>','>END SETUP PREVIEW</button>');
+    if(i===0&&w.id!==59)html=html.replace('>SETUP HOME</button>','>BACK TO SETTINGS</button>');
+    html=html.replace('</div></div>','<div class="ns-save-note">UX preview — changes are not saved.</div></div></div>');
+  }
+  if(w.id>=67&&w.id<=71&&w.id!==69){
+    html=html.replace(/<label class="nr-filter">/g,'<label class="nr-filter">');
+    html=html.replace('</div></div>','<div class="nr-filter-note">Period and game selections are illustrative until connected to real historical data.</div></div></div>');
+  }
+  return html;
+ };
+})();
 </script></body></html>
