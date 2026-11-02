@@ -4738,7 +4738,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  '<div class="ns-badge">READY TO START · DEMONSTRATION</div>'+row('Game','Hold’em · 1 table')+row('Blinds','COP 5,000 / 10,000')+row('Rake','5% · cap COP 50,000')+note('Review screen is illustrative: inputs in this storyboard are not persisted. In the product, show the actual saved selections and allow Edit before activation.')
  ],
  60:[
- row('Game','Texas Hold’em')+row('Tables','1 (onboarding default)')+row('Blinds','COP 5,000 / 10,000')+note('Select the part you wish to edit; do not repeat the onboarding wizard.'),
+ row('Game','Texas Hold’em')+row('Tables','1 (onboarding default)')+row('Blinds','COP 5,000 / 10,000')+note('Game configuration is editable here. Session overrides require authorization.'),
  fld('Game / club name','My Poker Game')+sel('Game type',['Texas Hold’em','Pot Limit Omaha','Mixed'])+fld('Small blind','5000','number')+fld('Big blind','10000','number')+fld('Minimum buy-in','500000','number')+fld('Maximum buy-in','2000000','number'),
  sel('Rake method',['Percentage','Timed','None'])+fld('Rake (%)','5','number')+fld('Rake cap','50000','number')+fld('Minimum pot for rake','200000','number')+sel('Number of tables',['1','2','3','4'])+sel('Seats per table',['9','10','8'])+note('Session-specific overrides require authorized confirmation.')
  ],
@@ -4748,9 +4748,9 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  row('Cash','Enabled')+row('Nequi','Enabled')+row('Bancolombia','Enabled')+row('PayPal / Zelle','Disabled')+note('No financial transaction is created by changing an account setting.')
  ],
  62:[
- row('Sign & Settle','Optional module · off by default')+note('Enable this module in Quick Setup or here when ready. Only authorized roles can issue credit or record collections.'),
+ toggle('Enable Sign & Settle',false)+note('Enable this module in Quick Setup or here when ready. Only authorized roles can issue credit or record collections.'),
  sel('Choose ONE confirmation method',['PIN','Biometric','Photo','Voice'])+fld('PIN length','6','number')+note('Production verification requires device and identity checks. Never store PINs in plaintext.'),
- row('Enabled','Optional · off by default')+row('Confirmation','Choose one active method')+row('Outstanding balance','Separate receivable')+note('This is configuration, not a credit or debt collection transaction.')
+ row('Activation','Enable only after configuring verification')+row('Confirmation','One selected method')+row('Outstanding balance','Separate receivable')+note('This is configuration, not a credit or debt collection transaction.')
  ],
  63:[
  row('Owner / Partners','Control access')+row('Cashier','Transactions')+row('Dealer','Table operations')+row('Waitress / Bartender / Chef','Service modules')+note('Permissions are assigned by role, then customized only where necessary.'),
@@ -4760,11 +4760,11 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  64:[
  toggle('Enable food & beverage',false)+toggle('Enable inventory',false)+note('Inventory can be enabled only for products that need tracking.'),
  fld('Menu item','Aguila')+fld('Price (COP)','10000','number')+sel('Category',['Beverages','Food','Bar'])+note('Menu images: upload up to three pages in production settings.'),
- toggle('Count starting / ending stock',true)+toggle('Track complimentary items',true)+toggle('Flag shortages at close',true)+note('Food quantities can be estimated. Beverage counts use units.')
+ toggle('Count starting / ending stock',false)+toggle('Track complimentary items',false)+toggle('Flag shortages at close',false)+note('Food quantities can be estimated. Beverage counts use units.')
  ],
  65:[
  fld('Owner display name','Club Owner')+sel('Language',['English','Español','Português'])+sel('Time zone',['America/Bogota','America/New_York','Europe/London'])+sel('Currency',['COP','USD']),
- row('Language','English')+row('Time zone','America/Bogota')+row('Currency','COP')+note('Profile preferences are separate from financial transaction records.')
+ row('Owner profile','Club Owner')+row('Language','English')+row('Time zone','America/Bogota')+row('Currency','COP')+note('Profile preferences are separate from financial transaction records.')
  ],
  66:[
  row('Owner','Primary owner')+row('Partners','Equal owners permitted')+row('Pending invitations','0')+note('Invite members once the game is configured; not required during fast onboarding.'),
@@ -4809,5 +4809,78 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   }
   return html;
  };
+})();
+</script>
+<style id="nora-reporting-review-v1">
+.shared-phone .nr-panel{height:100%;display:flex;flex-direction:column;color:white;gap:7px;min-height:0}
+.shared-phone .nr-body{min-height:0;flex:1;overflow-y:auto;scrollbar-width:none}
+.shared-phone .nr-head{font-size:19px;font-weight:900;color:#b5eafa;margin:2px 0 9px}
+.shared-phone .nr-info{font-size:15px;color:#cfe5ef;line-height:1.35;padding:5px 0}
+.shared-phone .nr-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px solid #285672;padding:9px 2px;font-size:16px}
+.shared-phone .nr-row strong{font-size:16px;text-align:right}
+.shared-phone .nr-card{border:1px solid #3589b1;background:#123a54;border-radius:8px;padding:9px;margin:6px 0;font-size:16px}
+.shared-phone .nr-card summary{cursor:pointer;font-size:17px;font-weight:900}
+.shared-phone .nr-btn{border:1px solid #55aede;background:#15587a;color:#fff;padding:10px;border-radius:8px;font-size:16px;font-weight:850;cursor:pointer}
+.shared-phone .nr-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:none}
+.shared-phone .nr-filter{font-size:16px;display:flex;flex-direction:column;gap:4px;margin:7px 0}
+.shared-phone .nr-filter select,.shared-phone .nr-filter input{background:#103a54;color:#fff;border:1px solid #4a9ecc;border-radius:7px;min-height:42px;padding:6px;font-size:16px}
+.shared-phone .nr-currency{display:inline-flex;align-items:baseline;gap:3px}
+.shared-phone .nr-currency small{font-size:.65em!important}
+</style>
+<script id="nora-reporting-review-v1-script">
+(function(){
+ const prior=screenContent, d=WF32_DATA, ss=SNAPSHOT_SESSION;
+ const sum=a=>a.reduce((a,b)=>a+b,0);
+ const fmt=n=>(n<0?'−':'')+'<span class="nr-currency"><small>COP</small><span>'+Math.abs(n).toLocaleString('en-US')+'</span></span>';
+ const p=d.players, wages=sum(d.staff.map(x=>x.earn)),ops=sum(d.expenses.flatMap(x=>x.items.map(i=>i[1])));
+ const rake=sum(d.tables.map(x=>x.rake)),sales=ss.modules.inventory?sum(d.inventory.map(x=>x.sold*x.unit)):0;
+ const buy=sum(p.map(x=>x[4])),cash=sum(p.map(x=>x[5])),tips=sum(d.staff.map(x=>x.tips));
+ const net=rake+sales-ops-wages,variance=buy+ss.promoChips-cash-tips;
+ const row=(a,b)=>'<div class="nr-row"><span>'+a+'</span><strong>'+b+'</strong></div>';
+ const info=t=>'<div class="nr-info">'+t+'</div>';
+ const card=(name,inside)=>'<details class="nr-card"><summary>'+name+'</summary>'+inside+'</details>';
+ const filter=(name,values)=>'<label class="nr-filter">'+name+'<select>'+values.map(v=>'<option>'+v+'</option>').join('')+'</select></label>';
+ const nav=(label,route)=>'<button type="button" class="nr-btn" onclick="rnGo(\''+route+'\',this.closest(\'.stage\'))">'+label+'</button>';
+ const make=(title,body,actions='')=>'<div class="nr-panel"><div class="nr-body"><div class="nr-head">'+title+'</div>'+body+'</div>'+(actions?'<div class="nr-actions">'+actions+'</div>':'')+'</div>';
+ const meta=info('Illustrative historical session · Sunday, October 25, 2026. Figures are demonstration data, not production records.');
+ const defs={
+ 67:['Reporting home','Find sessions','Session detail and ledgers'],
+ 68:['Player reports','Player history','Player session detail'],
+ 69:['Financial overview','Table performance','Rake and transaction ledgers'],
+ 70:['Team and expenses','Team details','Expense and inventory details'],
+ 71:['Choose report','Export options','Export preview']
+ };
+ const names={67:'Reporting dashboard and historical sessions',68:'Player reporting and history',69:'Revenue, rake and ledger reports',70:'Team, expenses and inventory reports',71:'Export and share reporting'};
+ Object.entries(defs).forEach(([id,steps])=>{const w=WORKFLOWS.find(x=>x.id===+id);if(w){w.title=names[id];w.steps=steps;}if(SCREEN_SPECS[id])SCREEN_SPECS[id].types=steps.map((_,i)=>'nora-report-'+id+'-'+i);});
+ const events=d.events||[];
+ const ledger=c=>events.filter(e=>c==='All'||e.cat===c).slice().reverse().map(e=>card(e.description+' · '+fmt(e.amount),row('Reference',e.id)+row('Time',e.time)+row('Posted by',e.postedBy||'Not recorded (demo)')+row('Type',e.cat)+info(e.detail))).join('');
+ const views={
+ 67:[
+ make('Reporting',info('Historical sessions, players, financials, team, expenses, and all transaction ledgers.')+row('Last session','Oct 25, 2026')+row('Total rake',fmt(rake))+row('Net profit / loss',fmt(net))+row('Session ledger','All transaction types'),nav('Sessions','67:1')+nav('Ledgers','69:2')),
+ make('Find historical sessions',filter('Period',['Last 30 days','Last 7 days','This year','Custom range'])+filter('Game type',['All games','Hold’em','PLO'])+card('Sun, Oct 25, 2026 · 2 tables',row('Rake',fmt(rake))+row('Net',fmt(net))+row('Status','Permanently closed')),nav('Open session','67:2')),
+ make('Historical session',meta+row('Buy-ins + rebuys',fmt(buy))+row('Cash-outs',fmt(cash))+row('Rake',fmt(rake))+row('Expenses incl. team',fmt(ops+wages))+row('F&B sales',fmt(sales))+row('Net',fmt(net))+row('Chip variance',fmt(variance)),nav('View ledgers','69:2')+nav('Export','71:0'))
+ ],
+ 68:[
+ make('Player reporting',filter('Period',['Lifetime','This year','Last 30 days','Custom'])+filter('Game',['All games','Hold’em','PLO'])+row('Players in example session',String(p.length))+info('Rank lifetime winners, total hours and individual win/loss from actual historical sessions.'),nav('Player list','68:1')),
+ make('Player history',p.map(x=>card(x[0],row('Session buy-ins',fmt(x[4]))+row('Session cash-out',fmt(x[5]))+row('Session win / loss',fmt(x[5]-x[4]))+row('Session hours',x[6]))).join('')+info('Lifetime metrics require records across all closed sessions.'),nav('Session detail','68:2')),
+ make('Player session detail',row('Player','Rafa')+row('Table','1')+row('Buy-ins + rebuys',fmt(p[0][4]))+row('Cash-out',fmt(p[0][5]))+row('Net',fmt(p[0][5]-p[0][4]))+row('Hours',p[0][6])+info('Each real player must be selectable; example uses Rafa.'),nav('Player ledger','69:2'))
+ ],
+ 69:[
+ make('Financial reporting',filter('Period',['Last 30 days','Lifetime','Custom range'])+filter('Game',['All games','Hold’em','PLO'])+row('Rake',fmt(rake))+row('F&B revenue',fmt(sales))+row('Expenses',fmt(ops+wages))+row('Net profit / loss',fmt(net))+info('Account transfers are excluded from revenue.'),nav('Table detail','69:1')+nav('Ledgers','69:2')),
+ make('Rake and table performance',d.tables.map(t=>card(t.name,row('Rake',fmt(t.rake))+row('Hours',(t.minutes/60).toFixed(2)+'h')+row('Rake / hour',fmt(Math.round(t.rake*60/t.minutes)))+row('Average stack (illustrative)',fmt(t.stack)))).join('')+info('Actual average stacks require timestamped samples.'),nav('Rake ledger','69:2')),
+ make('All transaction ledgers',filter('Transaction type',['All','Buy-ins','Rebuys','Cash-outs','Rake','Expenses','Team','Chip tips','F&B sales','Sign & Settle'])+info('Tap records to see transaction ID, date/time, posting user and details. Account balances are not transactions.')+ledger('All'))
+ ],
+ 70:[
+ make('Team and expenses',filter('Period',['Last 30 days','Lifetime','Custom range'])+row('Staff compensation',fmt(wages))+row('Other expenses',fmt(ops))+row('Total expenses',fmt(ops+wages))+row('Outstanding staff pay',fmt(sum(d.staff.map(x=>x.due)))),nav('Staff detail','70:1')+nav('Expenses','70:2')),
+ make('Team records',d.staff.map(x=>card(x.name,row('Hours',x.hours)+row('Earned',fmt(x.earn))+row('Paid',fmt(x.advance+x.settled))+row('Unpaid',fmt(x.due))+row('Chip tips',fmt(x.tips)))).join('')),
+ make('Expense and inventory details',d.expenses.map(x=>card(x.name,x.items.map(i=>row(i[0],fmt(i[1]))).join(''))).join('')+row('F&B sales',fmt(sales))+info('Inventory count discrepancies and item-level sales belong in the inventory report; this preview lacks receipt-level entries.'))
+ ],
+ 71:[
+ make('Export report',filter('Report',['Historical session','Players','Rake / Tables','Team / Expenses','Transaction ledger'])+filter('Period',['Selected session','Last 30 days','Custom range'])+info('Export only records permitted for your role.'),nav('Choose format','71:1')),
+ make('Format and destination',filter('Format',['CSV','PDF'])+filter('Destination',['Download','Share (where supported)'])+info('Only the actual production application can generate a real downloadable export.'),nav('Review export','71:2')),
+ make('Export preview',row('Session','Oct 25, 2026')+row('Type','Historical summary')+row('Status','Preview only')+info('No file is generated or sent by this review prototype.'),nav('Back to reports','67:0'))
+ ]
+ };
+ screenContent=function(w,step,i){if(w&&views[w.id])return views[w.id][Math.min(i,views[w.id].length-1)];return prior(w,step,i)};
 })();
 </script></body></html>
