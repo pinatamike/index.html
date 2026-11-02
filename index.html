@@ -4710,12 +4710,12 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  const definitions={
  59:['Your game','Game rules','Rake configuration','Optional modules','Setup review'],
  60:['Game settings','Blinds and buy-ins','Rake and tables'],
- 61:['Enabled accounts','Configure accounts','Review balances'],
- 62:['Sign & Settle','Verification method','Security review'],
- 63:['Team roles','Permission matrix','Review access'],
+ 61:['Enabled accounts','Configure accounts','Account configuration summary'],
+ 62:['Sign & Settle','Verification method','Verification summary'],
+ 63:['Team roles','Permission matrix','Permission summary'],
  64:['Food & beverage','Menu and stock','Inventory controls'],
- 65:['Profile and language','Preferences review'],
- 66:['Team access','Invite member','Invitation review']
+ 65:['Profile and language','Preferences summary'],
+ 66:['Team access','Invite member','Invitation confirmation preview']
  };
  const titles={59:'Quick onboarding — essential setup',60:'Game rules and tables',61:'Account Balances setup',62:'Sign & Settle verification',63:'Team permissions',64:'Food, beverage and inventory',65:'Profile and preferences',66:'Invite and manage team access'};
  Object.entries(definitions).forEach(([id,steps])=>{
@@ -4738,9 +4738,9 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  '<div class="ns-badge">READY TO START · DEMONSTRATION</div>'+row('Game','Hold’em · 1 table')+row('Blinds','COP 5,000 / 10,000')+row('Rake','5% · cap COP 50,000')+note('Review screen is illustrative: inputs in this storyboard are not persisted. In the product, show the actual saved selections and allow Edit before activation.')
  ],
  60:[
- row('Game','Texas Hold’em')+row('Tables','2')+row('Blinds','COP 5,000 / 10,000')+note('Select the part you wish to edit; do not repeat the onboarding wizard.'),
- fld('Small blind','5000','number')+fld('Big blind','10000','number')+fld('Minimum buy-in','500000','number')+fld('Maximum buy-in','2000000','number'),
- sel('Rake method',['Percentage','Timed','None'])+fld('Rake (%)','5','number')+fld('Rake cap','50000','number')+sel('Number of tables',['1','2','3','4'])+note('Session-specific overrides require authorized confirmation.')
+ row('Game','Texas Hold’em')+row('Tables','1 (onboarding default)')+row('Blinds','COP 5,000 / 10,000')+note('Select the part you wish to edit; do not repeat the onboarding wizard.'),
+ fld('Game / club name','My Poker Game')+sel('Game type',['Texas Hold’em','Pot Limit Omaha','Mixed'])+fld('Small blind','5000','number')+fld('Big blind','10000','number')+fld('Minimum buy-in','500000','number')+fld('Maximum buy-in','2000000','number'),
+ sel('Rake method',['Percentage','Timed','None'])+fld('Rake (%)','5','number')+fld('Rake cap','50000','number')+fld('Minimum pot for rake','200000','number')+sel('Number of tables',['1','2','3','4'])+sel('Seats per table',['9','10','8'])+note('Session-specific overrides require authorized confirmation.')
  ],
  61:[
  toggle('Cash',true)+toggle('Nequi',true)+toggle('Bancolombia',true)+toggle('PayPal / Zelle',false)+row('Chips Box','Separate balance')+note('Chips Box and S&S receivables are not cash payment accounts.'),
@@ -4748,9 +4748,9 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  row('Cash','Enabled')+row('Nequi','Enabled')+row('Bancolombia','Enabled')+row('PayPal / Zelle','Disabled')+note('No financial transaction is created by changing an account setting.')
  ],
  62:[
- toggle('Enable Sign & Settle',true)+note('Only Owner and authorized roles may issue credit or record collection.'),
+ row('Sign & Settle','Optional module · off by default')+note('Enable this module in Quick Setup or here when ready. Only authorized roles can issue credit or record collections.'),
  sel('Choose ONE confirmation method',['PIN','Biometric','Photo','Voice'])+fld('PIN length','6','number')+note('Production verification requires device and identity checks. Never store PINs in plaintext.'),
- row('Enabled','Yes')+row('Confirmation','One method only')+row('Outstanding balance','Separate receivable')+note('This is configuration, not a credit or debt collection transaction.')
+ row('Enabled','Optional · off by default')+row('Confirmation','Choose one active method')+row('Outstanding balance','Separate receivable')+note('This is configuration, not a credit or debt collection transaction.')
  ],
  63:[
  row('Owner / Partners','Control access')+row('Cashier','Transactions')+row('Dealer','Table operations')+row('Waitress / Bartender / Chef','Service modules')+note('Permissions are assigned by role, then customized only where necessary.'),
@@ -4758,18 +4758,18 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  row('Financial corrections','Authorized only')+row('Issue credit','Authorized only')+row('Permanent close','Owner / permitted Partner')+note('No access has been changed by this preview.')
  ],
  64:[
- toggle('Enable food & beverage',true)+toggle('Enable inventory',true)+note('Inventory can be enabled only for products that need tracking.'),
+ toggle('Enable food & beverage',false)+toggle('Enable inventory',false)+note('Inventory can be enabled only for products that need tracking.'),
  fld('Menu item','Aguila')+fld('Price (COP)','10000','number')+sel('Category',['Beverages','Food','Bar'])+note('Menu images: upload up to three pages in production settings.'),
  toggle('Count starting / ending stock',true)+toggle('Track complimentary items',true)+toggle('Flag shortages at close',true)+note('Food quantities can be estimated. Beverage counts use units.')
  ],
  65:[
- fld('Club / game display name','My Poker Game')+sel('Language',['English','Español','Português'])+sel('Time zone',['America/Bogota','America/New_York','Europe/London'])+sel('Currency',['COP','USD']),
+ fld('Owner display name','Club Owner')+sel('Language',['English','Español','Português'])+sel('Time zone',['America/Bogota','America/New_York','Europe/London'])+sel('Currency',['COP','USD']),
  row('Language','English')+row('Time zone','America/Bogota')+row('Currency','COP')+note('Profile preferences are separate from financial transaction records.')
  ],
  66:[
  row('Owner','Primary owner')+row('Partners','Equal owners permitted')+row('Pending invitations','0')+note('Invite members once the game is configured; not required during fast onboarding.'),
  fld('Invitee name','')+fld('Email or WhatsApp','')+sel('Role',['Partner','Cashier','Dealer','Waitress / Bartender','Chef'])+note('Only authorized owners can grant privileged access.'),
- row('Invitation','Preview only')+row('Role','Selected in prior step')+note('No message has been sent. A production invite must show recipient, permissions, expiry and confirmation.')
+ row('Invitation','Preview only')+row('Recipient','Selected in prior step')+row('Role','Selected in prior step')+note('No message has been sent. A production invite must show recipient, permissions, expiry and confirmation.')
  ]
  };
  screenContent=function(w,step,i){
