@@ -1257,6 +1257,30 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .snap-phone .wf32-profit-card strong{font-size:25px;font-weight:900;color:#ff9f99;letter-spacing:-.4px}
 .snap-phone .wf32-profit-card:focus-visible{outline:3px solid #ffcf6a;outline-offset:2px}
 </style>
+
+<style id="wf32-overview-compact-no-scroll-v2">
+/* Overview only. Financial details and ledgers retain their own scrolling. */
+.snap-phone .wf32-report .wf32-scroll:has(.wf32-finance-pair){overflow-y:hidden!important;display:flex;flex-direction:column;gap:5px;padding:0!important;justify-content:space-between}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-badge{font-size:12px!important;line-height:1.1;padding:3px 7px}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-metadata{padding:5px 8px;line-height:1.12;font-size:15px}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-metadata span{font-size:13px;margin-top:3px}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-finance-pair{margin:0;gap:6px}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-finance-pair button{min-height:56px!important;padding:5px 2px!important}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-statgrid{margin:0;gap:5px}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-statgrid button{min-height:51px!important;padding:4px!important}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-profit-card{min-height:69px;padding:7px 10px;margin:0;gap:3px}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-profit-card span:not(.wf32-currency):not(.wf32-cop):not(.wf32-pesos){font-size:15px}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-profit-card strong{font-size:23px}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-primary{min-height:43px!important;margin:0!important;padding:4px!important;gap:1px!important}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-quickgrid{grid-template-columns:repeat(3,minmax(0,1fr));margin:0;gap:5px}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-quickgrid button{min-height:45px!important;font-size:14px!important;padding:4px 2px!important;line-height:1.1}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) button.wf32-tap{gap:2px!important;line-height:1.15;font-size:14px!important}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) button.wf32-tap b{font-size:18px!important;white-space:nowrap;letter-spacing:-.3px}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-currency{display:inline-flex;align-items:baseline;gap:3px;white-space:nowrap;font-size:inherit!important;color:inherit!important}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-currency .wf32-pesos{font-size:1em!important;font-weight:900}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-currency .wf32-cop{font-size:.65em!important;font-weight:850;letter-spacing:0}
+.snap-phone .wf32-scroll:has(.wf32-finance-pair) .wf32-profit-card .wf32-currency{font-size:23px!important}
+</style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -4159,6 +4183,7 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
  const group=(label,value,inside)=>'<details class="wf32-group"><summary><span>'+label+'</span><b>'+value+'</b></summary>'+inside+'</details>';
  const amount=(label,value)=>'<div class="wf32-total"><span>'+label+'</span><b>'+money(value)+'</b></div>';
  const warning=t=>'<div class="wf32-warning">'+t+'</div>';
+ const displayMoney=n=>'<span class="wf32-currency"><span class="wf32-cop">COP</span><span class="wf32-pesos">'+(n<0?'−':'')+Math.abs(Number(n)).toLocaleString('en-US')+'</span></span>';
  const tap=(label,value,route,cls='')=>'<button type="button" class="wf32-tap '+cls+'" onclick="snapNavigate(this,\''+route+'\')"><b>'+value+'</b><span>'+label+'</span></button>';
  const link=(label,view)=>'<button class="wf32-chiplink" type="button" onclick="snapNavigate(this,\''+view+'\')">'+label+' ›</button>';
  const readonly=(html,overview=false)=>'<div class="wf32-report"><div class="wf32-scroll">'+html+'</div>'+(overview?'':'<button type="button" class="wf32-return" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button>')+'</div>';
@@ -4182,8 +4207,8 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
   if(view==='overview'||isFinal){
    const top='<div class="wf32-badge">'+(isFinal?'FINAL SESSION · READ ONLY':'LIVE SESSION · READ-ONLY REPORT · DEMO')+'</div>'+
     '<div class="wf32-metadata">Sunday, October 25, 2026<span>Hold’em · 2 tables · Rake 5% · '+session.duration+'</span></div>';
-   const choices='<div class="wf32-statgrid">'+tap('Buy-ins / Rebuys',money(buyIn()),'session-buyins')+tap('Cash-outs',money(cashOut()),'session-cashouts')+tap('Players',d.players.length,'session-players')+tap('Tables',d.tables.length,'tables')+'</div>';
-   const finances='<div class="wf32-financegrid wf32-finance-pair">'+tap('Rake',money(780000),'tables')+tap('Expenses',money(totalExpenses()),'expenses')+'</div>'+'<button type="button" class="wf32-profit-card" onclick="snapNavigate(this,\'session-profit\')"><span>NET PROFIT / LOSS</span><strong>'+money(netProfit())+'</strong></button>';
+   const choices='<div class="wf32-statgrid">'+tap('Buy-ins / Rebuys',displayMoney(buyIn()),'session-buyins')+tap('Cash-outs',displayMoney(cashOut()),'session-cashouts')+tap('Players',d.players.length,'session-players')+tap('Tables',d.tables.length,'tables')+'</div>';
+   const finances='<div class="wf32-financegrid wf32-finance-pair">'+tap('Rake',displayMoney(780000),'tables')+tap('Expenses',displayMoney(totalExpenses()),'expenses')+'</div>'+'<button type="button" class="wf32-profit-card" onclick="snapNavigate(this,\'session-profit\')"><span>NET PROFIT / LOSS</span><strong>'+displayMoney(netProfit())+'</strong></button>';
    const operations='<button class="wf32-tap wf32-primary" onclick="snapNavigate(this,\'session-runtime\')"><b>◷ Session runtime · '+session.duration+'</b><span>View per-table hours</span></button>';
    const options='<div class="wf32-quickgrid">'+tap('Session Ledger','▤','ledger')+tap('Team','♟','team')+tap('Account Balances','▣','accounts')+(session.modules.signSettle?tap('Sign & Settle','✍','ss'):'')+(session.modules.inventory?tap('Inventory','▦','inventory'):'')+tap('Chip Reconciliation',money(chipVariance()),'chips')+'</div>';
    return readonly(top+finances+choices+operations+options+(isFinal?link('Final Daily Close record','wf32-close'):''),true);
