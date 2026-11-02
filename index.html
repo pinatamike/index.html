@@ -5123,4 +5123,60 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   return html;
  };
 })();
+</script>
+<style id="settings-report-interactive-qa-v3">
+.shared-phone .ns-panel .ns-save-note{font-size:13px;color:#f7d48d;padding:4px}
+.shared-phone .nr-panel .nr-player-picker{width:100%;min-height:42px;background:#103a54;border:1px solid #4a9ecc;border-radius:7px;color:#fff;font-size:17px}
+.shared-phone .nr-panel .nr-result{font-size:16px}
+.shared-phone .nr-panel .nr-result .nr-row{min-height:39px}
+.shared-phone .ns-panel .ns-review-dynamic{font-size:16px}
+</style>
+<script id="settings-report-interactive-qa-v3-script">
+(function(){
+ const previous=screenContent,players=WF32_DATA.players;
+ const htmlEsc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const money=x=>(x<0?'−':'')+'<span class="nr-currency"><small>COP</small><span>'+Math.abs(Number(x)).toLocaleString('en-US')+'</span></span>';
+ const detail=(name)=>{const p=players.find(x=>x[0]===name)||players[0];return '<div class="nr-result"><div class="nr-row"><span>Player</span><strong>'+htmlEsc(p[0])+'</strong></div><div class="nr-row"><span>Table / Seat</span><strong>'+p[1]+' / '+p[2]+'</strong></div><div class="nr-row"><span>Buy-ins + rebuys</span><strong>'+money(p[4])+'</strong></div><div class="nr-row"><span>Cash-out</span><strong>'+money(p[5])+'</strong></div><div class="nr-row"><span>Net win / loss</span><strong>'+money(p[5]-p[4])+'</strong></div><div class="nr-row"><span>Hours</span><strong>'+htmlEsc(p[6])+'</strong></div></div>';};
+ window.noraSelectPlayer=function(el){const out=el.closest('.nr-panel').querySelector('.nr-result');if(out)out.outerHTML=detail(el.value);};
+ const previousSelect=window.noraReportingLedger;
+ if(typeof previousSelect==='function')window.noraReportingLedger=previousSelect;
+ const preview={};
+ function stateKey(w,i,label){return 'wf'+w+':'+i+':'+label;}
+ window.noraSettingChanged=function(el){
+  const stage=el.closest('.stage');if(!stage)return;
+  const w=Number(stage.dataset.rnWorkflow),i=Number(stage.dataset.rnStep);
+  const label=el.closest('.ns-field,.ns-choice')?.querySelector('label')?.textContent.trim()||el.closest('.ns-choice')?.textContent.trim()||'Field';
+  preview[stateKey(w,i,label)]=el.type==='checkbox'?el.checked:el.value;
+  const note=stage.querySelector('.ns-save-note');if(note)note.textContent='Changes retained in this preview only; not saved to the application.';
+ };
+ function overlayState(w,i,html){
+  const wrap=document.createElement('div');wrap.innerHTML=html;
+  wrap.querySelectorAll('.ns-field,.ns-choice').forEach(group=>{
+   const input=group.querySelector('input,select');if(!input)return;
+   const label=group.querySelector('label')?.textContent.trim()||group.classList.contains('ns-choice')?group.textContent.trim():null;
+   const key=stateKey(w,i,label);
+   if(Object.prototype.hasOwnProperty.call(preview,key)){if(input.type==='checkbox')input.checked=preview[key];else input.value=preview[key];}
+   input.setAttribute('onchange','noraSettingChanged(this)');
+  });
+  return wrap.innerHTML;
+ }
+ screenContent=function(w,step,i){
+  let html=previous(w,step,i);
+  if(!w)return html;
+  if(w.id>=59&&w.id<=66){
+    if(w.id===59&&i===4){
+      const summary=Object.entries(preview).filter(([key])=>key.startsWith('wf59:')).map(([key,value])=>{const label=key.split(':').slice(2).join(':');return '<div class="ns-stat"><span>'+htmlEsc(label)+'</span><strong>'+htmlEsc(typeof value==='boolean'?(value?'Enabled':'Disabled'):value)+'</strong></div>';}).join('');
+      if(summary)html=html.replace('<div class="ns-badge">','<div class="ns-heading">Your entered selections (preview)</div>'+summary+'<div class="ns-badge">');
+    }
+    return overlayState(w.id,i,html);
+  }
+  if(w.id===68&&i===2){
+    const list='<label class="nr-filter">Select player<select class="nr-player-picker" onchange="noraSelectPlayer(this)">'+players.map(p=>'<option>'+htmlEsc(p[0])+'</option>').join('')+'</select></label>';
+    const start=html.indexOf('<div class="nr-row">');
+    const end=html.indexOf('<div class="nr-info">',start);
+    if(start>=0&&end>start)html=html.slice(0,start)+list+detail(players[0][0])+html.slice(end);
+  }
+  return html;
+ };
+})();
 </script></body></html>
