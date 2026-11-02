@@ -4777,4 +4777,37 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   return prior(w,step,i);
  };
 })();
+</script>
+<style id="nora-close-navigation-finishing">
+.shared-phone .dc-review .dc-bottom .dc-action{display:none}
+.shared-phone .dc-review .dc-bottom{display:flex;gap:6px}
+.shared-phone .dc-review .dc-next{flex:1;background:#105e82;color:#fff;border:1px solid #4da8d4;border-radius:8px;padding:8px;font-size:16px;font-weight:900;min-height:45px;cursor:pointer}
+</style>
+<script id="nora-close-navigation-finishing-script">
+(function(){
+ const previous=screenContent;
+ const labels={
+ 40:['VIEW CHECKLIST','REVIEW REQUIREMENTS','REVIEW PLAYERS'],
+ 41:['PLAYER DETAILS','SETTLEMENT SUMMARY','REVIEW TEAM'],
+ 42:['STAFF DETAILS','OUTSTANDING TEAM PAY','REVIEW EXPENSES'],
+ 43:['EXPENSE BREAKDOWN','CHECK INVENTORY','RECONCILE ACCOUNTS'],
+ 44:['CHIP RECONCILIATION','VERIFY ACCOUNTS','REVIEW WARNINGS'],
+ 45:['RECORD VARIANCE REASON','ACKNOWLEDGEMENTS','REVIEW FINAL CLOSE'],
+ 46:['REVIEW CLOSE AUTHORIZATION','VIEW LOCKED STATE DEMO','VIEW FINAL REPORT'],
+ 47:['FINANCIAL DETAIL','HISTORICAL RECORD','BACK TO CLOSE']
+ };
+ screenContent=function(w,step,i){
+  let html=previous(w,step,i);
+  if(!w||w.id<40||w.id>47||w.id===40&&i===0)return html;
+  const next=i<2?w.id+':'+(i+1):w.id===47?'40:0':(w.id+1)+':0';
+  const button='<button type="button" class="dc-next" onclick="rnGo(\''+next+'\',this.closest(\'.stage\'))">'+labels[w.id][i]+'</button>';
+  if(html.includes('<div class="dc-bottom">')){
+    html=html.replace(/<div class="dc-bottom">[\s\S]*?<\/div>/,'<div class="dc-bottom">'+button+'</div>');
+  } else {
+    const k=html.lastIndexOf('</div>');
+    if(k>=0)html=html.slice(0,k)+'<div class="dc-bottom">'+button+'</div>'+html.slice(k);
+  }
+  return html;
+ };
+})();
 </script></body></html>
