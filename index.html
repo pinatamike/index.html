@@ -5179,4 +5179,51 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   return html;
  };
 })();
+</script>
+<script id="nora-settings-report-qa-hotfix">
+(function(){
+ const previous=screenContent;
+ // Explicitly restore input state using the inputs' actual label text.
+ // On the review screen, display only values entered in the mockup, never as saved production settings.
+ const draft=Object.create(null);
+ const valueLabel=group=>group.classList.contains('ns-choice')?group.textContent.trim():group.querySelector('label')?.textContent.trim()||'';
+ window.noraSettingChanged=function(el){
+  const stage=el.closest('.stage');if(!stage)return;
+  const group=el.closest('.ns-field,.ns-choice');if(!group)return;
+  const key=stage.dataset.rnWorkflow+'|'+stage.dataset.rnStep+'|'+valueLabel(group);
+  draft[key]=el.type==='checkbox'?el.checked:el.value;
+  const n=stage.querySelector('.ns-save-note');
+  if(n)n.textContent='Draft retained for review only — not saved to the application.';
+ };
+ screenContent=function(w,step,i){
+  let html=previous(w,step,i);
+  if(!w||w.id<59||w.id>66)return html;
+  const tpl=document.createElement('template');tpl.innerHTML=html;
+  tpl.content.querySelectorAll('.ns-field,.ns-choice').forEach(group=>{
+    const el=group.querySelector('input,select');if(!el)return;
+    const key=w.id+'|'+i+'|'+valueLabel(group);
+    if(Object.prototype.hasOwnProperty.call(draft,key)){
+      if(el.type==='checkbox')el.checked=draft[key];else el.value=draft[key];
+    }
+    el.setAttribute('onchange','noraSettingChanged(this)');
+  });
+  if(w.id===59&&i===4){
+   const review=tpl.content.querySelector('.ns-scroll');
+   const items=Object.entries(draft).filter(([k])=>k.startsWith('59|'));
+   if(review&&items.length){
+    const section=document.createElement('div');section.className='ns-review-dynamic';
+    const heading=document.createElement('div');heading.className='ns-heading';heading.textContent='Your setup draft';
+    section.appendChild(heading);
+    items.forEach(([key,val])=>{
+      const line=document.createElement('div');line.className='ns-stat';
+      const left=document.createElement('span');left.textContent=key.split('|').slice(2).join('|');
+      const right=document.createElement('strong');right.textContent=typeof val==='boolean'?(val?'Enabled':'Disabled'):val;
+      line.append(left,right);section.appendChild(line);
+    });
+    review.prepend(section);
+   }
+  }
+  return tpl.innerHTML;
+ };
+})();
 </script></body></html>
