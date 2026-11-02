@@ -3938,7 +3938,7 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
  window.WF32_39_AUDIT={
   source:'GitHub UX prototype, illustrative fixture only',
   views:snapshotVisibleViews(),
-  totals:{buyins:buyIn(),cashouts:cashOut(),rake:sumEvents('Rake'),fbSales:inventorySales(),operatingExpenses,teamCompensation:salary,totalExpenses:totalExpenses(),profit:netProfit(),chipTips:tips(),chipVariance:chipVariance(),ssOutstanding:totalDebt()},
+  totals:{buyins:buyIn(),cashouts:cashOut(),rake:sumEvents('Rake'),fbSales:inventorySales(),operatingExpenses:operationalExpenses,teamCompensation:salary,totalExpenses:totalExpenses(),profit:netProfit(),chipTips:tips(),chipVariance:chipVariance(),ssOutstanding:totalDebt()},
   ledgers:{initialBuyins:sumEvents('Buy-ins'),rebuys:sumEvents('Rebuys'),expenseEntries:sumEvents('Expenses'),rakeEvents:events.filter(e=>e.cat==='Rake').length},
   verified:sumEvents('Buy-ins')+sumEvents('Rebuys')===buyIn()&&sumEvents('Rake')===780000&&totalExpenses()===1595000&&netProfit()===-385000
  };
