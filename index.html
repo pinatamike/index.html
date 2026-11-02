@@ -1365,7 +1365,20 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .stage[data-workflow="54"] .hi-phone .wf9-layout .wf9-clean-photo img{height:100%!important;object-fit:cover!important;object-position:50% 20%!important}
 .stage[data-workflow="54"] .hi-phone .wf9-layout{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
 </style>
-</head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
+<style id="daily-close-readiness-checklist-css">
+.shared-phone .dc-dashboard .dc-readiness{display:flex;justify-content:space-between;align-items:center;gap:6px;background:#10364e;border:1px solid #4c91ad;padding:5px 7px;border-radius:6px}
+.shared-phone .dc-dashboard .dc-readiness strong{font-size:14px;white-space:nowrap;color:#fff}
+.shared-phone .dc-dashboard .dc-readiness span{font-size:12px;line-height:1.15;text-align:right;color:#c6e3ef}
+.shared-phone .dc-dashboard .dc-tile{position:relative;padding:4px 3px 4px 25px!important;min-height:0!important}
+.shared-phone .dc-dashboard .dc-tile .dc-check{position:absolute;top:7px;left:6px;width:21px;height:21px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:17px;font-weight:900;background:#463338;color:#ff9c9c;border:1px solid #ee7777}
+.shared-phone .dc-dashboard .dc-done{border-color:#2bba8f;background:#104b48}
+.shared-phone .dc-dashboard .dc-done .dc-check{background:#145343;border-color:#65d8ab;color:#9af0c5}
+.shared-phone .dc-dashboard .dc-review{border-color:#b39145}
+.shared-phone .dc-dashboard .dc-review .dc-check{background:#54431b;border-color:#e0b85c;color:#ffe19a}
+.shared-phone .dc-dashboard .dc-tile .dc-icon{font-size:19px!important}
+.shared-phone .dc-dashboard .dc-tile strong{font-size:15px!important}
+.shared-phone .dc-dashboard .dc-tile .dc-sub{font-size:12px!important}
+</style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
     "main": "Live Session",
@@ -4632,20 +4645,26 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
     buy=sum(x.players.map(t=>t[4])),cash=sum(x.players.map(t=>t[5])),tips=sum(x.staff.map(t=>t.tips)),
     variance=buy+sd.promoChips-cash-tips, net=rake+sales-costs-wages,
     shortages=x.inventory.filter(t=>t.start-t.sold-t.comp!==t.end).length;
+  /* Demo readiness states derived from the same fixture as Snapshot. Outstanding
+     debts are review items, not automatically reasons to block legal close. */
+  const playersComplete=x.players.every(p=>p[3]==='Cashed out');
   const categories=[
-    [41,'♟','Players','8 / 8 Cashed out'],
-    [42,'♙','Team',money(teamDue)+' due'],
-    [43,'▤','Expenses',money(costs+wages)],
-    ['43:2','▣','Inventory',shortages+' discrepancy'],
-    [44,'▥','Account Balances','Review accounts'],
-    ['44:1','⚖','Chip Reconciliation',money(variance)+' variance'],
-    ['37:0','✍','Sign & Settle',money(due)+' due'],
-    [45,'⚠','Warnings','Review exceptions']
+    [41,'♟','Players',playersComplete?'8 / 8 Cashed out':'Cash-outs pending',playersComplete?'done':'todo'],
+    [42,'♙','Team',teamDue?money(teamDue)+' unpaid':'Settled',teamDue?'review':'done'],
+    [43,'▤','Expenses',money(costs+wages)+' recorded','done'],
+    ['43:2','▣','Inventory',shortages?shortages+' discrepancy':'Counts balanced',shortages?'todo':'done'],
+    [44,'▥','Account Balances','Verify balances','todo'],
+    ['44:1','⚖','Chip Reconciliation',variance?money(variance)+' · explain':'Balanced',variance?'todo':'done'],
+    ['37:0','✍','Sign & Settle',due?money(due)+' outstanding':'Settled',due?'review':'done'],
+    [45,'⚠','Warnings','Explanation required','todo']
   ];
+  const completed=categories.filter(c=>c[4]==='done').length;
+  const unresolved=categories.filter(c=>c[4]==='todo').length;
   const nav=(wf)=>{const dest=String(wf);return dest.includes(':')?"rnGo('"+dest+"',this.closest('.stage'))":"show(displayId("+dest+"))";};
   const dashboard='<div class="dc-review dc-dashboard"><div class="dc-scroll">'+
     '<div class="dc-date">Sunday, October 25, 2026</div>'+
-    '<div class="dc-grid">'+categories.map(([wf,icon,label,detail])=>'<button type="button" class="dc-tile" onclick="'+nav(wf)+'"><span class="dc-icon">'+icon+'</span><strong>'+label+'</strong><span class="dc-sub">'+detail+'</span></button>').join('')+'</div>'+
+    '<div class="dc-readiness"><strong>'+completed+' / '+categories.length+' CHECKED OFF</strong><span>'+unresolved+' need action · amber = review / carry forward</span></div>'+
+    '<div class="dc-grid">'+categories.map(([wf,icon,label,detail,status])=>'<button type="button" class="dc-tile dc-'+status+'" onclick="'+nav(wf)+'"><span class="dc-check">'+(status==='done'?'✓':status==='todo'?'✕':'!')+'</span><span class="dc-icon">'+icon+'</span><strong>'+label+'</strong><span class="dc-sub">'+detail+'</span></button>').join('')+'</div>'+
     '<div class="dc-profit"><span>NET PROFIT / LOSS</span><strong>'+money(net)+'</strong></div>'+
     '<button type="button" class="dc-final" onclick="'+nav(46)+'">▣ REVIEW & CONFIRM FINAL CLOSE</button></div></div>';
   screenContent=function(w,step,i){
