@@ -5351,4 +5351,44 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  };
  screenContent=function(w,step,i){return w&&views[w.id]?views[w.id][Math.min(i,views[w.id].length-1)]:previous(w,step,i)};
 })();
+</script>
+<style id="schedule-review-polish-48-53">
+.harmonized .sch-panel .sch-selection{border-color:#65debd!important;background:#145b4b!important}
+.harmonized .sch-panel .sch-state{font-size:15px;color:#b9f6e5;border:1px solid #3b9c83;padding:6px 8px;border-radius:7px}
+.harmonized .sch-panel .sch-demo-note{font-size:14px;color:#f2d39a;padding:4px}
+</style>
+<script id="schedule-review-polish-48-53-script">
+(function(){
+ const prev=screenContent;
+ const draft={game:'Sunday Hold’em',date:'2026-11-08',time:'19:00',deadline:'18:00',venue:'Provenza',tables:'2',gameType:'Hold’em',channel:'WhatsApp',rsvp:'Going',eta:'7:15 PM',arrival:'On My Way',invitees:['Rafa','Diego']};
+ const escapeHTML=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const detail=(a,b)=>'<div class="sch-row"><span>'+a+'</span><strong>'+escapeHTML(b)+'</strong></div>';
+ window.noraScheduleDraft=(field,value)=>{draft[field]=value;};
+ window.noraScheduleInvite=(name,el)=>{draft.invitees=draft.invitees.includes(name)?draft.invitees.filter(x=>x!==name):draft.invitees.concat(name);el.classList.toggle('sch-selection',draft.invitees.includes(name));el.setAttribute('aria-pressed',String(draft.invitees.includes(name)));};
+ window.noraScheduleRSVP=(value)=>{draft.rsvp=value;};
+ window.noraScheduleArrival=(value)=>{draft.arrival=value;};
+ const inputs=(html)=>{const root=document.createElement('div');root.innerHTML=html;
+  root.querySelectorAll('.sch-content input,.sch-content select').forEach(el=>{const name=el.previousElementSibling?.textContent.trim();const fields={'Game name':'game','Date':'date','Start time':'time','Game type':'gameType','Tables':'tables','Venue':'venue','RSVP deadline':'deadline','Delivery':'channel','Arrival time':'eta'};const field=fields[name];if(field){if(el.tagName==='SELECT'&&![...el.options].some(o=>o.value===draft[field])){const o=new Option(draft[field],draft[field]);el.insertBefore(o,el.firstChild);}el.value=draft[field];el.setAttribute('onchange',"noraScheduleDraft('"+field+"',this.value)");}});
+  return root.innerHTML;};
+ screenContent=function(w,step,i){
+  let html=prev(w,step,i);
+  if(!w||w.id<48||w.id>53)return html;
+  if(w.id===48&&i===2){
+   const start=html.indexOf('<div class="sch-row">'),end=html.indexOf('<div class="sch-note">',start);
+   if(start>=0&&end>start)html=html.slice(0,start)+detail('Game',draft.game)+detail('Date',draft.date)+detail('Starts',draft.time)+detail('RSVP deadline',draft.deadline)+detail('Tables',draft.tables)+detail('Venue',draft.venue)+html.slice(end);
+  }
+  if(w.id===49&&i===0){
+   html=html.replace(/<button type="button" class="sch-tile" onclick="rnGo\('49:1',this.closest\('\.stage'\)\)">(☑|□) ([^<]+)<small>(Selected|Not selected)<\/small><\/button>/g,(all,mark,name)=>'<button type="button" class="sch-tile '+(draft.invitees.includes(name)?'sch-selection':'')+'" aria-pressed="'+draft.invitees.includes(name)+'" onclick="noraScheduleInvite(\''+name+'\',this)">'+(draft.invitees.includes(name)?'☑':'□')+' '+name+'<small>Tap to select</small></button>');
+   html=html.replace('<label>Search players</label><input type="text" value="">','<div class="sch-state">Selected: '+draft.invitees.join(', ')+'</div>');
+  }
+  if(w.id===49&&i===1)html=html.replace('>2</strong>','>'+draft.invitees.length+'</strong>');
+  if(w.id===49&&i===2)html=html.replace('2 selected (demo)',draft.invitees.length+' selected (demo)').replace('WhatsApp</strong>',escapeHTML(draft.channel)+'</strong>');
+  if(w.id===50&&i===1)html=html.replace(/onclick="rnGo\('50:2',this.closest\('\.stage'\)\)"/g,(match,offset)=>{const before=html.slice(Math.max(0,offset-140),offset);const kind=before.includes('Decline')?'Decline':before.includes('Maybe')?'Maybe':before.includes('Contact')?'Question':'Going';return 'onclick="noraScheduleRSVP(\''+kind+'\');rnGo(\'50:2\',this.closest(\'.stage\'))"';});
+  if(w.id===50&&i===2)html=html.replace('<div class="sch-good">Response preview only. In production the status reflects your selected RSVP.</div>','<div class="sch-good">RSVP selected: '+escapeHTML(draft.rsvp)+' · preview only</div>');
+  if(w.id===52&&i===2)html=html.replace('On My Way / Here',escapeHTML(draft.arrival)+' · '+escapeHTML(draft.eta));
+  if(w.id===53&&i===0)html=html.replace('2 scheduled',escapeHTML(draft.tables)+' scheduled');
+  if(w.id===53&&i===1)html=html.replace('>2</strong>', '>'+escapeHTML(draft.tables)+'</strong>');
+  return inputs(html);
+ };
+})();
 </script></body></html>
