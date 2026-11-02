@@ -4572,4 +4572,92 @@ if(w){w.steps=({40:['Start close','Close checklist','Review requirements'],41:['
 }
 screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][Math.min(i,closeViews[w.id].length-1)]();return prev(w,step,i)};
 })();
+</script>
+<style id="nora-close-dashboard-and-cop-standard">
+/* Currency standard: COP is exactly 65% of the amount's type size. */
+.snap-phone .nora-currency,.shared-phone .nora-currency{display:inline-flex;align-items:baseline;gap:3px;white-space:nowrap;font-size:inherit!important;font-weight:inherit;vertical-align:baseline}
+.snap-phone .nora-currency .nora-currency-cop,.shared-phone .nora-currency .nora-currency-cop{font-size:.65em!important;line-height:1;font-weight:inherit;vertical-align:baseline}
+.snap-phone .nora-currency .nora-currency-value,.shared-phone .nora-currency .nora-currency-value{font-size:1em!important;font-weight:inherit;line-height:inherit}
+.snap-phone .wf32-currency .wf32-cop{font-size:.65em!important}
+.shared-phone .dc-review.dc-dashboard{gap:5px;overflow:hidden}
+.shared-phone .dc-dashboard .dc-scroll{overflow:hidden;display:flex;flex-direction:column;gap:6px;padding:0}
+.shared-phone .dc-dashboard .dc-title{padding:2px 1px;font-size:17px}
+.shared-phone .dc-dashboard .dc-date{border:1px solid #3886a8;border-radius:7px;padding:7px 8px;background:#103a52;text-align:center;font-weight:850;font-size:16px}
+.shared-phone .dc-dashboard .dc-grid{gap:6px;grid-auto-rows:minmax(73px,1fr);flex:1;min-height:0}
+.shared-phone .dc-dashboard .dc-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:0;cursor:pointer;padding:5px 3px;color:white;font-family:inherit}
+.shared-phone .dc-dashboard .dc-tile .dc-icon{font-size:22px;line-height:1}
+.shared-phone .dc-dashboard .dc-tile strong{font-size:16px;line-height:1.1;margin:0}
+.shared-phone .dc-dashboard .dc-tile .dc-sub{font-size:14px;font-weight:750;line-height:1.12}
+.shared-phone .dc-dashboard .dc-profit{padding:8px 10px;background:#104c4e;border:1px solid #58bfae;border-radius:7px;text-align:center}
+.shared-phone .dc-dashboard .dc-profit strong{font-size:20px;color:#ffb0a9;display:block}
+.shared-phone .dc-dashboard .dc-profit span{font-size:15px;color:#a9eee2;font-weight:850}
+.shared-phone .dc-dashboard .dc-final{width:100%;background:#125d83;border:1px solid #50b4e0;color:white;font-size:17px;font-weight:900;border-radius:7px;min-height:46px;cursor:pointer}
+.shared-phone .dc-dashboard .dc-bottom{display:none}
+.shared-phone .dc-return{width:100%;min-height:39px;background:#14577b;color:white;border:1px solid #4ba6ca;font-weight:800;font-size:16px;border-radius:7px;cursor:pointer}
+.shared-phone .dc-review .dc-click{cursor:pointer}
+.shared-phone .dc-review .dc-click:focus-visible{outline:3px solid #f6cf70}
+</style>
+<script id="nora-close-dashboard-and-cop-standard-script">
+(function(){
+  const previousSnapshot=snapshotMarkup;
+  function normalizeCurrency(html){
+    const tpl=document.createElement('template');tpl.innerHTML=html;
+    const walker=document.createTreeWalker(tpl.content,NodeFilter.SHOW_TEXT);
+    const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+    nodes.forEach(node=>{
+      const el=node.parentElement;
+      if(!el||el.closest('.nora-currency,.wf32-currency,.wf32-cop,.nora-currency-cop,script,style,textarea,option'))return;
+      const value=node.textContent;
+      if(!/COP\s*[\d,]+/.test(value))return;
+      const re=/COP\s*([\d,]+)/g;
+      const frag=document.createDocumentFragment();let last=0,m;
+      while((m=re.exec(value))){
+        if(m.index>last)frag.appendChild(document.createTextNode(value.slice(last,m.index)));
+        const span=document.createElement('span');span.className='nora-currency';
+        const c=document.createElement('span');c.className='nora-currency-cop';c.textContent='COP';
+        const amount=document.createElement('span');amount.className='nora-currency-value';amount.textContent=m[1];
+        span.append(c,amount);frag.appendChild(span);last=re.lastIndex;
+      }
+      if(last){if(last<value.length)frag.appendChild(document.createTextNode(value.slice(last)));node.replaceWith(frag);}
+    });
+    return tpl.innerHTML;
+  }
+  snapshotMarkup=function(view){return normalizeCurrency(previousSnapshot(view));};
+  const previousContent=screenContent;
+  const x=WF32_DATA,sd=SNAPSHOT_SESSION;
+  const sum=a=>a.reduce((a,b)=>a+b,0),money=n=>(n<0?'−':'')+'COP '+Math.abs(n).toLocaleString('en-US');
+  const rake=sum(x.tables.map(t=>t.rake)),wages=sum(x.staff.map(t=>t.earn)),
+    costs=sum(x.expenses.flatMap(c=>c.items.map(t=>t[1]))),sales=sd.modules.inventory?sum(x.inventory.map(t=>t.sold*t.unit)):0,
+    due=sum(x.debtors.map(t=>t.balance)),teamDue=sum(x.staff.map(t=>t.due)),
+    buy=sum(x.players.map(t=>t[4])),cash=sum(x.players.map(t=>t[5])),tips=sum(x.staff.map(t=>t.tips)),
+    variance=buy+sd.promoChips-cash-tips, net=rake+sales-costs-wages,
+    shortages=x.inventory.filter(t=>t.start-t.sold-t.comp!==t.end).length;
+  const categories=[
+    [41,'♟','Players','8 / 8 Cashed out'],
+    [42,'♙','Team',money(teamDue)+' due'],
+    [43,'▤','Expenses',money(costs+wages)],
+    [43,'▣','Inventory',shortages+' discrepancy'],
+    [44,'▥','Account Balances','Review accounts'],
+    [44,'⚖','Chip Reconciliation',money(variance)+' variance'],
+    [45,'✍','Sign & Settle',money(due)+' due'],
+    [45,'⚠','Warnings','Review exceptions']
+  ];
+  const nav=(wf)=>"show(displayId("+wf+"))";
+  const dashboard='<div class="dc-review dc-dashboard"><div class="dc-scroll">'+
+    '<div class="dc-date">Sunday, October 25, 2026</div>'+
+    '<div class="dc-grid">'+categories.map(([wf,icon,label,detail])=>'<button type="button" class="dc-tile" onclick="'+nav(wf)+'"><span class="dc-icon">'+icon+'</span><strong>'+label+'</strong><span class="dc-sub">'+detail+'</span></button>').join('')+'</div>'+
+    '<div class="dc-profit"><span>NET PROFIT / LOSS</span><strong>'+money(net)+'</strong></div>'+
+    '<button type="button" class="dc-final" onclick="'+nav(46)+'">▣ REVIEW & CONFIRM FINAL CLOSE</button></div></div>';
+  screenContent=function(w,step,i){
+    if(w&&w.id===40&&i===0)return normalizeCurrency(dashboard);
+    if(w&&w.id>=40&&w.id<=47){
+      let content=previousContent(w,step,i);
+      if(w.id===46&&i===1)content=content.replace('CONFIRM PERMANENT CLOSE · DEMO','PERMANENT CLOSE · BACKEND REQUIRED');
+      return normalizeCurrency(content);
+    }
+    if(w&&w.id>=33&&w.id<=39)return normalizeCurrency(previousContent(w,step,i));
+    return previousContent(w,step,i);
+  };
+  /* Static storyboard steps can be reached via their normal workflow links; no fake database close. */
+})();
 </script></body></html>
