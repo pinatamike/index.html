@@ -5534,4 +5534,36 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   return inputs(html);
  };
 })();
+</script>
+<style id="sch-48-screenshot-fixes">
+.harmonized .sch-panel .sch-title{display:none}
+.harmonized .sch-panel .sch-content{overflow-y:auto;min-height:0;padding-right:2px}
+.harmonized .sch-panel .sch-grid{gap:6px}
+.harmonized .sch-panel .sch-tile{min-height:80px;padding:8px 5px;font-size:16px;line-height:1.2}
+.harmonized .sch-panel .sch-tile small{font-size:14px;line-height:1.15;font-weight:600}
+.harmonized .sch-panel label{margin:5px 0 2px;font-size:15px}
+.harmonized .sch-panel input,.harmonized .sch-panel select{min-height:39px;font-size:16px;padding:5px 8px}
+.harmonized .sch-panel .sch-row{min-height:39px;padding:6px 2px}
+.harmonized .sch-panel .sch-footer{gap:6px}
+.harmonized .sch-panel .sch-action{min-height:44px;padding:5px;font-size:15px}
+.harmonized .sch-panel .sch-note{font-size:14px}
+</style>
+<script id="sch-48-screenshot-fixes-js">
+(function(){
+ const original=screenContent;
+ screenContent=function(w,step,i){
+  let html=original(w,step,i);
+  if(!w||w.id!==48)return html;
+  if(i===0){
+   html=html.replace('＋ Create Game<small>Schedule a new game</small>','＋ Create Game<small>New schedule</small>')
+            .replace('♧ Attendance<small>Confirmed and waitlist</small>','♧ Attendance<small>RSVP roster</small>')
+            .replace('✉ Invite Players<small>WhatsApp / SMS / email</small>','✉ Invitations<small>Send or review</small>')
+            .replace('▶ Start Session<small>When ready</small>','▶ Start Session<small>Review setup</small>');
+  }
+  if(i===1){
+   html=html.replace('value="2026-11-08"','value="2026-11-08"');
+  }
+  return html;
+ };
+})();
 </script></body></html>
