@@ -5114,11 +5114,11 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
     html=html.replace('>DONE</button>','>EXIT PREVIEW</button>');
     html=html.replace('>FINISH PREVIEW</button>','>END SETUP PREVIEW</button>');
     if(i===0&&w.id!==59)html=html.replace('>SETUP HOME</button>','>BACK TO SETTINGS</button>');
-    html=html.replace('</div></div>','<div class="ns-save-note">UX preview — changes are not saved.</div></div></div>');
+    html=html.replace(/<div class="ns-footer">/,'<div class="ns-save-note">UX preview — changes are not saved.</div><div class="ns-footer">');
   }
   if(w.id>=67&&w.id<=71&&w.id!==69){
     html=html.replace(/<label class="nr-filter">/g,'<label class="nr-filter">');
-    html=html.replace('</div></div>','<div class="nr-filter-note">Period and game selections are illustrative until connected to real historical data.</div></div></div>');
+    html=html.replace(/<div class="nr-head">([^<]*)<\/div>/,'<div class="nr-head">$1</div><div class="nr-filter-note">Period and game selections are illustrative until connected to real historical data.</div>');
   }
   return html;
  };
