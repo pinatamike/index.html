@@ -5153,7 +5153,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   const wrap=document.createElement('div');wrap.innerHTML=html;
   wrap.querySelectorAll('.ns-field,.ns-choice').forEach(group=>{
    const input=group.querySelector('input,select');if(!input)return;
-   const label=group.querySelector('label')?.textContent.trim()||group.classList.contains('ns-choice')?group.textContent.trim():null;
+   const label=group.querySelector('.ns-field label')?.textContent.trim()||group.querySelector('label')?.textContent.trim()||group.textContent.trim();
    const key=stateKey(w,i,label);
    if(Object.prototype.hasOwnProperty.call(preview,key)){if(input.type==='checkbox')input.checked=preview[key];else input.value=preview[key];}
    input.setAttribute('onchange','noraSettingChanged(this)');
