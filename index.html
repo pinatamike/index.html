@@ -3985,7 +3985,7 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
     }finally{Object.assign(SNAPSHOT_SESSION.modules,saved)}
   });
   test('Read-only view contains no editable input',()=>!snapshotMarkup('closed').includes('<input')&&!snapshotMarkup('wf32-close').includes('<input'));
-  test('Unified financial totals reconcile',()=>window.WF32_39_AUDIT?.verified===true&&window.WF32_39_AUDIT.totals.netProfit===undefined&&window.WF32_39_AUDIT.totals.totalExpenses===1595000);
+  test('Unified financial totals reconcile',()=>window.WF32_39_AUDIT?.verified===true&&window.WF32_39_AUDIT.totals.profit===-385000&&window.WF32_39_AUDIT.totals.totalExpenses===1595000);
   test('Rebuys are separate ledger entries',()=>window.WF32_39_AUDIT?.ledgers.rebuys===1500000&&window.WF32_39_AUDIT.ledgers.rakeEvents===16);
   test('Read-only overview exposes chip variance',()=>snapshotMarkup('overview').includes('COP 50,000'));
   test('No fictional account balance transactions',()=>!snapshotMarkup('ledger').includes('Cashbox · Balance'));
