@@ -93,3 +93,10 @@ The restored UI is harmonized by three blocks. They must stay last: `nora-sweep2
 - **Footer actions are 63px.** One button spans the full width; two split 50/50. Footers sit at the bottom of the screen.
 - **One filled SVG icon family** replaces glyph and emoji icons.
 - **WF9 / WF54 ledger:** 5 entries per page, swipe between pages, a compact page indicator, and totals computed from the entries.
+
+## F&B, Bar & Inventory update — required blocks
+- `nora-fnb` (CSS) and `nora-fnb-js` must sit BEFORE the `nora-sweep2*` blocks; guard REQ list includes both.
+- Accounting method is per category (Food / Beverages / Bar): SIMPLE EXPENSE TRACKING or INVENTORY & COST CONTROL. Same service UI in both.
+- Every product: Sell or Comp (square tiles). Recipient required: Player / Player's Guest / Game Guest (guests are not CRM players).
+- Snapshot: revenue, operating expenses, team expenses, inventory purchases, consumption cost, asset value, net profit — no double counting.
+- Daily Close stays one-screen and adapts to the mode.

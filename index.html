@@ -1629,6 +1629,230 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .harmonized:has(.sch-panel) .sch-content button,
 .harmonized:has(.sch-panel) .sch-footer button{border-radius:0!important}
 </style>
+<style id="nora-fnb">
+/* ===== NORA F&B · BAR · INVENTORY components (fb-*) ===== */
+.storyboard .phone .fb-content{display:flex!important;flex-direction:column!important;padding:0!important;overflow:hidden!important}
+.storyboard .phone .fb-body{flex:1 1 auto!important;min-height:0!important;display:flex!important;flex-direction:column!important;gap:7px!important;color:#fff!important;overflow:hidden!important}
+.storyboard .phone .fb-i{width:24px!important;height:24px!important;fill:currentColor!important;flex:none!important}
+.storyboard .phone .fb-h{font-size:18px!important;font-weight:900!important;color:#fff!important;letter-spacing:.2px!important;line-height:1.15!important;text-transform:uppercase!important}
+.storyboard .phone .fb-h small{display:block!important;font-size:14px!important;font-weight:700!important;color:#9fd8f0!important;text-transform:none!important;letter-spacing:0!important;margin-top:2px!important}
+.storyboard .phone .fb-m{white-space:nowrap!important;font-weight:900!important}
+.storyboard .phone .fb-chip{font-style:normal!important;font-size:14px!important;font-weight:900!important;padding:1px 5px!important;border:2px solid #4cddff!important;color:#bff1ff!important;white-space:nowrap!important;vertical-align:1px!important}
+.storyboard .phone .fb-chip.simple{border-color:#9be79e!important;color:#c9f7cb!important}
+.storyboard .phone .fb-chip.inv{border-color:#ffb866!important;color:#ffd9a8!important}
+.storyboard .phone .fb-chip.comp,.storyboard .phone .fb-chip.on{border-color:#00ed94!important;color:#7dffc8!important}
+.storyboard .phone .fb-chip.sell{border-color:#4cddff!important;color:#bff1ff!important}
+.storyboard .phone .fb-chip.off{border-color:#5a6b78!important;color:#93a4b0!important}
+/* tiles */
+.storyboard .phone .fb-tile{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;min-height:84px!important;padding:8px 6px!important;border:3px solid #1d8fc4!important;background:linear-gradient(160deg,#0c3a58,#06223a)!important;color:#fff!important;cursor:pointer!important;text-align:center!important}
+.storyboard .phone .fb-tile .fb-i{width:30px!important;height:30px!important;color:#4cddff!important}
+.storyboard .phone .fb-tile b{font-size:16px!important;font-weight:900!important;line-height:1.1!important}
+.storyboard .phone .fb-tile small{font-size:14px!important;font-weight:700!important;color:#bfe3f2!important;line-height:1.15!important}
+.storyboard .phone .fb-tile.sel{border-color:#00ed94!important;background:linear-gradient(160deg,#0a6a48,#03412b)!important}
+.storyboard .phone .fb-tile.sel .fb-i{color:#7dffc8!important}
+.storyboard .phone .fb-tile.big{min-height:104px!important}
+.storyboard .phone .fb-grid2{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+.storyboard .phone .fb-recip{display:flex!important;flex-direction:column!important;gap:7px!important;flex:1 1 auto!important}
+.storyboard .phone .fb-recip .fb-tile{flex:1 1 0!important;flex-direction:row!important;justify-content:flex-start!important;gap:14px!important;padding:8px 14px!important;text-align:left!important;align-items:center!important}
+.storyboard .phone .fb-recip .fb-tile .fb-i{width:38px!important;height:38px!important}
+.storyboard .phone .fb-recip .fb-tile b{font-size:19px!important}
+.storyboard .phone .fb-recip .fb-tile small{display:block!important}
+.storyboard .phone .fb-recip .fb-tile>b+small{margin-left:auto!important}
+.storyboard .phone .fb-wide{display:grid!important;grid-template-columns:30px 1fr!important;grid-template-rows:auto auto!important;column-gap:10px!important;align-items:center!important;text-align:left!important;min-height:60px!important;padding:6px 12px!important;border:3px solid #1d8fc4!important;background:#082b43!important;color:#fff!important;cursor:pointer!important}
+.storyboard .phone .fb-wide .fb-i{grid-row:1/3!important;width:28px!important;height:28px!important;color:#4cddff!important}
+.storyboard .phone .fb-wide b{font-size:16px!important;font-weight:900!important}
+.storyboard .phone .fb-wide small{font-size:14px!important;color:#bfe3f2!important;font-weight:700!important}
+/* lists */
+.storyboard .phone .fb-list{display:flex!important;flex-direction:column!important;gap:6px!important}
+.storyboard .phone .fb-li{display:flex!important;align-items:center!important;gap:12px!important;min-height:62px!important;padding:6px 12px!important;border:2px solid #1c5a7e!important;background:#082b43!important;color:#fff!important;text-align:left!important;cursor:pointer!important;width:100%!important}
+.storyboard .phone .fb-li .fb-i{width:28px!important;height:28px!important;color:#4cddff!important}
+.storyboard .phone .fb-li>div{flex:1 1 auto!important;min-width:0!important}
+.storyboard .phone .fb-li b{display:block!important;font-size:17px!important;font-weight:900!important;line-height:1.15!important}
+.storyboard .phone .fb-li small{display:block!important;font-size:14px!important;color:#bfe3f2!important;font-weight:700!important;line-height:1.2!important}
+.storyboard .phone .fb-li .fb-chev{font-size:26px!important;color:#4cddff!important;font-weight:900!important}
+.storyboard .phone .fb-li.dim{opacity:.6!important;cursor:default!important}
+.storyboard .phone .fb-li .fb-cb{color:#c5e4f2!important}
+/* rows */
+.storyboard .phone .fb-rows{display:flex!important;flex-direction:column!important;border:2px solid #1c5a7e!important;background:#061d30!important}
+.storyboard .phone .fb-row{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:10px!important;min-height:38px!important;padding:5px 10px!important;border-top:1px solid #163f58!important;font-size:15px!important}
+.storyboard .phone .fb-rows>.fb-row:first-child{border-top:0!important}
+.storyboard .phone .fb-row>span{color:#c5e4f2!important;font-weight:700!important}
+.storyboard .phone .fb-row>b{font-weight:900!important;text-align:right!important;font-size:16px!important}
+.storyboard .phone .fb-row.tot{background:#0a3a28!important;border:2px solid #00ed94!important}
+.storyboard .phone .fb-row.tot>b{font-size:18px!important}
+.storyboard .phone .fb-row.warn>b{color:#ffd38a!important}
+.storyboard .phone .fb-note{font-size:14px!important;line-height:1.3!important;color:#c5e4f2!important;padding:7px 10px!important;border-left:4px solid #4cddff!important;background:#06233a!important}
+.storyboard .phone .fb-note .fb-i{width:18px!important;height:18px!important;vertical-align:-3px!important;color:#ffd38a!important}
+.storyboard .phone .fb-note.def{border-left-color:#f2a93b!important;background:#2a2208!important;color:#ffe6b8!important}
+.storyboard .phone .fb-note.ok{border-left-color:#00ed94!important;background:#06301f!important;color:#c8ffe6!important}
+.storyboard .phone .fb-tips{display:flex!important;gap:10px!important;align-items:flex-start!important;padding:8px 10px!important;border:2px dashed #2a6d92!important;background:#051a2b!important}
+.storyboard .phone .fb-tips .fb-i{width:26px!important;height:26px!important;color:#ffd34d!important;margin-top:2px!important}
+.storyboard .phone .fb-tips ul{margin:0!important;padding:0 0 0 16px!important;font-size:14px!important;line-height:1.35!important;color:#d7eef8!important}
+/* products */
+.storyboard .phone .fb-art{display:block!important;width:52px!important;height:52px!important;flex:none!important;border:2px solid #2a6d92!important;overflow:hidden!important;background:#061d30!important}
+.storyboard .phone .fb-art svg{width:100%!important;height:100%!important;display:block!important}
+.storyboard .phone .fb-prow,.storyboard .phone .fb-crow,.storyboard .phone .fb-count,.storyboard .phone .fb-var{display:flex!important;align-items:center!important;gap:10px!important;padding:5px 8px!important;border:2px solid #1c5a7e!important;background:#082b43!important;min-height:62px!important}
+.storyboard .phone .fb-pinfo{flex:1 1 auto!important;min-width:0!important}
+.storyboard .phone .fb-pinfo b{display:block!important;font-size:16px!important;font-weight:900!important;line-height:1.15!important}
+.storyboard .phone .fb-pinfo small{display:block!important;font-size:14px!important;color:#bfe3f2!important;font-weight:700!important;line-height:1.25!important}
+.storyboard .phone .fb-pright{display:flex!important;flex-direction:column!important;align-items:flex-end!important;gap:4px!important;font-size:16px!important;font-weight:900!important;text-align:right!important}
+.storyboard .phone .fb-prow.sm{min-height:54px!important}.storyboard .phone .fb-prow.sm .fb-art{width:42px!important;height:42px!important}
+.storyboard .phone .fb-cat{display:flex!important;flex-direction:column!important;gap:5px!important}
+.storyboard .phone .fb-crow{min-height:56px!important}.storyboard .phone .fb-crow .fb-art{width:44px!important;height:44px!important}
+.storyboard .phone .fb-tog{min-width:92px!important;height:28px!important;border:2px solid #5a6b78!important;background:#0b1e2c!important;color:#93a4b0!important;font-size:14px!important;font-weight:900!important;cursor:pointer!important}
+.storyboard .phone .fb-tog.on{border-color:#00ed94!important;background:#05402b!important;color:#7dffc8!important}
+.storyboard .phone .fb-pick{display:flex!important;align-items:center!important;gap:12px!important;padding:6px 10px!important;border:3px solid #1d8fc4!important;background:#082b43!important}
+.storyboard .phone .fb-pick .fb-art{width:74px!important;height:74px!important}
+.storyboard .phone .fb-pick b{display:block!important;font-size:20px!important;font-weight:900!important}
+.storyboard .phone .fb-pick small{display:block!important;font-size:14px!important;color:#bfe3f2!important;font-weight:700!important}
+.storyboard .phone .fb-qty{display:grid!important;grid-template-columns:63px 1fr 63px!important;gap:7px!important;height:63px!important}
+.storyboard .phone .fb-qty strong{display:grid!important;place-items:center!important;border:3px solid #1d8fc4!important;background:#061d30!important;font-size:30px!important;font-weight:900!important}
+.storyboard .phone .fb-step{border:3px solid #1d8fc4!important;background:#0c3a58!important;color:#fff!important;display:grid!important;place-items:center!important;cursor:pointer!important}
+.storyboard .phone .fb-step .fb-i{width:26px!important;height:26px!important}
+.storyboard .phone .fb-qty.sm{grid-template-columns:42px 46px 42px!important;height:44px!important;gap:4px!important;flex:none!important}
+.storyboard .phone .fb-qty.sm strong{font-size:22px!important;border-width:2px!important}.storyboard .phone .fb-qty.sm .fb-step{border-width:2px!important}
+.storyboard .phone .fb-sc{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+.storyboard .phone .fb-sc .fb-tile{min-height:96px!important}
+.storyboard .phone .fb-sc .fb-tile b{font-size:21px!important}
+.storyboard .phone .fb-sc .fb-tile.comp.sel{border-color:#c59cff!important;background:linear-gradient(160deg,#4a2a86,#24124a)!important}
+.storyboard .phone .fb-sc .fb-tile.comp.sel .fb-i{color:#e2ccff!important}
+/* people */
+.storyboard .phone .fb-person,.storyboard .phone .fb-link{display:flex!important;align-items:center!important;gap:10px!important;padding:5px 8px!important;border:2px solid #1c5a7e!important;background:#082b43!important}
+.storyboard .phone .fb-person .person-face,.storyboard .phone .fb-link .person-face{width:46px!important;height:52px!important;flex:none!important;overflow:hidden!important;position:relative!important}
+.storyboard .phone .fb-person .person-face img,.storyboard .phone .fb-link .person-face img{width:100%!important;height:150%!important;object-fit:cover!important;object-position:top!important}
+.storyboard .phone .fb-person b,.storyboard .phone .fb-link b{display:block!important;font-size:17px!important;font-weight:900!important}
+.storyboard .phone .fb-person small,.storyboard .phone .fb-link small{display:block!important;font-size:14px!important;color:#bfe3f2!important;font-weight:700!important}
+.storyboard .phone .fb-pgrid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:6px!important;flex:1 1 auto!important;grid-auto-rows:minmax(0,1fr)!important}
+.storyboard .phone .fb-ptile{position:relative!important;padding:0!important;border:3px solid #1d8fc4!important;background:#061d30!important;overflow:hidden!important;cursor:pointer!important;min-height:110px!important}
+.storyboard .phone .fb-ptile .person-face{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}
+.storyboard .phone .fb-ptile .person-face img{width:100%!important;height:140%!important;object-fit:cover!important;object-position:top!important}
+.storyboard .phone .fb-ptile i{position:absolute!important;left:3px!important;top:3px!important;z-index:2!important;font-style:normal!important;background:#ffd400!important;color:#000!important;font-size:16px!important;font-weight:900!important;min-width:22px!important;height:24px!important;line-height:22px!important;text-align:center!important;border:2px solid #000!important}
+.storyboard .phone .fb-ptile b{position:absolute!important;left:0!important;right:0!important;bottom:0!important;z-index:2!important;padding:14px 2px 5px!important;font-size:17px!important;font-weight:900!important;color:#fff!important;text-align:center!important;white-space:nowrap!important;background:linear-gradient(transparent,rgba(0,0,0,.72))!important;text-shadow:0 2px 3px #000!important}
+.storyboard .phone .fb-ptile.sel{border-color:#fff!important;box-shadow:inset 0 0 0 3px #00ed94!important}
+/* menu */
+.storyboard .phone .fb-tabs{display:flex!important;gap:6px!important}
+.storyboard .phone .fb-tab{flex:1 1 0!important;min-height:42px!important;border:2px solid #1c5a7e!important;background:#082b43!important;color:#c5e4f2!important;font-size:15px!important;font-weight:900!important;cursor:pointer!important;padding:0 4px!important}
+.storyboard .phone .fb-tab.sel{border-color:#00ed94!important;background:#05402b!important;color:#fff!important}
+.storyboard .phone .fb-mgrid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important;flex:1 1 auto!important;grid-auto-rows:minmax(0,1fr)!important}
+.storyboard .phone .fb-mtile{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;border:3px solid #1d8fc4!important;background:#082b43!important;color:#fff!important;cursor:pointer!important;padding:6px!important}
+.storyboard .phone .fb-mtile .fb-art{width:70px!important;height:70px!important}
+.storyboard .phone .fb-mtile b{font-size:16px!important;font-weight:900!important}
+.storyboard .phone .fb-mtile small{font-size:16px!important;font-weight:900!important;color:#ffd38a!important}
+.storyboard .phone .fb-mtile.sel{border-color:#00ed94!important;background:#05402b!important}
+/* expenses */
+.storyboard .phone .fb-hero{padding:10px 12px!important;border:3px solid #ff5a6e!important;background:linear-gradient(160deg,#a3172f,#5a0b1b)!important}
+.storyboard .phone .fb-hero small{display:block!important;font-size:14px!important;font-weight:900!important;letter-spacing:.4px!important}
+.storyboard .phone .fb-hero strong{display:block!important;font-size:32px!important;font-weight:900!important;line-height:1.1!important}
+.storyboard .phone .fb-hero>span{font-size:14px!important;font-weight:800!important;color:#ffd9de!important}
+.storyboard .phone .fb-exp{display:flex!important;align-items:center!important;gap:10px!important;min-height:82px!important;padding:6px 10px!important;border:3px solid #1d8fc4!important;background:#082b43!important;flex:1 1 0!important}
+.storyboard .phone .fb-exp>div{flex:1 1 auto!important;min-width:0!important}
+.storyboard .phone .fb-exp b{display:block!important;font-size:17px!important;font-weight:900!important}
+.storyboard .phone .fb-exp small{display:block!important;font-size:14px!important;color:#bfe3f2!important;font-weight:700!important}
+.storyboard .phone .fb-exp>.fb-m{font-size:18px!important}
+.storyboard .phone .fb-eico{width:46px!important;height:46px!important;padding:8px!important;background:#5b2a9a!important;color:#fff!important}
+.storyboard .phone .fb-thumbs{display:flex!important;flex:none!important}
+.storyboard .phone .fb-thumbs .fb-art{width:34px!important;height:46px!important;margin-left:-6px!important;border-width:2px!important}
+.storyboard .phone .fb-thumbs .fb-art:first-child{margin-left:0!important}
+.storyboard .phone .fb-rcpt{display:flex!important;align-items:center!important;gap:10px!important;padding:6px 10px!important;border:2px solid #ffb866!important;background:#2a1c06!important}
+.storyboard .phone .fb-rcpt .fb-i{color:#ffb866!important;width:30px!important;height:30px!important}
+.storyboard .phone .fb-rcpt>div{flex:1 1 auto!important}.storyboard .phone .fb-rcpt b{display:block!important;font-size:16px!important;font-weight:900!important}.storyboard .phone .fb-rcpt small{display:block!important;font-size:14px!important;color:#ffe2b8!important;font-weight:700!important}
+.storyboard .phone .fb-found{display:flex!important;gap:9px!important;padding:6px 8px!important;border:2px solid #1c5a7e!important;background:#082b43!important}
+.storyboard .phone .fb-fimg{display:flex!important;flex-direction:column!important;gap:3px!important;align-items:center!important}
+.storyboard .phone .fb-swap{display:flex!important;gap:4px!important}
+.storyboard .phone .fb-swap .fb-i{width:24px!important;height:24px!important;padding:3px!important;border:2px solid #2a6d92!important;color:#4cddff!important;background:#061d30!important;cursor:pointer!important}
+.storyboard .phone .fb-fbody{flex:1 1 auto!important;min-width:0!important;display:flex!important;flex-direction:column!important;gap:3px!important}
+.storyboard .phone .fb-fbody>b{font-size:16px!important;font-weight:900!important}
+.storyboard .phone .fb-fbody>small{font-size:14px!important;color:#bfe3f2!important;font-weight:700!important}
+.storyboard .phone .fb-fline{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:6px!important}
+.storyboard .phone .fb-fline label{display:flex!important;align-items:center!important;gap:6px!important;font-size:14px!important;font-weight:800!important;color:#c5e4f2!important}
+.storyboard .phone .fb-fline input{width:76px!important;height:30px!important;border:2px solid #4cddff!important;background:#061d30!important;color:#fff!important;font-size:16px!important;font-weight:900!important;padding:0 6px!important}
+.storyboard .phone .fb-field{display:flex!important;flex-direction:column!important;gap:4px!important}
+.storyboard .phone .fb-field span{font-size:14px!important;font-weight:800!important;color:#c5e4f2!important}
+.storyboard .phone .fb-field input{height:46px!important;border:2px solid #4cddff!important;background:#061d30!important;color:#fff!important;font-size:17px!important;font-weight:800!important;padding:0 10px!important}
+/* settings */
+.storyboard .phone .fb-mcard{border:2px solid #1c5a7e!important;background:#082b43!important;padding:6px 8px!important;display:flex!important;flex-direction:column!important;gap:6px!important}
+.storyboard .phone .fb-mhead{display:flex!important;align-items:center!important;gap:8px!important}
+.storyboard .phone .fb-mhead .fb-i{color:#4cddff!important}
+.storyboard .phone .fb-mhead b{font-size:17px!important;font-weight:900!important}
+.storyboard .phone .fb-mhead small{margin-left:auto!important;font-size:14px!important;color:#bfe3f2!important;font-weight:700!important}
+.storyboard .phone .fb-two{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important}
+.storyboard .phone .fb-opt{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:2px!important;min-height:52px!important;border:2px solid #1c5a7e!important;background:#061d30!important;color:#c5e4f2!important;cursor:pointer!important;padding:4px!important}
+.storyboard .phone .fb-opt b{font-size:15px!important;font-weight:900!important;color:#fff!important}
+.storyboard .phone .fb-opt small{font-size:14px!important;font-weight:700!important}
+.storyboard .phone .fb-opt .fb-i{color:#4cddff!important}
+.storyboard .phone .fb-opt.sel{border:3px solid #00ed94!important;background:#05402b!important}
+.storyboard .phone .fb-pol,.storyboard .phone .fb-role{display:flex!important;align-items:center!important;gap:10px!important;min-height:60px!important;padding:6px 10px!important;border:2px solid #1c5a7e!important;background:#082b43!important}
+.storyboard .phone .fb-pol .fb-i,.storyboard .phone .fb-role .fb-i{width:28px!important;height:28px!important;color:#4cddff!important}
+.storyboard .phone .fb-pol>div,.storyboard .phone .fb-role>div:not(.fb-perm){flex:1 1 auto!important;min-width:0!important}
+.storyboard .phone .fb-pol b,.storyboard .phone .fb-role b{display:block!important;font-size:16px!important;font-weight:900!important}
+.storyboard .phone .fb-pol small,.storyboard .phone .fb-role small{display:block!important;font-size:14px!important;color:#bfe3f2!important;font-weight:700!important;line-height:1.2!important}
+.storyboard .phone .fb-perm{display:flex!important;flex-wrap:wrap!important;gap:3px!important;justify-content:flex-end!important;max-width:118px!important}
+.storyboard .phone .fb-role{min-height:58px!important}
+/* inventory */
+.storyboard .phone .fb-count .fb-pinfo small em{font-style:normal!important;font-weight:900!important}
+.storyboard .phone em.neg,.storyboard .phone .neg{color:#ff8a98!important}
+.storyboard .phone em.pos{color:#7dffc8!important}
+.storyboard .phone .fb-count.bar{align-items:center!important}
+.storyboard .phone .fb-frac{display:flex!important;gap:4px!important;margin-top:4px!important}
+.storyboard .phone .fb-frac .fb-tab{min-height:32px!important;font-size:16px!important}
+.storyboard .phone .fb-bot{font-size:24px!important;font-weight:900!important;min-width:38px!important;text-align:right!important}
+.storyboard .phone .fb-var{border-width:3px!important}
+.storyboard .phone .fb-var.neg{border-color:#ff5a6e!important}.storyboard .phone .fb-var.pos{border-color:#00ed94!important}
+.storyboard .phone .fb-var>div{flex:1 1 auto!important}.storyboard .phone .fb-var b{font-size:16px!important;font-weight:900!important}.storyboard .phone .fb-var small{display:block!important;font-size:14px!important;color:#bfe3f2!important;font-weight:700!important}
+.storyboard .phone .fb-var>b{white-space:nowrap!important}
+.storyboard .phone .fb-formula{display:grid!important;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr!important;align-items:center!important;gap:3px!important;padding:8px 6px!important;border:3px solid #1d8fc4!important;background:#061d30!important;text-align:center!important}
+.storyboard .phone .fb-formula span{display:flex!important;flex-direction:column!important;font-size:14px!important;font-weight:800!important;color:#bfe3f2!important}
+.storyboard .phone .fb-formula span b{font-size:26px!important;color:#fff!important;font-weight:900!important}
+.storyboard .phone .fb-formula span.r b{color:#7dffc8!important}
+.storyboard .phone .fb-formula i{font-style:normal!important;font-size:22px!important;font-weight:900!important;color:#4cddff!important}
+.storyboard .phone .fb-split{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important}
+.storyboard .phone .fb-split>div{padding:6px 8px!important;border:3px solid #1d8fc4!important;background:#082b43!important;display:flex!important;flex-direction:column!important;gap:2px!important;font-size:18px!important}
+.storyboard .phone .fb-split small{font-size:14px!important;font-weight:900!important;color:#bfe3f2!important}
+.storyboard .phone .fb-split .g{border-color:#00ed94!important}.storyboard .phone .fb-split .b{border-color:#c59cff!important}.storyboard .phone .fb-split .a{border-color:#f2a93b!important}.storyboard .phone .fb-split .r{border-color:#ff5a6e!important}
+/* result + audit */
+.storyboard .phone .fb-ok{display:flex!important;flex-direction:column!important;align-items:center!important;gap:4px!important;padding:12px 8px!important;border:3px solid #00ed94!important;background:linear-gradient(160deg,#0a6a48,#03412b)!important;text-align:center!important}
+.storyboard .phone .fb-ok .fb-i{width:44px!important;height:44px!important;padding:6px!important;border:3px solid #fff!important;border-radius:50%!important;color:#fff!important}
+.storyboard .phone .fb-ok b{font-size:19px!important;font-weight:900!important}
+.storyboard .phone .fb-ok small{font-size:14px!important;font-weight:700!important;color:#d8ffef!important}
+.storyboard .phone .fb-audit{display:flex!important;gap:8px!important;align-items:center!important;font-size:14px!important;color:#9fc3d6!important;font-weight:700!important;padding:4px 2px!important}
+.storyboard .phone .fb-audit .fb-i{width:18px!important;height:18px!important;color:#9fc3d6!important}
+/* footer */
+.storyboard .phone .fb-foot{margin-top:auto!important;display:flex!important;gap:8px!important}
+.storyboard .phone .fb-btn{flex:1 1 0!important;height:63px!important;border:3px solid #1d8fc4!important;background:#0c4a6e!important;color:#fff!important;font-size:17px!important;font-weight:900!important;text-transform:uppercase!important;cursor:pointer!important;padding:0 6px!important;line-height:1.1!important}
+.storyboard .phone .fb-btn.primary{border-color:#00ed94!important;background:#06704b!important}
+/* daily close + snapshot */
+.storyboard .phone .fb-dcl span{display:flex!important;align-items:center!important;gap:6px!important}
+.storyboard .phone .fb-dcl .fb-i{width:20px!important;height:20px!important}
+.storyboard .phone .fb-dcl.ok .fb-i{color:#00ed94!important}.storyboard .phone .fb-dcl.warn .fb-i{color:#ffb020!important}
+.storyboard .phone .fb-snap .fb-prow{margin-top:4px!important}
+
+.storyboard .phone .fb-m,.storyboard .phone .fb-exp>.fb-m,.storyboard .phone .fb-rcpt>.fb-m,.storyboard .phone .fb-var>b,.storyboard .phone .fb-pright{flex:0 0 auto!important;max-width:none!important}
+.storyboard .phone :is(.fb-exp,.fb-rcpt,.fb-var,.fb-prow,.fb-crow,.fb-count,.fb-pol,.fb-role,.fb-li)>div{min-width:0!important;flex:1 1 auto!important}
+.storyboard .phone .fb-tile.big{min-height:86px!important}
+.storyboard .phone .fb-paym{display:flex!important;gap:6px!important}
+.storyboard .phone .fb-paym .fb-tab{display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;min-height:48px!important}
+.storyboard .phone .fb-paym .fb-i{width:20px!important;height:20px!important}
+.storyboard .phone .fb-count .fb-art{width:44px!important;height:44px!important}
+.storyboard .phone .fb-qty.sm{grid-template-columns:38px 42px 38px!important}
+.storyboard .phone .fb-tog{min-width:0!important;width:84px!important;white-space:nowrap!important;padding:0 2px!important}
+.storyboard .phone .fb-perm{max-width:106px!important}
+.storyboard .phone .fb-sc .fb-tile{min-height:88px!important}
+.storyboard .phone .fb-m{font-size:inherit!important}
+.storyboard .phone .fb-li{min-height:54px!important}
+.storyboard .phone .fb-recip{flex:0 0 auto!important}
+.storyboard .phone .fb-recip .fb-tile{min-height:78px!important;flex:0 0 auto!important}
+.storyboard .phone .fb-body>.fb-recip:has(+.fb-wide+.fb-foot){flex:1 1 auto!important}
+.storyboard .phone .fb-body>.fb-recip:has(+.fb-wide+.fb-foot) .fb-tile,.storyboard .phone .fb-body>.fb-recip:has(+.fb-foot) .fb-tile{flex:1 1 0!important}
+.storyboard .phone .fb-body>.fb-recip:has(+.fb-foot){flex:1 1 auto!important}
+.storyboard .phone .fb-sc .fb-tile{min-height:74px!important}
+.storyboard .phone .fb-pick .fb-art{width:58px!important;height:58px!important}
+.storyboard .phone .fb-count .fb-pinfo b{white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important}
+.storyboard .phone .fb-mcard{padding:5px 8px!important;gap:5px!important}
+.storyboard .phone .fb-opt{min-height:48px!important}
+.storyboard .phone .fb-crow{min-height:52px!important}
+.storyboard .phone .fb-body .fb-m{font-size:inherit!important}
+
+</style>
 <style id="nora-sweep2">
 /* ===== NORA SWEEP 2 (restored UI b99a9c1): one design system on top of the restored screens. Keep last in <head>. ===== */
 /* -- frame: every phone 340 x 665 -- */
@@ -5736,7 +5960,290 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   return html;
  };
 })();
-</script><script id="nora-sweep2-js">
+</script><script id="nora-fnb-js">
+/* ===== NORA F&B · BAR · INVENTORY (updates WF25, 27–31, 32 inventory/expenses, 33, 40, 43, 46–47, 59, 63, 64, 68, 70).
+   Per-category accounting: Simple Expense Tracking or Inventory & Cost Control. Prototype only: nothing is posted. ===== */
+(function(){
+ if(typeof WORKFLOWS==='undefined'||typeof customPhone!=='function')return;
+ var e=function(s){return typeof esc==='function'?esc(s):String(s);};
+ /* ---------- icons (filled family) ---------- */
+ var P={
+  cam:'M4 7h3l2-3h6l2 3h3v13H4Zm8 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z',
+  gallery:'M3 4h18v16H3Zm2 2v9l4-4 3 3 3-4 4 5V6Zm4 1a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z',
+  video:'M3 6h13v12H3Zm14 4 4-3v10l-4-3Z',
+  receipt:'M5 2h14v20l-3.5-2-3.5 2-3.5-2L5 22V2Zm3 5v2h8V7H8Zm0 4v2h8v-2H8Zm0 4v2h5v-2H8Z',
+  mic:'M12 2a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4Zm-7 9h2a5 5 0 0 0 10 0h2a7 7 0 0 1-6 6.9V21h-2v-3.1A7 7 0 0 1 5 11Z',
+  pen:'M3 21v-4.2L15.6 4.2a2 2 0 0 1 2.8 0l1.4 1.4a2 2 0 0 1 0 2.8L7.2 21Z',
+  user:'M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM12 14c-6 0-10 3.2-10 8h20c0-4.8-4-8-10-8Z',
+  guest:'M9 11a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-5 0-8.5 2.8-8.5 7v2H14v-2c0-1.8.5-3.4 1.4-4.7A11 11 0 0 0 9 13Zm10-1V9h-2v3h-3v2h3v3h2v-3h3v-2Z',
+  visitor:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 3.5A3.5 3.5 0 1 0 12 12.5 3.5 3.5 0 0 0 12 5.5Zm0 8.5c-3 0-5.4 1.4-6.4 3.4A7.9 7.9 0 0 0 12 20a7.9 7.9 0 0 0 6.4-2.6c-1-2-3.4-3.4-6.4-3.4Z',
+  coin:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm1 4h-2v1.1A3 3 0 0 0 11.5 13h1a1 1 0 0 1 0 2H9v2h2v1h2v-1.1A3 3 0 0 0 12.5 11h-1a1 1 0 0 1 0-2H15V7h-2Z',
+  gift:'M3 8h18v5h-1v9H4v-9H3Zm8 2v12h2V10Zm-3-8a3 3 0 0 1 4 1.3A3 3 0 1 1 16 8H8a3 3 0 0 1 0-6Zm0 2a1 1 0 0 0 0 2h3a3 3 0 0 0-3-2Zm8 0a3 3 0 0 0-3 2h3a1 1 0 0 0 0-2Z',
+  chips:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-1-2.9v3h2v-3Zm0 15.8v3h2v-3ZM2.1 11v2h3v-2Zm16.8 0v2h3v-2ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z',
+  cash:'M2 6h20v12H2Zm10 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM5 9v6h2V9Zm12 0v6h2V9Z',
+  phone:'M7 2h10v20H7Zm2 2v14h6V4Zm2 15v1h2v-1Z',
+  bank:'M12 2 2 7v2h20V7ZM4 11v7h3v-7Zm6.5 0v7h3v-7ZM17 11v7h3v-7ZM2 20h20v2H2Z',
+  repeat:'M17 2l4 4-4 4V7H7a3 3 0 0 0-3 3v2H2v-2a5 5 0 0 1 5-5h10Zm-10 20-4-4 4-4v3h10a3 3 0 0 0 3-3v-2h2v2a5 5 0 0 1-5 5H7Z',
+  check:'M9.5 16.2 4.8 11.5l-1.6 1.6 6.3 6.3L21 7.9l-1.6-1.6Z',
+  warn:'M12 2 1 21h22Zm-1 7h2v6h-2Zm0 8h2v2h-2Z',
+  box:'M3 7l9-5 9 5v10l-9 5-9-5Zm9 2.3 6.6-3.6L12 2.3 5.4 5.7Z',
+  list:'M3 4h3v3H3zm5 0h13v3H8zM3 10.5h3v3H3zm5 0h13v3H8zM3 17h3v3H3zm5 0h13v3H8z',
+  tag:'M2 2h10l10 10-10 10L2 12Zm5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z',
+  lock:'M7 10V7a5 5 0 0 1 10 0v3h2v12H5V10Zm2 0h6V7a3 3 0 0 0-6 0Z',
+  chart:'M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm3 13v4h3v-4H7Zm5-7v11h3V8h-3Zm5 4v7h3v-7h-3Z',
+  glass:'M5 2h14l-1.6 18.2A2 2 0 0 1 15.4 22H8.6a2 2 0 0 1-2-1.8ZM7.2 7h9.6l.3-3H6.9Z',
+  burger:'M3 10a9 7 0 0 1 18 0Zm-1 2h20v2H2Zm1 4h18v1a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z',
+  bottle:'M10 2h4v4l2 3v13H8V9l2-3Z',
+  trash:'M8 3h8v2h5v2H3V5h5Zm-3 6h14l-1 13H6Z',
+  clock:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-1 5v6l5 3 1-1.7-4-2.4V7Z',
+  sun:'M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10ZM11 0h2v4h-2Zm0 20h2v4h-2ZM0 11h4v2H0Zm20 0h4v2h-4Z',
+  scan:'M3 3h6v2H5v4H3Zm12 0h6v6h-2V5h-4ZM3 15h2v4h4v2H3Zm16 0h2v6h-6v-2h4ZM7 11h10v2H7Z',
+  menu:'M4 3h16v18H4Zm3 4v2h10V7Zm0 4v2h10v-2Zm0 4v2h6v-2Z',
+  kitchen:'M7 2h2v8a3 3 0 0 1-2 2.8V22H5v-9.2A3 3 0 0 1 3 10V2h2v6h1V2Zm9 0c2.2 0 4 2.7 4 6v6h-2v8h-2Z',
+  plus:'M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7Z',minus:'M4 11h16v2H4Z',
+  cbon:'M3 3h18v18H3Zm7.5 13.8 8-8-1.6-1.6-6.4 6.4-3-3-1.6 1.6Z',cboff:'M3 3h18v18H3Zm2 2v14h14V5Z'
+ };
+ function I(n,c){return '<svg class="fb-i '+(c||'')+'" viewBox="0 0 24 24" aria-hidden="true"><path d="'+(P[n]||P.box)+'" fill-rule="evenodd"/></svg>';}
+
+ /* ---------- product art: clean generic catalog images (no brand marks) ---------- */
+ var ART={
+  beer:['#b8761a','#5a3608','<path d="M44 14h12v14l6 10v52H38V38l6-10Z" fill="#7a4a0c"/><path d="M44 14h12v6H44Z" fill="#e8c36a"/><rect x="40" y="50" width="20" height="18" fill="#f5e6b8"/><rect x="44" y="55" width="12" height="3" fill="#b8761a"/>'],
+  can:['#1f5fb8','#0b2550','<rect x="36" y="20" width="28" height="66" rx="0" fill="#c9d6e8"/><rect x="36" y="20" width="28" height="5" fill="#8fa1b8"/><rect x="36" y="81" width="28" height="5" fill="#8fa1b8"/><path d="M36 40h28v26H36Z" fill="#1f5fb8"/><path d="M42 58l8-14 8 14Z" fill="#f2c230"/>'],
+  water:['#2fb3d9','#0a4a66','<path d="M45 12h10v8l6 8v60H39V28l6-8Z" fill="#d8f3fb" fill-opacity=".9"/><path d="M45 10h10v6H45Z" fill="#1d7fb0"/><rect x="39" y="48" width="22" height="16" fill="#2fb3d9"/><path d="M50 51c3 4 4 6 4 7a4 4 0 0 1-8 0c0-1 1-3 4-7Z" fill="#fff"/>'],
+  whiskey:['#8a4a12','#2a1404','<rect x="44" y="12" width="12" height="14" fill="#2a1a0a"/><rect x="34" y="26" width="32" height="62" fill="#a85a14"/><rect x="34" y="26" width="32" height="6" fill="#5a2e08"/><rect x="38" y="44" width="24" height="24" fill="#111"/><rect x="42" y="50" width="16" height="3" fill="#ddd"/><rect x="42" y="56" width="10" height="2" fill="#aaa"/>'],
+  tequila:['#2aa37a','#083a2a','<path d="M44 10h12v12l6 6v60H38V28l6-6Z" fill="#eaf7f2" fill-opacity=".92"/><rect x="44" y="8" width="12" height="6" fill="#2aa37a"/><rect x="40" y="50" width="20" height="16" fill="#2aa37a"/><circle cx="50" cy="58" r="4" fill="#eaf7f2"/>'],
+  aguardiente:['#c23030','#4a0c0c','<path d="M43 12h14v10l5 6v60H38V28l5-6Z" fill="#f1e9e9" fill-opacity=".92"/><rect x="43" y="10" width="14" height="5" fill="#c23030"/><rect x="39" y="46" width="22" height="20" fill="#c23030"/><rect x="43" y="52" width="14" height="3" fill="#fff"/>'],
+  burger:['#d9822b','#5a2a08','<path d="M22 48a28 20 0 0 1 56 0Z" fill="#e0a040"/><circle cx="38" cy="38" r="1.8" fill="#fff6d8"/><circle cx="50" cy="34" r="1.8" fill="#fff6d8"/><circle cx="62" cy="38" r="1.8" fill="#fff6d8"/><rect x="20" y="50" width="60" height="6" fill="#4caf50"/><rect x="22" y="56" width="56" height="9" fill="#6b3a1a"/><rect x="20" y="65" width="60" height="4" fill="#f2c230"/><path d="M22 70h56v4a6 6 0 0 1-6 6H28a6 6 0 0 1-6-6Z" fill="#e0a040"/>'],
+  fries:['#e2b11f','#6a3c06','<path d="M30 46h40l-5 38H35Z" fill="#d42a2a"/><g fill="#f6cf3a"><rect x="34" y="20" width="6" height="30"/><rect x="42" y="16" width="6" height="34"/><rect x="50" y="18" width="6" height="32"/><rect x="58" y="22" width="6" height="28"/></g><path d="M30 46h40v8H30Z" fill="#b01f1f"/>'],
+  empanada:['#c98a2c','#4a2a06','<path d="M18 62a32 26 0 0 1 64 0Z" fill="#e7a94a"/><path d="M18 62h64" stroke="#a8691c" stroke-width="5"/><g fill="#a8691c"><circle cx="26" cy="58" r="2"/><circle cx="36" cy="50" r="2"/><circle cx="50" cy="46" r="2"/><circle cx="64" cy="50" r="2"/><circle cx="74" cy="58" r="2"/></g>']
+ };
+ function art(k,cls){var a=ART[k]||ART.beer;return '<span class="fb-art '+(cls||'')+'"><svg viewBox="0 0 100 100" aria-label="Product image"><defs><linearGradient id="g'+k+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+a[0]+'"/><stop offset="1" stop-color="'+a[1]+'"/></linearGradient></defs><rect width="100" height="100" fill="url(#g'+k+')"/><ellipse cx="50" cy="90" rx="26" ry="4" fill="#000" fill-opacity=".25"/>'+a[2]+'</svg></span>';}
+
+ /* ---------- demo data ---------- */
+ var MODE={Food:'Simple',Beverages:'Inventory',Bar:'Inventory'};
+ var PR=[
+  {k:'beer',n:'Aguila beer',c:'Beverages',p:10000,u:'bottle',cost:4000,beg:24,pur:0,sold:4,comp:1,waste:0,exp:19,act:17},
+  {k:'can',n:'Red Bull',c:'Beverages',p:10000,u:'can',cost:4000,beg:12,pur:0,sold:3,comp:0,waste:0,exp:9,act:9},
+  {k:'water',n:'Water',c:'Beverages',p:3000,u:'bottle',cost:1500,beg:36,pur:0,sold:0,comp:8,waste:0,exp:28,act:29},
+  {k:'whiskey',n:"Jack Daniel's",c:'Bar',p:15000,u:'shot',cost:150000,beg:2,exp:'1¾',act:'1½'},
+  {k:'tequila',n:'Patron Silver',c:'Bar',p:20000,u:'shot',cost:220000,beg:1,exp:'½',act:'½'},
+  {k:'aguardiente',n:'Aguardiente',c:'Bar',p:8000,u:'shot',cost:60000,beg:1,exp:'¾',act:'¾'},
+  {k:'burger',n:'Mini burger',c:'Food',p:15000,u:'plate'},
+  {k:'fries',n:'Fries',c:'Food',p:8000,u:'basket'},
+  {k:'empanada',n:'Empanadas',c:'Food',p:6000,u:'3 pieces'}
+ ];
+ function prod(n){for(var i=0;i<PR.length;i++)if(PR[i].n===n)return PR[i];return PR[0];}
+ function cop(n,neg){return '<span class="fb-m">'+(neg?'−':'')+'<span class="s2-cop">COP</span>'+Number(n).toLocaleString('en-US')+'</span>';}
+ var CATLBL={Food:'Food',Beverages:'Beverages',Bar:'Bar / Liquor'};
+ function modeChip(c){return MODE[c]==='Simple'?'<em class="fb-chip simple">SIMPLE</em>':'<em class="fb-chip inv">INVENTORY</em>';}
+
+ /* ---------- building blocks ---------- */
+ function stage(w,step,i,sec,title,body,note){
+  return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+e(step)+'</div></div><div class="phone hi-phone fb-phone"><div class="notch"></div>'+fullHead(sec,title)+'<div class="ux-content screen-specific fb-content"><div class="fb-body">'+body+'</div></div>'+fixedNav('Table')+'</div><p class="steptext">'+e(note||step)+'</p></div>';}
+ function H(t,sub){return '<div class="fb-h">'+t+(sub?'<small>'+sub+'</small>':'')+'</div>';}
+ function foot(a,b){var x=function(o,pri){return '<button type="button" class="fb-btn'+(pri?' primary':'')+'" data-rn-route="'+o[1]+'">'+o[0]+'</button>';};return '<div class="fb-foot s2-foot">'+(b?x(a,0)+x(b,1):x(a,1))+'</div>';}
+ function row(l,v,cls){return '<div class="fb-row '+(cls||'')+'"><span>'+l+'</span><b>'+v+'</b></div>';}
+ function tile(icon,label,sub,cls,group){return '<button type="button" class="fb-tile '+(cls||'')+'"'+(group?' data-fb-group="'+group+'"':'')+'>'+I(icon)+'<b>'+label+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</button>';}
+ function note(t,cls){return '<div class="fb-note '+(cls||'')+'">'+t+'</div>';}
+ function tips(list,icon){return '<div class="fb-tips">'+I(icon||'sun')+'<ul>'+list.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul></div>';}
+ function prow(p,right,sub){return '<div class="fb-prow">'+art(p.k)+'<div class="fb-pinfo"><b>'+p.n+'</b><small>'+(sub||CATLBL[p.c])+'</small></div><div class="fb-pright">'+right+'</div></div>';}
+ function person(name,sub){return '<div class="fb-person">'+portrait(name,name[0],true)+'<div><b>'+name+'</b><small>'+sub+'</small></div></div>';}
+ function qty(n){return '<div class="fb-qty"><button type="button" class="fb-step" data-fb-step="-1">'+I('minus')+'</button><strong data-fb-qty>'+n+'</strong><button type="button" class="fb-step" data-fb-step="1">'+I('plus')+'</button></div>';}
+ function sellcomp(def,price,why){return '<div class="fb-sc">'+'<button type="button" class="fb-tile sell'+(def==='sell'?' sel':'')+'" data-fb-group="sc">'+I('coin')+'<b>SELL</b><small>'+cop(price)+'</small></button><button type="button" class="fb-tile comp'+(def==='comp'?' sel':'')+'" data-fb-group="sc">'+I('gift')+'<b>COMP</b><small>Complimentary</small></button></div>'+note(I('tag')+' Suggested: <b>'+(def==='sell'?'SELL':'COMP')+'</b> · '+why,'def');}
+ function pay(sel){var o=[['chips','Chips','From stack'],['cash','Cash','Cashbox'],['phone','Nequi','Transfer'],['bank','Bancolombia','Transfer']];return '<div class="fb-grid2">'+o.map(function(x){return tile(x[0],x[1],x[2],x[1]===sel?'sel':'','pay');}).join('')+'</div>';}
+ function success(t,sub){return '<div class="fb-ok">'+I('check')+'<b>'+t+'</b><small>'+sub+'</small></div>';}
+ function audit(by,when,ref){return '<div class="fb-audit">'+I('clock')+'<span>'+by+' · '+when+' · <b>'+ref+'</b> · DEMO · NOT POSTED</span></div>';}
+ var SEATED=[['Luka D.',1],['Macaulay C.',2],['Miguel B.',3],['Nora A.',4],['Paul Smith',5],['Joe Shmoe',6],['Diego R.',7],['Mikey B.',8]];
+ function pgrid(sel){return '<div class="fb-pgrid">'+SEATED.map(function(s){return '<button type="button" class="fb-ptile'+(s[0]===sel?' sel':'')+'" data-fb-group="pl">'+portrait(s[0],s[0][0],true)+'<i>'+s[1]+'</i><b>'+s[0]+'</b></button>';}).join('')+'</div>';}
+ function recip(sel){return '<div class="fb-recip">'+tile('user','PLAYER','Seated player',sel==='p'?'sel':'','rc')+tile('guest',"PLAYER'S GUEST",'Linked to a player',sel==='g'?'sel':'','rc')+tile('visitor','GAME GUEST','Visitor · no player',sel==='v'?'sel':'','rc')+'</div>';}
+ function menuGrid(cat,sel){var L=PR.filter(function(p){return p.c===cat;});return '<div class="fb-tabs">'+['Beverages','Bar','Food'].map(function(c){return '<button type="button" class="fb-tab'+(c===cat?' sel':'')+'" data-fb-group="tab">'+CATLBL[c]+'</button>';}).join('')+'</div><div class="fb-mgrid">'+L.map(function(p){return '<button type="button" class="fb-mtile'+(p.n===sel?' sel':'')+'" data-fb-group="mt">'+art(p.k)+'<b>'+p.n+'</b><small>'+cop(p.p)+'</small></button>';}).join('')+'</div>';}
+
+ var S={};
+ /* ===== WF64 · Settings → Food & Beverage ===== */
+ S[64]={heads:['Food & Beverage','Accounting method','Catalog & menu','Pricing','Review'],title:'Food, beverage, bar & inventory settings',steps:['Food & Beverage settings','Accounting method per category','Product catalog & player menu','Player & guest pricing','Save settings'],sec:'SETTINGS',screens:[
+  function(){return H('Food & Beverage','Settings · optional module')+
+   '<div class="fb-list">'+[['box','Accounting methods','Food Simple · Bev & Bar Inventory','64:1'],['menu','Product catalog & player menu','9 products · 7 on menu','64:2'],['tag','Player & guest pricing','Players comp · guests menu','64:3'],['lock','Staff service permissions','Waitress · Cashier · Chef','63:1'],['cam','Capture guidance','Receipt, product, shelf tips','25:1']].map(function(x){return '<button type="button" class="fb-li" data-rn-route="'+x[3]+'">'+I(x[0])+'<div><b>'+x[1]+'</b><small>'+x[2]+'</small></div><span class="fb-chev">›</span></button>';}).join('')+'</div>'+
+   note('Menu, catalog and inventory are optional.')+foot(['BACK','60:0'],['ACCOUNTING','64:1']);},
+  function(){var c=function(k,ex){return '<div class="fb-mcard"><div class="fb-mhead">'+I(k==='Food'?'burger':k==='Bar'?'bottle':'glass')+'<b>'+CATLBL[k]+'</b><small>'+ex+'</small></div><div class="fb-two"><button type="button" class="fb-opt'+(MODE[k]==='Simple'?' sel':'')+'" data-fb-group="m'+k+'"><b>SIMPLE</b><small>Expense purchases now</small></button><button type="button" class="fb-opt'+(MODE[k]==='Inventory'?' sel':'')+'" data-fb-group="m'+k+'"><b>INVENTORY &amp; COST</b><small>Stock, counts, cost</small></button></div></div>';};
+   return H('Accounting method','Choose separately for each category')+c('Food','Plates & snacks')+c('Beverages','Whole units')+c('Bar','¼ ½ ¾ bottles')+
+   note(I('clock')+' Later changes need an opening balance + effective date.','def')+foot(['BACK','64:0'],['CATALOG & MENU','64:2']);},
+  function(){var L=PR.filter(function(p){return p.c!=='Food'||1;}).slice(0,6);
+   return H('Catalog & player menu','From receipts or added manually')+
+   '<div class="fb-cat">'+[prod('Aguila beer'),prod('Water'),prod("Jack Daniel's"),prod('Mini burger'),prod('Fries')].map(function(p,j){var on=j!==5;return '<div class="fb-crow">'+art(p.k)+'<div class="fb-pinfo"><b>'+p.n+'</b><small>'+CATLBL[p.c]+(p.n==='Water'?' · comp only':' · per '+p.u)+'</small></div><div class="fb-pright">'+cop(p.p)+'<button type="button" class="fb-tog'+(on?' on':'')+'" data-fb-toggle="1">'+(on?'ON MENU':'HIDDEN')+'</button></div></div>';}).join('')+'</div>'+
+   '<div class="fb-two">'+'<button type="button" class="fb-opt" data-rn-route="25:1">'+I('cam')+'<b>ADD BY PHOTO</b></button><button type="button" class="fb-opt">'+I('pen')+'<b>ADD MANUALLY</b></button></div>'+
+   note('A menu item does <b>not</b> turn on inventory.')+foot(['BACK','64:1'],['PRICING','64:3']);},
+  function(){var g=function(ic,t,b,a){return '<div class="fb-pol">'+I(ic)+'<div><b>'+t+'</b><small>'+b+'</small></div><em class="fb-chip '+(a==='COMP'?'comp':'sell')+'">'+a+'</em></div>';};
+   return H('Player & guest pricing','Defaults staff see · not restrictions')+
+   g('user','Players','Beer & water comp','COMP')+g('guest',"Players' guests",'Regular menu prices','MENU PRICE')+g('visitor','Game guests','Regular menu prices','MENU PRICE')+
+   '<div class="fb-rows">'+row('Category rule','Bar / Liquor: menu price for everyone')+row('Override Sell ↔ Comp','Owner · Partner · Cashier')+row('Comp limit','Waitress 3 items / recipient')+row('Overrides','Always in audit trail')+'</div>'+foot(['BACK','64:2'],['REVIEW','64:4']);},
+  function(){return H('Review Food & Beverage','Settings preview')+'<div class="fb-rows">'+row('Food','Simple Expense Tracking')+row('Beverages','Inventory &amp; Cost Control')+row('Bar / Liquor','Inventory &amp; Cost Control')+row('Player menu','7 of 9 products shown')+row('Players default','Drinks comp · food menu price')+row('Guests default','Menu price')+row('Effective','Next session · Nov 8')+'</div>'+
+   note('Staff record sales and comps the same way in every mode. NORA applies the accounting.','ok')+audit('Mike · Owner','Nov 4 · 9:52 PM','SET-DEMO-12')+foot(['CHANGE','64:1'],['SAVE · DEMO','64:0']);}
+ ]};
+
+ /* ===== WF63 · Team roles & service permissions (S2, S3 updated) ===== */
+ S[63]={heads:[null,'Service access','Comp limits'],keep0:true,steps:['Team roles','Service permissions by role','Comp limits & approvals'],sec:'SETTINGS',screens:[null,
+  function(){var r=function(ic,t,on,sub){return '<div class="fb-role">'+I(ic)+'<div><b>'+t+'</b><small>'+sub+'</small></div><div class="fb-perm">'+on.map(function(o){return '<em class="fb-chip '+(o[1]?'on':'off')+'">'+o[0]+'</em>';}).join('')+'</div></div>';};
+   return H('Service permissions','Owner controls each function')+
+   r('user','Owner / Partner',[['ALL',1]],'Full access')+
+   r('glass','Waitress / Bartender',[['SELL',1],['COMP',1],['REPORTS',0]],'Sales · comps')+
+   r('chips','Cashier',[['SELL',1],['PAY',1],['COMP',1]],'Sales · payments · comps')+
+   r('list','Dealer',[['SERVICE',0]],'Service if authorized')+
+   r('kitchen','Chef',[['ORDERS',1],['REPORTS',0]],'Kitchen orders')+
+   note(I('lock')+' Service access never grants financial reports or account balances.','def')+foot(['BACK','63:0'],['COMP LIMITS','63:2']);},
+  function(){return H('Comp limits & approvals','Per role · per session')+'<div class="fb-rows">'+row('Waitress / Bartender','3 comps / recipient')+row('Cashier','Up to '+cop(50000)+' / recipient')+row('Dealer','Not enabled')+row('Above limit','Owner or Partner approves')+row('Price override','Cashier · Owner · Partner')+row('Every override','Logged with approver')+'</div>'+note('Roles are assigned in Team; limits apply in every accounting mode.')+foot(['BACK','63:1'],['SAVE · DEMO','63:0']);}]};
+
+ /* ===== WF59 · onboarding S4 optional modules (stays optional) ===== */
+ S[59]={heads:[null,null,null,'Optional modules',null],keepAll:true,screens:[null,null,null,function(){return H('Optional modules','Quick Setup · 4 / 5 · all off by default')+
+   '<div class="fb-list">'+[['pen','Sign & Settle','Player credit · collections'],['glass','Food & Beverage','Sales, comps, expenses · menu optional']].map(function(x){return '<button type="button" class="fb-li">'+I(x[0])+'<div><b>'+x[1]+'</b><small>'+x[2]+'</small></div>'+I('cboff','fb-cb')+'</button>';}).join('')+'</div>'+
+   note('Accounting method (Simple or Inventory &amp; Cost) is chosen per category later in Settings → Food &amp; Beverage. Not needed to start.')+foot(['BACK','59:2'],['CONTINUE','59:4']);},null]};
+
+ /* ===== WF25 · Record expense / purchase ===== */
+ S[25]={heads:['Expenses','Add expense','Receipt review','Recorded'],title:'Record expense or purchase receipt',steps:['Expenses today','Add expense · choose capture','Review products Nora found','Purchase recorded'],sec:'LIVE SESSION',screens:[
+  function(){return '<div class="fb-hero red"><small>PURCHASES &amp; EXPENSES TODAY</small><strong>'+cop(1235000)+'</strong><span>3 recorded · Sunday Oct 25</span></div>'+
+   '<div class="fb-exp">'+I('box','fb-eico purple')+'<div><b>Venue rental</b><small>Operating · Cashbox</small></div>'+cop(1000000)+'</div>'+
+   '<div class="fb-exp"><span class="fb-thumbs">'+art('beer')+art('can')+art('water')+'</span><div><b>Beverage receipt</b><small>Beverages · added to inventory</small></div>'+cop(150000)+'</div>'+
+   '<div class="fb-exp"><span class="fb-thumbs">'+art('burger')+art('fries')+'</span><div><b>Food purchase</b><small>Food · expensed now</small></div>'+cop(85000)+'</div>'+
+   foot(['ADD EXPENSE · SCAN RECEIPT','25:1']);},
+  function(){return H('Add expense','How do you want to record it?')+'<div class="fb-grid2">'+
+   '<button type="button" class="fb-tile big blue sel" data-rn-route="25:2">'+I('receipt')+'<b>SCAN RECEIPT</b><small>Nora reads items</small></button>'+
+   '<button type="button" class="fb-tile big" data-rn-route="25:2">'+I('cam')+'<b>TAKE PHOTO</b><small>Products or receipt</small></button>'+
+   '<button type="button" class="fb-tile big" data-rn-route="25:2">'+I('gallery')+'<b>UPLOAD IMAGE</b><small>From gallery</small></button>'+
+   '<button type="button" class="fb-tile big" data-rn-route="26:2">'+I('pen')+'<b>ENTER MANUALLY</b><small>Category · amount</small></button></div>'+
+   '<button type="button" class="fb-wide" data-rn-route="13:1">'+I('mic')+'<b>TELL NORA</b><small>“24 Aguila, 4,000 each, cashbox”</small></button>'+
+   tips(['Flat, well lit, no shadows or folds','Whole receipt · items and prices readable','Long receipt? Add more photos'],'receipt')+foot(['BACK','25:0'],['SCAN RECEIPT','25:2']);},
+  function(){var it=[[prod('Aguila beer'),24,96000],[prod('Red Bull'),6,24000],[prod('Water'),12,30000]];
+   return '<div class="fb-rcpt">'+I('receipt')+'<div><b>Receipt · 2 photos</b><small>Supermarket · Oct 25 · Cashbox</small></div>'+cop(150000)+'</div>'+
+   it.map(function(x){var p=x[0];return '<div class="fb-found">'+'<div class="fb-fimg">'+art(p.k)+'<span class="fb-swap">'+I('cam')+I('gallery')+'</span></div><div class="fb-fbody"><b>'+p.n+' <em class="fb-chip inv">INVENTORY</em></b><small>'+CATLBL[p.c]+' · '+x[1]+' × '+cop(p.cost)+' = '+cop(x[2])+'</small><div class="fb-fline"><label>Sell price<input value="'+p.p.toLocaleString('en-US')+'" inputmode="numeric"></label><button type="button" class="fb-tog on" data-fb-toggle="1">ON MENU</button></div></div></div>';}).join('')+
+   note(I('warn')+' Check every product. Images, names and prices are suggestions.','def')+foot(['CHANGE','25:1'],['CONFIRM','25:3']);},
+  function(){return success('PURCHASE RECORDED','Receipt attached · 3 products')+'<div class="fb-rows">'+row('Beverages',cop(150000))+row('Accounting','Added to inventory')+row('Expensed now',cop(0))+row('Player menu','3 products updated')+row('Paid from','Cashbox')+'</div>'+
+   note('Inventory purchases are not expensed twice. Cost is recognized as products are used.','ok')+audit('Anna · Cashier','9:41 PM','EXP-DEMO-21')+foot(['ADD ANOTHER','25:1'],['DONE','25:0']);}
+ ]};
+
+ /* ===== WF27 · Sell or comp (staff service) ===== */
+ S[27]={heads:['Service · recipient','Select player','Menu','Sell or comp','Payment','Review order','Recorded'],title:'Sell or comp food & beverage',steps:['Who is it for?','Select player','Choose from menu','Quantity · Sell or Comp','Payment method','Review and confirm','Recorded · Repeat order'],sec:'LIVE SESSION',screens:[
+  function(){return H('Who is it for?','Food &amp; beverage service')+recip('p')+'<button type="button" class="fb-wide" data-rn-route="27:6">'+I('repeat')+'<b>REPEAT LAST ORDER</b><small>Diego R. · Aguila × 1</small></button>'+foot(['BACK','1:2'],['SELECT PLAYER','27:1']);},
+  function(){return H('Select player','Seated · Table 1')+pgrid('Diego R.')+foot(['BACK','27:0'],['MENU','27:2']);},
+  function(){return person('Diego R.','Player · Seat 7')+menuGrid('Beverages','Red Bull')+foot(['BACK','27:1'],['NEXT','27:3']);},
+  function(){var p=prod('Red Bull');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>For Diego R. · Player · Seat 7</small></div></div>'+qty(1)+sellcomp('sell',p.p,'Players: energy drinks at menu price')+foot(['BACK','27:2'],['PAYMENT','27:4']);},
+  function(){return H('How is Diego paying?',cop(10000)+' · Red Bull × 1')+pay('Chips')+foot(['BACK','27:3'],['REVIEW','27:5']);},
+  function(){var p=prod('Red Bull');return H('Review order')+prow(p,'<b>× 1</b>','Sale · '+CATLBL[p.c])+'<div class="fb-rows">'+row('Recipient','Diego R. · Player · Seat 7')+row('Type','SALE')+row('Price',cop(10000))+row('Payment','Chips')+row('Staff','Mia · Waitress')+'</div>'+foot(['CHANGE','27:3'],['CONFIRM','27:6']);},
+  function(){return success('SALE RECORDED','Red Bull × 1 · Diego R. · Chips')+'<div class="fb-rows">'+row('Amount',cop(10000))+row('Recipient','Player · Seat 7')+row('Today · Diego','1 sale · 3 comps')+'</div>'+audit('Mia · Waitress','10:14 PM','FB-DEMO-31')+
+   '<button type="button" class="fb-wide" data-rn-route="27:3">'+I('repeat')+'<b>REPEAT ORDER</b><small>Same recipient · Red Bull × 1</small></button>'+foot(['NEW ORDER','27:0'],['TABLE VIEW','1:2']);}
+ ]};
+
+ /* ===== WF28 · Comp for player, then guest order ===== */
+ S[28]={heads:['Comp for player','Comp recorded',"Player's guest",'Guest order','Records'],title:"Comp for a player · order for the player's guest",steps:['Comp for player','Comp recorded · Repeat for guest',"Player's guest",'Guest order · Sell','Two separate records'],sec:'LIVE SESSION',screens:[
+  function(){var p=prod('Aguila beer');return person('Diego R.','Player · Seat 7')+'<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>Beverages · per bottle</small></div></div>'+qty(3)+sellcomp('comp',p.p,'Players: beer complimentary')+foot(['CHANGE','27:2'],['CONFIRM COMP','28:1']);},
+  function(){return success('COMP RECORDED','Aguila × 3 · Diego R.')+'<div class="fb-rows">'+row('Type','COMP · '+cop(0))+row('Recipient','Diego R. · Player')+row('Comps today','3 of no limit')+'</div>'+audit('Mia · Waitress','10:02 PM','FB-DEMO-28')+
+   '<button type="button" class="fb-wide" data-rn-route="28:2">'+I('guest')+"<b>ORDER FOR DIEGO'S GUEST</b><small>Separate record · linked to Diego</small></button>"+foot(['NEW ORDER','27:0'],['DONE','1:2']);},
+  function(){return H('Who is it for?')+recip('g')+'<div class="fb-link">'+portrait('Diego R.','D',true)+'<div><small>GUEST OF</small><b>Diego R. · Seat 7</b></div></div><label class="fb-field"><span>Guest name · optional</span><input value="Laura"></label>'+foot(['BACK','28:1'],['MENU','28:3']);},
+  function(){var p=prod('Aguila beer');return '<div class="fb-pick">'+art(p.k)+"<div><b>"+p.n+"</b><small>For Laura · Diego's guest</small></div></div>"+qty(2)+sellcomp('sell',p.p,"Players' guests: menu price")+'<div class="fb-paym">'+[['chips','Chips'],['cash','Cash'],['phone','Nequi']].map(function(x){return '<button type="button" class="fb-tab'+(x[1]==='Cash'?' sel':'')+'" data-fb-group="pm">'+I(x[0])+x[1]+'</button>';}).join('')+'</div>'+foot(['BACK','28:2'],['CONFIRM SALE','28:4']);},
+  function(){var p=prod('Aguila beer');return success('GUEST SALE RECORDED','Aguila × 2 · Laura · Cash')+H('Diego · today')+prow(p,'<b>COMP × 3</b>','Diego R. · Player')+prow(p,'<b>'+cop(20000)+'</b>',"Laura · Diego's guest · × 2")+audit('Mia · Waitress','10:05 PM','FB-DEMO-29')+foot(['REPEAT','28:3'],['DONE','1:2']);}
+ ]};
+
+ /* ===== WF29 · Game guest + authorized override ===== */
+ S[29]={heads:['Game guest','Suggested price','Override','Recorded'],title:'Game guest order with authorized override',steps:['Game guest','Default: sell at menu price','Override to Comp','Override recorded'],sec:'LIVE SESSION',screens:[
+  function(){return H('Who is it for?')+recip('v')+'<label class="fb-field"><span>Guest name · optional</span><input value="Carlos · visitor"></label>'+note('A game guest is a visitor not linked to any player.')+foot(['BACK','27:0'],['MENU','29:1']);},
+  function(){var p=prod('Water');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>For Carlos · Game guest</small></div></div>'+qty(1)+sellcomp('sell',p.p,'Game guests: menu price')+foot(['BACK','29:0'],['OVERRIDE','29:2']);},
+  function(){var p=prod('Water');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+' × 1</b><small>Carlos · Game guest</small></div></div>'+'<div class="fb-sc"><button type="button" class="fb-tile sell" data-fb-group="sc">'+I('coin')+'<b>SELL</b><small>'+cop(3000)+'</small></button><button type="button" class="fb-tile comp sel" data-fb-group="sc">'+I('gift')+'<b>COMP</b><small>Override</small></button></div>'+
+   '<div class="fb-tabs reason">'+['Host courtesy','First visit','Other'].map(function(r,j){return '<button type="button" class="fb-tab'+(j===0?' sel':'')+'" data-fb-group="rs">'+r+'</button>';}).join('')+'</div>'+note(I('lock')+' Override by <b>Alex · Cashier</b> · within comp limit','def')+foot(['CANCEL','29:1'],['CONFIRM','29:3']);},
+  function(){return success('COMP RECORDED · OVERRIDE','Water × 1 · Carlos · Game guest')+'<div class="fb-rows">'+row('Suggested','SELL · '+cop(3000))+row('Recorded','COMP · '+cop(0))+row('Reason','Host courtesy')+row('Approved by','Alex · Cashier')+'</div>'+audit('Alex · Cashier','10:22 PM','FB-DEMO-33')+foot(['NEW ORDER','27:0'],['DONE','1:2']);}
+ ]};
+
+ /* ===== WF30 · Check inventory at any time ===== */
+ S[30]={heads:['Check inventory','How to count','Count beverages','Count bar','Differences','Count recorded'],title:'Check inventory at any time',steps:['Choose category','How to count','Count beverages','Count bar · bottle fractions','Review differences','Count recorded'],sec:'LIVE SESSION',screens:[
+  function(){var c=function(ic,k,s,dis,r){return '<button type="button" class="fb-li'+(dis?' dim':'')+'"'+(r?' data-rn-route="'+r+'"':'')+'>'+I(ic)+'<div><b>'+CATLBL[k]+' '+modeChip(k)+'</b><small>'+s+'</small></div><span class="fb-chev">›</span></button>';};
+   return H('Check inventory','Any time · not only at close')+'<div class="fb-list">'+c('glass','Beverages','3 products · last count 7:00 PM · Anna',0,'30:1')+c('bottle','Bar','3 bottles · last count 7:00 PM · Anna',0,'30:3')+c('burger','Food','Simple tracking · no count needed',1)+'</div>'+
+   note('Expected stock = start + purchases − sales − comps − waste.')+foot(['BACK','1:2'],['COUNT BEVERAGES','30:1']);},
+  function(){return H('How do you want to count?','Beverages')+'<div class="fb-grid2">'+
+   tile('pen','TOUCH','Tap + / −','sel','cm')+tile('mic','VOICE','“Aguila seventeen”','','cm')+tile('cam','PHOTO','Nora proposes counts','','cm')+tile('video','VIDEO','Pan along the shelf','','cm')+'</div>'+
+   tips(['One shelf or section at a time','All items visible · nothing hidden','Labels facing the camera','You confirm every proposed count'],'video')+foot(['BACK','30:0'],['START COUNT','30:2']);},
+  function(){var it=[prod('Aguila beer'),prod('Red Bull'),prod('Water')];return H('Count beverages','Expected vs counted · whole units')+it.map(function(p){var d=p.act-p.exp;return '<div class="fb-count">'+art(p.k)+'<div class="fb-pinfo"><b>'+p.n+'</b><small>Exp '+p.exp+(d?' · <em class="'+(d<0?'neg':'pos')+'">'+(d>0?'+':'')+d+'</em>':' · ✓')+'</small></div><div class="fb-qty sm"><button type="button" class="fb-step" data-fb-step="-1">'+I('minus')+'</button><strong data-fb-qty>'+p.act+'</strong><button type="button" class="fb-step" data-fb-step="1">'+I('plus')+'</button></div></div>';}).join('')+foot(['BACK','30:1'],['NEXT · BAR','30:3']);},
+  function(){var it=[prod("Jack Daniel's"),prod('Patron Silver'),prod('Aguardiente')];return H('Count bar','Open bottle level · ¼ ½ ¾ 1')+it.map(function(p){return '<div class="fb-count frac">'+art(p.k)+'<div class="fb-pinfo"><b>'+p.n+'</b><small>Expected '+p.exp+' bottles</small><div class="fb-frac">'+['¼','½','¾','1'].map(function(f){var a=String(p.act);return '<button type="button" class="fb-tab'+(a.slice(-1)===f||(a==='1'&&f==='1')?' sel':'')+'" data-fb-group="f'+p.k+'">'+f+'</button>';}).join('')+'</div></div><strong class="fb-bot">'+p.act+'</strong></div>';}).join('')+foot(['BACK','30:2'],['REVIEW','30:4']);},
+  function(){return H('Review differences','Counted vs expected')+
+   '<div class="fb-var neg">'+art('beer')+'<div><b>Aguila beer</b><small>Expected 19 · counted 17</small></div><b>−2 · '+cop(8000,1)+'</b></div>'+
+   '<div class="fb-var neg">'+art('whiskey')+"<div><b>Jack Daniel's</b><small>Expected 1¾ · counted 1½</small></div><b>−¼ · "+cop(37500,1)+'</b></div>'+
+   '<div class="fb-var pos">'+art('water')+'<div><b>Water</b><small>Expected 28 · counted 29</small></div><b>+1 · '+cop(1500)+'</b></div>'+
+   note('Comps already reduced expected stock. They are not counted as discrepancies.')+row('Net variance',cop(44000,1),'tot')+foot(['RECOUNT','30:2'],['CONFIRM COUNT','30:5']);},
+  function(){return success('COUNT RECORDED','Beverages &amp; Bar · audit event saved')+'<div class="fb-rows">'+row('Counted by','Mike · Owner')+row('Time','Oct 25 · 10:42 PM')+row('Adjustments','3 items · '+cop(44000,1))+row('Original counts','Preserved · correction linked')+'</div>'+audit('Mike · Owner','10:42 PM','INV-DEMO-07')+foot(['EXPLAIN VARIANCE','31:2'],['DONE','1:2']);}
+ ]};
+
+ /* ===== WF31 · Consumption & reconciliation ===== */
+ S[31]={heads:['Consumption','Cost by category','Waste / variance','Saved'],title:'Inventory consumption and reconciliation',steps:['Consumption by item','Cost by category','Record waste or explain','Reconciliation saved'],sec:'LIVE SESSION',screens:[
+  function(){var p=prod('Aguila beer');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>Beverages · Inventory &amp; Cost</small></div></div>'+
+   '<div class="fb-formula"><span><b>24</b>Start</span><i>+</i><span><b>0</b>Bought</span><i>−</i><span><b>17</b>End</span><i>=</i><span class="r"><b>7</b>Used</span></div>'+
+   '<div class="fb-rows">'+row('Sold','4 · '+cop(16000))+row('Complimentary','1 · '+cop(4000))+row('Waste','0')+row('Unexplained','2 · '+cop(8000),'warn')+row('Consumption cost',cop(28000),'tot')+'</div>'+foot(['BACK','30:4'],['BY CATEGORY','31:1']);},
+  function(){return H('Consumption cost','Beverages &amp; Bar · Inventory &amp; Cost')+'<div class="fb-rows">'+row('Opening inventory',cop(420000))+row('+ Purchases',cop(150000))+row('− Closing inventory',cop(420000))+row('= Consumption cost',cop(150000),'tot')+'</div>'+
+   '<div class="fb-split">'+[['Sold',110000,'g'],['Comp',26000,'b'],['Waste',6000,'a'],['Variance',8000,'r']].map(function(x){return '<div class="'+x[2]+'"><small>'+x[0]+'</small>'+cop(x[1])+'</div>';}).join('')+'</div>'+
+   note('Food uses Simple tracking: its '+cop(85000)+' purchase was expensed when recorded.')+foot(['BACK','31:0'],['EXPLAIN','31:2']);},
+  function(){var p=prod('Aguila beer');return prow(p,'<b class="neg">−2</b>','Unexplained · '+cop(8000))+H('What happened?')+'<div class="fb-grid2">'+tile('trash','BROKEN','Record waste','sel','wr')+tile('glass','SPILLED','Record waste','','wr')+tile('user','STAFF DRINK','Approved comp','','wr')+tile('warn','UNKNOWN','Keep as variance','','wr')+'</div>'+
+   '<label class="fb-field"><span>Note · required</span><input value="2 bottles broken at the bar · photo attached"></label>'+'<button type="button" class="fb-wide">'+I('cam')+'<b>ATTACH PHOTO</b><small>Optional evidence</small></button>'+foot(['BACK','31:1'],['SAVE','31:3']);},
+  function(){return success('RECONCILIATION SAVED','Aguila · 2 broken · waste recorded')+'<div class="fb-rows">'+row('Waste',cop(8000))+row('Unexplained left',cop(0))+row('Explained by','Mike · Owner')+row('History','Original count kept')+'</div>'+audit('Mike · Owner','10:48 PM','INV-DEMO-08')+foot(['SNAPSHOT','32:0'],['DONE','1:2']);}
+ ]};
+
+ /* ===== WF43 · Daily Close expenses & inventory ===== */
+ function dc43(){return '<div class="dc-review fb-dc"><div class="dc-scroll"><div class="dc-title">EXPENSES &amp; INVENTORY</div>'+
+  [['ok','Operating expenses',cop(1000000)],['ok','Food · Simple · expensed',cop(85000)],['ok','Bev &amp; Bar purchases → inventory',cop(150000)],['ok','Sales &amp; comps posted','24 entries'],['warn','Inventory count','Aguila −2 · explain'],['ok','Waste recorded',cop(6000)],['ok','Consumption cost',cop(150000)]].map(function(x){return '<div class="dc-line fb-dcl '+x[0]+'"><span>'+I(x[0]==='ok'?'check':'warn')+x[1]+'</span><b>'+x[2]+'</b></div>';}).join('')+
+  '</div><div class="dc-bottom"><button class="dc-next" data-rn-route="31:2">EXPLAIN VARIANCE</button></div></div>';}
+
+ /* ===== Snapshot · F&B / Inventory view ===== */
+ function snapInv(){var pr=function(p,a,b){return '<div class="fb-prow sm">'+art(p.k)+'<div class="fb-pinfo"><b>'+p.n+'</b><small>'+a+'</small></div><div class="fb-pright">'+b+'</div></div>';};
+  return '<div class="wf32-report fb-snap"><div class="wf32-scroll">'+
+  '<div class="wf32-section">Food · Simple tracking</div>'+
+  '<div class="wf32-line"><span>Purchases expensed</span><strong>'+cop(85000)+'</strong></div><div class="wf32-line"><span>Sales · comps</span><strong>'+cop(120000)+' · 4 comps</strong></div>'+
+  '<div class="wf32-section">Beverages &amp; Bar · Inventory &amp; Cost</div>'+
+  '<div class="wf32-line"><span>Purchases → inventory</span><strong>'+cop(150000)+'</strong></div><div class="wf32-line"><span>Consumption cost</span><strong>'+cop(150000)+'</strong></div><div class="wf32-line"><span>Sales revenue</span><strong>'+cop(310000)+'</strong></div><div class="wf32-line"><span>Comps · waste</span><strong>'+cop(26000)+' · '+cop(6000)+'</strong></div><div class="wf32-line"><span>Remaining inventory value</span><strong>'+cop(420000)+'</strong></div><div class="wf32-line"><span>Variance</span><strong class="neg">'+cop(8000,1)+'</strong></div>'+
+  '<div class="wf32-line"><span>Recipients</span><strong>8 players · 2 guests</strong></div>'+
+  '</div><button class="wf32-return" data-rn-route="snapshot-back">‹ BACK TO SNAPSHOT</button></div>';}
+
+ /* ---------- generic row transforms (consistent totals everywhere) ---------- */
+ function fixRows(root){
+  root.querySelectorAll('*').forEach(function(el){if(el.children.length)return;var t=el.textContent.trim();
+   if(!/^(Operating expenses|Other expenses)$/.test(t))return;var rowEl=el.parentElement;var tries=0;while(rowEl&&rowEl!==root&&!/1,235,000/.test(rowEl.textContent)&&tries<3){rowEl=rowEl.parentElement;tries++;}
+   if(!rowEl||rowEl===root||rowEl.dataset.fbFix||rowEl.textContent.length>80)return;rowEl.dataset.fbFix=1;
+   el.textContent='Operating expenses';var w=document.createTreeWalker(rowEl,NodeFilter.SHOW_TEXT);while(w.nextNode()){if(/1,235,000/.test(w.currentNode.nodeValue))w.currentNode.nodeValue=w.currentNode.nodeValue.replace('1,235,000','1,085,000');}
+   var c=rowEl.cloneNode(true);var lw=document.createTreeWalker(c,NodeFilter.SHOW_TEXT);while(lw.nextNode()){var v=lw.currentNode.nodeValue;if(/Operating expenses/.test(v))lw.currentNode.nodeValue=v.replace('Operating expenses','F&B consumption cost');if(/1,085,000/.test(v))lw.currentNode.nodeValue=v.replace('1,085,000','150,000');}
+   rowEl.parentNode.insertBefore(c,rowEl.nextSibling);});
+ }
+ function fromHTML(h){var d=document.createElement('div');d.innerHTML=h;return d;}
+ function addRows(html,after,rows){var d=fromHTML(html);var hit=null;d.querySelectorAll('*').forEach(function(el){if(!hit&&!el.children.length&&el.textContent.trim()===after)hit=el;});if(!hit)return html;var r=hit.parentElement;rows.slice().reverse().forEach(function(x){var c=r.cloneNode(true);var leaves=[].filter.call(c.querySelectorAll('*'),function(z){return !z.children.length;});if(leaves.length<2){c=r.cloneNode(false);c.innerHTML='<span>'+x[0]+'</span><strong>'+x[1]+'</strong>';}else{leaves[0].textContent=x[0];var last=c.lastElementChild;last.innerHTML=x[1];}r.parentNode.insertBefore(c,r.nextSibling);});return d.innerHTML;}
+
+ /* ---------- install: steps, specs, renderer ---------- */
+ Object.keys(S).forEach(function(id){var w=WORKFLOWS.find(function(x){return x.id===+id;});if(!w)return;var d=S[id];
+  if(d.title)w.title=d.title;if(d.steps&&!d.keepAll)w.steps=d.steps.slice();
+  if(typeof SCREEN_SPECS!=='undefined'&&SCREEN_SPECS[id]&&!d.keepAll&&!d.keep0){SCREEN_SPECS[id].types=w.steps.map(function(_,i){return 'fb-'+id+'-'+i;});}
+  if(d.keep0&&SCREEN_SPECS[id]){var t=SCREEN_SPECS[id].types;SCREEN_SPECS[id].types=w.steps.map(function(_,i){return i===0?t[0]:'fb-'+id+'-'+i;});}
+ });
+ var base=customPhone;
+ customPhone=function(w,step,i){var d=S[w.id];
+  if(d&&d.screens[i]){var sec=d.sec||(w.main==='Settings'?'SETTINGS':'LIVE SESSION');var ttl=step.length>22?step.split(' ').slice(0,3).join(' '):step;
+   if(d.heads&&d.heads[i])ttl=d.heads[i];return stage(w,step,i,sec,ttl,d.screens[i](),step);}
+  var html=base(w,step,i);
+  try{
+   if(w.id===43&&i===0){var dd=fromHTML(html);var b=dd.querySelector('.ux-content');if(b){b.innerHTML=dc43();html=dd.innerHTML;}}
+   if(w.id===40){html=html.replace(/(<strong[^>]*>)Inventory(<\/strong><span class="dc-sub"[^>]*>)1 discrepancy/,'$1F&amp;B / Stock$2Food ✓ · Bev −2');}
+   if(w.id===33&&i===1)html=addRows(html,'Hours played',[['F&B · Diego','3 comps · 1 sale '+cop(10000)],["F&B · Diego's guest",'2 sold · '+cop(20000)]]);
+   if(w.id===68&&i===2)html=addRows(html,'Hours',[['F&B consumed','2 comps · 1 sale '+cop(8000)]]);
+   if(w.id===70&&i===2){var d2=fromHTML(html);var c=d2.querySelector('.ux-content');if(c){var keep=c.querySelector('.nr-actions');c.innerHTML='<div class="nr-panel"><div class="nr-body">'+H('F&amp;B and inventory','Oct 25 · by category')+'<div class="fb-rows">'+row('Food · Simple','Expensed '+cop(85000))+row('Bev &amp; Bar purchases','To inventory '+cop(150000))+row('Consumption cost',cop(150000))+row('F&amp;B sales',cop(430000))+row('Comps','13 items · cost '+cop(26000))+row('Waste · variance',cop(6000)+' · '+cop(8000,1))+row('Inventory value',cop(420000))+'</div>'+H('Top recipients')+prow(prod('Aguila beer'),'<b>COMP × 3</b>','Diego R. · Player')+prow(prod('Aguila beer'),'<b>'+cop(20000)+'</b>',"Laura · Diego's guest")+'</div>'+(keep?keep.outerHTML:'')+'</div>';html=d2.innerHTML;}}
+   if([32,46,47,67,69,70].indexOf(w.id)>=0){var d3=fromHTML(html);fixRows(d3);html=d3.innerHTML;}
+  }catch(x){console.error('fnb',x);}
+  return html;};
+ if(typeof snapshotMarkup==='function'){var sm=snapshotMarkup;snapshotMarkup=function(v){if(v==='inventory')return snapInv();var h=sm(v);try{var d=fromHTML(h);fixRows(d);h=d.innerHTML;if(v==='expenses')h=h.replace('<span>Drinks</span>','<span>Beverages · to inventory</span>');}catch(x){}return h;};}
+ if(typeof SNAPSHOT_LABELS!=='undefined')SNAPSHOT_LABELS.inventory='F&B · Inventory';
+ if(typeof SNAPSHOT_SESSION!=='undefined'&&SNAPSHOT_SESSION.modules)SNAPSHOT_SESSION.modules.inventory=true;
+
+ /* ---------- local interactions (no posting) ---------- */
+ document.addEventListener('click',function(ev){var t=ev.target.closest('.fb-phone [data-fb-group],.fb-phone [data-fb-step],.fb-phone [data-fb-toggle]');if(!t||t.closest('[data-rn-route]')&&t.dataset.rnRoute)return;
+  ev.preventDefault();ev.stopPropagation();
+  if(t.dataset.fbGroup){var g=t.dataset.fbGroup,sc=t.closest('.fb-body');sc.querySelectorAll('[data-fb-group="'+g+'"]').forEach(function(x){x.classList.remove('sel');});t.classList.add('sel');}
+  if(t.dataset.fbStep){var q=t.parentElement.querySelector('[data-fb-qty]');var n=Math.max(0,(parseInt(q.textContent,10)||0)+(+t.dataset.fbStep));q.textContent=n;}
+  if(t.dataset.fbToggle){var on=!t.classList.contains('on');t.classList.toggle('on',on);t.textContent=on?'ON MENU':'HIDDEN';}
+ },true);
+ try{if(typeof show==='function'&&typeof current!=='undefined')show(current);}catch(x){console.error(x);}
+})();
+
+</script>
+<script id="nora-sweep2-js">
 /* ===== NORA SWEEP 2 (restored UI b99a9c1). One pass that harmonizes every rendered phone:
    5-tab filled nav + grouped hamburger menu, names-only photo tiles, COP at 65%, square corners,
    two border weights, 14px minimum text, 63px footers, WF9 five-per-page swipe ledger. Keep last before </body>. ===== */
@@ -5955,6 +6462,6 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
 
 </script>
 <script id="nora-sweep2-guard">
-(function(){var REQ=['nora-sweep2','nora-sweep2-js'];function chk(){var miss=REQ.filter(function(id){return !document.getElementById(id);});if(!miss.length)return;var d=document.createElement('div');d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:#c0142c;color:#fff;font:900 16px system-ui;padding:10px 14px';d.textContent='NORA design-system block missing: '+miss.join(', ')+' — restore from git (see DESIGN_RULES.md)';document.body.appendChild(d);}window.addEventListener('load',chk);})();
+(function(){var REQ=['nora-sweep2','nora-sweep2-js','nora-fnb','nora-fnb-js'];function chk(){var miss=REQ.filter(function(id){return !document.getElementById(id);});if(!miss.length)return;var d=document.createElement('div');d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:#c0142c;color:#fff;font:900 16px system-ui;padding:10px 14px';d.textContent='NORA design-system block missing: '+miss.join(', ')+' — restore from git (see DESIGN_RULES.md)';document.body.appendChild(d);}window.addEventListener('load',chk);})();
 </script>
 </body></html>
