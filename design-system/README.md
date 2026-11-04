@@ -20,9 +20,12 @@ These must stay the **last elements inside `<head>`**, in this order. They hold 
 | `nora-system-js` | script | Unified bottom nav + routes, SVG icon family, duplicate-title removal, header fit |
 | `nora-final` | style | WF40 dashboard, visual balance for Nora AI / Settings / Reporting |
 | `nora-chat-css` | style | Nora chat & voice: composer, round mic, recording/processing states, review cards, overlay |
+| `nora-nav-css` | style | Filled bottom-nav icons, hamburger drawer |
 | `nora-guard` | script | Nav routes, routing for new tiles, quantity steppers, **missing-block alarm** |
 
-`nora-chat-js` is the **last script before `</body>`**: WF13–18 screens and the context-aware Nora overlay opened from any portrait.
+`nora-chat-js` and `nora-nav-js` are the **last scripts before `</body>`** (`nora-nav-js` holds `NORA_NAV()`, the single navigation hierarchy for ☰ and the desktop sidebar).
+
+`nora-chat-js`: WF13–18 screens and the context-aware Nora overlay opened from any portrait.
 
 `nora-guard` shows a red banner and a console error if any block is missing. If you see it, restore the block from git before continuing.
 

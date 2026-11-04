@@ -9,6 +9,7 @@ Responsive layouts for the same NORA app. Mobile (under 768px) stays exactly as 
 ## Layout rules (from the approved Table View)
 
 - **Breakpoints:** desktop 1200px and up, tablet 768–1199px, mobile under 768px.
+- **Navigation:** the left sidebar mirrors the mobile hamburger menu (`NORA_NAV()`): 5 prominent sections with the same filled icons, the current one expanded to its submodules. No bottom nav on desktop.
 - **Shell:** a three-column grid.
   - Left sidebar, 232px: NORA logo, the 5 sections (Tables · Players · Team · Reporting · Settings) with the same **filled, colored icons** as the mobile bottom nav, and the user at the bottom.
   - Center: the main work area.

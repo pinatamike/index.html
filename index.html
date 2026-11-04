@@ -2087,7 +2087,8 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
  the LAST elements in <head>, in this order:
    audit-fixes · polish-chatgpt-workflows · polish-chatgpt-js ·
    nora-system · nora-system-js · nora-final · nora-chat-css · nora-guard
-   (+ nora-chat-js, the last script before </body>)
+   nora-nav-css (before nora-guard)
+   (+ nora-chat-js and nora-nav-js, the last scripts before </body>)
  Do not delete, rename or reorder them. New screens must use the
  tokens and patterns in DESIGN_RULES.md. A boot check (nora-guard)
  shows a red banner if any block is missing.
@@ -2234,6 +2235,34 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 @keyframes nc-slide{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.storyboard .phone .nc-mic,.storyboard .phone .nc-wave i,.storyboard .phone .nc-stop::before,.storyboard .phone .nc-stop::after,.storyboard .phone .nc-dots i,.storyboard .phone .nc-dot,.storyboard .phone .nc-overlay{animation:none!important}.storyboard .phone .nc-wave i{height:18px}}
 </style>
+<style id="nora-nav-css">
+/* ===== NORA navigation: filled 5-icon bottom nav + hamburger drawer (complete app menu) ===== */
+.storyboard .phone .ux-bottom.nx-nav .ux-ico svg.nf{fill:currentColor!important;stroke:none!important}
+.storyboard .phone.nn-host{position:relative}
+.storyboard .phone .nn-drawer{position:absolute;left:0;right:0;z-index:45;background:#03111f;border-top:2px solid #4cddff;display:flex;flex-direction:column;animation:nn-in .2s ease-out}
+@keyframes nn-in{from{transform:translateX(-14px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.storyboard .phone .nn-drawer{animation:none}}
+.storyboard .phone .nn-top{flex:0 0 50px;display:flex;align-items:center;gap:10px;padding:0 0 0 12px;border-bottom:2px solid #0d4a6e}
+.storyboard .phone .nn-top b{flex:1;font-size:18px;font-weight:900;letter-spacing:.5px}
+.storyboard .phone .nn-x{flex:0 0 50px;height:48px;border:0;border-left:2px solid #0d4a6e;background:#7a1a2a;color:#fff;display:grid;place-items:center;cursor:pointer}
+.storyboard .phone .nn-x svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.storyboard .phone .nn-list{flex:1 1 auto;min-height:0;overflow-y:auto;scrollbar-width:none;padding:6px 8px 10px}
+.storyboard .phone .nn-sec{margin-top:6px}
+.storyboard .phone .nn-sh{width:100%;height:50px;display:flex;align-items:center;gap:12px;padding:0 12px;border:2px solid #1c4d6b;background:#082b43;color:#fff;font-size:17px;font-weight:900;cursor:pointer;text-align:left}
+.storyboard .phone .nn-sh svg{width:24px;height:24px;flex:none;fill:currentColor}
+.storyboard .phone .nn-sh .nn-chev{margin-left:auto;width:18px;height:18px;fill:none;stroke:#c5e4f2;stroke-width:2.6;stroke-linecap:round;transition:transform .15s}
+.storyboard .phone .nn-sec.open .nn-chev{transform:rotate(90deg)}
+.storyboard .phone .nn-sec.cur>.nn-sh{border-color:#00ed94;background:#005638}
+.storyboard .phone .nn-items{display:none;border:2px solid #1c4d6b;border-top:0}
+.storyboard .phone .nn-sec.open .nn-items{display:block}
+.storyboard .phone .nn-it{width:100%;min-height:46px;display:flex;align-items:center;gap:12px;padding:0 12px 0 22px;border:0;border-top:1px solid #163f58;background:#04182a;color:#fff;font-size:16px;font-weight:800;cursor:pointer;text-align:left}
+.storyboard .phone .nn-it:first-child{border-top:0}
+.storyboard .phone .nn-it svg{width:20px;height:20px;flex:none;fill:currentColor;color:#4cddff}
+.storyboard .phone .nn-it.cur{background:#0b3a58;color:#5cf2b8}
+.storyboard .phone .nn-it.cur svg{color:#5cf2b8}
+.storyboard .phone .nn-it em{margin-left:auto;font-style:normal;font-size:14px;font-weight:900;color:#ffd38a;border:2px solid #f2a93b;padding:1px 6px}
+.storyboard .phone .nn-it:hover{background:#0b3a58}
+</style>
 <script id="nora-guard">
 
 document.addEventListener('click',function(e){var bt=e.target.closest('.ex-stepper button');if(!bt)return;e.preventDefault();e.stopImmediatePropagation();var st=bt.closest('.ex-stepper'),v=st.querySelector('b'),n=parseInt(v.textContent,10)||0;n=Math.max(0,n+(bt.textContent.trim()==='+'?1:-1));v.textContent=n;var lbl=st.querySelector('span');if(lbl&&/UNIT/.test(lbl.textContent))lbl.textContent=n===1?'UNIT':(lbl.textContent.indexOf('UNITS')>=0||lbl.textContent==='UNIT'?'UNITS':lbl.textContent);var ex=st.closest('.ex');if(!ex)return;var pr=ex.querySelector('.ex-prod span'),tot=ex.querySelector('.ex-total b');if(pr&&tot){var m=pr.textContent.replace(/,/g,'').match(/(\d+)\s*EACH/);if(m)tot.innerHTML='<small>COP</small> '+(n*+m[1]).toLocaleString('en-US');}},true);
@@ -2244,7 +2273,7 @@ if(typeof rnDecorate==='function'&&!window.__nxDec){window.__nxDec=1;var __rd=rn
 try{rnDecorate();}catch(e){}
 });
 
-(function(){var REQ=['audit-fixes','polish-chatgpt-workflows','polish-chatgpt-js','nora-system','nora-system-js','nora-final','nora-chat-css','nora-chat-js'];function chk(){var miss=REQ.filter(function(i){return !document.getElementById(i);});if(miss.length&&!document.getElementById('nora-guard-banner')){var d=document.createElement('div');d.id='nora-guard-banner';d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:#a5233a;color:#fff;font:700 15px system-ui;padding:10px;text-align:center';d.textContent='NORA design system blocks missing: '+miss.join(', ')+' — see DESIGN_RULES.md';document.body.appendChild(d);console.error('NORA design system missing',miss);}}window.addEventListener('load',chk);})();
+(function(){var REQ=['audit-fixes','polish-chatgpt-workflows','polish-chatgpt-js','nora-system','nora-system-js','nora-final','nora-chat-css','nora-chat-js','nora-nav-css','nora-nav-js'];function chk(){var miss=REQ.filter(function(i){return !document.getElementById(i);});if(miss.length&&!document.getElementById('nora-guard-banner')){var d=document.createElement('div');d.id='nora-guard-banner';d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:#a5233a;color:#fff;font:700 15px system-ui;padding:10px;text-align:center';d.textContent='NORA design system blocks missing: '+miss.join(', ')+' — see DESIGN_RULES.md';document.body.appendChild(d);console.error('NORA design system missing',miss);}}window.addEventListener('load',chk);})();
 </script>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
@@ -6330,6 +6359,67 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.matches&&e.target.matches('.nc-input')){e.preventDefault();var r=e.target.closest('.nc'),s=r.querySelector('.nc-send');if(s)s.click();}});
  document.addEventListener('click',function(e){var ch=e.target.closest('.nc .nc-chips span:not([data-nc-act])');if(!ch)return;ch.parentElement.querySelectorAll('span').forEach(function(x){x.classList.remove('sel');});ch.classList.add('sel');},true);
  if(typeof current!=='undefined'&&current>=13&&current<=18)show(current);
+})();
+</script>
+<script id="nora-nav-js">
+/* NORA navigation. Bottom nav = 5 primary sections (filled icons). ☰ = complete, grouped app menu. Same hierarchy as the desktop sidebar. */
+(function(){
+ var F={
+  Tables:'M12 3C5.9 3 1 7 1 12s4.9 9 11 9 11-4 11-9-4.9-9-11-9Zm0 3c4.5 0 8 2.7 8 6s-3.5 6-8 6-8-2.7-8-6 3.5-6 8-6Zm0 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z',
+  Players:'M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM12 14c-6 0-10 3.2-10 8h20c0-4.8-4-8-10-8Z',
+  Team:'M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8 0a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM8 13c-4.5 0-8 3-8 7v2h13v-2c0-2.5 1-4.5 2.5-6A12 12 0 0 0 8 13Zm8 0c-1.5 0-2.8.3-4 1 2 1.5 3 3.5 3 6v2h9v-2c0-4-3.5-7-8-7Z',
+  Reporting:'M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm3 13v4h3v-4H7Zm5-7v11h3V8h-3Zm5 4v7h3v-7h-3Z',
+  Settings:'M10.3 2h3.4l.5 2.6c.6.2 1.2.5 1.7.9l2.5-.9 1.7 2.9-2 1.7c.1.6.1 1.3 0 1.9l2 1.7-1.7 2.9-2.5-.9c-.5.4-1.1.7-1.7.9l-.5 2.6h-3.4l-.5-2.6c-.6-.2-1.2-.5-1.7-.9l-2.5.9-1.7-2.9 2-1.7a6 6 0 0 1 0-1.9l-2-1.7L5.6 4.6l2.5.9c.5-.4 1.1-.7 1.7-.9ZM12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z',
+  seat:'M6 3h12v9H6zM4 13h16v3H4zM6 16h2v5H6zm10 0h2v5h-2z',list:'M3 4h3v3H3zm5 0h13v3H8zM3 10.5h3v3H3zm5 0h13v3H8zM3 17h3v3H3zm5 0h13v3H8z',
+  receipt:'M5 2h14v20l-3.5-2-3.5 2-3.5-2L5 22V2Zm3 5v2h8V7H8Zm0 4v2h8v-2H8Zm0 4v2h5v-2H8Z',glass:'M5 2h14l-1.6 18.2A2 2 0 0 1 15.4 22H8.6a2 2 0 0 1-2-1.8ZM7.2 7h9.6l.3-3H6.9Z',
+  box:'M3 7l9-5 9 5v10l-9 5-9-5Zm9 2.3 6.6-3.6L12 2.3 5.4 5.7Z',chart:'M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm3 13v4h3v-4H7Zm5-7v11h3V8h-3Zm5 4v7h3v-7h-3Z',
+  pen:'M3 21v-4.2L15.6 4.2a2 2 0 0 1 2.8 0l1.4 1.4a2 2 0 0 1 0 2.8L7.2 21Z',check:'M5 2h14a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3Zm5.5 14.8 8-8-1.6-1.6-6.4 6.4-3-3-1.6 1.6 4.6 4.6Z',
+  mic:'M12 2a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4Zm-7 9h2a5 5 0 0 0 10 0h2a7 7 0 0 1-6 6.9V21h-2v-3.1A7 7 0 0 1 5 11Z',
+  search:'M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2Zm0 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z',plus:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-1 5v4H7v2h4v4h2v-4h4v-2h-4V7Z',
+  cal:'M7 2h2v2h6V2h2v2h3v18H4V4h3Zm-1 8v10h12V10Z',mail:'M2 5h20v14H2Zm2.4 2L12 12.3 19.6 7Z',clock:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-1 5v6l5 3 1-1.7-4-2.4V7Z',
+  coin:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm1 4h-2v1.1A3 3 0 0 0 11.5 13h1a1 1 0 0 1 0 2H9v2h2v1h2v-1.1A3 3 0 0 0 12.5 11h-1a1 1 0 0 1 0-2H15V7h-2Z',
+  card:'M2 5h20v14H2Zm0 3v3h20V8ZM5 14v2h5v-2Z',lock:'M7 10V7a5 5 0 0 1 10 0v3h2v12H5V10Zm2 0h6V7a3 3 0 0 0-6 0Z',
+  user:'M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM12 14c-6 0-10 3.2-10 8h20c0-4.8-4-8-10-8Z',down:'M11 3h2v10l3.5-3.5 1.4 1.4L12 16.8l-5.9-5.9 1.4-1.4L11 13ZM4 19h16v2H4Z',
+  game:'M7 6h10a5 5 0 0 1 0 10l-2-2H9l-2 2A5 5 0 0 1 7 6Zm0 3v1.5H5.5v1H7V13h1v-1.5h1.5v-1H8V9Z'
+ };
+ function ic(n,cls){return '<svg class="'+(cls||'')+'" viewBox="0 0 24 24" aria-hidden="true"><path d="'+F[n]+'" fill-rule="evenodd"/></svg>';}
+ function mods(){var m=(typeof SNAPSHOT_SESSION!=='undefined'&&SNAPSHOT_SESSION.modules)||{};return m;}
+ window.NORA_NAV=function(){var m=mods();return [
+  {key:'Tables',icon:'Tables',label:'Live Session',home:'1:2',range:[[1,18],[25,47]],items:[
+    ['Live Tables','Tables','1:2'],['Seat a Player','seat','3:1'],['Wait List','list','8:1'],['Expenses','receipt','25:0'],
+    m.inventory!==false?['Food & Beverage','glass','27:0']:null, m.inventory?['Inventory','box','30:0']:null,
+    ['Snapshot','chart','32:0'], m.signSettle?['Sign & Settle','pen','36:0']:null,['Daily Close','check','40:0',m.closeDue?'':null],['Ask Nora','mic','13:0']]},
+  {key:'Players',icon:'Players',label:'Players',home:'54:0',range:[[48,58]],items:[
+    ['Find Player','search','54:0'],['Add Player','plus','55:1'],['Scheduled Games','cal','48:0'],['Invitations','mail','49:0'],['Attendance','list','51:0'],['Arrivals · ETA','clock','52:0']]},
+  {key:'Team',icon:'Team',label:'Team',home:'19:0',range:[[19,24]],items:[
+    ['Team on Shift','Team','19:0'],['Check-in','clock','20:2'],['Chip Tips','coin','21:2'],['Payments & Advances','card','22:2'],['Checkout','check','23:2'],['Earnings & Balances','chart','24:2']]},
+  {key:'Reporting',icon:'Reporting',label:'Reporting',home:'67:0',range:[[67,71]],items:[
+    ['Reports Home','chart','67:0'],['Player Reports','user','68:0'],['Rake & Revenue','coin','69:0'],['Team & Expenses','receipt','70:0'],['Export','down','71:0']]},
+  {key:'Settings',icon:'Settings',label:'Settings',home:'60:0',range:[[59,66]],items:[
+    ['Quick Setup','plus','59:0'],['Game Rules & Tables','game','60:0'],['Payment Accounts','card','61:0'],['Sign & Settle','pen','62:0'],['Team Permissions','lock','63:0'],['Food, Beverage & Inventory','glass','64:0'],['Profile & Language','user','65:0'],['Team Access','mail','66:0']]}
+ ].map(function(s){s.items=s.items.filter(Boolean).filter(function(it){var p=it[2].split(':');return typeof rnValid!=='function'||rnValid(+p[0],+p[1]);});return s;});};
+ function sectionOf(id){var S=NORA_NAV();for(var i=0;i<S.length;i++)for(var j=0;j<S[i].range.length;j++){var r=S[i].range[j];if(id>=r[0]&&id<=r[1])return S[i].key;}return 'Tables';}
+ window.NORA_NAV_ICON=ic;window.NORA_NAV_SECTION=sectionOf;
+ // 1) filled icons on the bottom nav, active tab follows the section
+ function fillNav(){document.querySelectorAll('.storyboard>.stage').forEach(function(st){var nav=st.querySelector('.ux-bottom.nx-nav');if(!nav||nav.dataset.nn)return;nav.dataset.nn=1;var sec=sectionOf(+st.dataset.rnWorkflow||0);nav.querySelectorAll('.ux-tab').forEach(function(t){var k=t.textContent.trim();var w=t.querySelector('.ux-ico');if(F[k]&&w)w.innerHTML=ic(k,'nf');t.classList.toggle('chosen',k===sec);});});}
+ // 2) hamburger drawer
+ function drawer(st){var ph=st.querySelector('.phone'),uc=ph&&ph.querySelector('.ux-content');if(!uc)return;var old=ph.querySelector('.nn-drawer');if(old){old.remove();return;}
+  var id=+st.dataset.rnWorkflow||0,step=+st.dataset.rnStep||0,sec=sectionOf(id),here=id+':'+step;
+  var html=NORA_NAV().map(function(s){var open=s.key===sec;return '<div class="nn-sec'+(open?' open cur':'')+'"><button type="button" class="nn-sh" data-nn-toggle="1">'+ic(s.icon)+s.label+'<svg class="nn-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button><div class="nn-items">'+s.items.map(function(it){var cur=it[2]===here||(it[2].split(':')[0]==id&&s.items.filter(function(x){return x[2].split(':')[0]==id;}).length===1);return '<button type="button" class="nn-it'+(cur?' cur':'')+'" data-nn-go="'+it[2]+'">'+ic(it[1])+it[0]+(it[3]?'<em>'+it[3]+'</em>':'')+'</button>';}).join('')+'</div></div>';}).join('');
+  var d=document.createElement('div');d.className='nn-drawer';var pr=ph.getBoundingClientRect(),ur=uc.getBoundingClientRect(),nav=ph.querySelector('.ux-bottom');d.style.top=(ur.top-pr.top-6)+'px';d.style.bottom=(nav?nav.getBoundingClientRect().height+4:0)+'px';
+  d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div>';
+  ph.classList.add('nn-host');ph.appendChild(d);}
+ window.addEventListener('click',function(e){
+  var h=e.target.closest('.storyboard .ux-hamb');if(h){var st=h.closest('.stage');if(st){e.preventDefault();e.stopImmediatePropagation();drawer(st);}return;}
+  var dr=e.target.closest('.nn-drawer');if(!dr)return;e.preventDefault();e.stopImmediatePropagation();
+  if(e.target.closest('.nn-x')){dr.remove();return;}
+  var tg=e.target.closest('[data-nn-toggle]');if(tg){tg.parentElement.classList.toggle('open');return;}
+  var go=e.target.closest('[data-nn-go]');if(go){var st=dr.closest('.stage'),r=go.dataset.nnGo;dr.remove();try{rnGo(r,st);}catch(x){console.error(x);}}
+ },true);
+ // bottom-nav routes always go to the section landing screen
+ window.addEventListener('click',function(e){var t=e.target.closest('.storyboard .ux-bottom.nx-nav .ux-tab');if(!t)return;var S=NORA_NAV(),k=t.textContent.trim(),s=S.filter(function(x){return x.key===k;})[0];if(!s)return;e.preventDefault();e.stopImmediatePropagation();var st=t.closest('.stage');var dr=st&&st.querySelector('.nn-drawer');if(dr)dr.remove();try{rnGo(s.home,st);}catch(x){console.error(x);}},true);
+ var q=0;function sch(){if(q)return;q=1;requestAnimationFrame(function(){q=0;fillNav();});}
+ new MutationObserver(sch).observe(document.documentElement,{childList:true,subtree:true});window.addEventListener('load',sch);sch();
 })();
 </script>
 </body></html>

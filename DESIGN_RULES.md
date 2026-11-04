@@ -71,3 +71,11 @@ These rules and `design-system/README.md` are the single UI specification for NO
 - WF40 Daily Close: all 8 checks on one screen, no scroll; 26px status squares (green ✓ done, amber ! review, red ✗ action required)
 - Team figures follow the session staff record: Anna compensation COP 150,000, advance 100,000, final payment 50,000, outstanding 0, chip tips 15,000
 - Blinds are written COP 5,000 / 10,000; minimum buy-in COP 500,000 (never 5M / 10M / 500K)
+
+## Navigation architecture (Nov 4) — authoritative
+- **Mobile bottom nav** = primary navigation, exactly 5 filled colored icons: Tables · Players · Team · Reporting · Settings. Each goes to its section landing screen. The active tab follows the current section. Never add functions to it.
+- **Hamburger (☰)** = complete app menu, grouped by the same 5 sections: Live Session (Live Tables, Seat a Player, Wait List, Expenses, Food & Beverage, Inventory, Snapshot, Sign & Settle, Daily Close, Ask Nora), Players, Team, Reporting, Settings. Respects enabled modules and permissions. Opens over the content on the current section.
+- **No second permanent nav bar** on mobile. Session functions are reached through ☰ or contextual tiles.
+- **Desktop** = persistent left sidebar with the same hierarchy and icons. The 5 sections are prominent and expand into their submodules. No bottom bar on desktop.
+- **Contextual tiles** perform actions on the current screen. **Header** shows location plus Nora. These are not global navigation.
+- One filled icon family everywhere (mobile + desktop). Menu structure lives in `NORA_NAV()` in `nora-nav-js`, and desktop must mirror it.
