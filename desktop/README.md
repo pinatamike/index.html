@@ -52,3 +52,6 @@ Interactive prototype. The desktop Live Table becomes the control center for the
 - **<768px (mobile):** no rail; hamburger drawer + 5-tab bottom nav, grid 3×4, panel is a bottom sheet (seat tap or tasks button).
 - Seat tiles: fixed 0.84 portrait ratio sized from the canvas, photo fills, white name only, no amount (buy-ins live in the Selected seat card), square 32px yellow seat badge (26px on mobile).
 - Demo staff names: Anna, Costa, Alex.
+
+## v3 — Live Snapshot column (≥1280px)
+Four regions: rail · player grid · always-visible Live Snapshot · Control Center. Tiles keep portrait ratio (not enlarged); the old KPI strip is replaced by the Snapshot column on desktop. Metrics reuse the WF31–39 Snapshot formulas and each opens the existing detail (buy-ins/rake/expenses → Snapshot accordion, cash-outs → cash-out, accounts/variance → Daily Close). Below 1280px the Snapshot column is hidden and the KPI strip + SNAPSHOT tile remain. Only the Cashbox balance and COP 50,000 variance exist in the prototype data; Nequi/Bancolombia are not invented.
