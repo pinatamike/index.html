@@ -2121,6 +2121,10 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 
 html body .storyboard>.stage .phone.iv-player>.ux-bottom,html body .storyboard>.stage .phone.iv-player>.ux-bottom.s2-nav{display:none!important;height:0!important;min-height:0!important;border:0!important}
 .storyboard .phone .iv-stk .fb-btn{flex:0 0 63px!important}
+.storyboard .phone .iv-advbox{display:none!important;flex-direction:column!important;gap:6px!important}
+.storyboard .phone .st-er.open+.iv-advbox{display:flex!important}
+.storyboard .phone .fb-body:has(.st-er.open) .iv-prim{display:none!important}
+.storyboard .phone .iv-advbox .fb-chips,.storyboard .phone .iv-advbox .st-pm{min-height:40px!important}
 
 </style>
 <style id="nora-sweep2">
@@ -4561,7 +4565,7 @@ const RPT={
  team(){const c=RPT.cop;const p=(n,face,h,tip,pay,owed)=>'<div class="rpt-person">'+face+'<div><b>'+n+'</b><span>'+h+'</span></div><div class="rpt-pay"><b>'+c(pay)+'</b><em class="'+(owed?'neg':'pos')+'">'+(owed?'OWED':'PAID')+'</em></div></div>';return '<div class="rpt">'+
   RPT.hero('amber','TEAM PAY',c('360,000'),'3 ON SHIFT · 16h 30m · TIPS '+c('30,000'))+
   '<div class="rpt-card"><div class="rpt-stack"><i class="green" style="width:67%">67%</i><i class="red" style="width:33%">33%</i></div><div class="rpt-legend2"><span class="pos">PAID '+c('240,000')+'</span><span class="neg">OWED '+c('120,000')+'</span></div></div>'+
-  p('Anna',portrait('Anna','A',true),'5h 30m','15,000','150,000',false)+p('Carlos',portrait('Carlos','C'),'5h 30m','10,000','120,000',true)+p('Mia',portrait('Mia','M'),'5h 30m','5,000','90,000',false)+'</div>';},
+  p('Anna',portrait('Anna','A',true),'5h 30m','15,000','150,000',false)+p('Costa',portrait('Costa','C'),'5h 30m','10,000','120,000',true)+p('Alex',portrait('Alex','M'),'5h 30m','5,000','90,000',false)+'</div>';},
  expense(){const c=RPT.cop;const it=(k,l,v,pct)=>'<div class="rpt-leg"><i class="'+k+'"></i><div><span>'+l+' · '+pct+'%</span><b>'+c(v)+'</b></div></div>';return '<div class="rpt">'+
   RPT.hero('red','TOTAL EXPENSES',c('1,595,000'),'SUNDAY · OCT 25')+
   '<div class="rpt-card rpt-donut-card"><div class="rpt-donut"></div><div class="rpt-legend">'+it('purple','VENUE','1,000,000',63)+it('amber','TEAM','360,000',23)+it('teal','DRINKS','150,000',9)+it('blue','OTHER','85,000',5)+'</div></div>'+
@@ -5017,7 +5021,7 @@ const WF32_DATA={
  ['Uri',2,8,'Cashed out',350000,500000,'3h 05m']
  ],
  tables:[{name:'Table 1',rake:450000,minutes:330,stack:625000},{name:'Table 2',rake:330000,minutes:300,stack:535000}],
- staff:[{name:'Anna',hours:'5h 30m',earn:150000,advance:100000,settled:50000,due:0,tips:15000},{name:'Carlos',hours:'5h 30m',earn:120000,advance:0,settled:0,due:120000,tips:10000},{name:'Mia',hours:'5h 30m',earn:90000,advance:0,settled:90000,due:0,tips:5000}],
+ staff:[{name:'Anna',hours:'5h 30m',earn:150000,advance:100000,settled:50000,due:0,tips:15000},{name:'Costa',hours:'5h 30m',earn:120000,advance:0,settled:0,due:120000,tips:10000},{name:'Alex',hours:'5h 30m',earn:90000,advance:0,settled:90000,due:0,tips:5000}],
  expenses:[{name:'Venue',items:[['Venue rental',1000000]]},{name:'Drinks',items:[['Beer purchases',90000],['Mixers',60000]]},{name:'Other',items:[['Supplies',50000],['Transport',35000]]}],
  accounts:[['Cashbox',4500000],['Nequi',500000],['Bancolombia',300000]],
  debtors:[{name:'Diego',balance:150000,status:'Unpaid'},{name:'Uri',balance:50000,status:'Unpaid'}],
@@ -6396,28 +6400,28 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   function(){return person('Diego R.','Player · Seat 7')+menuGrid('Beverages','Red Bull')+foot(['BACK','27:1'],['NEXT','27:3']);},
   function(){var p=prod('Red Bull');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>For Diego R. · Player · Seat 7</small></div></div>'+qty(1)+sellcomp('sell',p.p,'Players: energy drinks at menu price')+foot(['BACK','27:2'],['PAYMENT','27:4']);},
   function(){return H('How is Diego paying?',cop(10000)+' · Red Bull × 1')+pay('Chips')+foot(['BACK','27:3'],['REVIEW','27:5']);},
-  function(){var p=prod('Red Bull');return H('Review order')+prow(p,'<b>× 1</b>','Sale · '+CATLBL[p.c])+'<div class="fb-rows">'+row('Recipient','Diego R. · Player · Seat 7')+row('Type','SALE')+row('Price',cop(10000))+row('Payment','Chips')+row('Staff','Mia · Waitress')+'</div>'+foot(['CHANGE','27:3'],['CONFIRM','27:6']);},
-  function(){return success('SALE RECORDED','Red Bull × 1 · Diego R. · Chips')+'<div class="fb-rows">'+row('Amount',cop(10000))+row('Recipient','Player · Seat 7')+row('Today · Diego','1 sale · 3 comps')+'</div>'+audit('Mia · Waitress','10:14 PM','FB-DEMO-31')+
+  function(){var p=prod('Red Bull');return H('Review order')+prow(p,'<b>× 1</b>','Sale · '+CATLBL[p.c])+'<div class="fb-rows">'+row('Recipient','Diego R. · Player · Seat 7')+row('Type','SALE')+row('Price',cop(10000))+row('Payment','Chips')+row('Staff','Alex · Waitress')+'</div>'+foot(['CHANGE','27:3'],['CONFIRM','27:6']);},
+  function(){return success('SALE RECORDED','Red Bull × 1 · Diego R. · Chips')+'<div class="fb-rows">'+row('Amount',cop(10000))+row('Recipient','Player · Seat 7')+row('Today · Diego','1 sale · 3 comps')+'</div>'+audit('Alex · Waitress','10:14 PM','FB-DEMO-31')+
    '<button type="button" class="fb-wide" data-rn-route="27:3">'+I('repeat')+'<b>REPEAT ORDER</b><small>Same recipient · Red Bull × 1</small></button>'+foot(['NEW ORDER','27:0'],['TABLE VIEW','1:2']);}
  ]};
 
  /* ===== WF28 · Comp for player, then guest order ===== */
  S[28]={heads:['Comp for player','Comp recorded',"Player's guest",'Guest order','Records'],title:"Comp for a player · order for the player's guest",steps:['Comp for player','Comp recorded · Repeat for guest',"Player's guest",'Guest order · Sell','Two separate records'],sec:'LIVE SESSION',screens:[
   function(){var p=prod('Aguila beer');return person('Diego R.','Player · Seat 7')+'<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>Beverages · per bottle</small></div></div>'+qty(3)+sellcomp('comp',p.p,'Players: beer complimentary')+foot(['CHANGE','27:2'],['CONFIRM COMP','28:1']);},
-  function(){return success('COMP RECORDED','Aguila × 3 · Diego R.')+'<div class="fb-rows">'+row('Type','COMP · '+cop(0))+row('Recipient','Diego R. · Player')+row('Comps today','3 of no limit')+'</div>'+audit('Mia · Waitress','10:02 PM','FB-DEMO-28')+
+  function(){return success('COMP RECORDED','Aguila × 3 · Diego R.')+'<div class="fb-rows">'+row('Type','COMP · '+cop(0))+row('Recipient','Diego R. · Player')+row('Comps today','3 of no limit')+'</div>'+audit('Alex · Waitress','10:02 PM','FB-DEMO-28')+
    '<button type="button" class="fb-wide" data-rn-route="28:2">'+I('guest')+"<b>ORDER FOR DIEGO'S GUEST</b><small>Separate record · linked to Diego</small></button>"+foot(['NEW ORDER','27:0'],['DONE','1:2']);},
   function(){return H('Who is it for?')+recip('g')+'<div class="fb-link">'+portrait('Diego R.','D',true)+'<div><small>GUEST OF</small><b>Diego R. · Seat 7</b></div></div><label class="fb-field"><span>Guest name · optional</span><input value="Laura"></label>'+foot(['BACK','28:1'],['MENU','28:3']);},
   function(){var p=prod('Aguila beer');return '<div class="fb-pick">'+art(p.k)+"<div><b>"+p.n+"</b><small>For Laura · Diego's guest</small></div></div>"+qty(2)+sellcomp('sell',p.p,"Players' guests: menu price")+'<div class="fb-paym">'+[['chips','Chips'],['cash','Cash'],['phone','Nequi']].map(function(x){return '<button type="button" class="fb-tab'+(x[1]==='Cash'?' sel':'')+'" data-fb-group="pm">'+I(x[0])+x[1]+'</button>';}).join('')+'</div>'+foot(['BACK','28:2'],['CONFIRM SALE','28:4']);},
-  function(){var p=prod('Aguila beer');return success('GUEST SALE RECORDED','Aguila × 2 · Laura · Cash')+H('Diego · today')+prow(p,'<b>COMP × 3</b>','Diego R. · Player')+prow(p,'<b>'+cop(20000)+'</b>',"Laura · Diego's guest · × 2")+audit('Mia · Waitress','10:05 PM','FB-DEMO-29')+foot(['REPEAT','28:3'],['DONE','1:2']);}
+  function(){var p=prod('Aguila beer');return success('GUEST SALE RECORDED','Aguila × 2 · Laura · Cash')+H('Diego · today')+prow(p,'<b>COMP × 3</b>','Diego R. · Player')+prow(p,'<b>'+cop(20000)+'</b>',"Laura · Diego's guest · × 2")+audit('Alex · Waitress','10:05 PM','FB-DEMO-29')+foot(['REPEAT','28:3'],['DONE','1:2']);}
  ]};
 
  /* ===== WF29 · Game guest + authorized override ===== */
  S[29]={heads:['Game guest','Suggested price','Override','Recorded'],title:'Game guest order with authorized override',steps:['Game guest','Default: sell at menu price','Override to Comp','Override recorded'],sec:'LIVE SESSION',screens:[
-  function(){return H('Who is it for?')+recip('v')+'<label class="fb-field"><span>Guest name · optional</span><input value="Carlos · visitor"></label>'+note('A game guest is a visitor not linked to any player.')+foot(['BACK','27:0'],['MENU','29:1']);},
-  function(){var p=prod('Water');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>For Carlos · Game guest</small></div></div>'+qty(1)+sellcomp('sell',p.p,'Game guests: menu price')+foot(['BACK','29:0'],['OVERRIDE','29:2']);},
-  function(){var p=prod('Water');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+' × 1</b><small>Carlos · Game guest</small></div></div>'+'<div class="fb-sc"><button type="button" class="fb-tile sell" data-fb-group="sc">'+I('coin')+'<b>SELL</b><small>'+cop(3000)+'</small></button><button type="button" class="fb-tile comp sel" data-fb-group="sc">'+I('gift')+'<b>COMP</b><small>Override</small></button></div>'+
+  function(){return H('Who is it for?')+recip('v')+'<label class="fb-field"><span>Guest name · optional</span><input value="Costa · visitor"></label>'+note('A game guest is a visitor not linked to any player.')+foot(['BACK','27:0'],['MENU','29:1']);},
+  function(){var p=prod('Water');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>For Costa · Game guest</small></div></div>'+qty(1)+sellcomp('sell',p.p,'Game guests: menu price')+foot(['BACK','29:0'],['OVERRIDE','29:2']);},
+  function(){var p=prod('Water');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+' × 1</b><small>Costa · Game guest</small></div></div>'+'<div class="fb-sc"><button type="button" class="fb-tile sell" data-fb-group="sc">'+I('coin')+'<b>SELL</b><small>'+cop(3000)+'</small></button><button type="button" class="fb-tile comp sel" data-fb-group="sc">'+I('gift')+'<b>COMP</b><small>Override</small></button></div>'+
    '<div class="fb-tabs reason">'+['Host courtesy','First visit','Other'].map(function(r,j){return '<button type="button" class="fb-tab'+(j===0?' sel':'')+'" data-fb-group="rs">'+r+'</button>';}).join('')+'</div>'+note(I('lock')+' Override by <b>Alex · Cashier</b> · within comp limit','def')+foot(['CANCEL','29:1'],['CONFIRM','29:3']);},
-  function(){return success('COMP RECORDED · OVERRIDE','Water × 1 · Carlos · Game guest')+'<div class="fb-rows">'+row('Suggested','SELL · '+cop(3000))+row('Recorded','COMP · '+cop(0))+row('Reason','Host courtesy')+row('Approved by','Alex · Cashier')+'</div>'+audit('Alex · Cashier','10:22 PM','FB-DEMO-33')+foot(['NEW ORDER','27:0'],['DONE','1:2']);}
+  function(){return success('COMP RECORDED · OVERRIDE','Water × 1 · Costa · Game guest')+'<div class="fb-rows">'+row('Suggested','SELL · '+cop(3000))+row('Recorded','COMP · '+cop(0))+row('Reason','Host courtesy')+row('Approved by','Alex · Cashier')+'</div>'+audit('Alex · Cashier','10:22 PM','FB-DEMO-33')+foot(['NEW ORDER','27:0'],['DONE','1:2']);}
  ]};
 
  /* ===== WF30 · Check inventory at any time ===== */
@@ -6546,33 +6550,42 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   kb:'M2 5h20v14H2Zm3 3v2h2V8Zm4 0v2h2V8Zm4 0v2h2V8Zm4 0v2h2V8ZM5 12v2h2v-2Zm4 0v2h2v-2Zm4 0v2h2v-2Zm4 0v2h2v-2ZM8 15v2h8v-2Z',
   seat:'M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7Z'
  });
- var KEY='nora.ck.v1';
- var ST={wa:'todo',profile:'done',team:'todo',acct:'done',ss:'todo',inv:'todo',menu:'todo',players:'todo',ai:'done',dismissed:false};
- try{var sv=JSON.parse(localStorage.getItem(KEY)||'null');if(sv)Object.keys(sv).forEach(function(k){ST[k]=sv[k];});}catch(x){}
- function save(){try{localStorage.setItem(KEY,JSON.stringify(ST));}catch(x){}}
+ /* ONE authoritative configuration state (persisted in this browser for the demo). Settings, WF48 and the checklist all read/write it. */
+ var KEY='nora.cfg.v2';
+ var CFG={dismissed:false,done:{profile:1,acct:1,ai:1},skip:{},modules:{ss:false,inv:true,fnb:false,wa:true},
+  invites:{reserve:true,autoInvite:true,grace:30,reminder:'2 H BEFORE',auto:true,countdown:'GAME START',notifyWait:true,hostApprove:false,offer:'10 MIN',address:'AFTER I’M IN',optin:true,lang:'ENGLISH'}};
+ function merge(t,f){Object.keys(f||{}).forEach(function(k){if(f[k]&&typeof f[k]==='object'&&!Array.isArray(f[k]))merge(t[k]=t[k]||{},f[k]);else t[k]=f[k];});}
+ try{var sv=JSON.parse(localStorage.getItem(KEY)||'null');if(sv)merge(CFG,sv);}catch(x){}
+ function save(){try{localStorage.setItem(KEY,JSON.stringify(CFG));}catch(x){}}
+ function getP(p){return p.split('.').reduce(function(o,k){return o==null?o:o[k];},CFG);}
+ function setP(p,v){var a=p.split('.'),o=CFG;for(var i=0;i<a.length-1;i++)o=o[a[i]]=o[a[i]]||{};o[a[a.length-1]]=v;save();syncP(p);}
+ function syncP(p){document.querySelectorAll('[data-cfg="'+p+'"]').forEach(function(el){var v=getP(p);if(el.dataset.cfgVal!==undefined){el.classList.toggle('sel',String(v)===el.dataset.cfgVal);}else if(el.classList.contains('st-tog')){el.classList.toggle('on',!!v);el.textContent=v?'ON':'OFF';}});}
+ function markDone(list){String(list).split(',').forEach(function(id){id=id.trim();if(!id)return;CFG.done[id]=1;delete CFG.skip[id];if(CFG.modules.hasOwnProperty(id))CFG.modules[id]=true;});save();}
  var ITEMS=[
   {id:'profile',ic:'user',t:'Business Profile',r:'65:0',nora:'Add your club name, logo or language?'},
-  {id:'team',ic:'team',t:'Team Members & Permissions',r:'63:0',nora:'Who works your game? I can invite them and set roles.'},
-  {id:'acct',ic:'bank',t:'Account Balances / Payment Methods',r:'61:0',nora:'Which accounts do you accept: Cash, Nequi, Bancolombia?'},
-  {id:'ss',ic:'pen',t:'Sign & Settle',r:'62:0',opt:1,nora:'Sign & Settle is optional. Want credit for trusted players?'},
-  {id:'inv',ic:'box',t:'Expenses & Inventory',r:'64:1',nora:'Simple tracking is fine to start. Want stock counts for the bar?'},
-  {id:'menu',ic:'menu',t:'Food & Beverage Menu / Pricing',r:'64:2',opt:1,nora:'A player menu is optional. Add products with a photo?'},
-  {id:'players',ic:'user',t:'Player Management',r:'54:0',nora:'Import players from your contacts or add them as they arrive.'},
-  {id:'ai',ic:'bell',t:'Notifications & AI Preferences',r:'65:1',nora:'Choose how Nora talks to you and what to be notified about.'},
-  {id:'wa',ic:'chat',t:'Invitations & WhatsApp',r:'48:3',opt:1,nora:'Invitations are optional. Want to connect WhatsApp so players can RSVP?'}
+  {id:'team',ic:'team',t:'Team & Permissions',r:'63:0',nora:'Who works your game? I can invite them and set roles.'},
+  {id:'acct',ic:'bank',t:'Account Balances',r:'61:0',nora:'Which accounts do you accept: Cash, Nequi, Bancolombia?'},
+  {id:'ss',ic:'pen',t:'Sign & Settle',r:'62:0',mod:'ss',nora:'Sign & Settle is optional. Want credit for trusted players?'},
+  {id:'inv',ic:'box',t:'Expenses & Inventory',r:'64:1',mod:'inv',nora:'Simple tracking is fine to start. Want stock counts for the bar?'},
+  {id:'fnb',ic:'menu',t:'Food & Beverage',r:'64:0',mod:'fnb',nora:'A player menu is optional. Add products with a photo?'},
+  {id:'wa',ic:'chat',t:'Invitations & WhatsApp',r:'48:2',mod:'wa',nora:'Invitations are optional. Want to connect WhatsApp so players can RSVP?'},
+  {id:'ai',ic:'bell',t:'Notifications & Nora AI',r:'65:1',nora:'Choose how Nora talks to you and what to be notified about.'}
  ];
- function counts(){var d=0,s=0;ITEMS.forEach(function(x){if(ST[x.id]==='done')d++;else if(ST[x.id]==='skip')s++;});return {d:d,s:s};}
+ function visible(){return ITEMS.filter(function(x){return !x.mod||CFG.modules[x.mod];});}
+ function stateOf(id){return CFG.skip[id]?'skip':CFG.done[id]?'done':'todo';}
+ function counts(){var d=0,s=0,v=visible();v.forEach(function(x){var st=stateOf(x.id);if(st==='done')d++;else if(st==='skip')s++;});return {d:d,s:s,n:v.length};}
 
  /* ---------- building blocks ---------- */
  function stage(w,step,i,sec,title,body,nt,nav){
   return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+e(step)+'</div></div><div class="phone hi-phone fb-phone st-phone"><div class="notch"></div>'+fullHead(sec,title)+'<div class="ux-content screen-specific fb-content"><div class="fb-body">'+body+'</div></div>'+fixedNav(nav||'Table')+'</div><p class="steptext">'+e(nt||step)+'</p></div>';}
  function btn(o,pri,extra){return '<button type="button" class="fb-btn'+(pri?' primary':'')+'" data-rn-route="'+o[1]+'"'+(extra||'')+'>'+o[0]+'</button>';}
- function foot(a,b,startFlag){return '<div class="fb-foot s2-foot">'+(b?btn(a,0)+btn(b,1,startFlag?' data-st-start="1"':''):btn(a,1,startFlag?' data-st-start="1"':''))+'</div>';}
- function stack(p,s,pStart){return '<div class="fb-foot s2-foot st-stack">'+btn(p,1,pStart?' data-st-start="1"':'')+btn(s,0)+'</div>';}
+ function xf(f){return f===1?' data-st-start="1"':(typeof f==='string'?f:'');}
+ function foot(a,b,startFlag){return '<div class="fb-foot s2-foot">'+(b?btn(a,0)+btn(b,1,xf(startFlag)):btn(a,1,xf(startFlag)))+'</div>';}
+ function stack(p,s,pStart){return '<div class="fb-foot s2-foot st-stack">'+btn(p,1,xf(pStart))+btn(s,0)+'</div>';}
  function er(l,v,r){return '<button type="button" class="st-er" data-rn-route="'+(r||'2:3')+'"><span>'+l+'</span><b>'+v+'</b>'+I('chev')+'</button>';}
  function fld(l,v,r){return '<button type="button" class="st-fld" data-st-edit="1"><small>'+l+'</small><b>'+v+'</b></button>';}
- function chips(l,opts,sel,g){return '<div class="st-chips">'+(l?'<small>'+l+'</small>':'')+'<div class="st-cr">'+opts.map(function(o,k){return '<button type="button" class="fb-opt'+(k===sel?' sel':'')+'" data-fb-group="'+g+'"><b>'+o+'</b></button>';}).join('')+'</div></div>';}
- function tog(on,txt){return '<button type="button" class="st-tog'+(on?' on':'')+'" data-st-tog="1">'+(on?'ON':'OFF')+'</button>';}
+ function chips(l,opts,sel,g,key,vals){return '<div class="st-chips">'+(l?'<small>'+l+'</small>':'')+'<div class="st-cr">'+opts.map(function(o,k){return '<button type="button" class="fb-opt'+(k===sel?' sel':'')+'" data-fb-group="'+g+'"'+(key?' data-cfg="'+key+'" data-cfg-val="'+(vals?vals[k]:o)+'"':'')+'><b>'+o+'</b></button>';}).join('')+'</div></div>';}
+ function tog(on,key){return '<button type="button" class="st-tog'+(on?' on':'')+'" data-st-tog="1"'+(key?' data-cfg="'+key+'"':'')+'>'+(on?'ON':'OFF')+'</button>';}
  function li(ic,t,sub,r,chip){return '<button type="button" class="fb-li" data-rn-route="'+r+'">'+I(ic)+'<div><b>'+t+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</div>'+(chip||'')+'<span class="fb-chev">›</span></button>';}
  function nora(){return '<span class="st-face">'+portrait('Nora','N',true)+'</span>';}
  function micBtn(label,r,cls){return '<button type="button" class="st-micbig '+(cls||'')+'" data-rn-route="'+r+'">'+I('mic')+(label?'<b>'+label+'</b>':'')+'</button>';}
@@ -6636,18 +6649,20 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  /* ================= WF60 · Settings home + checklist + game settings ================= */
  function home(started){
   var c=counts(),banner='';
-  if(started&&!ST.dismissed)banner='<button type="button" class="st-fin" data-rn-route="60:1"><span class="st-ring">'+c.d+'/'+ITEMS.length+'</span><div><b>FINISH SETTING UP YOUR BUSINESS</b><small>'+c.d+' of '+ITEMS.length+' completed</small></div><span class="fb-chev">›</span></button>';
+  if(started&&!CFG.dismissed)banner='<button type="button" class="st-fin" data-rn-route="60:1"><span class="st-ring">'+c.d+'/'+c.n+'</span><div><b>FINISH SETTING UP YOUR BUSINESS</b><small>'+c.d+' of '+c.n+' completed</small></div><span class="fb-chev">›</span></button>';
   if(!started)banner='<button type="button" class="st-hero" data-rn-route="2:0">'+I('bolt')+'<div><b>START YOUR FIRST SESSION</b><small>Checklist appears after it</small></div></button>';
-  return banner+'<div class="fb-list st-sec">'+[['sliders','Game Settings','Formats · blinds · rake · templates','60:4'],['bank','Account Balances','Cash · Nequi · Bancolombia','61:0'],['pen','Sign & Settle','Optional','62:0'],['lock','Team & Permissions','Roles and access','63:0'],['burger','Food & Beverage','Accounting · menu · inventory','64:0'],['user','Profile & Preferences','Language · time zone · Nora','65:0'],['chat','Invitations & WhatsApp','RSVP · seats · reminders','48:3'],['mail','Team Invitations','Invite and revoke','66:0']].map(function(x){return li(x[0],x[1],x[2],x[3]);}).join('')+'</div>';}
- function ckRows(){return ITEMS.map(function(x){var s=ST[x.id];return '<div class="st-ck '+s+'" data-ck="'+x.id+'"><button type="button" class="st-ckm" data-rn-route="'+x.r+'">'+I(x.ic)+'<b>'+x.t+'</b><span class="st-sbox">'+(s==='done'?I('check'):s==='skip'?I('dash'):'')+'</span></button><button type="button" class="st-micsm" data-st-nora="'+x.id+'" data-rn-route="60:2" aria-label="Ask Nora">'+I('mic')+'</button></div>';}).join('');}
+  return banner+'<div class="fb-list st-sec">'+[['sliders','Game Settings','Formats · blinds · rake · templates','60:4'],['bank','Account Balances','Cash · Nequi · Bancolombia','61:0'],['pen','Sign & Settle','Optional','62:0'],['lock','Team & Permissions','Roles and access','63:0'],['burger','Food & Beverage','Accounting · menu · inventory','64:0'],['user','Profile & Preferences','Language · time zone · Nora','65:0'],['chat','Invitations & WhatsApp','RSVP · seats · reminders','48:2'],['mail','Team Invitations','Invite and revoke','66:0']].map(function(x){return li(x[0],x[1],x[2],x[3]);}).join('')+'</div>';}
+ function ckRows(){return visible().map(function(x){var s=stateOf(x.id);return '<div class="st-ck '+s+'" data-ck="'+x.id+'"><button type="button" class="st-ckm" data-rn-route="'+x.r+'">'+I(x.ic)+'<b>'+x.t+'</b><span class="st-sbox">'+(s==='done'?I('check'):s==='skip'?I('dash'):'')+'</span></button><button type="button" class="st-micsm" data-st-nora="'+x.id+'" data-rn-route="60:2" aria-label="Ask Nora">'+I('mic')+'</button></div>';}).join('');}
  S[60]={sec:'SETTINGS',nav:'Settings',steps:['Settings home','Finish setting up your business','Nora helps with a checklist item','Settings home · before the first session','Game settings · saved templates','Edit game template','Review changes before saving'],
   heads:['Settings','Checklist','Nora Help','Settings','Game Settings','Edit Template','Review Changes'],
   screens:[
   function(){return home(true);},
   function(){var c=counts();
-   if(ST.dismissed)return '<div class="st-card"><b class="st-big">CHECKLIST DISMISSED</b><small>You can bring it back any time</small></div>'+note('Nothing is lost. Your settings are unchanged.')+'<div class="fb-foot s2-foot">'+btn(['SETTINGS HOME','60:0'],0)+'<button type="button" class="fb-btn primary" data-st-restore="1">RESTORE CHECKLIST</button></div>';
-   return '<div class="st-pg"><button type="button" class="st-dismiss mini" data-st-dismiss="1">DISMISS</button><b>'+c.d+' of '+ITEMS.length+' completed</b><small>'+c.s+' skipped · saved automatically</small><div class="st-bar"><i style="width:'+Math.round(c.d/ITEMS.length*100)+'%"></i></div></div><div class="st-cks">'+ckRows()+'</div>';},
-  function(){return '<div class="st-nrow">'+nora()+'<div><b data-nm="t">NORA CAN HELP</b><small data-nm="s">Say it or type it. I’ll ask before saving.</small></div></div><div class="st-say" data-nm="q">What would you like to set up?</div>'+micBtn('TAP TO SPEAK','60:2','')+foot(['SKIP FOR NOW','60:1'],['OPEN SETTINGS','60:1']).replace('data-rn-route="60:1"','data-st-skip="1" data-rn-route="60:1"').replace('data-rn-route="60:1">OPEN','data-st-open="1" data-rn-route="60:1">OPEN');},
+   if(CFG.dismissed)return '<div class="st-card"><b class="st-big">CHECKLIST HIDDEN</b><small>You can bring it back any time</small></div>'+note('Nothing is lost. Your settings are unchanged.')+'<div class="fb-foot s2-foot">'+btn(['SETTINGS HOME','60:0'],0)+'<button type="button" class="fb-btn primary" data-st-restore="1">SHOW CHECKLIST</button></div>';
+   var all=c.d+c.s>=c.n;
+   var mods=[['ss','Sign & Settle'],['inv','Expenses & Inventory'],['fnb','Food & Beverage'],['wa','Invitations & WhatsApp']];
+   return '<div class="st-pg"><button type="button" class="st-dismiss mini" data-st-dismiss="1">HIDE</button><b>'+c.d+' of '+c.n+' completed</b><small>'+(all?'You’re all set. Hide this any time.':c.s+' skipped · saved automatically')+'</small><div class="st-bar"><i style="width:'+Math.round(c.d/Math.max(1,c.n)*100)+'%"></i></div></div><div class="iv-prim st-cks">'+ckRows()+'</div><button type="button" class="st-er" data-st-expand="mods"><span>Optional modules</span><b>add or remove</b>'+I('chev')+'</button><div class="iv-advbox">'+mods.map(function(m){return '<div class="st-ar"><div class="st-arm"><b>'+m[1]+'</b></div>'+tog(CFG.modules[m[0]],'modules.'+m[0])+'</div>';}).join('')+note('Only modules you turn on appear in your checklist.')+'</div>';},
+  function(){return '<div class="st-nrow">'+nora()+'<div><b data-nm="t">NORA CAN HELP</b><small data-nm="s">Say it or type it. I’ll ask before saving.</small></div></div><div class="st-say" data-nm="q">What would you like to set up?</div>'+micBtn('TAP TO SPEAK','60:2','')+'<button type="button" class="st-dismiss" data-st-na="1" style="display:none">NOT NEEDED · REMOVE FROM LIST</button>'+foot(['SKIP FOR NOW','60:1'],['OPEN SETTINGS','60:1']).replace('data-rn-route="60:1"','data-st-skip="1" data-rn-route="60:1"').replace('data-rn-route="60:1">OPEN','data-st-open="1" data-rn-route="60:1">OPEN');},
   function(){return home(false);},
   function(){var t=function(n,s,d){return '<button type="button" class="fb-li" data-rn-route="60:5">'+I(d?'star':'bookmark')+'<div><b>'+n+'</b><small>'+s+'</small></div>'+(d?'<em class="fb-chip on">DEFAULT</em>':'')+'<span class="fb-chev">›</span></button>';};
    return '<div class="fb-list">'+t('Sunday Hold’em','Hold’em · 1 table · 5% rake',1)+t('Tuesday Cash Game','Hold’em · 2 tables · 5% rake')+t('High Stakes PLO','Omaha · 1 table · 3% rake')+t('Private VIP Game','Hold’em · 1 table · no rake')+'</div>'+note('Changing a template never rewrites sessions already recorded.')+foot(['BACK','60:0'],['NEW TEMPLATE','60:5']);},
@@ -6661,7 +6676,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  S[61]={sec:'SETTINGS',nav:'Settings',steps:['Account Balances','Account detail'],heads:['Account Balances','Account Detail'],
   screens:[
   function(){return '<div class="st-gh">PAYMENT ACCOUNTS</div>'+AC('cash','Cash','Cashbox',1)+AC('phone','Nequi','Transfer ••• 4821',1)+AC('bank','Bancolombia','Transfer',1)+AC('coin','PayPal / Zelle','Off',0)+AC('plus','Other account','Add',0)+'<div class="st-gh">RECEIVABLES · NOT PAYMENT ACCOUNTS</div><div class="fb-rows">'+row('Chips Box',cop(4200000))+row('Sign & Settle outstanding',cop(1150000))+'</div>'+note('Turning an account on or off posts nothing.');},
-  function(){return '<div class="st-card"><b class="st-big">NEQUI</b><small>Players can pay with transfer</small></div>'+'<div class="fb-grid2 st-fg">'+fld('Label','Nequi')+fld('Account','••• 4821')+'</div>'+chips('Accept for',['BUY-INS','CASH-OUTS','EXPENSES'],0,'ac')+'<div class="st-ar st-solo"><div class="st-arm"><b>Enabled</b></div>'+tog(1)+'</div>'+note('Real account numbers are protected on the server in production.')+foot(['BACK','61:0'],['SAVE','61:0']);}
+  function(){return '<div class="st-card"><b class="st-big">NEQUI</b><small>Players can pay with transfer</small></div>'+'<div class="fb-grid2 st-fg">'+fld('Label','Nequi')+fld('Account','••• 4821')+'</div>'+chips('Accept for',['BUY-INS','CASH-OUTS','EXPENSES'],0,'ac')+'<div class="st-ar st-solo"><div class="st-arm"><b>Enabled</b></div>'+tog(1)+'</div>'+note('Real account numbers are protected on the server in production.')+foot(['BACK','61:0'],['SAVE','61:0'],' data-cfg-done="acct"');}
  ]};
 
  /* ================= WF62 · Sign & Settle (optional) ================= */
@@ -6671,7 +6686,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   function(){var t=function(ic,n,s,sel){return '<button type="button" class="fb-tile'+(sel?' sel':'')+'" data-fb-group="vm">'+I(ic)+'<b>'+n+'</b><small>'+s+'</small></button>';};
    return '<div class="st-card"><b class="st-big">PICK ONE METHOD</b><small>Only the chosen one needs setup</small></div><div class="fb-grid2">'+t('keypad','PIN','4–6 digits',1)+t('finger','BIOMETRIC','Device fingerprint')+t('cam','PHOTO','Selfie at signing')+t('mic','VOICE','Spoken phrase')+'</div>'+foot(['BACK','62:0'],['CONTINUE','62:2']);},
   function(){return '<div class="st-card"><b class="st-big">PIN SETUP</b><small>Required for this method only</small></div>'+chips('PIN length',['4 DIGITS','6 DIGITS'],1,'pl')+chips('Each player',['OWN PIN','STAFF ENTERS'],0,'po')+note('Never stored in plain text. Production uses device checks.')+foot(['BACK','62:1'],['CONTINUE','62:3']);},
-  function(){return '<div class="fb-rows">'+row('Method','PIN · 6 digits')+row('Authorized to issue','Owner · Partners · Cashier')+row('Confirm over',cop(200000))+row('Credit limit / player',cop(1000000))+'</div>'+note('This is configuration only. Nothing is lent or collected.')+foot(['BACK','62:2'],['SAVE','60:0']);}
+  function(){return '<div class="fb-rows">'+row('Method','PIN · 6 digits')+row('Authorized to issue','Owner · Partners · Cashier')+row('Confirm over',cop(200000))+row('Credit limit / player',cop(1000000))+'</div>'+note('This is configuration only. Nothing is lent or collected.')+foot(['BACK','62:2'],['SAVE','60:0'],' data-cfg-done="ss"');}
  ]};
 
  /* ================= WF63 · Team permissions ================= */
@@ -6686,21 +6701,21 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  /* ================= WF65 · Profile & preferences ================= */
  S[65]={sec:'SETTINGS',nav:'Settings',steps:['Profile & display','Notifications & AI preferences'],heads:['Profile','Preferences'],
   screens:[
-  function(){return '<div class="st-prof"><span class="st-face big">'+portrait('Mikey B.','M',true)+'</span><button type="button" class="st-act2" data-st-edit="1">'+I('cam')+'<b>CHANGE PHOTO</b></button></div><div class="fb-grid2 st-fg">'+fld('Owner name','Mike')+fld('Time zone','Bogotá · UTC−5')+'</div>'+chips('Language',['ENGLISH','ESPAÑOL'],0,'lg')+'<div class="fb-grid2 st-fg">'+fld('Currency','COP')+fld('Amounts','1,250,000')+'</div>'+foot(['BACK','60:0'],['SAVE','60:0']);},
+  function(){return '<div class="st-prof"><span class="st-face big">'+portrait('Mikey B.','M',true)+'</span><button type="button" class="st-act2" data-st-edit="1">'+I('cam')+'<b>CHANGE PHOTO</b></button></div><div class="fb-grid2 st-fg">'+fld('Owner name','Mike')+fld('Time zone','Bogotá · UTC−5')+'</div>'+chips('Language',['ENGLISH','ESPAÑOL'],0,'lg')+'<div class="fb-grid2 st-fg">'+fld('Currency','COP')+fld('Amounts','1,250,000')+'</div>'+foot(['BACK','60:0'],['SAVE','60:0'],' data-cfg-done="profile"');},
   function(){var r=function(ic,n,s,on){return '<div class="st-ar"><div class="st-arm">'+I(ic)+'<div><b>'+n+'</b><small>'+s+'</small></div></div>'+tog(on)+'</div>';};
-   return r('mic','Nora voice','Tap to speak only',1)+r('sun','Nora suggestions','Ask before changing',1)+r('clock','Daily Close reminder','Never during a live game',1)+r('calendar','RSVP updates','Players confirming',1)+r('bell','Low stock alerts','Inventory categories',0)+foot(['BACK','65:0'],['SAVE','60:0']);}
+   return r('mic','Nora voice','Tap to speak only',1)+r('sun','Nora suggestions','Ask before changing',1)+r('clock','Daily Close reminder','Never during a live game',1)+r('calendar','RSVP updates','Players confirming',1)+r('bell','Low stock alerts','Inventory categories',0)+foot(['BACK','65:0'],['SAVE','60:0'],' data-cfg-done="ai"');}
  ]};
 
  /* ================= WF66 · Team invitations ================= */
  var PEND=function(n,r,ch){return '<div class="st-inv"><div><b>'+n+'</b><small>'+r+' · '+ch+' · pending</small></div><button type="button" class="st-revoke" data-st-revoke="1">REVOKE</button></div>';};
  S[66]={sec:'SETTINGS',nav:'Settings',steps:['Team access · pending invitations','Who to invite','Role and channel','Review and send','Invitation sent'],heads:['Team Access','Who','Role & Channel','Review & Send','Sent'],
   screens:[
-  function(){return '<div class="st-gh">PENDING INVITATIONS</div>'+PEND('Carlos','Dealer','WhatsApp')+PEND('Mia','Waitress','Email')+'<div class="st-gh">ON THE TEAM</div><div class="fb-rows">'+row('Anna','Dealer')+row('Alex','Cashier')+'</div>'+note('Inviting is never required to start a game.')+foot(['BACK','60:0'],['INVITE','66:1']);},
-  function(){return '<div class="fb-grid2 st-fg">'+fld('Name','Type a name')+fld('WhatsApp or email','+57 ···')+'</div><div class="st-gh">RECENT CONTACTS</div>'+['Carlos','Mia','Rafa'].map(function(n){return '<button type="button" class="fb-li" data-rn-route="66:2">'+I('user')+'<div><b>'+n+'</b><small>From contacts</small></div><span class="fb-chev">›</span></button>';}).join('')+foot(['BACK','66:0'],['NEXT','66:2']);},
+  function(){return '<div class="st-gh">PENDING INVITATIONS</div>'+PEND('Costa','Dealer','WhatsApp')+PEND('Alex','Waitress','Email')+'<div class="st-gh">ON THE TEAM</div><div class="fb-rows">'+row('Anna','Dealer')+row('Alex','Cashier')+'</div>'+note('Inviting is never required to start a game.')+foot(['BACK','60:0'],['INVITE','66:1']);},
+  function(){return '<div class="fb-grid2 st-fg">'+fld('Name','Type a name')+fld('WhatsApp or email','+57 ···')+'</div><div class="st-gh">RECENT CONTACTS</div>'+['Costa','Alex','Rafa'].map(function(n){return '<button type="button" class="fb-li" data-rn-route="66:2">'+I('user')+'<div><b>'+n+'</b><small>From contacts</small></div><span class="fb-chev">›</span></button>';}).join('')+foot(['BACK','66:0'],['NEXT','66:2']);},
   function(){var t=function(ic,n,s,sel){return '<button type="button" class="fb-tile'+(sel?' sel':'')+'" data-fb-group="ch">'+I(ic)+'<b>'+n+'</b><small>'+s+'</small></button>';};
    return chips('Role',['DEALER','CASHIER','WAITRESS','CHEF'],0,'rl')+'<div class="st-gh">SEND VIA</div><div class="fb-grid2 st-ch">'+t('chat','WHATSAPP','Message',1)+t('mail','EMAIL','Link')+'</div>'+foot(['BACK','66:1'],['NEXT','66:3']);},
-  function(){return '<div class="st-card"><b class="st-big">CARLOS</b><small>Ready to send</small></div><div class="fb-rows">'+row('Role','Dealer')+row('Channel','WhatsApp')+row('Access','Seating · table actions')+'</div>'+note('Nothing is sent from this prototype.')+foot(['BACK','66:2'],['SEND INVITATION','66:4']);},
-  function(){return '<div class="fb-ok">'+I('check')+'<b>INVITATION READY</b><small>Carlos · Dealer · WhatsApp</small></div>'+note('Preview only. In production Carlos receives a secure link and shows as pending.')+foot(['TEAM ACCESS','66:0']);}
+  function(){return '<div class="st-card"><b class="st-big">COSTA</b><small>Ready to send</small></div><div class="fb-rows">'+row('Role','Dealer')+row('Channel','WhatsApp')+row('Access','Seating · table actions')+'</div>'+note('Nothing is sent from this prototype.')+foot(['BACK','66:2'],['SEND INVITATION','66:4'],' data-cfg-done="team"');},
+  function(){return '<div class="fb-ok">'+I('check')+'<b>INVITATION READY</b><small>Costa · Dealer · WhatsApp</small></div>'+note('Preview only. In production Costa receives a secure link and shows as pending.')+foot(['TEAM ACCESS','66:0']);}
  ]};
 
  /* ---------- install ---------- */
@@ -6714,29 +6729,33 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  customPhone=function(w,step,i){var d=S[w.id];
   if(d&&d.screens[i]){var ttl=(d.heads&&d.heads[i])||step;return stage(w,step,i,d.sec,ttl,d.screens[i](),step,d.nav);}
   var h=prev(w,step,i);
-  if(w.id===1&&i===2)return h;
+  if(w.id===63&&i===2)h=h.replace(/(<button[^>]*?)(>SAVE · DEMO<)/g,'$1 data-cfg-done="team"$2');
+  if(w.id===64&&i===4)h=h.replace(/(<button[^>]*?)(>SAVE · DEMO<)/g,'$1 data-cfg-done="inv,fnb"$2');
   return h;};
  /* make delegation to the earlier layer work for WF1/63 retained screens whose index still matches */
  if(typeof SNAPSHOT_SESSION!=='undefined')void 0;
 
  /* ---------- interactions (prototype-only, nothing posted) ---------- */
  var lock=false;
- window.addEventListener('click',function(ev){var t=ev.target.closest('.st-phone [data-st-start],.st-phone [data-st-tog],.st-phone [data-st-pm],.st-phone [data-st-revoke],.st-phone [data-st-expand],.st-phone [data-st-dismiss],.st-phone [data-st-nora],.st-phone [data-st-skip],.st-phone [data-st-open],.st-phone [data-st-edit],.st-phone [data-st-restore]');if(!t)return;
-  var stg=t.closest('.stage');
+ window.addEventListener('click',function(ev){var t=ev.target.closest('.st-phone [data-st-start],.st-phone [data-st-tog],.st-phone [data-st-pm],.st-phone [data-st-revoke],.st-phone [data-st-expand],.st-phone [data-st-dismiss],.st-phone [data-st-nora],.st-phone [data-st-skip],.st-phone [data-st-open],.st-phone [data-st-edit],.st-phone [data-st-restore],.st-phone [data-st-na],.st-phone [data-cfg-done],.st-phone [data-cfg][data-cfg-val]');if(!t)return;
+  if(t.dataset.cfgDone){markDone(t.dataset.cfgDone);}
+  if(t.dataset.cfg&&t.dataset.cfgVal!==undefined){var v=t.dataset.cfgVal;setP(t.dataset.cfg,/^\d+$/.test(v)?+v:v);return;}
   if(t.dataset.stStart){if(lock){ev.preventDefault();ev.stopPropagation();return;}lock=true;t.classList.add('busy');t.textContent='STARTING…';setTimeout(function(){lock=false;},1500);return;}
-  if(t.dataset.stNora){var it=ITEMS.filter(function(x){return x.id===t.dataset.stNora;})[0];window.__stItem=it;var s2=document.querySelectorAll('.storyboard>.stage')[2];if(s2&&it){var q=function(k){return s2.querySelector('[data-nm="'+k+'"]');};q('t').textContent=it.t.toUpperCase();q('s').textContent=it.opt?'Optional · skip it any time':'Say it or type it';q('q').textContent='“'+it.nora+'”';var o=s2.querySelector('[data-st-open]');if(o)o.dataset.rnRoute=it.r;}return;}
+  if(t.dataset.cfgDone&&!t.dataset.stTog)return;
+  if(t.dataset.stNora){var it=ITEMS.filter(function(x){return x.id===t.dataset.stNora;})[0];window.__stItem=it;var s2=document.querySelectorAll('.storyboard>.stage')[2];if(s2&&it){var q=function(k){return s2.querySelector('[data-nm="'+k+'"]');};q('t').textContent=it.t.toUpperCase();q('s').textContent=it.mod?'Optional · skip it or remove it':'Say it or type it';q('q').textContent='“'+it.nora+'”';var o=s2.querySelector('[data-st-open]');if(o)o.dataset.rnRoute=it.r;var na=s2.querySelector('[data-st-na]');if(na)na.style.display=it.mod?'block':'none';}return;}
   ev.preventDefault();ev.stopPropagation();
-  if(t.dataset.stTog){var on=!t.classList.contains('on');t.classList.toggle('on',on);t.textContent=on?'ON':'OFF';}
+  if(t.dataset.stTog){var on=!t.classList.contains('on');t.classList.toggle('on',on);t.textContent=on?'ON':'OFF';if(t.dataset.cfg){setP(t.dataset.cfg,on);if(/^modules\./.test(t.dataset.cfg))window.__ckDirty=1;}}
   else if(t.dataset.stPm){var on2=!t.classList.contains('on');t.classList.toggle('on',on2);t.querySelector('span').textContent=on2?'ON':'OFF';}
   else if(t.dataset.stRevoke){var r=t.closest('.st-inv');r.classList.add('gone');r.querySelector('small').textContent='revoked';t.remove();}
-  else if(t.dataset.stExpand){t.classList.toggle('open');t.querySelector('b').textContent=t.classList.contains('open')?'shown below':'closed';}
-  else if(t.dataset.stDismiss){ST.dismissed=true;save();show(current);rnGo('60:1');}
-  else if(t.dataset.stSkip){if(window.__stItem){ST[window.__stItem.id]='skip';save();}show(current);rnGo('60:1');}
+  else if(t.dataset.stExpand){var open=!t.classList.contains('open');t.classList.toggle('open',open);var bb=t.querySelector('b');if(bb)bb.textContent=open?'hide':(t.dataset.stExpand==='mods'?'add or remove':(t.dataset.stLabel||'show'));if(!open&&window.__ckDirty){window.__ckDirty=0;show(current);rnGo('60:1');}}
+  else if(t.dataset.stDismiss){CFG.dismissed=true;save();show(current);rnGo('60:1');}
+  else if(t.dataset.stSkip){if(window.__stItem){CFG.skip[window.__stItem.id]=1;save();}show(current);rnGo('60:1');}
+  else if(t.dataset.stNa){if(window.__stItem&&window.__stItem.mod){CFG.modules[window.__stItem.mod]=false;delete CFG.done[window.__stItem.id];delete CFG.skip[window.__stItem.id];save();}show(current);rnGo('60:1');}
   else if(t.dataset.stOpen){if(window.__stItem)rnGo(window.__stItem.r);else rnGo('60:1');}
-  else if(t.dataset.stRestore){ST.dismissed=false;save();show(current);rnGo('60:1');}
+  else if(t.dataset.stRestore){CFG.dismissed=false;save();show(current);rnGo('60:1');}
   else if(t.dataset.stEdit){t.classList.toggle('editing');}
  },true);
- window.NORA_ST={stage:stage,btn:btn,foot:foot,stack:stack,er:er,fld:fld,chips:chips,tog:tog,li:li,nora:nora,micBtn:micBtn,ITEMS:ITEMS,ST:ST,save:save};
+ window.NORA_ST={stage:stage,btn:btn,foot:foot,stack:stack,er:er,fld:fld,chips:chips,tog:tog,li:li,nora:nora,micBtn:micBtn,ITEMS:ITEMS,CFG:CFG,getP:getP,setP:setP,markDone:markDone,xf:xf,save:save};
  try{if(typeof show==='function'&&typeof current!=='undefined')show(current);}catch(x){console.error(x);}
 })();
 
@@ -6791,21 +6810,26 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  function bub(t,out,tm){return '<div class="iv-b '+(out?'out':'in')+'">'+t.replace(/\n/g,'<br>')+'<small>'+tm+'</small></div>';}
 
  var S={};
- /* ================= WF48 · Schedule + settings entry ================= */
- S[48]={sec:'SCHEDULED',nav:'Players',steps:['Scheduled games','Create game','Review schedule & reservations','Settings → Invitations & WhatsApp','Reservation policy','Reminders, waitlist & privacy'],
-  heads:['Scheduled Games','Create Game','Review Schedule','Invitations Setup','Reservation Policy','Reminders & Privacy'],
+ /* ================= WF48 · Schedule + ONE Invitations & WhatsApp settings screen ================= */
+ var CFGv=K.CFG,getP=K.getP;
+ function ix(arr,v){var i=arr.indexOf(v);return i<0?0:i;}
+ function trow(l,key,small){return '<div class="st-ar"><div class="st-arm"><div><b>'+l+'</b>'+(small?'<small>'+small+'</small>':'')+'</div></div>'+tog(!!getP(key),key)+'</div>';}
+ function adv(label,hint,inner){return '<button type="button" class="st-er" data-st-expand="adv" data-st-label="'+hint+'"><span>'+label+'</span><b>'+hint+'</b>'+I('chev')+'</button><div class="iv-advbox">'+inner+'</div>';}
+ S[48]={sec:'SCHEDULED',nav:'Players',steps:['Scheduled games','Create game','Settings → Invitations & WhatsApp'],
+  heads:['Scheduled Games','Create Game','Invitations Setup'],
   screens:[
-  function(){var g=function(n,when,sub,chip,r){return '<button type="button" class="fb-li iv-game-li" data-rn-route="'+r+'">'+I('calendar')+'<div><b>'+n+'</b><small>'+when+'</small><small>'+sub+'</small></div>'+chip+'<span class="fb-chev">›</span></button>';};
-   return '<div class="fb-list iv-gl">'+g('Friday Night Hold’em','Fri Nov 6 · '+fmt(START),'11 in · 9 seats reserved','','51:0')+g('Sunday Hold’em','Sun Nov 8 · '+fmt(START-60),'Invitations not sent yet','','49:0')+'</div><button type="button" class="st-sched" data-rn-route="2:0">'+I('bolt')+'<div><b>START WITHOUT INVITATIONS</b><small>Spontaneous game · Quick Start</small></div><span class="fb-chev">›</span></button>'+foot(['INVITATIONS SETUP','48:3'],['CREATE GAME','48:1']);},
-  function(){var r2=function(a,b){return '<div class="fb-grid2 st-fg">'+a+b+'</div>';};
-   return '<div class="st-card"><b class="st-big">FRIDAY NIGHT HOLD’EM</b><small>Filled from your Sunday Hold’em template</small></div>'+r2(fld('Date','Fri Nov 6'),fld('Start time',fmt(START)))+r2(fld('Blinds · COP',BL5),fld('Tables · seats','2 × 10'))+r2(fld('Venue','Provenza'),fld('RSVP by',fmt(START-120)))+note(I('check')+' Nothing to retype. Invitations are optional.','ok')+foot(['CANCEL','48:0'],['REVIEW','48:2']);},
-  function(){return '<div class="fb-rows">'+row('Game','Friday Night Hold’em')+row('When','Fri Nov 6 · '+fmt(START))+row('Tables','2 × 10 seats')+row('Seat reservations','ON · players pick a seat')+row('Grace period',GRACE+' min after start')+row('Auto-release','ON · reminder first')+'</div>'+stack(['SAVE & INVITE PLAYERS','49:0'],['SAVE ONLY','48:0']);},
-  function(){var r=function(ic,t,s,rt,chip){return '<button type="button" class="fb-li" data-rn-route="'+rt+'">'+I(ic)+'<div><b>'+t+'</b><small>'+s+'</small></div>'+(chip||'')+'<span class="fb-chev">›</span></button>';};
-   return '<div class="fb-list">'+r('chat','WhatsApp','Evolution API · demo status','48:3')+r('pen','Message templates','Invite · reminder · seat offer','48:3')+r('seatc','Reservation policy','Grace · auto-release','48:4')+r('bell','Reminders & waitlist','Schedule · offer window','48:5')+r('lock','Consent & opt-out','Opt-in required · STOP','48:5')+r('globe','Messaging language','English · Español','48:5')+'</div>'+note('Optional. Never needed to start a game.')+foot(['BACK','60:0']);},
-  function(){var t=function(l,on){return '<div class="st-ar"><div class="st-arm"><b>'+l+'</b></div>'+tog(on)+'</div>';};
-   return t('Allow seat reservations',1)+t('Automatic release',1)+t('Notify waitlist when released',1)+t('Host approves seat changes',0)+chips('Grace period',['15','30','45','60','OTHER'],1,'gr')+chips('Countdown starts at',['GAME START','PLAYER ETA'],0,'cs')+note('One clear rule: the countdown follows the option you pick, never both.')+foot(['BACK','48:3'],['SAVE','48:3']);},
-  function(){var t=function(l,on){return '<div class="st-ar"><div class="st-arm"><b>'+l+'</b></div>'+tog(on)+'</div>';};
-   return chips('Reminders',['24H','2H','30 MIN'],1,'rm')+chips('Seat offer window',['5 MIN','10 MIN','15 MIN'],1,'ow')+chips('Show address',['AFTER I’M IN','NEVER'],0,'ad')+t('Require WhatsApp opt-in',1)+t('Honor STOP / opt-out',1)+chips('Language',['ENGLISH','ESPAÑOL'],0,'lg')+foot(['BACK','48:3'],['SAVE','48:3']);}
+  function(){var g=function(n,when,sub,r){return '<button type="button" class="fb-li iv-game-li" data-rn-route="'+r+'">'+I('calendar')+'<div><b>'+n+'</b><small>'+when+'</small><small>'+sub+'</small></div><span class="fb-chev">›</span></button>';};
+   return '<div class="fb-list iv-gl">'+g('Friday Night Hold’em','Fri Nov 6 · '+fmt(START),'11 in · 9 seats reserved','51:0')+g('Sunday Hold’em','Sun Nov 8 · '+fmt(START-60),'Invitations not sent yet','49:0')+'</div>'+
+   '<button type="button" class="st-sched" data-rn-route="2:0">'+I('bolt')+'<div><b>START WITHOUT INVITATIONS</b><small>Spontaneous game</small></div><span class="fb-chev">›</span></button>'+
+   '<button type="button" class="st-sched" data-rn-route="48:2">'+I('chat')+'<div><b>Invitation settings</b><small>WhatsApp · seats · reminders</small></div><span class="fb-chev">›</span></button>'+foot(['CREATE GAME','48:1']);},
+  function(){var r2=function(a,b){return '<div class="fb-grid2 st-fg">'+a+b+'</div>';};var iv=CFGv.invites;
+   return '<div class="iv-prim">'+r2(fld('Date','Fri Nov 6'),fld('Start time',fmt(START)))+'<button type="button" class="st-fld wide" data-rn-route="2:2"><small>Game · from your saved settings</small><b>Hold’em · '+BLM+' · 2 × 10</b></button>'+trow('Invite players after saving','invites.autoInvite')+'</div>'+
+   adv('Advanced Settings','seats · RSVP deadline',r2(fld('RSVP by',fmt(START-120)),fld('Venue','Provenza'))+trow('Players can pick a seat','invites.reserve')+chips('Hold a seat for (min)',['15','30','45','60'],ix([15,30,45,60],iv.grace),'gr','invites.grace',[15,30,45,60])+trow('Release seats automatically','invites.auto'))+
+   foot(['CANCEL','48:0'],['SAVE & INVITE','49:0'],' data-cfg-done="wa"');},
+  function(){var iv=CFGv.invites;
+   var prim='<div class="iv-prim"><div class="fb-li iv-wa">'+I('chat')+'<div><b>WhatsApp</b><small>Connected · Evolution API</small></div><em class="fb-chip on">DEMO</em></div>'+trow('Players can pick a seat','invites.reserve')+chips('Hold a seat for (min)',['15','30','45','60'],ix([15,30,45,60],iv.grace),'gr2','invites.grace',[15,30,45,60])+chips('Remind players',['24 H BEFORE','2 H BEFORE','OFF'],ix(['24 H BEFORE','2 H BEFORE','OFF'],iv.reminder),'rm','invites.reminder')+'</div>';
+   var advIn='<div class="fb-grid2 st-pmg">'+[['Release seats automatically','invites.auto'],['Alert waitlist on release','invites.notifyWait'],['Host approves seat changes','invites.hostApprove'],['Require WhatsApp opt-in','invites.optin']].map(function(x){var on=!!getP(x[1]);return '<button type="button" class="st-pm'+(on?' on':'')+'" data-st-pm="1" data-cfg="'+x[1]+'"><b>'+x[0]+'</b><span>'+(on?'ON':'OFF')+'</span></button>';}).join('')+'</div>'+chips('Grace countdown starts at',['GAME START','PLAYER ETA'],ix(['GAME START','PLAYER ETA'],iv.countdown),'cs','invites.countdown')+chips('Seat offer window',['5 MIN','10 MIN','15 MIN'],ix(['5 MIN','10 MIN','15 MIN'],iv.offer),'ow','invites.offer')+chips('Show address',['AFTER I’M IN','NEVER'],ix(['AFTER I’M IN','NEVER'],iv.address),'ad','invites.address')+chips('Language',['ENGLISH','ESPAÑOL'],ix(['ENGLISH','ESPAÑOL'],iv.lang),'lg','invites.lang');
+   return prim+adv('Advanced Settings','policy · privacy · language',advIn)+foot(['BACK','60:0'],['SAVE','60:0'],' data-cfg-done="wa"');}
  ]};
 
  /* ================= WF49 · Invite players ================= */
@@ -6857,7 +6881,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   heads:['Readiness','Confirm Setup','Start Session','Table View','Reserved Seat','Release Log'],special:{3:1},
   screens:[
   function(){return '<div class="st-card"><b class="st-big">FRIDAY NIGHT HOLD’EM</b><small>Starts '+fmt(START)+' · now '+fmt(NOW)+'</small></div><div class="fb-rows">'+row('Confirmed',String(CNT.confirmed))+row('Seats reserved',String(CNT.reserved))+row('On the way',String(CNT.omw))+row('Arrived',String(CNT.arrived))+row('Waitlist',String(CNT.wait))+'</div>'+note(I('warn')+' Reservations are not buy-ins. Players are seated with an initial buy-in.','def')+foot(['DASHBOARD','51:0'],['CONFIRM SETUP','53:1']);},
-  function(){return '<div class="fb-rows">'+row('Game','Hold’em · '+BLM)+row('Tables','2 × 10 seats')+row('Rake','5% per pot')+row('Reservations','Carried over')+row('Scheduled game','Linked to session')+'</div>'+note('Starting does not seat anyone or record money.')+foot(['EDIT','48:2'],['START SESSION','53:2'],1);},
+  function(){return '<div class="fb-rows">'+row('Game','Hold’em · '+BLM)+row('Tables','2 × 10 seats')+row('Rake','5% per pot')+row('Reservations','Carried over')+row('Scheduled game','Linked to session')+'</div>'+note('Starting does not seat anyone or record money.')+foot(['EDIT','48:1'],['START SESSION','53:2'],1);},
   function(){return '<div class="fb-ok">'+I('check')+'<b>SESSION STARTED</b><small>Timer 00:00 · reservations carried over</small></div><div class="fb-rows">'+row('Seated players','0 until buy-in')+row('Reserved seats',String(CNT.reserved))+row('Transactions','None posted')+'</div>'+sim('PROTOTYPE · no session is created')+foot(['OPEN TABLE VIEW','53:3']);},
   null,
   function(){return '<div class="fb-person iv-pp">'+portrait('Nora A.','N',true)+'<div><b>Nora A.</b><small>Reserved · on the way</small></div></div><div class="fb-rows">'+row('RSVP','Confirmed')+row('Reserved','Table 1 · Seat 4 · '+fmt(NOW-55))+row('ETA',inMin(15))+'</div><div class="fb-grid2 iv-pa"><button type="button" class="fb-tile sel" data-rn-route="3:1">'+I('coin')+'<b>BUY-IN & SEAT</b></button><button type="button" class="fb-tile" data-rn-route="52:1">'+I('clock')+'<b>UPDATE ETA</b></button><button type="button" class="fb-tile" data-rn-route="51:2">'+I('seatc')+'<b>MOVE</b></button><button type="button" class="fb-tile" data-rn-route="53:5">'+I('x')+'<b>RELEASE</b></button></div>'+foot(['BACK','53:3']);},

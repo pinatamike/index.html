@@ -114,3 +114,8 @@ The restored UI is harmonized by three blocks. They must stay last: `nora-sweep2
 - Integrated in place: WF48 (schedule + Settings → Invitations & WhatsApp), WF49 (invite), WF50/52 (player mobile web link, no NORA chrome or nav), WF51 (dashboard, roster, Nora), WF53 (start + reservations on the approved grid), WF8 (unified waitlist + offers), WF54 (consent/history), WF68 (attendance), WF60 checklist item 9.
 - A reservation is never a buy-in. Reserved seats use a dashed amber border + badge on the existing seat tiles. All times are computed from the demo clock; WhatsApp threads are labelled SIMULATED.
 - Backend spec and runnable tests: `backend-spec/invitations/` (`node tests.js`).
+
+## WF48 simplification & single config (CFG)
+- One store (`nora.cfg.v2`) holds modules, completion, skips and `invites.*`. WF48 Create/Settings and the Settings checklist all read/write it via `data-cfg`; saving with `data-cfg-done` marks the checklist item.
+- WF48 = 3 screens: Scheduled games, Create game (Date, Start, game summary, invite toggle + collapsed Advanced Settings), Invitations setup (WhatsApp status, seat pick, hold, reminders + collapsed Advanced Settings).
+- Checklist shows only enabled modules; items can be skipped/N-A, list can be hidden and restored.
