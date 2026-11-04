@@ -55,3 +55,10 @@ Interactive prototype. The desktop Live Table becomes the control center for the
 
 ## v3 — Live Snapshot column (≥1280px)
 Four regions: rail · player grid · always-visible Live Snapshot · Control Center. Tiles keep portrait ratio (not enlarged); the old KPI strip is replaced by the Snapshot column on desktop. Metrics reuse the WF31–39 Snapshot formulas and each opens the existing detail (buy-ins/rake/expenses → Snapshot accordion, cash-outs → cash-out, accounts/variance → Daily Close). Below 1280px the Snapshot column is hidden and the KPI strip + SNAPSHOT tile remain. Only the Cashbox balance and COP 50,000 variance exist in the prototype data; Nequi/Bancolombia are not invented.
+
+## v4 — final refinement
+- Tiles ~8% narrower at unchanged height (container-sized, no fixed px); recovered width split between Snapshot (`--snapW`) and Control Center (`--panW`).
+- Accounting model in the demo: Net = Rake + F&B sales − (operating expenses + team compensation). Buy-ins/rebuys are chips sold (not revenue); cash-outs are settlements; S&S owed is a receivable; team compensation counted once. Buy-in total no longer drops when a player cashes out; uncollected S&S stays receivable.
+- Primary rail now navigates (Tables / Players / Team / Reporting / Settings landing pages), highlights the active section, never resets session state; contextual panels (Team, Snapshot, Wait list, Expenses) still open in the right panel.
+- Demo roles (click the profile in the rail, or `?role=cashier`): permissions enforced in `go()` and `confirm()`, not only hidden. `?nosession=1` shows the start screen.
+- Costa is dealer-only (Table 2 player renamed Tomas R.).
