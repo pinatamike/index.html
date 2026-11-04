@@ -1629,6 +1629,165 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .harmonized:has(.sch-panel) .sch-content button,
 .harmonized:has(.sch-panel) .sch-footer button{border-radius:0!important}
 </style>
+<style id="nora-sweep2">
+/* ===== NORA SWEEP 2 (restored UI b99a9c1): one design system on top of the restored screens. Keep last in <head>. ===== */
+/* -- frame: every phone 340 x 665 -- */
+.storyboard .phone{width:340px!important;min-width:340px!important;max-width:340px!important;height:665px!important;box-sizing:border-box!important}
+html body .storyboard>.stage .phone.hi-phone{width:340px!important;min-width:340px!important;max-width:340px!important;flex:0 0 340px!important}
+html body .storyboard>.stage:has(.snap-phone){width:auto!important;min-width:0!important;max-width:none!important;flex:0 0 auto!important}
+.storyboard .phone .ux-content{min-width:0!important;max-width:100%!important}
+.storyboard .phone .ux-content *{min-width:0;max-width:100%;box-sizing:border-box}
+.storyboard .phone .ux-content img{max-width:none}
+
+/* -- header: hamburger · two-line title · Nora portrait · close, identical everywhere -- */
+.storyboard .phone .ux-head{height:57px!important;min-height:57px!important;flex:0 0 57px!important;gap:5px!important;align-items:stretch!important;padding:0 0 6px!important;box-sizing:border-box!important}
+.storyboard .phone .ux-head .ux-hamb{flex:0 0 34px!important;width:34px!important;height:51px!important;display:grid!important;place-items:center!important;border-width:3px!important;font-size:20px!important;cursor:pointer}
+.storyboard .phone .ux-head .ux-hamb svg{width:20px;height:20px;fill:currentColor}
+.storyboard .phone .ux-head .ux-headtitle{flex:1 1 auto!important;min-width:0!important;height:51px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:1px!important;padding:0 4px!important;border-width:3px!important;overflow:hidden!important}
+.storyboard .phone .ux-head .ux-headtitle>b{font-size:15px!important;line-height:1.1!important;letter-spacing:.6px!important;white-space:nowrap!important;color:#22e6a0!important;font-weight:900!important}
+.storyboard .phone .ux-head .ux-headtitle>small{font-size:14px!important;line-height:1.15!important;white-space:nowrap!important;font-weight:900!important;color:#fff!important;text-transform:none!important;letter-spacing:0!important;max-width:100%!important;overflow:hidden!important;text-overflow:clip!important}
+.storyboard .phone .ux-head .ux-headtitle>:not(b):not(small){display:none!important}
+.storyboard .phone .ux-head .ux-nora{flex:0 0 51px!important;width:51px!important;height:51px!important;border-width:3px!important;overflow:hidden!important;padding:0!important}
+.storyboard .phone .ux-head .ux-nora .person-face,.storyboard .phone .ux-head .ux-nora img{width:100%!important;height:100%!important;object-fit:cover!important;border:0!important}
+.storyboard .phone .ux-head .ux-close{flex:0 0 34px!important;width:34px!important;height:51px!important;font-size:0!important;display:grid!important;place-items:center!important}
+.storyboard .phone .ux-head .ux-close svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:square}
+
+/* -- bottom nav: exactly 5 primary sections, filled icons -- */
+.storyboard .phone .ux-bottom.s2-nav{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;height:61px!important;min-height:61px!important;flex:0 0 61px!important;gap:0!important;padding:4px 0 0!important;margin:0 -6px!important;border-top:2px solid #00baff!important;align-items:stretch!important;background:#020d18!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-tab{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;border:2px solid transparent!important;border-right:1px solid #13649b!important;background:transparent!important;color:#fff!important;cursor:pointer;padding:0!important;min-width:0!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-tab:last-child{border-right-color:transparent!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-tab.chosen{background:#005638!important;border:2px solid #00ed94!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-ico{display:block!important;width:25px!important;height:25px!important;line-height:0!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-ico svg{width:25px!important;height:25px!important;fill:currentColor!important;stroke:none!important}
+.storyboard .phone .ux-bottom.s2-nav .s2-lbl{font-size:11.5px!important;font-weight:800!important;line-height:1!important;white-space:nowrap!important;color:#fff!important;letter-spacing:0!important;text-transform:none!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-tab:nth-child(1) .ux-ico{color:#2de5be!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-tab:nth-child(2) .ux-ico{color:#ffb866!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-tab:nth-child(3) .ux-ico{color:#c59cff!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-tab:nth-child(4) .ux-ico{color:#75c8ff!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-tab:nth-child(5) .ux-ico{color:#9be79e!important}
+.storyboard .phone .ux-bottom.s2-nav .ux-tab.chosen .ux-ico{color:#00ff99!important}
+
+/* -- hamburger drawer: complete, grouped app menu -- */
+.storyboard .phone.nn-host{position:relative}
+.storyboard .phone .nn-drawer{position:absolute;left:0;right:0;z-index:45;background:#03111f;border-top:2px solid #4cddff;display:flex;flex-direction:column;animation:nn-in .2s ease-out}
+@keyframes nn-in{from{transform:translateX(-14px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.storyboard .phone .nn-drawer{animation:none}}
+.storyboard .phone .nn-top{flex:0 0 50px;display:flex;align-items:center;gap:10px;padding:0 0 0 12px;border-bottom:2px solid #0d4a6e}
+.storyboard .phone .nn-top b{flex:1;font-size:18px;font-weight:900;letter-spacing:.5px;color:#fff}
+.storyboard .phone .nn-x{flex:0 0 50px;height:48px;border:0;border-left:2px solid #0d4a6e;background:#7a1a2a;color:#fff;display:grid;place-items:center;cursor:pointer}
+.storyboard .phone .nn-x svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.storyboard .phone .nn-list{flex:1 1 auto;min-height:0;overflow-y:auto;scrollbar-width:none;padding:6px 8px 10px}
+.storyboard .phone .nn-sec{margin-top:6px}
+.storyboard .phone .nn-sh{width:100%;height:50px;display:flex;align-items:center;gap:12px;padding:0 12px;border:2px solid #1c4d6b;background:#082b43;color:#fff;font-size:17px;font-weight:900;cursor:pointer;text-align:left}
+.storyboard .phone .nn-sh svg{width:24px;height:24px;flex:none;fill:currentColor}
+.storyboard .phone .nn-sh .nn-chev{margin-left:auto;width:18px;height:18px;fill:none;stroke:#c5e4f2;stroke-width:2.6;stroke-linecap:round;transition:transform .15s}
+.storyboard .phone .nn-sec.open .nn-chev{transform:rotate(90deg)}
+.storyboard .phone .nn-sec.cur>.nn-sh{border-color:#00ed94;background:#005638}
+.storyboard .phone .nn-items{display:none;border:2px solid #1c4d6b;border-top:0}
+.storyboard .phone .nn-sec.open .nn-items{display:block}
+.storyboard .phone .nn-it{width:100%;min-height:46px;display:flex;align-items:center;gap:12px;padding:0 12px 0 22px;border:0;border-top:1px solid #163f58;background:#04182a;color:#fff;font-size:16px;font-weight:800;cursor:pointer;text-align:left}
+.storyboard .phone .nn-it:first-child{border-top:0}
+.storyboard .phone .nn-it svg{width:20px;height:20px;flex:none;fill:currentColor;color:#4cddff}
+.storyboard .phone .nn-it.cur{background:#0b3a58;color:#5cf2b8}
+.storyboard .phone .nn-it.cur svg{color:#5cf2b8}
+.storyboard .phone .nn-it:hover{background:#0b3a58}
+
+/* -- player photo tiles: photo + seat number + large white name, no money -- */
+.storyboard .phone .ux-seat:not(.empty) .ux-seat-label{display:flex!important;flex-direction:column!important;justify-content:flex-end!important;align-items:center!important;position:absolute!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;z-index:3!important;height:auto!important;min-height:52px!important;padding:16px 3px 6px!important;background:linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,.35) 40%,rgba(0,0,0,.72))!important;backdrop-filter:none!important}
+.storyboard .phone .ux-seat:not(.empty) .ux-seat-label .s2-money{display:none!important}
+.storyboard .phone .ux-seat:not(.empty) .ux-seat-label>b{display:block!important;width:100%!important;font-size:var(--s2n,20px)!important;line-height:1.05!important;font-weight:900!important;color:#fff!important;text-align:center!important;white-space:var(--s2ws,nowrap)!important;overflow:visible!important;text-overflow:clip!important;text-transform:none!important;letter-spacing:var(--s2ls,0)!important;text-shadow:0 2px 3px #000,0 0 6px rgba(0,0,0,.9)!important}
+.storyboard .phone .ux-seat .ux-seatno{font-size:16px!important;min-width:22px!important;height:26px!important;line-height:22px!important;border-width:2px!important;font-weight:900!important;text-align:center!important;padding:0 3px!important}
+.storyboard .phone .ux-seat.empty :is(b,strong,span:not(.ux-seatno):not(.ux-ico)){font-size:17px!important;line-height:1.15!important}
+.storyboard .phone .ux-seat.empty small{font-size:14px!important}
+.storyboard .phone .ux-seat.empty svg{width:34px!important;height:34px!important}
+.storyboard .phone .seat-roster-card>strong{font-size:18px!important;font-weight:900!important;padding:0 2px 5px!important;white-space:nowrap!important}
+/* small list avatars: crop the baked-in caption out of the photo */
+.storyboard .phone .screen-list-item>.person-face{overflow:hidden!important;width:52px!important;height:60px!important;flex:0 0 52px!important}
+.storyboard .phone .screen-list-item>.person-face img{width:100%!important;height:128%!important;object-fit:cover!important;object-position:center top!important}
+
+/* -- COP: 65% of the number, milk white, inline on the baseline -- */
+.storyboard .phone .s2-cop{font-size:.65em!important;color:#f7f4ea!important;font-weight:800!important;vertical-align:baseline!important;letter-spacing:.02em!important;margin-right:.28em!important;display:inline!important;line-height:1!important}
+
+/* -- primary footer buttons: 63px; one = full width, two = 50/50 -- */
+.storyboard .phone :is(.ns-footer,.nr-actions,.dc-bottom,.s2-foot){display:flex!important;gap:8px!important;width:100%!important;flex:0 0 auto!important}
+.storyboard .phone :is(.ns-footer,.nr-actions,.dc-bottom,.s2-foot)>:is(button,.screen-button,[role=button]){flex:1 1 0!important;width:auto!important;min-width:0!important;height:63px!important;min-height:63px!important;font-size:17px!important;font-weight:900!important;line-height:1.1!important;text-transform:uppercase!important;letter-spacing:.3px!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;padding:0 8px!important;border-width:3px!important}
+.storyboard .phone :is(.wf32-footer-button,.dc-next,.wf32-return,.shared-action.rn-close,.dc-final){height:63px!important;min-height:63px!important;font-size:17px!important;font-weight:900!important;border-width:3px!important}
+.storyboard .phone .dc-bottom{flex-direction:column!important}
+.storyboard .phone .s2-foot{margin-top:auto!important;padding-top:8px!important}
+
+/* -- readable supporting text in the restored ChatGPT screens -- */
+.storyboard .phone :is(.ns-save-note,.nr-filter-note,.wf11-hint,.dc-sub){font-size:14px!important;line-height:1.3!important}
+
+/* -- WF9 / WF54 ledger: five rows, swipe, compact page dots -- */
+.storyboard .phone .s2-ledger .wf9-ledger{touch-action:pan-y;cursor:grab;user-select:none}
+.storyboard .phone .s2-ledger .wf9-entry{min-height:0!important;padding:5px 10px!important}
+.storyboard .phone .s2-ledger .s2-dots{display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;height:22px!important;min-height:22px!important}
+.storyboard .phone .s2-ledger .s2-dots i{width:9px;height:9px;border:2px solid #4cddff;background:transparent;display:block}
+.storyboard .phone .s2-ledger .s2-dots i.on{background:#4cddff}
+.storyboard .phone .s2-ledger .s2-dots span{font-size:14px;font-weight:800;color:#c5e4f2;margin-left:6px}
+
+.storyboard .phone .s2-ledger .wf9-person{flex:0 0 132px!important;height:132px!important}
+.storyboard .phone .s2-ledger .wf9-ledger{display:flex!important;flex-direction:column!important;gap:5px!important}
+.storyboard .phone .s2-ledger .wf9-entry{flex:1 1 0!important;align-items:center!important}
+.storyboard .phone .s2-ledger .wf9-entry b{font-size:15px!important;line-height:1.1!important}
+.storyboard .phone .s2-ledger .wf9-entry small{font-size:14px!important;line-height:1.1!important}
+.storyboard .phone .s2-ledger .wf9-entry strong{font-size:19px!important}
+/* WF10/11 game details footer: two actions split 50/50 */
+.storyboard .phone :has(>.wf10-pause){display:flex!important;gap:8px!important}
+.storyboard .phone :is(.wf10-pause,.wf10-close){flex:1 1 0!important;width:auto!important;min-width:0!important;font-size:16px!important;height:63px!important;border-width:3px!important}
+
+/* -- filled icons replacing glyphs/emoji -- */
+.storyboard .phone .s2-ic{display:inline-flex;align-items:center;justify-content:center;vertical-align:-.18em;margin-right:.3em;line-height:0}
+.storyboard .phone .s2-ic svg{width:1.15em;height:1.15em;fill:currentColor}
+.storyboard .phone .s2-ic-host{line-height:0!important}
+.storyboard .phone .s2-ic-host>.s2-ic{margin:0}
+.storyboard .phone .s2-ic-host>.s2-ic svg{width:24px;height:24px}
+.storyboard .phone :is(.nora-ai-icon,.dc-icon) .s2-ic svg{width:26px!important;height:26px!important}
+.storyboard .phone .nora-ai-icon{color:#4cddff!important;font-size:0!important;line-height:0!important;display:block!important;margin-bottom:4px!important}
+.storyboard .phone .sch-tile .s2-ic{color:#4cddff}
+.storyboard .phone .sch-tile .s2-ic svg{width:20px;height:20px}
+.storyboard .phone i.ex-ico .s2-ic svg{width:26px!important;height:26px!important;fill:#fff}
+.storyboard .phone .ex-menu .s2-ic svg{width:42px!important;height:42px!important;fill:#fff}
+.storyboard .phone .ex-prod .s2-ic svg{width:34px!important;height:34px!important;fill:#fff}
+.storyboard .phone .ux-seat.empty .s2-ic svg{width:36px!important;height:36px!important;fill:#4cddff}
+.storyboard .phone .wf32-tap .s2-ic svg{width:20px;height:20px;fill:#4cddff}
+/* -- team list thumbnails: photo only -- */
+.storyboard .phone .screen-list-item .person-face>:not(img){display:none!important}
+.storyboard .phone .screen-list-item>.person-face{position:relative!important}
+.storyboard .phone .screen-list-item>.person-face img{position:absolute!important;top:0!important;left:0!important;height:160%!important;width:100%!important}
+/* -- label / value rows never collide -- */
+.storyboard .phone :is(.ns-stat,.nr-row,.sch-row,.wf32-line,.dc-line,.snap-row,.nora-ai-row){display:flex!important;justify-content:space-between!important;align-items:center!important;gap:12px!important}
+.storyboard .phone :is(.ns-stat,.nr-row,.sch-row,.wf32-line,.dc-line,.snap-row,.nora-ai-row)>:first-child{flex:1 1 auto!important;min-width:0!important;white-space:normal!important;text-align:left!important}
+.storyboard .phone :is(.ns-stat,.nr-row,.sch-row,.wf32-line,.dc-line,.snap-row,.nora-ai-row)>:last-child:not(:first-child){flex:0 0 auto!important;max-width:72%!important;white-space:normal!important;text-align:right!important;margin-left:auto!important}
+/* -- WF32 snapshot: fit the 340 phone -- */
+.storyboard .phone :is(.wf32-report,.wf32-scroll,.wf32-workflow){width:100%!important;max-width:100%!important;min-width:0!important}
+.storyboard .phone .wf32-scroll>*{width:100%!important;max-width:100%!important}
+/* -- WF40 Daily Close checklist: 8 tiles + net + action on one screen -- */
+.storyboard .phone .dc-dashboard .dc-readiness{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:2px!important;padding:6px 10px!important;height:auto!important}
+.storyboard .phone .dc-dashboard .dc-readiness strong{font-size:17px!important}
+.storyboard .phone .dc-dashboard .dc-readiness span{font-size:14px!important;text-align:left!important}
+.storyboard .phone .dc-dashboard .dc-tile{position:relative!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:2px!important;padding:6px 8px 6px 34px!important;text-align:left!important;min-height:68px!important;height:auto!important;overflow:hidden}
+.storyboard .phone .dc-dashboard .dc-tile .dc-check{position:absolute!important;left:6px!important;top:50%!important;transform:translateY(-50%)!important;width:22px!important;height:22px!important;font-size:14px!important;display:grid!important;place-items:center!important;margin:0!important}
+.storyboard .phone .dc-dashboard .dc-tile .dc-icon{position:absolute!important;right:6px!important;top:6px!important;line-height:0!important;opacity:.85}
+.storyboard .phone .dc-dashboard .dc-tile .dc-icon .s2-ic svg{width:18px!important;height:18px!important}
+.storyboard .phone .dc-dashboard .dc-tile strong{font-size:16px!important;line-height:1.1!important;padding-right:18px!important}
+.storyboard .phone .dc-dashboard .dc-tile .dc-sub{font-size:14px!important;line-height:1.15!important}
+.storyboard .phone .dc-dashboard .dc-profit{display:flex!important;justify-content:space-between!important;align-items:center!important;padding:6px 10px!important;height:auto!important;min-height:46px!important}
+/* -- WF9 ledger rows: label and time on one line -- */
+.storyboard .phone .s2-ledger .wf9-entry>div{display:flex!important;flex-direction:column!important;justify-content:center!important;gap:1px!important}
+.storyboard .phone .nora-ai-grid>.nora-ai-tile:only-child,.storyboard .phone .nora-ai-grid>.nora-ai-tile:last-child:nth-child(odd){grid-column:1/-1!important}
+
+.storyboard .phone :is(.nora-currency,.nora-currency-value,.nora-currency-cop,.nr-currency,.wf32-currency,.wf32-pesos){max-width:none!important;flex:0 0 auto!important;overflow:visible!important}
+.storyboard .phone :is(b,strong):has(>.nora-currency,>.nr-currency,>.wf32-currency){flex:0 0 auto!important;max-width:none!important;white-space:nowrap!important}
+.storyboard .phone .dc-dashboard .dc-scroll{display:flex!important;flex-direction:column!important;gap:6px!important;height:100%!important;overflow:hidden!important}
+.storyboard .phone .dc-dashboard .dc-grid{flex:1 1 auto!important;min-height:0!important;height:auto!important;display:grid!important;grid-template-columns:1fr 1fr!important;grid-auto-rows:minmax(0,1fr)!important;gap:6px!important}
+.storyboard .phone .dc-dashboard .dc-grid .dc-tile{min-height:0!important}
+.storyboard .phone .dc-dashboard :is(.dc-date,.dc-readiness,.dc-profit,.dc-final){flex:0 0 auto!important;margin:0!important}
+.storyboard .phone .dc-dashboard .dc-tile strong{white-space:nowrap!important}
+.storyboard .phone .dc-dashboard .dc-date{min-height:34px!important;padding:4px!important}
+.storyboard .phone :is(details,summary,.wf32-group,.nr-card,select,input,textarea){border-radius:0!important}
+
+</style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -5577,4 +5736,225 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   return html;
  };
 })();
-</script></body></html>
+</script><script id="nora-sweep2-js">
+/* ===== NORA SWEEP 2 (restored UI b99a9c1). One pass that harmonizes every rendered phone:
+   5-tab filled nav + grouped hamburger menu, names-only photo tiles, COP at 65%, square corners,
+   two border weights, 14px minimum text, 63px footers, WF9 five-per-page swipe ledger. Keep last before </body>. ===== */
+(function(){
+ var F={
+  Tables:'M12 3C5.9 3 1 7 1 12s4.9 9 11 9 11-4 11-9-4.9-9-11-9Zm0 3c4.5 0 8 2.7 8 6s-3.5 6-8 6-8-2.7-8-6 3.5-6 8-6Zm0 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z',
+  Players:'M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM12 14c-6 0-10 3.2-10 8h20c0-4.8-4-8-10-8Z',
+  Team:'M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8 0a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM8 13c-4.5 0-8 3-8 7v2h13v-2c0-2.5 1-4.5 2.5-6A12 12 0 0 0 8 13Zm8 0c-1.5 0-2.8.3-4 1 2 1.5 3 3.5 3 6v2h9v-2c0-4-3.5-7-8-7Z',
+  Reporting:'M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm3 13v4h3v-4H7Zm5-7v11h3V8h-3Zm5 4v7h3v-7h-3Z',
+  Settings:'M10.3 2h3.4l.5 2.6c.6.2 1.2.5 1.7.9l2.5-.9 1.7 2.9-2 1.7c.1.6.1 1.3 0 1.9l2 1.7-1.7 2.9-2.5-.9c-.5.4-1.1.7-1.7.9l-.5 2.6h-3.4l-.5-2.6c-.6-.2-1.2-.5-1.7-.9l-2.5.9-1.7-2.9 2-1.7a6 6 0 0 1 0-1.9l-2-1.7L5.6 4.6l2.5.9c.5-.4 1.1-.7 1.7-.9ZM12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z',
+  seat:'M6 3h12v9H6zM4 13h16v3H4zM6 16h2v5H6zm10 0h2v5h-2z',list:'M3 4h3v3H3zm5 0h13v3H8zM3 10.5h3v3H3zm5 0h13v3H8zM3 17h3v3H3zm5 0h13v3H8z',
+  receipt:'M5 2h14v20l-3.5-2-3.5 2-3.5-2L5 22V2Zm3 5v2h8V7H8Zm0 4v2h8v-2H8Zm0 4v2h5v-2H8Z',glass:'M5 2h14l-1.6 18.2A2 2 0 0 1 15.4 22H8.6a2 2 0 0 1-2-1.8ZM7.2 7h9.6l.3-3H6.9Z',
+  box:'M3 7l9-5 9 5v10l-9 5-9-5Zm9 2.3 6.6-3.6L12 2.3 5.4 5.7Z',chart:'M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm3 13v4h3v-4H7Zm5-7v11h3V8h-3Zm5 4v7h3v-7h-3Z',
+  pen:'M3 21v-4.2L15.6 4.2a2 2 0 0 1 2.8 0l1.4 1.4a2 2 0 0 1 0 2.8L7.2 21Z',check:'M5 2h14a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3Zm5.5 14.8 8-8-1.6-1.6-6.4 6.4-3-3-1.6 1.6 4.6 4.6Z',
+  mic:'M12 2a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4Zm-7 9h2a5 5 0 0 0 10 0h2a7 7 0 0 1-6 6.9V21h-2v-3.1A7 7 0 0 1 5 11Z',
+  search:'M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2Zm0 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z',plus:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-1 5v4H7v2h4v4h2v-4h4v-2h-4V7Z',
+  cal:'M7 2h2v2h6V2h2v2h3v18H4V4h3Zm-1 8v10h12V10Z',mail:'M2 5h20v14H2Zm2.4 2L12 12.3 19.6 7Z',clock:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-1 5v6l5 3 1-1.7-4-2.4V7Z',
+  coin:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm1 4h-2v1.1A3 3 0 0 0 11.5 13h1a1 1 0 0 1 0 2H9v2h2v1h2v-1.1A3 3 0 0 0 12.5 11h-1a1 1 0 0 1 0-2H15V7h-2Z',
+  card:'M2 5h20v14H2Zm0 3v3h20V8ZM5 14v2h5v-2Z',lock:'M7 10V7a5 5 0 0 1 10 0v3h2v12H5V10Zm2 0h6V7a3 3 0 0 0-6 0Z',
+  user:'M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM12 14c-6 0-10 3.2-10 8h20c0-4.8-4-8-10-8Z',down:'M11 3h2v10l3.5-3.5 1.4 1.4L12 16.8l-5.9-5.9 1.4-1.4L11 13ZM4 19h16v2H4Z',
+  game:'M7 6h10a5 5 0 0 1 0 10l-2-2H9l-2 2A5 5 0 0 1 7 6Zm0 3v1.5H5.5v1H7V13h1v-1.5h1.5v-1H8V9Z',
+  menu:'M3 5h18v3H3zm0 5.5h18v3H3zM3 16h18v3H3z',
+  bolt:'M13 2 4 14h6l-1 8 9-12h-6l1-8Z',chat:'M3 4h18v13H8l-5 4V4Zm4 5v2h10V9H7Zm0 4v2h7v-2H7Z',
+  help:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-1 14v2h2v-2h-2Zm1-10a4 4 0 0 0-4 4h2a2 2 0 1 1 2 2h-1v3h2v-1.2A4 4 0 0 0 12 6Z',
+  keyboard:'M2 6h20v12H2Zm3 3v2h2V9H5Zm4 0v2h2V9H9Zm4 0v2h2V9h-2Zm4 0v2h2V9h-2ZM6 13v2h12v-2H6Z',
+  home:'M12 3 2 11h3v10h5v-6h4v6h5V11h3Z',beer:'M4 4h11v3h2a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3h-2v3H4Zm11 5v7h2a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-2ZM7 8v10h2V8H7Zm4 0v10h2V8h-2Z',
+  burger:'M3 10a9 7 0 0 1 18 0Zm-1 2h20v2H2Zm1 4h18v1a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z',drop:'M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z',
+  can:'M7 2h10v3l1 2v13l-1 2H7l-1-2V7l1-2Zm1 7v8h8V9H8Z',cam:'M4 7h3l2-3h6l2 3h3v13H4Zm8 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z',
+  upload:'M11 21h2V11l3.5 3.5 1.4-1.4L12 7.2l-5.9 5.9 1.4 1.4L11 11ZM4 3h16v2H4Z',flag:'M5 2h2v20H5Zm3 1h11l-3 5 3 5H8Z',
+  warn:'M12 2 1 21h22Zm-1 7h2v6h-2Zm0 8h2v2h-2Z',swap:'M7 4 2 9l5 5v-4h9V8H7Zm10 6v4H8v2h9v4l5-5Z',pause:'M6 4h4v16H6Zm8 0h4v16h-4Z',play:'M7 4v16l13-8Z',
+  x:'M5.6 4.2 12 10.6l6.4-6.4 1.4 1.4-6.4 6.4 6.4 6.4-1.4 1.4-6.4-6.4-6.4 6.4-1.4-1.4 6.4-6.4-6.4-6.4Z',
+  cbon:'M3 3h18v18H3Zm7.5 13.8 8-8-1.6-1.6-6.4 6.4-3-3-1.6 1.6Z',cboff:'M3 3h18v18H3Zm2 2v14h14V5Z',
+  arrowr:'M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4Z',scale:'M11 2h2v3h7l-3 7a3 3 0 0 0 6 0l-3-7h-1V5h-1V20h4v2H6v-2h4V5H9v0H7l-3 7a3 3 0 0 0 6 0L7 5h4Z',
+  plusc:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 2.2a7.8 7.8 0 1 0 0 15.6 7.8 7.8 0 0 0 0-15.6ZM11 7h2v4h4v2h-4v4h-2v-4H7v-2h4Z'
+ };
+ function ic(n,cls){return '<svg class="'+(cls||'')+'" viewBox="0 0 24 24" aria-hidden="true"><path d="'+F[n]+'" fill-rule="evenodd"/></svg>';}
+ function valid(r){var p=r.split(':');try{return typeof rnValid!=='function'||rnValid(+p[0],+p[1]);}catch(e){return false;}}
+ var NAV=[
+  {key:'Tables',icon:'Tables',label:'Live Session',home:'1:2',range:[[1,18],[25,47]],items:[
+   ['Live Tables','Tables','1:2'],['Seat a Player','seat','3:1'],['Wait List','list','8:1'],['Table Controls','game','11:1'],['Expenses','receipt','25:0'],['Food & Beverage','glass','27:0'],['Inventory','box','30:0'],
+   ['Snapshot','chart','32:0'],['Account Balances','card','35:0'],['Sign & Settle','pen','36:0'],['Daily Close','check','40:0'],['Ask Nora','mic','13:0']]},
+  {key:'Players',icon:'Players',label:'Players',home:'54:0',range:[[48,58]],items:[
+   ['Find Player','search','54:0'],['Add Player','plus','55:1'],['Scheduled Games','cal','48:0'],['Invitations','mail','49:0'],['Attendance','list','51:0'],['Arrivals · ETA','clock','52:0']]},
+  {key:'Team',icon:'Team',label:'Team',home:'19:0',range:[[19,24]],items:[
+   ['Team on Shift','Team','19:0'],['Check-in','clock','20:2'],['Chip Tips','coin','21:2'],['Payments & Advances','card','22:2'],['Checkout','check','23:2'],['Earnings & Balances','chart','24:2']]},
+  {key:'Reporting',icon:'Reporting',label:'Reporting',home:'67:0',range:[[67,71]],items:[
+   ['Reports Home','chart','67:0'],['Player Reports','user','68:0'],['Rake & Revenue','coin','69:0'],['Team & Expenses','receipt','70:0'],['Export','down','71:0']]},
+  {key:'Settings',icon:'Settings',label:'Settings',home:'60:0',range:[[59,66]],items:[
+   ['Quick Setup','plus','59:0'],['Game Rules & Tables','game','60:0'],['Payment Accounts','card','61:0'],['Sign & Settle','pen','62:0'],['Team Permissions','lock','63:0'],['Food, Beverage & Inventory','glass','64:0'],['Profile & Language','user','65:0'],['Team Access','mail','66:0']]}
+ ];
+ window.NORA_NAV=function(){return NAV.map(function(s){return {key:s.key,icon:s.icon,label:s.label,home:s.home,range:s.range,items:s.items.filter(function(it){return valid(it[2]);})};});};
+ function sectionOf(id){for(var i=0;i<NAV.length;i++)for(var j=0;j<NAV[i].range.length;j++){var r=NAV[i].range[j];if(id>=r[0]&&id<=r[1])return NAV[i].key;}return 'Tables';}
+ window.NORA_NAV_ICON=ic;window.NORA_NAV_SECTION=sectionOf;
+
+ /* ---------- 1. navigation ---------- */
+ function nav(st,ph){var id=+st.dataset.rnWorkflow||0,sec=sectionOf(id);var nb=ph.querySelector(':scope>.ux-bottom');
+  if(!nb){nb=document.createElement('div');nb.className='ux-bottom';ph.appendChild(nb);}
+  if(nb.dataset.s2===sec&&nb.classList.contains('s2-nav'))return;
+  nb.className='ux-bottom s2-nav';nb.dataset.s2=sec;
+  nb.innerHTML=NAV.map(function(s){return '<div class="ux-tab'+(s.key===sec?' chosen':'')+'" role="button" tabindex="0" aria-label="'+s.key+'" data-s2-home="'+s.home+'"><span class="ux-ico">'+ic(s.icon,'nf')+'</span><span class="s2-lbl">'+s.key+'</span></div>';}).join('');
+  var cx=ph.querySelector('.ux-head .ux-close');if(cx&&!cx.dataset.s2){cx.dataset.s2=1;cx.innerHTML='<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>';}
+  var h=ph.querySelector('.ux-head .ux-hamb');if(h&&!h.dataset.s2){h.dataset.s2=1;h.innerHTML=ic('menu');h.setAttribute('role','button');h.setAttribute('aria-label','Menu');}
+ }
+ function drawer(st){var ph=st.querySelector('.phone'),uc=ph&&ph.querySelector('.ux-content');if(!uc)return;var old=ph.querySelector('.nn-drawer');if(old){old.remove();return;}
+  var id=+st.dataset.rnWorkflow||0,step=+st.dataset.rnStep||0,sec=sectionOf(id),here=id+':'+step,S=NORA_NAV();
+  var html=S.map(function(s){var open=s.key===sec;return '<div class="nn-sec'+(open?' open cur':'')+'"><button type="button" class="nn-sh" data-nn-toggle="1">'+ic(s.icon)+s.label+'<svg class="nn-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button><div class="nn-items">'+s.items.map(function(it){var w=it[2].split(':')[0];var cur=it[2]===here||(w==id&&s.items.filter(function(x){return x[2].split(':')[0]==id;}).length===1);return '<button type="button" class="nn-it'+(cur?' cur':'')+'" data-nn-go="'+it[2]+'">'+ic(it[1])+it[0]+'</button>';}).join('')+'</div></div>';}).join('');
+  var d=document.createElement('div');d.className='nn-drawer';var pr=ph.getBoundingClientRect(),ur=uc.getBoundingClientRect(),nb=ph.querySelector('.ux-bottom');d.style.top=(ur.top-pr.top-2)+'px';d.style.bottom=(nb?nb.getBoundingClientRect().height:0)+'px';
+  d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div>';
+  ph.classList.add('nn-host');ph.appendChild(d);}
+ function go(r,st){try{rnGo(r,st);}catch(x){console.error(x);}}
+ window.addEventListener('click',function(e){
+  var h=e.target.closest('.storyboard .ux-hamb');if(h){var st=h.closest('.stage');if(st){e.preventDefault();e.stopImmediatePropagation();drawer(st);}return;}
+  var t=e.target.closest('.storyboard .ux-bottom.s2-nav .ux-tab');if(t){e.preventDefault();e.stopImmediatePropagation();var st2=t.closest('.stage'),dr0=st2&&st2.querySelector('.nn-drawer');if(dr0)dr0.remove();go(t.dataset.s2Home,st2);return;}
+  var dr=e.target.closest('.nn-drawer');if(!dr)return;e.preventDefault();e.stopImmediatePropagation();
+  if(e.target.closest('.nn-x')){dr.remove();return;}
+  var tg=e.target.closest('[data-nn-toggle]');if(tg){tg.parentElement.classList.toggle('open');return;}
+  var g=e.target.closest('[data-nn-go]');if(g){var st3=dr.closest('.stage');dr.remove();go(g.dataset.nnGo,st3);}
+ },true);
+
+ /* ---------- 2. header subtitles: shorter wording instead of smaller text ---------- */
+ var SHORT={'Account configuration summary':'Account summary','Invitation confirmation preview':'Invitation preview','Rake and transaction ledgers':'Transaction ledgers','Expense and inventory details':'Expense details','Session detail and ledgers':'Session detail','Review proposed action':'Review action','Dictate multiple actions':'Multiple actions','Confirm successful post':'Retry review','Attendance dashboard':'Attendance','Start session preview':'Start session','Select invited players':'Invite players','Review interpretation':'Review','Confirm text command':'Confirm command','Review action batch':'Review batch','Verification summary':'Verification','Permission summary':'Permissions','Preferences summary':'Preferences','Player session detail':'Session detail','Inventory Variance':'Variance','Settlement Summary':'Settlement','Account Movements':'Movements','Transaction Details':'Transaction','Rake configuration':'Rake setup','Profile and language':'Profile & language','Financial overview':'Financials','Table performance':'Tables','Team and expenses':'Team & expenses','Enabled accounts':'Accounts','Configure accounts':'Account labels','Blinds and buy-ins':'Blinds & buy-ins','Arrival confirmation':'Arrival','Confirm game setup':'Game setup','Session readiness':'Readiness','Roster and waitlist':'Roster','Historical Snapshot':'Final Snapshot','Begin Daily Close':'Daily Close','Bust-out Confirmed':'Busted Out','Complimentary Item':'Comp Item','Move between Tables':'Move Table','Swap between Tables':'Swap Tables','Record a live action':'Live action','Correct details':'Correct','Inventory controls':'Inventory','Food & beverage':'Food & Beverage','Team Earnings':'Earnings'};
+ function head(ph){var hd=ph.querySelector('.ux-head .ux-headtitle');if(!hd)return;var sm=hd.querySelector('small');if(!sm||sm.dataset.s2)return;sm.dataset.s2=1;var t=sm.textContent.trim();
+  if(sm.scrollWidth>sm.clientWidth+1){var k=Object.keys(SHORT).filter(function(x){return x.toLowerCase()===t.toLowerCase();})[0];if(k)sm.textContent=SHORT[k];}}
+
+ /* ---------- 3. photo tiles: names only, large, fitted ---------- */
+ function seats(ph){ph.querySelectorAll('.ux-seat:not(.empty) .ux-seat-label').forEach(function(l){
+   l.querySelectorAll(':scope>strong,:scope>span').forEach(function(x){if(/\d/.test(x.textContent))x.classList.add('s2-money');});
+   var b=l.querySelector(':scope>b');if(!b)return;var role=null;
+   if(/^(DEALER|HOST|CASHIER)$/i.test(b.textContent.trim())){var nm=l.querySelector(':scope>strong:not(.s2-money)');if(nm){role=b;b=nm;}}
+   if(b.dataset.s2fit===b.textContent)return;b.dataset.s2fit=b.textContent;
+   if(role){role.style.setProperty('font-size','14px','important');role.style.setProperty('letter-spacing','.5px','important');role.style.setProperty('color','#ffd34d','important');role.style.setProperty('font-weight','900','important');
+    [['display','block'],['width','100%'],['font-weight','900'],['color','#fff'],['text-align','center'],['line-height','1.05'],['text-shadow','0 2px 3px #000,0 0 6px rgba(0,0,0,.9)']].forEach(function(kv){b.style.setProperty(kv[0],kv[1],'important');});}
+   var w=l.clientWidth-6;if(w<20)return;b.style.setProperty('--s2ws','nowrap');
+   var steps=[[21,0],[20,0],[19,0],[18,0],[17,-.2],[16,-.3],[15.5,-.4]],ok=false;
+   for(var i=0;i<steps.length;i++){var sz=steps[i][0]+'px',ls=steps[i][1]+'px';b.style.setProperty('--s2n',sz);b.style.setProperty('--s2ls',ls);if(role){b.style.setProperty('font-size',sz,'important');b.style.setProperty('letter-spacing',ls,'important');}if(b.scrollWidth<=w){ok=true;break;}}
+   if(!ok){b.style.setProperty('--s2ws','normal');b.style.setProperty('--s2n','18px');b.style.setProperty('--s2ls','0px');}
+ });}
+
+ /* ---------- 4. COP at 65% of the amount ---------- */
+ var SKIP={SELECT:1,OPTION:1,INPUT:1,TEXTAREA:1,SCRIPT:1,STYLE:1,svg:1};
+ var COPRE=/(^|[^A-Za-z])COP(?=\s*[−\-+]?\s*\d)/;
+ function cop(root){
+  var tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentElement;if(!p||SKIP[p.tagName]||p.closest('.s2-cop,select,textarea,.ux-bottom'))return 2;return COPRE.test(n.nodeValue)?1:2;}});
+  var list=[];while(tw.nextNode())list.push(tw.currentNode);
+  list.forEach(function(n){var v=n.nodeValue,m;var frag=document.createDocumentFragment(),last=0,re=/(^|[^A-Za-z])COP(?=\s*[−\-+]?\s*\d)/g;
+   while((m=re.exec(v))){var at=m.index+m[1].length;frag.appendChild(document.createTextNode(v.slice(last,at)));var s=document.createElement('span');s.className='s2-cop';s.textContent='COP';frag.appendChild(s);last=at+3;while(v[last]===' '||v[last]===' ')last++;}
+   frag.appendChild(document.createTextNode(v.slice(last)));n.parentNode.replaceChild(frag,n);});
+  // existing COP elements: size against the number they label
+  root.querySelectorAll('*').forEach(function(e){if(e.children.length||e.classList.contains('s2-cop')||e.dataset.s2cop)return;if(e.textContent.trim()!=='COP')return;if(e.closest('select,.ux-bottom'))return;
+   var ref=null,par=e.parentElement;var sib=e.nextElementSibling;
+   if(sib&&sib.tagName==='INPUT')ref=sib;
+   else if([].some.call(par.childNodes,function(x){return x.nodeType===3&&/\d/.test(x.nodeValue);}))ref=par;
+   else if(sib&&/\d/.test(sib.textContent))ref=sib.querySelector('*')&&!/\d/.test([].map.call(sib.childNodes,function(x){return x.nodeType===3?x.nodeValue:'';}).join(''))?(sib.querySelector('*')):sib;
+   else if(par&&par.nextElementSibling&&/^\s*[−\-+]?[\d,.]+\s*$/.test(par.nextElementSibling.textContent)&&par.children.length===1)ref=par.nextElementSibling;
+   if(!ref)return;e.dataset.s2cop=1;var fs=parseFloat(getComputedStyle(ref).fontSize);
+   e.style.setProperty('font-size',(Math.round(fs*0.65*10)/10)+'px','important');e.style.setProperty('color','#f7f4ea','important');e.style.setProperty('vertical-align','baseline','important');e.style.setProperty('line-height','1','important');e.style.setProperty('font-weight','800','important');
+   if(!/\s$/.test(e.textContent)&&!e.style.marginRight)e.style.setProperty('margin-right','.28em','important');});
+ }
+
+ /* ---------- 5. square corners, two border weights, 14px floor ---------- */
+ var KEEP_ROUND='.co6-paid-stamp,.co6-paid-stamp *,.dc-check,.ex-check,.nora-confirm-check,.nora-mic,.nc-mic,[class*=stamp],[class*=mic]';
+ function shapes(ph){
+  ph.querySelectorAll('.ux-content *').forEach(function(e){if(e.dataset.s2s)return;e.dataset.s2s=1;var cs=getComputedStyle(e),r=e.getBoundingClientRect();
+   var rad=parseFloat(cs.borderTopLeftRadius)||0;
+   if(rad>0){var circle=Math.abs(r.width-r.height)<3&&rad>=r.width*0.4;if(!circle&&!e.matches(KEEP_ROUND))e.style.setProperty('border-radius','0','important');}
+   if(e.matches('.person-face,.person-face *,img,svg,svg *,[class*=stamp],.ux-seatno'))return;
+   var t=parseFloat(cs.borderTopWidth),b=parseFloat(cs.borderBottomWidth),l=parseFloat(cs.borderLeftWidth),rr=parseFloat(cs.borderRightWidth);
+   if(t>0&&t===b&&b===l&&l===rr&&cs.borderTopStyle==='solid'&&r.width>30&&r.height>18){var want=(r.height>=58&&r.width>=90)?3:2;if(t!==want)e.style.setProperty('border-width',want+'px','important');}
+   if(e.closest(KEEP_ROUND)||e.classList.contains('s2-cop')||e.dataset.s2cop||e.closest('.ux-seatno'))return;
+   var own=[].some.call(e.childNodes,function(n){return n.nodeType===3&&n.nodeValue.trim();});
+   var fz=parseFloat(cs.fontSize);
+   if(own&&fz>0&&fz<14&&e.textContent.trim()!=='COP')e.style.setProperty('font-size','14px','important');
+   if(own&&cs.whiteSpace==='nowrap'&&e.scrollWidth>e.clientWidth+1&&e.clientWidth>0){for(var f=fz-1;f>=15&&e.scrollWidth>e.clientWidth+1;f--)e.style.setProperty('font-size',f+'px','important');}
+  });}
+
+ /* ---------- 6. footer actions: 63px; one = full width, two = 50/50 ---------- */
+ function footer(ph){var uc=ph.querySelector('.ux-content');if(!uc||uc.dataset.s2f)return;var ub=uc.getBoundingClientRect().bottom;if(!ub)return;uc.dataset.s2f=1;
+  var cand=[].filter.call(uc.querySelectorAll('button,.screen-button,[role=button]'),function(b){var r=b.getBoundingClientRect();return r.width>90&&r.height>20&&r.height<62&&ub-r.bottom<80&&!b.closest('.ux-seat,.seat-roster-card,.wf32-group,.nr-card,details');});
+  var pars=[];cand.forEach(function(b){var p=b.parentElement;if(pars.indexOf(p)<0)pars.push(p);});
+  pars.forEach(function(p){var kids=[].filter.call(p.children,function(k){return k.getBoundingClientRect().height>0;});if(kids.length&&kids.length<=2&&kids.every(function(k){return cand.indexOf(k)>=0;}))p.classList.add('s2-foot');});}
+
+
+ /* ---------- 6b. glyphs and emoji used as icons -> one filled SVG icon family ---------- */
+ var GL={'◇':'chat','🎙':'mic','✎':'pen','♜':'coin','♙':'Team','▥':'card','⚖':'scale','✍':'pen','⚠':'warn','▦':'box','◷':'clock','＋':'plus','✉':'mail','▶':'play','☑':'cbon','□':'cboff','➜':'arrowr','⌚':'clock','🏠':'home','🍺':'beer','🍔':'burger','💧':'drop','🥫':'can','📷':'cam','⚑':'flag','Ⅱ':'pause','⏸':'pause','⇄':'swap','⌕':'search','⊕':'plusc'};
+ function glyphFor(c,el){var ai=el.closest('.nora-ai-icon,.nora-ai-tile'),dc=el.closest('.dc-tile'),sch=el.closest('.sch-tile'),w32=el.closest('.wf32-tap,.wf32-quickgrid');
+  if(c==='♣')return ai?'bolt':'Tables';
+  if(c==='▤')return ai?'help':dc?'receipt':'list';
+  if(c==='▣')return ai?'keyboard':'box';
+  if(c==='♧')return sch?'list':'Players';
+  if(c==='♟')return w32?'Team':'Players';
+  if(c==='↑')return el.closest('label')?'upload':null;
+  if(sch&&(c==='✓'||c==='✔'))return 'check';
+  if(sch&&(c==='×'||c==='✕'))return 'x';
+  if(sch&&c==='?')return 'help';
+  return GL[c]||null;}
+ function glyphs(uc){var tw=document.createTreeWalker(uc,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentElement;if(!p||p.closest('svg,.s2-ic,.co6-paid-stamp,.dc-check,.nora-confirm-check,select,textarea,[class*=stamp]'))return 2;return /\S/.test(n.nodeValue)?1:2;}});
+  var L=[];while(tw.nextNode())L.push(tw.currentNode);
+  L.forEach(function(n){var t=n.nodeValue.replace(/^\s+/,'');var ch=Array.from(t)[0];if(!ch)return;var name=glyphFor(ch,n.parentElement);if(!name||!F[name])return;
+   var sp=document.createElement('span');sp.className='s2-ic s2-ic-'+name;sp.innerHTML=ic(name);n.parentNode.insertBefore(sp,n);
+   var rest=t.slice(ch.length).replace(/^\uFE0F/,'');n.nodeValue=rest.trim()?' '+rest.replace(/^\s+/,''):'';
+   var host=sp.parentElement;if(host&&!host.textContent.trim())host.classList.add('s2-ic-host');});}
+
+ /* ---------- 6c. balance: rows share the free space, footer sits at the bottom ---------- */
+ var ROWS='.wf32-line,.snap-row,.dc-line,.sch-row,.ns-stat,.nr-row,.nora-ai-row,.shared-data>div,.screen-field,.crm56-row';
+ function balance(ph){var uc=ph.querySelector('.ux-content');if(!uc||uc.dataset.s2b)return;var U=uc.getBoundingClientRect();if(!U.height)return;uc.dataset.s2b=1;
+  var foots=[].slice.call(uc.querySelectorAll('.s2-foot,.wf32-footer-button,.dc-bottom,.shared-action.rn-close,.ns-footer,.nr-actions')).filter(function(f){return f.getBoundingClientRect().height>0&&!f.parentElement.closest('.s2-foot,.dc-bottom,.ns-footer,.nr-actions');});
+  var ftop=foots.length?Math.min.apply(null,foots.map(function(f){return f.getBoundingClientRect().top;})):U.bottom;
+  var fh=foots.reduce(function(a,f){return a+f.getBoundingClientRect().height+8;},0);
+  function leafB(){var m=U.top;[].forEach.call(uc.querySelectorAll('*'),function(e){if(foots.some(function(f){return f===e||f.contains(e);}))return;var own=!e.children.length||[].some.call(e.childNodes,function(n){return n.nodeType===3&&n.nodeValue.trim();})||parseFloat(getComputedStyle(e).borderBottomWidth)>0;if(!own)return;var r=e.getBoundingClientRect();if(r.height&&r.bottom<=U.bottom+1)m=Math.max(m,r.bottom);});return m;}
+  var maxB=leafB();
+  var free=U.bottom-fh-maxB-10;if(free<40)return;
+  var rows=[].filter.call(uc.querySelectorAll(ROWS),function(r){return r.getBoundingClientRect().height>0&&r.getBoundingClientRect().bottom<=ftop+1;});
+  if(rows.length){var add=Math.min(16,Math.floor(free*0.55/rows.length));if(add>=3)rows.forEach(function(r){var h=r.getBoundingClientRect().height;r.style.setProperty('min-height',(h+add)+'px','important');r.style.setProperty('align-items','center','important');});}
+  var tiles=[].filter.call(uc.querySelectorAll('.sch-tile,.nora-ai-tile'),function(t){return t.getBoundingClientRect().height>0;});
+  if(tiles.length){var free2=U.bottom-fh-leafB()-10;var rowsT=Math.ceil(tiles.length/2);var addT=Math.min(34,Math.floor(free2*0.5/rowsT));if(addT>=4)tiles.forEach(function(t){t.style.setProperty('min-height',(t.getBoundingClientRect().height+addT)+'px','important');});}
+  // footer to the bottom of the screen
+  var last=foots[foots.length-1];if(last){var gap=U.bottom-last.getBoundingClientRect().bottom-2;if(gap>4){var first=foots[0];var mt=parseFloat(getComputedStyle(first).marginTop)||0;first.style.setProperty('margin-top',(mt+gap)+'px','important');}}
+ }
+
+ /* ---------- 7. WF9 / WF54 ledger: 5 per page, swipe between pages, compact dots ---------- */
+ if(typeof wf9Ledger==='function'){
+  window.wf9Ledger=function(w,step,i){var amounts=[450000,200000,300000,150000,1000000,250000,300000,200000],times=['7:04','7:45','8:10','8:42','9:12','9:46','10:08','10:32'];var fmt=function(n){return 'COP '+n.toLocaleString('en-US');};var page=Math.max(0,Math.min(1,i-1));var per=5,pages=Math.ceil(amounts.length/per);var total=amounts.reduce(function(a,b){return a+b;},0);
+   var entries=amounts.slice(page*per,page*per+per).map(function(n,j){var k=page*per+j;return '<div class="wf9-entry"><div><b>'+(k+1)+'. '+(k===0?'INITIAL BUY-IN':'REBUY')+'</b><small>'+times[k]+' PM</small></div><strong>'+fmt(n)+'</strong></div>';}).join('');
+   var profile='<div class="rebuy-entry-person wf9-person"><div class="rebuy-entry-picture wf9-clean-photo">'+portrait('Diego R.','D',true)+'</div><div class="rebuy-entry-person-details"><b>Diego Restrepo</b><strong>SEAT 7</strong><span>TOTAL BUY-INS</span><div class="rebuy-entry-money"><small>COP</small> '+total.toLocaleString('en-US')+'</div></div></div>';
+   var dots='';for(var d=0;d<pages;d++)dots+='<i class="'+(d===page?'on':'')+'"></i>';
+   var body='<div class="wf9-layout wf9-paged s2-ledger" data-page="'+page+'">'+profile+'<div class="wf9-ledger-heading"><b>TRANSACTIONS</b><strong>'+amounts.length+' ENTRIES</strong></div><div class="wf9-ledger">'+entries+'</div><div class="wf9-pages s2-dots" aria-label="Page '+(page+1)+' of '+pages+' · swipe">'+dots+'<span>'+(page+1)+' / '+pages+' · swipe</span></div><div class="wf9-total"><span>TOTAL BUY-INS</span><strong>'+fmt(total)+'</strong></div></div>';
+   return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone wf9-ledgerphone"><div class="notch"></div>'+fullHead('LIVE SESSION','Player Ledger')+'<div class="ux-content screen-specific">'+body+'</div>'+fixedNav('Table')+'</div><p class="steptext">Diego Restrepo · Seat 7 · 8 transactions · 5 per page</p></div>';};
+ }
+ var sw=null;
+ window.addEventListener('pointerdown',function(e){var l=e.target.closest('.storyboard .s2-ledger');if(!l)return;sw={x:e.clientX,y:e.clientY,l:l};},true);
+ window.addEventListener('pointerup',function(e){if(!sw)return;var dx=e.clientX-sw.x,dy=e.clientY-sw.y,l=sw.l;sw=null;if(Math.abs(dx)<40||Math.abs(dx)<Math.abs(dy))return;
+  var page=+l.dataset.page,to=dx<0?page+1:page-1;if(to<0||to>1)return;var st=l.closest('.stage');var id=+st.dataset.rnWorkflow;
+  if(id===54&&typeof crmLedgerPage==='function'){crmLedgerPage(l,to+1);return;}
+  go(id+':'+(+st.dataset.rnStep+(to-page)),st);},true);
+
+ /* ---------- WF40: checklist fits one screen ---------- */
+ function dc40(ph){var d=ph.querySelector('.dc-dashboard');if(!d||d.dataset.s2)return;d.dataset.s2=1;
+  var sp=d.querySelector('.dc-readiness span');if(sp)sp.textContent=sp.textContent.split('·')[0].trim();
+  var T={'Account Balances':'Accounts','Chip Reconciliation':'Chip Count'};d.querySelectorAll('.dc-tile strong').forEach(function(s){var t=s.textContent.trim();if(T[t])s.textContent=T[t];});
+  var f=d.querySelector('.dc-final');if(f){var tn=[].filter.call(f.childNodes,function(n){return n.nodeType===3&&n.nodeValue.trim();})[0];if(tn)tn.nodeValue=' REVIEW & CONFIRM CLOSE';}}
+ /* ---------- COP re-sync after every size change ---------- */
+ function copSync(uc){uc.querySelectorAll('.s2-cop,[data-s2cop]').forEach(function(e){var sib=e.nextElementSibling,ref=e.parentElement;
+   if(sib&&(sib.tagName==='INPUT'||(/^\s*[−\-+]?[\d,.]/.test(sib.textContent)&&!/\d/.test([].map.call(e.parentElement.childNodes,function(n){return n.nodeType===3?n.nodeValue:'';}).join('')))))ref=sib;
+   var fs=parseFloat(getComputedStyle(ref).fontSize);if(!fs)return;var want=Math.round(fs*0.65*10)/10;
+   if(Math.abs(parseFloat(getComputedStyle(e).fontSize)-want)>0.3){e.style.setProperty('font-size',want+'px','important');}
+   e.style.setProperty('color','#f7f4ea','important');e.style.setProperty('vertical-align','baseline','important');});}
+ /* ---------- run ---------- */
+ function pass(){document.querySelectorAll('.storyboard>.stage').forEach(function(st){var ph=st.querySelector('.phone');if(!ph)return;
+  try{nav(st,ph);dc40(ph);head(ph);seats(ph);var uc=ph.querySelector('.ux-content');if(uc){glyphs(uc);cop(uc);}shapes(ph);footer(ph);balance(ph);if(uc)copSync(uc);}catch(x){console.error('sweep2',x);}});}
+ var q=0,busy=0;function sch(){if(q||busy)return;q=1;requestAnimationFrame(function(){q=0;busy=1;try{pass();}finally{mo.takeRecords();busy=0;}});}
+ var mo=new MutationObserver(sch);mo.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+ window.addEventListener('load',sch);
+ try{if(typeof show==='function'&&typeof current!=='undefined')show(current);}catch(x){}
+ sch();
+})();
+
+</script>
+<script id="nora-sweep2-guard">
+(function(){var REQ=['nora-sweep2','nora-sweep2-js'];function chk(){var miss=REQ.filter(function(id){return !document.getElementById(id);});if(!miss.length)return;var d=document.createElement('div');d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:#c0142c;color:#fff;font:900 16px system-ui;padding:10px 14px';d.textContent='NORA design-system block missing: '+miss.join(', ')+' — restore from git (see DESIGN_RULES.md)';document.body.appendChild(d);}window.addEventListener('load',chk);})();
+</script>
+</body></html>

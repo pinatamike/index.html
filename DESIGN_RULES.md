@@ -79,3 +79,17 @@ These rules and `design-system/README.md` are the single UI specification for NO
 - **Desktop** = persistent left sidebar with the same hierarchy and icons. The 5 sections are prominent and expand into their submodules. No bottom bar on desktop.
 - **Contextual tiles** perform actions on the current screen. **Header** shows location plus Nora. These are not global navigation.
 - One filled icon family everywhere (mobile + desktop). Menu structure lives in `NORA_NAV()` in `nora-nav-js`, and desktop must mirror it.
+
+## Sweep 2 (restored UI b99a9c1) — required blocks
+
+The restored UI is harmonized by three blocks. They must stay last: `nora-sweep2` (end of `<head>`), then `nora-sweep2-js` and `nora-sweep2-guard` (end of `<body>`). If one is missing, a red banner appears.
+
+- **Player photo tiles show names only.** The photo fills the tile, with a yellow seat number and a large bold white name of 15.5–21px, auto-fitted, on a light gradient. Amounts never appear on photo tiles.
+- **Bottom nav:** exactly 5 filled icons (Tables · Players · Team · Reporting · Settings). The active section follows the workflow. The ☰ menu holds the complete grouped app menu.
+- **COP is 65% of the number,** milk white, on the baseline. It is re-synced after any font fitting.
+- **Square corners.** Only true circles stay round (check icons, stamps, the mic, photos).
+- **Two border weights:** 3px for large tiles and buttons (58px or taller), 2px for rows and fields.
+- **Text is 14px minimum,** except nav labels (11.5px) and stamp lettering.
+- **Footer actions are 63px.** One button spans the full width; two split 50/50. Footers sit at the bottom of the screen.
+- **One filled SVG icon family** replaces glyph and emoji icons.
+- **WF9 / WF54 ledger:** 5 entries per page, swipe between pages, a compact page indicator, and totals computed from the entries.
