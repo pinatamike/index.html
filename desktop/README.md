@@ -27,3 +27,21 @@ Responsive layouts for the same NORA app. Mobile (under 768px) stays exactly as 
 - **Desktop uses the extra space:** KPI row above the grid, all seats visible at once, and player actions in the side panel instead of a separate screen.
 
 Next screens, in order: Buy-in, Rebuy, Cash-out, Players, Snapshot, Daily Close.
+
+## Operational Control Center (`control-center.html`)
+
+Interactive prototype. The desktop Live Table becomes the control center for the whole session.
+
+- **Responsive philosophy:** one set of business workflows, three presentations.
+  - Mobile: focused, sequential screens.
+  - Tablet: hybrid, with contextual panels where space allows.
+  - Desktop: a persistent live table plus a dynamic operations panel.
+- **Left:** a compact sidebar with 5 sections. One accordion submenu is open at a time. Below 1200px it collapses to icons.
+- **Center:** the live table is always visible. It has Table 1/2 tabs, KPIs (total in, rake, seated, wait list) and seat selection.
+- **Right:** the dynamic panel.
+  - No selection: session actions.
+  - Player selected: Details, Rebuy, Cash-out (chips, win/loss, payment, Sign & Settle warning), Move.
+  - Session: Wait List, Team/Tips, Expenses, Snapshot, Daily Close, Nora AI (mic + text).
+- **Money actions:** Form → Review → Confirm/Change. Values are kept across Change. After confirming, the panel returns to the player or session context.
+- **Demo only:** results are labeled "DEMO · NOT POSTED · REF DEMO-n". Nothing reaches a backend.
+- **Rule: no scrolling** on any screen, with rare exceptions. Verified at 1024×768, 1280×800, 1440×900 and 1920×1080.
