@@ -100,3 +100,11 @@ The restored UI is harmonized by three blocks. They must stay last: `nora-sweep2
 - Every product: Sell or Comp (square tiles). Recipient required: Player / Player's Guest / Game Guest (guests are not CRM players).
 - Snapshot: revenue, operating expenses, team expenses, inventory purchases, consumption cost, asset value, net profit — no double counting.
 - Daily Close stays one-screen and adapts to the mode.
+
+## Fast start, onboarding & Settings checklist — required blocks
+- Order in file: `nora-fnb*`, then `nora-start` (CSS) / `nora-start-js`, then `nora-sweep2*`. Guard REQ list includes all six.
+- WF1: auto-resume (launch → restoring → Live Table View), plus chooser, restore-failed Retry, no-active-session. Closed sessions never reopen.
+- WF2: Quick Start (START WITH LAST SETTINGS dominant, saved games, custom setup, scheduled game). One review screen; START LIVE SESSION is double-tap guarded; nothing is seated or posted.
+- WF59: three screens (Meet Nora, Configure, Review & Ready) + Nora listening/confirm/rake-help states. SAVE & START FIRST SESSION routes to WF2 review.
+- WF60: Settings home (7 sections + "Finish setting up your business" banner after first session), checklist (8 items, progress, skip, Nora help, dismiss/restore, saved in localStorage for the demo), game templates.
+- WF61–66 updated in place (Account Balances, optional Sign & Settle, role presets by module, Profile & Preferences, 3-part invitations).
