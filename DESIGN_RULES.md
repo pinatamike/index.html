@@ -119,3 +119,9 @@ The restored UI is harmonized by three blocks. They must stay last: `nora-sweep2
 - One store (`nora.cfg.v2`) holds modules, completion, skips and `invites.*`. WF48 Create/Settings and the Settings checklist all read/write it via `data-cfg`; saving with `data-cfg-done` marks the checklist item.
 - WF48 = 3 screens: Scheduled games, Create game (Date, Start, game summary, invite toggle + collapsed Advanced Settings), Invitations setup (WhatsApp status, seat pick, hold, reminders + collapsed Advanced Settings).
 - Checklist shows only enabled modules; items can be skipped/N-A, list can be hidden and restored.
+
+## Global audit sweep3 (shared layer `nora-s3`)
+- Tokens: `--n-gap 7px`, `--n-pad 5px`, `--n-row-max 76px`. Tile grids use `grid-auto-rows:1fr` (equal heights across rows).
+- Nora assist tiles are full-width; ledger/report rows and team lists/cards grow evenly to fill free space (max heights), no phantom scroll.
+- Body titles that repeat the header's 2nd line are hidden automatically (`.n-dup`), see `s3.js`.
+- Audit method: DOM geometry at 320/375/390/430/768/1440 plus screenshots of all 303 screens (71 workflows).

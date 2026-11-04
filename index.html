@@ -2286,6 +2286,38 @@ html body .storyboard>.stage:has(.snap-phone){width:auto!important;min-width:0!i
 .storyboard .phone :is(details,summary,.wf32-group,.nr-card,select,input,textarea){border-radius:0!important}
 
 </style>
+<style id="nora-s3">
+/* NORA sweep3 — global spacing/tile/title consistency (tokens) */
+:root{--n-gap:7px;--n-pad:5px;--n-row-h:60px;--n-row-max:76px;--n-tile-min:72px;--n-btn:63px}
+/* equal tile heights across all rows of a tile grid */
+html body .storyboard .phone .fb-grid2:has(>.fb-tile),html body .storyboard .phone .fb-grid3:has(>.fb-tile){grid-auto-rows:1fr!important}
+/* Nora assist tiles: always full-width, never overlapping */
+html body .storyboard .phone .nora-ai-content>.nora-ai-tile{display:flex!important;width:100%!important;min-height:72px!important;height:auto!important;margin:0 0 var(--n-gap)!important;float:none!important;position:static!important}
+html body .storyboard .phone .nora-ai-content>.nora-ai-tile+.nora-ai-tile{margin-top:0!important}
+html body .storyboard .phone .nora-ai-content>.nora-ai-head+.nora-ai-tile,html body .storyboard .phone .nora-ai-content>.nora-ai-head+*{margin-top:var(--n-gap)!important}
+/* read-only report rows: fit the viewport, fill free space evenly, no phantom scroll */
+html body .storyboard .phone .ux-content>.wf32-workflow{display:flex!important;flex-direction:column!important;height:100%!important;max-height:100%!important;min-height:0!important;overflow-y:auto!important;box-sizing:border-box!important}
+html body .storyboard .phone .ux-content>.wf32-workflow>.wf32-footer-button{margin-top:auto!important;flex:none!important}
+html body .storyboard .phone .ux-content>.shared-data{display:flex!important;flex-direction:column!important;flex:1 1 0!important;min-height:0!important}
+html body .storyboard .phone .shared-data>.snap-row{flex:1 1 0!important;max-height:80px!important}
+html body .storyboard .phone .wf32-workflow>.wf32-line,html body .storyboard .phone .wf32-workflow>.wf32-item{flex:1 0 auto!important;max-height:var(--n-row-max)!important;display:flex;align-items:center;justify-content:space-between}
+html body .storyboard .phone .wf32-workflow>.wf32-item{display:block!important;align-content:center}
+/* team lists: identical row height */
+html body .storyboard .phone .screen-list>.screen-list-item{min-height:80px!important;flex:1 1 0!important;max-height:84px!important}
+/* hidden duplicate titles */
+html body .storyboard .phone .n-dup{display:none!important}
+html body .storyboard .phone .ux-content>.screen-list{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;min-height:0!important}
+html body .storyboard .phone .screen-list>.screen-list-item{max-height:112px!important}
+html body .storyboard .phone .ux-content>.screen-card{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;max-height:340px!important}
+html body .storyboard .phone .ux-content>.screen-card>.screen-card-content{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;justify-content:space-around!important}
+html body .storyboard .phone .crm56-row{min-height:46px!important;height:46px!important}
+html body .storyboard .phone .crm56-identity.crm-tile{height:166px!important}
+html body .storyboard .phone .crm56-identity .person-face.photo,html body .storyboard .phone .crm56-identity .crm-tile-info{height:148px!important}
+html body .storyboard .phone .ux-content:has(>.crm56-identity){gap:5px!important}
+html body .storyboard>.stage .phone.phone .ux-content.screen-specific:has(>.crm56-identity.crm-tile){gap:4px!important}
+html body .storyboard>.stage .phone.phone .ux-content.screen-specific>.crm56-identity.crm-tile{height:168px!important;min-height:0!important}
+
+</style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -7164,6 +7196,25 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
 
 </script>
 <script id="nora-sweep2-guard">
-(function(){var REQ=['nora-sweep2','nora-sweep2-js','nora-fnb','nora-fnb-js','nora-start','nora-start-js','nora-iv','nora-iv-js'];function chk(){var miss=REQ.filter(function(id){return !document.getElementById(id);});if(!miss.length)return;var d=document.createElement('div');d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:#c0142c;color:#fff;font:900 16px system-ui;padding:10px 14px';d.textContent='NORA design-system block missing: '+miss.join(', ')+' — restore from git (see DESIGN_RULES.md)';document.body.appendChild(d);}window.addEventListener('load',chk);})();
+(function(){var REQ=['nora-sweep2','nora-sweep2-js','nora-fnb','nora-fnb-js','nora-start','nora-start-js','nora-iv','nora-iv-js','nora-s3','nora-s3-js'];function chk(){var miss=REQ.filter(function(id){return !document.getElementById(id);});if(!miss.length)return;var d=document.createElement('div');d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:#c0142c;color:#fff;font:900 16px system-ui;padding:10px 14px';d.textContent='NORA design-system block missing: '+miss.join(', ')+' — restore from git (see DESIGN_RULES.md)';document.body.appendChild(d);}window.addEventListener('load',chk);})();
+</script>
+<script id="nora-s3-js">
+(function(){
+ var SEL='.nora-ai-head,.nr-head,.wf32-section,.screen-top>b,.fb-h,.np4-heading,.move7-heading';
+ var norm=function(s){return (s||'').toLowerCase().replace(/[^a-z0-9]/g,'');};
+ function head2(hd){var L=[].slice.call(hd.querySelectorAll('*')).filter(function(e){return e.children.length===0&&e.textContent.trim().length>2&&!/^NORA$/i.test(e.textContent.trim());}).map(function(e){return e.textContent.trim();});return L[1]||'';}
+ function pass(){
+  document.querySelectorAll('.storyboard .phone').forEach(function(ph){
+   var hd=ph.querySelector('.ux-head'),uc=ph.querySelector('.ux-content');if(!hd||!uc)return;
+   var h=norm(head2(hd));if(h.length<4)return;
+   var first=null;[].slice.call(uc.querySelectorAll(SEL)).some(function(e){if(e.classList.contains('n-dup')){first=1;return true;}var r=e.getBoundingClientRect();if(!r.height)return false;first=e;return true;});
+   if(first&&first!==1){var t=norm(first.textContent);if(t.length>=4&&(t===h||h.indexOf(t)===0||t.indexOf(h)===0&&/live|session|team/.test(t.slice(h.length)))){
+     var inFirst=false;var top=uc.getBoundingClientRect().top;if(first.getBoundingClientRect().top-top<70){first.classList.add('n-dup');}}}
+  });}
+ var q=0;function sched(){if(q)return;q=setTimeout(function(){q=0;pass();},30);}
+ new MutationObserver(sched).observe(document.body,{childList:true,subtree:true});
+ pass();
+})();
+
 </script>
 </body></html>
