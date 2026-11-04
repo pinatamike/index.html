@@ -45,3 +45,10 @@ Interactive prototype. The desktop Live Table becomes the control center for the
 - **Money actions:** Form → Review → Confirm/Change. Values are kept across Change. After confirming, the panel returns to the player or session context.
 - **Demo only:** results are labeled "DEMO · NOT POSTED · REF DEMO-n". Nothing reaches a backend.
 - **Rule: no scrolling** on any screen, with rare exceptions. Verified at 1024×768, 1280×800, 1440×900 and 1920×1080.
+
+## Control Center v2 (`control-center.html`) — one responsive file
+- **≥1000px (desktop, tablet landscape):** icon rail (76px, overlay-expands on hover/tap, pin button keeps it open) · header · KPI strip · portrait seat grid 4×3 · right Control Center panel (Selected seat → Session actions → Status & alerts → Recent activity).
+- **768–999px (tablet portrait):** same rail, grid 3×4, panel becomes a right drawer opened by seat tap or TASKS.
+- **<768px (mobile):** no rail; hamburger drawer + 5-tab bottom nav, grid 3×4, panel is a bottom sheet (seat tap or tasks button).
+- Seat tiles: fixed 0.84 portrait ratio sized from the canvas, photo fills, white name only, no amount (buy-ins live in the Selected seat card), square 32px yellow seat badge (26px on mobile).
+- Demo staff names: Anna, Costa, Alex.
