@@ -4449,7 +4449,7 @@ const RPT={
  team(){const c=RPT.cop;const p=(n,face,h,tip,pay,owed)=>'<div class="rpt-person">'+face+'<div><b>'+n+'</b><span>'+h+'</span></div><div class="rpt-pay"><b>'+c(pay)+'</b><em class="'+(owed?'neg':'pos')+'">'+(owed?'OWED':'PAID')+'</em></div></div>';return '<div class="rpt">'+
   RPT.hero('amber','TEAM PAY',c('360,000'),'3 ON SHIFT · 16h 30m · TIPS '+c('30,000'))+
   '<div class="rpt-card"><div class="rpt-stack"><i class="green" style="width:67%">67%</i><i class="red" style="width:33%">33%</i></div><div class="rpt-legend2"><span class="pos">PAID '+c('240,000')+'</span><span class="neg">OWED '+c('120,000')+'</span></div></div>'+
-  p('Anna',portrait('Anna','A',true),'5h 30m','15,000','150,000',false)+p('Carlos',portrait('Carlos','C'),'5h 30m','10,000','120,000',true)+p('Mia',portrait('Mia','M'),'5h 30m','5,000','90,000',false)+'</div>';},
+  p('Anna',portrait('Anna','A',true),'5h 30m','15,000','150,000',false)+p('Costa',portrait('Costa','C'),'5h 30m','10,000','120,000',true)+p('Alex',portrait('Alex','A'),'5h 30m','5,000','90,000',false)+'</div>';},
  expense(){const c=RPT.cop;const it=(k,l,v,pct)=>'<div class="rpt-leg"><i class="'+k+'"></i><div><span>'+l+' · '+pct+'%</span><b>'+c(v)+'</b></div></div>';return '<div class="rpt">'+
   RPT.hero('red','TOTAL EXPENSES',c('1,595,000'),'SUNDAY · OCT 25')+
   '<div class="rpt-card rpt-donut-card"><div class="rpt-donut"></div><div class="rpt-legend">'+it('purple','VENUE','1,000,000',63)+it('amber','TEAM','360,000',23)+it('teal','DRINKS','150,000',9)+it('blue','OTHER','85,000',5)+'</div></div>'+
@@ -4905,7 +4905,7 @@ const WF32_DATA={
  ['Uri',2,8,'Cashed out',350000,500000,'3h 05m']
  ],
  tables:[{name:'Table 1',rake:450000,minutes:330,stack:625000},{name:'Table 2',rake:330000,minutes:300,stack:535000}],
- staff:[{name:'Anna',hours:'5h 30m',earn:150000,advance:100000,settled:50000,due:0,tips:15000},{name:'Carlos',hours:'5h 30m',earn:120000,advance:0,settled:0,due:120000,tips:10000},{name:'Mia',hours:'5h 30m',earn:90000,advance:0,settled:90000,due:0,tips:5000}],
+ staff:[{name:'Anna',hours:'5h 30m',earn:150000,advance:100000,settled:50000,due:0,tips:15000},{name:'Costa',hours:'5h 30m',earn:120000,advance:0,settled:0,due:120000,tips:10000},{name:'Alex',hours:'5h 30m',earn:90000,advance:0,settled:90000,due:0,tips:5000}],
  expenses:[{name:'Venue',items:[['Venue rental',1000000]]},{name:'Drinks',items:[['Beer purchases',90000],['Mixers',60000]]},{name:'Other',items:[['Supplies',50000],['Transport',35000]]}],
  accounts:[['Cashbox',4500000],['Nequi',500000],['Bancolombia',300000]],
  debtors:[{name:'Diego',balance:150000,status:'Unpaid'},{name:'Uri',balance:50000,status:'Unpaid'}],
@@ -6284,28 +6284,28 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   function(){return person('Diego R.','Player · Seat 7')+menuGrid('Beverages','Red Bull')+foot(['BACK','27:1'],['NEXT','27:3']);},
   function(){var p=prod('Red Bull');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>For Diego R. · Player · Seat 7</small></div></div>'+qty(1)+sellcomp('sell',p.p,'Players: energy drinks at menu price')+foot(['BACK','27:2'],['PAYMENT','27:4']);},
   function(){return H('How is Diego paying?',cop(10000)+' · Red Bull × 1')+pay('Chips')+foot(['BACK','27:3'],['REVIEW','27:5']);},
-  function(){var p=prod('Red Bull');return H('Review order')+prow(p,'<b>× 1</b>','Sale · '+CATLBL[p.c])+'<div class="fb-rows">'+row('Recipient','Diego R. · Player · Seat 7')+row('Type','SALE')+row('Price',cop(10000))+row('Payment','Chips')+row('Staff','Mia · Waitress')+'</div>'+foot(['CHANGE','27:3'],['CONFIRM','27:6']);},
-  function(){return success('SALE RECORDED','Red Bull × 1 · Diego R. · Chips')+'<div class="fb-rows">'+row('Amount',cop(10000))+row('Recipient','Player · Seat 7')+row('Today · Diego','1 sale · 3 comps')+'</div>'+audit('Mia · Waitress','10:14 PM','FB-DEMO-31')+
+  function(){var p=prod('Red Bull');return H('Review order')+prow(p,'<b>× 1</b>','Sale · '+CATLBL[p.c])+'<div class="fb-rows">'+row('Recipient','Diego R. · Player · Seat 7')+row('Type','SALE')+row('Price',cop(10000))+row('Payment','Chips')+row('Staff','Alex · Waitress')+'</div>'+foot(['CHANGE','27:3'],['CONFIRM','27:6']);},
+  function(){return success('SALE RECORDED','Red Bull × 1 · Diego R. · Chips')+'<div class="fb-rows">'+row('Amount',cop(10000))+row('Recipient','Player · Seat 7')+row('Today · Diego','1 sale · 3 comps')+'</div>'+audit('Alex · Waitress','10:14 PM','FB-DEMO-31')+
    '<button type="button" class="fb-wide" data-rn-route="27:3">'+I('repeat')+'<b>REPEAT ORDER</b><small>Same recipient · Red Bull × 1</small></button>'+foot(['NEW ORDER','27:0'],['TABLE VIEW','1:2']);}
  ]};
 
  /* ===== WF28 · Comp for player, then guest order ===== */
  S[28]={heads:['Comp for player','Comp recorded',"Player's guest",'Guest order','Records'],title:"Comp for a player · order for the player's guest",steps:['Comp for player','Comp recorded · Repeat for guest',"Player's guest",'Guest order · Sell','Two separate records'],sec:'LIVE SESSION',screens:[
   function(){var p=prod('Aguila beer');return person('Diego R.','Player · Seat 7')+'<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>Beverages · per bottle</small></div></div>'+qty(3)+sellcomp('comp',p.p,'Players: beer complimentary')+foot(['CHANGE','27:2'],['CONFIRM COMP','28:1']);},
-  function(){return success('COMP RECORDED','Aguila × 3 · Diego R.')+'<div class="fb-rows">'+row('Type','COMP · '+cop(0))+row('Recipient','Diego R. · Player')+row('Comps today','3 of no limit')+'</div>'+audit('Mia · Waitress','10:02 PM','FB-DEMO-28')+
+  function(){return success('COMP RECORDED','Aguila × 3 · Diego R.')+'<div class="fb-rows">'+row('Type','COMP · '+cop(0))+row('Recipient','Diego R. · Player')+row('Comps today','3 of no limit')+'</div>'+audit('Alex · Waitress','10:02 PM','FB-DEMO-28')+
    '<button type="button" class="fb-wide" data-rn-route="28:2">'+I('guest')+"<b>ORDER FOR DIEGO'S GUEST</b><small>Separate record · linked to Diego</small></button>"+foot(['NEW ORDER','27:0'],['DONE','1:2']);},
   function(){return H('Who is it for?')+recip('g')+'<div class="fb-link">'+portrait('Diego R.','D',true)+'<div><small>GUEST OF</small><b>Diego R. · Seat 7</b></div></div><label class="fb-field"><span>Guest name · optional</span><input value="Laura"></label>'+foot(['BACK','28:1'],['MENU','28:3']);},
   function(){var p=prod('Aguila beer');return '<div class="fb-pick">'+art(p.k)+"<div><b>"+p.n+"</b><small>For Laura · Diego's guest</small></div></div>"+qty(2)+sellcomp('sell',p.p,"Players' guests: menu price")+'<div class="fb-paym">'+[['chips','Chips'],['cash','Cash'],['phone','Nequi']].map(function(x){return '<button type="button" class="fb-tab'+(x[1]==='Cash'?' sel':'')+'" data-fb-group="pm">'+I(x[0])+x[1]+'</button>';}).join('')+'</div>'+foot(['BACK','28:2'],['CONFIRM SALE','28:4']);},
-  function(){var p=prod('Aguila beer');return success('GUEST SALE RECORDED','Aguila × 2 · Laura · Cash')+H('Diego · today')+prow(p,'<b>COMP × 3</b>','Diego R. · Player')+prow(p,'<b>'+cop(20000)+'</b>',"Laura · Diego's guest · × 2")+audit('Mia · Waitress','10:05 PM','FB-DEMO-29')+foot(['REPEAT','28:3'],['DONE','1:2']);}
+  function(){var p=prod('Aguila beer');return success('GUEST SALE RECORDED','Aguila × 2 · Laura · Cash')+H('Diego · today')+prow(p,'<b>COMP × 3</b>','Diego R. · Player')+prow(p,'<b>'+cop(20000)+'</b>',"Laura · Diego's guest · × 2")+audit('Alex · Waitress','10:05 PM','FB-DEMO-29')+foot(['REPEAT','28:3'],['DONE','1:2']);}
  ]};
 
  /* ===== WF29 · Game guest + authorized override ===== */
  S[29]={heads:['Game guest','Suggested price','Override','Recorded'],title:'Game guest order with authorized override',steps:['Game guest','Default: sell at menu price','Override to Comp','Override recorded'],sec:'LIVE SESSION',screens:[
-  function(){return H('Who is it for?')+recip('v')+'<label class="fb-field"><span>Guest name · optional</span><input value="Carlos · visitor"></label>'+note('A game guest is a visitor not linked to any player.')+foot(['BACK','27:0'],['MENU','29:1']);},
-  function(){var p=prod('Water');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>For Carlos · Game guest</small></div></div>'+qty(1)+sellcomp('sell',p.p,'Game guests: menu price')+foot(['BACK','29:0'],['OVERRIDE','29:2']);},
-  function(){var p=prod('Water');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+' × 1</b><small>Carlos · Game guest</small></div></div>'+'<div class="fb-sc"><button type="button" class="fb-tile sell" data-fb-group="sc">'+I('coin')+'<b>SELL</b><small>'+cop(3000)+'</small></button><button type="button" class="fb-tile comp sel" data-fb-group="sc">'+I('gift')+'<b>COMP</b><small>Override</small></button></div>'+
+  function(){return H('Who is it for?')+recip('v')+'<label class="fb-field"><span>Guest name · optional</span><input value="Costa · visitor"></label>'+note('A game guest is a visitor not linked to any player.')+foot(['BACK','27:0'],['MENU','29:1']);},
+  function(){var p=prod('Water');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+'</b><small>For Costa · Game guest</small></div></div>'+qty(1)+sellcomp('sell',p.p,'Game guests: menu price')+foot(['BACK','29:0'],['OVERRIDE','29:2']);},
+  function(){var p=prod('Water');return '<div class="fb-pick">'+art(p.k)+'<div><b>'+p.n+' × 1</b><small>Costa · Game guest</small></div></div>'+'<div class="fb-sc"><button type="button" class="fb-tile sell" data-fb-group="sc">'+I('coin')+'<b>SELL</b><small>'+cop(3000)+'</small></button><button type="button" class="fb-tile comp sel" data-fb-group="sc">'+I('gift')+'<b>COMP</b><small>Override</small></button></div>'+
    '<div class="fb-tabs reason">'+['Host courtesy','First visit','Other'].map(function(r,j){return '<button type="button" class="fb-tab'+(j===0?' sel':'')+'" data-fb-group="rs">'+r+'</button>';}).join('')+'</div>'+note(I('lock')+' Override by <b>Alex · Cashier</b> · within comp limit','def')+foot(['CANCEL','29:1'],['CONFIRM','29:3']);},
-  function(){return success('COMP RECORDED · OVERRIDE','Water × 1 · Carlos · Game guest')+'<div class="fb-rows">'+row('Suggested','SELL · '+cop(3000))+row('Recorded','COMP · '+cop(0))+row('Reason','Host courtesy')+row('Approved by','Alex · Cashier')+'</div>'+audit('Alex · Cashier','10:22 PM','FB-DEMO-33')+foot(['NEW ORDER','27:0'],['DONE','1:2']);}
+  function(){return success('COMP RECORDED · OVERRIDE','Water × 1 · Costa · Game guest')+'<div class="fb-rows">'+row('Suggested','SELL · '+cop(3000))+row('Recorded','COMP · '+cop(0))+row('Reason','Host courtesy')+row('Approved by','Alex · Cashier')+'</div>'+audit('Alex · Cashier','10:22 PM','FB-DEMO-33')+foot(['NEW ORDER','27:0'],['DONE','1:2']);}
  ]};
 
  /* ===== WF30 · Check inventory at any time ===== */
@@ -6582,12 +6582,12 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  var PEND=function(n,r,ch){return '<div class="st-inv"><div><b>'+n+'</b><small>'+r+' · '+ch+' · pending</small></div><button type="button" class="st-revoke" data-st-revoke="1">REVOKE</button></div>';};
  S[66]={sec:'SETTINGS',nav:'Settings',steps:['Team access · pending invitations','Who to invite','Role and channel','Review and send','Invitation sent'],heads:['Team Access','Who','Role & Channel','Review & Send','Sent'],
   screens:[
-  function(){return '<div class="st-gh">PENDING INVITATIONS</div>'+PEND('Carlos','Dealer','WhatsApp')+PEND('Mia','Waitress','Email')+'<div class="st-gh">ON THE TEAM</div><div class="fb-rows">'+row('Anna','Dealer')+row('Alex','Cashier')+'</div>'+note('Inviting is never required to start a game.')+foot(['BACK','60:0'],['INVITE','66:1']);},
-  function(){return '<div class="fb-grid2 st-fg">'+fld('Name','Type a name')+fld('WhatsApp or email','+57 ···')+'</div><div class="st-gh">RECENT CONTACTS</div>'+['Carlos','Mia','Rafa'].map(function(n){return '<button type="button" class="fb-li" data-rn-route="66:2">'+I('user')+'<div><b>'+n+'</b><small>From contacts</small></div><span class="fb-chev">›</span></button>';}).join('')+foot(['BACK','66:0'],['NEXT','66:2']);},
+  function(){return '<div class="st-gh">PENDING INVITATIONS</div>'+PEND('Costa','Dealer','WhatsApp')+PEND('Alex','Waitress','Email')+'<div class="st-gh">ON THE TEAM</div><div class="fb-rows">'+row('Anna','Dealer')+row('Alex','Cashier')+'</div>'+note('Inviting is never required to start a game.')+foot(['BACK','60:0'],['INVITE','66:1']);},
+  function(){return '<div class="fb-grid2 st-fg">'+fld('Name','Type a name')+fld('WhatsApp or email','+57 ···')+'</div><div class="st-gh">RECENT CONTACTS</div>'+['Costa','Alex','Rafa'].map(function(n){return '<button type="button" class="fb-li" data-rn-route="66:2">'+I('user')+'<div><b>'+n+'</b><small>From contacts</small></div><span class="fb-chev">›</span></button>';}).join('')+foot(['BACK','66:0'],['NEXT','66:2']);},
   function(){var t=function(ic,n,s,sel){return '<button type="button" class="fb-tile'+(sel?' sel':'')+'" data-fb-group="ch">'+I(ic)+'<b>'+n+'</b><small>'+s+'</small></button>';};
    return chips('Role',['DEALER','CASHIER','WAITRESS','CHEF'],0,'rl')+'<div class="st-gh">SEND VIA</div><div class="fb-grid2 st-ch">'+t('chat','WHATSAPP','Message',1)+t('mail','EMAIL','Link')+'</div>'+foot(['BACK','66:1'],['NEXT','66:3']);},
   function(){return '<div class="st-card"><b class="st-big">CARLOS</b><small>Ready to send</small></div><div class="fb-rows">'+row('Role','Dealer')+row('Channel','WhatsApp')+row('Access','Seating · table actions')+'</div>'+note('Nothing is sent from this prototype.')+foot(['BACK','66:2'],['SEND INVITATION','66:4']);},
-  function(){return '<div class="fb-ok">'+I('check')+'<b>INVITATION READY</b><small>Carlos · Dealer · WhatsApp</small></div>'+note('Preview only. In production Carlos receives a secure link and shows as pending.')+foot(['TEAM ACCESS','66:0']);}
+  function(){return '<div class="fb-ok">'+I('check')+'<b>INVITATION READY</b><small>Costa · Dealer · WhatsApp</small></div>'+note('Preview only. In production Costa receives a secure link and shows as pending.')+foot(['TEAM ACCESS','66:0']);}
  ]};
 
  /* ---------- install ---------- */
