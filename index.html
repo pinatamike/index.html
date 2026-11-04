@@ -2288,7 +2288,7 @@ html body .storyboard>.stage:has(.snap-phone){width:auto!important;min-width:0!i
 </style>
 <style id="nora-s3">
 /* NORA sweep3 — global spacing/tile/title consistency (tokens) */
-:root{--n-gap:7px;--n-pad:5px;--n-row-h:60px;--n-row-max:76px;--n-tile-min:72px;--n-btn:63px}
+:root{--n-nav-gap:12px;--n-gap:7px;--n-pad:5px;--n-row-h:60px;--n-row-max:76px;--n-tile-min:72px;--n-btn:63px}
 /* equal tile heights across all rows of a tile grid */
 html body .storyboard .phone .fb-grid2:has(>.fb-tile),html body .storyboard .phone .fb-grid3:has(>.fb-tile){grid-auto-rows:1fr!important}
 /* Nora assist tiles: always full-width, never overlapping */
@@ -2327,6 +2327,14 @@ html body .storyboard .phone.iv-player .fb-body>.fb-ok+.fb-rows>*{max-height:non
 html body .storyboard .phone .ux-content>.wf11-status{flex:1 1 auto!important}
 html body .storyboard .phone .fb-body>.fb-cat{flex:1 1 0!important;min-height:0!important;overflow:hidden!important}
 html body .storyboard .phone .fb-body>.fb-cat>*{flex:1 1 0!important;min-height:0!important;max-height:72px!important}
+
+/* global bottom-nav clearance: action tiles never touch the fixed bottom navigation */
+html body .storyboard .phone.hi-phone>.ux-content{padding-bottom:var(--n-nav-gap)!important;box-sizing:border-box!important}
+/* tighter content rhythm so the nav clearance fits without scrolling */
+html body .storyboard .phone.hi-phone .fb-body{gap:5px!important}
+html body .storyboard .phone.hi-phone .fb-note{padding:5px 10px!important}
+/* screens without a pinned footer scroll instead of clipping rows */
+html body .storyboard .phone.hi-phone .fb-body:not(:has(.fb-foot)){overflow-y:auto!important}
 
 </style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
@@ -7153,7 +7161,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
 
  /* ---------- 6c. balance: rows share the free space, footer sits at the bottom ---------- */
  var ROWS='.wf32-line,.snap-row,.dc-line,.sch-row,.ns-stat,.nr-row,.nora-ai-row,.shared-data>div,.screen-field,.crm56-row';
- function balance(ph){var uc=ph.querySelector('.ux-content');if(!uc||uc.dataset.s2b)return;var U=uc.getBoundingClientRect();if(!U.height)return;uc.dataset.s2b=1;
+ function balance(ph){var uc=ph.querySelector('.ux-content');if(!uc||uc.dataset.s2b)return;var U0=uc.getBoundingClientRect(),pb0=parseFloat(getComputedStyle(uc).paddingBottom)||0,U={top:U0.top,bottom:U0.bottom-pb0,height:U0.height-pb0,left:U0.left,right:U0.right};if(!U.height)return;uc.dataset.s2b=1;
   var foots=[].slice.call(uc.querySelectorAll('.s2-foot,.wf32-footer-button,.dc-bottom,.shared-action.rn-close,.ns-footer,.nr-actions')).filter(function(f){return f.getBoundingClientRect().height>0&&!f.parentElement.closest('.s2-foot,.dc-bottom,.ns-footer,.nr-actions');});
   var ftop=foots.length?Math.min.apply(null,foots.map(function(f){return f.getBoundingClientRect().top;})):U.bottom;
   var fh=foots.reduce(function(a,f){return a+f.getBoundingClientRect().height+8;},0);

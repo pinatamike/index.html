@@ -125,3 +125,8 @@ The restored UI is harmonized by three blocks. They must stay last: `nora-sweep2
 - Nora assist tiles are full-width; ledger/report rows and team lists/cards grow evenly to fill free space (max heights), no phantom scroll.
 - Body titles that repeat the header's 2nd line are hidden automatically (`.n-dup`), see `s3.js`.
 - Audit method: DOM geometry at 320/375/390/430/768/1440 plus screenshots of all 303 screens (71 workflows).
+
+## Settings bottom navigation & clearance
+- One bottom-nav component (`.s2-nav`, sweep2): 5 tabs Tables/Players/Team/Reporting/Settings, 61px, identical on every screen; WF59–66 always mark Settings active.
+- Global token `--n-nav-gap:12px` (s3.css) pads `.phone.hi-phone .ux-content` so action tiles never touch the nav. The sweep2 footer pinning now subtracts that padding.
+- Screens without a pinned footer scroll instead of clipping rows.
