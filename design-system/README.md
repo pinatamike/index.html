@@ -4,6 +4,7 @@
 
 - Visual rules: [`../DESIGN_RULES.md`](../DESIGN_RULES.md)
 - Prototype: `index.html` (branch `nora-ux-review-draft`)
+- Desktop / tablet layouts: [`../desktop/`](../desktop/README.md). Approved sample: `desktop/table-view.html`
 - Restore point before the master sweep: branch `backup-before-master-sweep-branch`
 
 ## Required blocks in `index.html` (do not delete, rename or reorder)
