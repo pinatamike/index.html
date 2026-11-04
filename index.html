@@ -2316,6 +2316,17 @@ html body .storyboard .phone .crm56-identity .person-face.photo,html body .story
 html body .storyboard .phone .ux-content:has(>.crm56-identity){gap:5px!important}
 html body .storyboard>.stage .phone.phone .ux-content.screen-specific:has(>.crm56-identity.crm-tile){gap:4px!important}
 html body .storyboard>.stage .phone.phone .ux-content.screen-specific>.crm56-identity.crm-tile{height:168px!important;min-height:0!important}
+/* WF27 menu grid: equal tiles */
+html body .storyboard .phone .fb-mgrid{grid-auto-rows:1fr!important}
+/* WF64 catalog: duplicate title removed, rows compact so footer buttons are never pushed off-screen */
+html body .storyboard .phone .fb-body>.fb-h:has(+.fb-cat){display:none!important}
+html body .storyboard .phone .fb-body>.fb-cat{gap:5px!important}
+/* RSVP rows fill their panel */
+html body .storyboard .phone.iv-player .fb-body>.fb-ok+.fb-rows>*{max-height:none!important;height:auto!important;flex:1 1 0!important;min-height:0!important}
+/* WF11 paused: status fills space above the resume button */
+html body .storyboard .phone .ux-content>.wf11-status{flex:1 1 auto!important}
+html body .storyboard .phone .fb-body>.fb-cat{flex:1 1 0!important;min-height:0!important;overflow:hidden!important}
+html body .storyboard .phone .fb-body>.fb-cat>*{flex:1 1 0!important;min-height:0!important;max-height:72px!important}
 
 </style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
@@ -7204,6 +7215,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  var norm=function(s){return (s||'').toLowerCase().replace(/[^a-z0-9]/g,'');};
  function head2(hd){var L=[].slice.call(hd.querySelectorAll('*')).filter(function(e){return e.children.length===0&&e.textContent.trim().length>2&&!/^NORA$/i.test(e.textContent.trim());}).map(function(e){return e.textContent.trim();});return L[1]||'';}
  function pass(){
+  document.querySelectorAll('.wf11-banner-text').forEach(function(e){if(/^table paused$/i.test(e.textContent.trim()))e.textContent='TIMER STOPPED';});
   document.querySelectorAll('.storyboard .phone').forEach(function(ph){
    var hd=ph.querySelector('.ux-head'),uc=ph.querySelector('.ux-content');if(!hd||!uc)return;
    var h=norm(head2(hd));if(h.length<4)return;
