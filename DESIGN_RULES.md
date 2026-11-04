@@ -108,3 +108,9 @@ The restored UI is harmonized by three blocks. They must stay last: `nora-sweep2
 - WF59: three screens (Meet Nora, Configure, Review & Ready) + Nora listening/confirm/rake-help states. SAVE & START FIRST SESSION routes to WF2 review.
 - WF60: Settings home (7 sections + "Finish setting up your business" banner after first session), checklist (8 items, progress, skip, Nora help, dismiss/restore, saved in localStorage for the demo), game templates.
 - WF61–66 updated in place (Account Balances, optional Sign & Settle, role presets by module, Profile & Preferences, 3-part invitations).
+
+## Invitations, RSVP & WhatsApp — required blocks
+- Order: `nora-fnb*`, `nora-start*`, `nora-iv` (CSS) / `nora-iv-js`, then `nora-sweep2*`. Guard REQ list includes all eight.
+- Integrated in place: WF48 (schedule + Settings → Invitations & WhatsApp), WF49 (invite), WF50/52 (player mobile web link, no NORA chrome or nav), WF51 (dashboard, roster, Nora), WF53 (start + reservations on the approved grid), WF8 (unified waitlist + offers), WF54 (consent/history), WF68 (attendance), WF60 checklist item 9.
+- A reservation is never a buy-in. Reserved seats use a dashed amber border + badge on the existing seat tiles. All times are computed from the demo clock; WhatsApp threads are labelled SIMULATED.
+- Backend spec and runnable tests: `backend-spec/invitations/` (`node tests.js`).
