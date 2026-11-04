@@ -188,19 +188,20 @@ small{font-size:65%;color:var(--cop);font-weight:900}
 .hamb,.tasksbtn,.bnav,.scrim{display:none}
 /* grid: portrait tiles, always filling the canvas at a fixed ratio */
 .gridwrap{flex:1;min-height:0;container-type:size}
-.grid{--cols:4;--rows:3;--gap:10px;--r:.84;width:100%;height:100%;
- --tw:min(calc((100cqw - (var(--cols) - 1)*var(--gap))/var(--cols)),calc((100cqh - (var(--rows) - 1)*var(--gap))/var(--rows)*var(--r)));
- display:grid;grid-template-columns:repeat(var(--cols),var(--tw));grid-template-rows:repeat(var(--rows),calc(var(--tw)/var(--r)));justify-content:center;align-content:center;gap:var(--gap)}
-.ph img{width:132%;max-width:none;height:138%;margin-left:-24%;object-position:50% 0}
+.grid{--cols:4;--rows:3;--gap:10px;--rmax:1.2;--rmin:.85;width:100%;height:100%;
+ --w:calc((100cqw - (var(--cols) - 1)*var(--gap))/var(--cols));--h:calc((100cqh - (var(--rows) - 1)*var(--gap))/var(--rows));
+ --tw:min(var(--w),calc(var(--h)*var(--rmax)));--th:min(var(--h),calc(var(--tw)/var(--rmin)));
+ display:grid;grid-template-columns:repeat(var(--cols),var(--tw));grid-template-rows:repeat(var(--rows),var(--th));justify-content:space-between;align-content:space-between;gap:var(--gap)}
+.ph img{width:140%;max-width:none;height:138%;margin-left:-30%;object-fit:cover;object-position:50% 0}
 .lab{padding:34px 8px 10px}
-.lab b{font-size:clamp(16px,1.35vw,21px);overflow:hidden;text-overflow:ellipsis}
+.lab b{font-size:clamp(17px,1.4vw,23px);white-space:normal;overflow:visible;text-overflow:clip;line-height:1.1;overflow-wrap:anywhere}
 /* seat badge: square, inset, high contrast */
 .no{top:8px;left:8px;width:32px;height:32px;padding:0;display:grid;place-items:center;background:#ffc529;border:0;box-shadow:0 0 0 2px #04121f;color:#04121f;font-size:18px;font-weight:900;line-height:1}
 .ssf{top:8px;right:8px;box-shadow:0 0 0 2px #04121f}
 .seat.empty .no{background:#0b3a58;color:#cfe9f7;box-shadow:0 0 0 2px #2f84b3}
 /* rail: collapsed by default, overlay-expands, can be pinned */
-.app{grid-template-columns:var(--rail) minmax(0,1fr) clamp(360px,27vw,440px)}
-.app.pinned{grid-template-columns:232px minmax(0,1fr) clamp(360px,27vw,440px)}
+.app{grid-template-columns:var(--rail) minmax(0,1fr) clamp(340px,24vw,440px)}
+.app.pinned{grid-template-columns:232px minmax(0,1fr) clamp(340px,24vw,440px)}
 .side{position:relative;z-index:30;width:var(--rail);overflow:hidden;transition:width .16s ease;padding:12px 10px}
 .app.pinned .side{width:232px}
 .side:hover,.side.exp{width:var(--rail-w);overflow-y:auto;box-shadow:12px 0 28px rgba(0,0,0,.55)}
@@ -233,7 +234,7 @@ small{font-size:65%;color:var(--cop);font-weight:900}
 .acts4 .act .i{width:24px;height:24px}
 .qgrid{gap:8px}
 .qt{height:62px;flex-direction:row;align-items:center;justify-content:flex-start;gap:10px;padding:6px 10px}
-.qt>div{min-width:0;text-align:left}.qt b{display:block;font-size:15px;line-height:1.15}.qt span{display:block;font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qt>div{min-width:0;text-align:left}.qt b{display:block;font-size:15px;line-height:1.15;white-space:nowrap}.qt span{display:block;font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .qt .qi{width:26px;height:26px;flex:none}
 .al{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 10px;border:2px solid;font-size:15px;font-weight:800;text-align:left;width:100%}
 .al .i{width:20px;height:20px}.al span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.al b{font-size:15px;font-weight:900;white-space:nowrap}
@@ -295,6 +296,8 @@ small{font-size:65%;color:var(--cop);font-weight:900}
  .toast{bottom:90px}
 }
 @media (max-width:359px){.seat.wait .hint{display:none}.seat.empty .i.huge{margin-top:16px}.kpi{flex-direction:column;align-items:flex-start;gap:0}.ht{display:none}.ttab{padding:0 8px}.head{gap:6px}.bt span{font-size:11.5px}}
+@media (max-height:940px) and (min-width:1000px){.app{grid-template-rows:64px minmax(0,1fr)}.main{padding:10px 14px;gap:10px}.kpi{padding:6px 12px}.kpi b{font-size:22px}.panel{padding:10px;gap:8px}.sel .pic{width:64px;height:78px}.sel{padding:6px}.sel .pinfo b{font-size:20px}.sel .pinfo strong{font-size:20px}.qt{height:50px}.qgrid{gap:6px}.acts4 .act{height:50px}.al{min-height:34px}.sec{gap:6px;padding-top:6px}.warn{padding:5px 10px}}
+@media (max-height:800px) and (min-width:1000px){.sec.grow{min-height:56px}.row{min-height:30px}.empty{padding:4px 0}}
 @media (max-height:760px) and (min-width:1000px){.sel .pic{width:70px;height:84px}.qt{height:54px}.acts4 .act{height:52px}.al{min-height:38px}}
 </style></head><body>
 <div class="app">
@@ -340,7 +343,7 @@ function renderGrid(){
  for(var n=1;n<=10;n++){var p=S.seats[t][n];
   if(!p){h+='<button class="seat empty'+(S.panel==='move'&&S.draft.toT==t&&S.draft.toS==n?' target':'')+'" data-seat="'+n+'" aria-label="Seat '+n+' open"><span class="no">'+n+'</span>'+ic('plusc','i huge')+'<b>SEAT OPEN</b></button>';continue;}
   var sel=S.sel&&S.sel.t==t&&S.sel.s==n;
-  h+='<button class="seat t-'+tones[n-1]+(sel?' sel':'')+'" data-seat="'+n+'"><span class="no">'+n+'</span>'+(p.photo?'<span class="ph"><img src="'+P[p.photo]+'" alt=""></span>':'<span class="ph ini">'+ini(p.name)+'</span>')+'<span class="lab"><b>'+esc(short(p.name))+'</b></span>'+(p.ss?'<span class="ssf" title="Sign & Settle outstanding">S&amp;S</span>':'')+'</button>';}
+  h+='<button class="seat t-'+tones[n-1]+(sel?' sel':'')+'" data-seat="'+n+'"><span class="no">'+n+'</span>'+(p.photo?'<span class="ph"><img src="'+P[p.photo]+'" alt=""></span>':'<span class="ph ini">'+ini(p.name)+'</span>')+'<span class="lab"><b>'+esc(p.name)+'</b></span>'+(p.ss?'<span class="ssf" title="Sign & Settle outstanding">S&amp;S</span>':'')+'</button>';}
  var d=DEALER[t];
  h+='<button class="seat dealer" data-go="team">'+(d.photo?'<span class="ph"><img src="'+P[d.photo]+'" alt=""></span>':'<span class="ph ini">'+ini(d.name)+'</span>')+'<span class="lab"><b class="dl">DEALER</b><b>'+d.name+'</b></span></button>';
  h+='<button class="seat wait" data-go="wait">'+ic('wl','i huge')+'<b>WAIT LIST</b><span class="hint">'+S.wait.length+' waiting</span></button>';
@@ -362,7 +365,7 @@ function home(){var p=cur(),lg=S.log.slice(-4).reverse(),ssTot=200000;
  var selH=p?'<div class="sel">'+face(p.photo,p.name,'pic')+'<div class="pinfo"><b>'+esc(p.name)+'</b><span class="s">TABLE '+S.sel.t+' · SEAT '+S.sel.s+'</span><span class="l">TOTAL BUY-INS</span><strong>'+cop(p.buy)+'</strong></div></div>'+(p.ss?'<div class="warn">'+ic('pen','i')+'Owes '+cop(p.ss)+' Sign &amp; Settle</div>':'')+'<div class="acts4"><button class="act a1" data-go="rebuy">'+ic('chip','i')+'REBUY</button><button class="act a2" data-go="cashout">'+ic('out','i')+'CASH-OUT</button><button class="act a3" data-go="move">'+ic('swap','i')+'MOVE</button><button class="act a4" data-go="details">'+ic('doc','i')+'DETAILS</button></div>'
   :'<div class="selempty">'+ic('target','i big')+'<div><b>Select a seat</b><span>Buy-ins, status and actions appear here</span></div></div>';
  var tiles=[['wait','list','WAIT LIST',S.wait.length+' waiting','a'],['expense','receipt','EXPENSES',cop(S.expenses),'r'],['snapshot','chart','SNAPSHOT','Live totals','b'],['team','team','TEAM','3 on shift','p'],['close','check','DAILY CLOSE','4 to review','g'],['nora','mic','ASK NORA','Voice or text','t']];
- var al=[['a','pen','Sign &amp; Settle outstanding',cop(ssTot),'snapshot'],['a','team','Team owed',cop(120000),'team'],['g','list','Wait list',S.wait.length+' waiting','wait']];
+ var al=[['a','pen','Sign &amp; Settle owed',cop(ssTot),'snapshot'],['a','team','Team owed',cop(120000),'team'],['g','list','Wait list',S.wait.length+' waiting','wait']];
  return head('CONTROL CENTER · TABLE '+S.table)+
  '<section class="sec"><div class="stt">SELECTED SEAT</div>'+selH+'</section>'+
  '<section class="sec"><div class="stt">SESSION ACTIONS</div><div class="qgrid">'+tiles.map(function(q){return '<button class="qt q'+q[4]+'" data-go="'+q[0]+'">'+ic(q[1],'i qi')+'<div><b>'+q[2]+'</b><span>'+q[3]+'</span></div></button>';}).join('')+'</div></section>'+
