@@ -107,3 +107,10 @@ Update "Current state" and "Open / next" only if your work changes them.
 - Profile routes to WF65 step 1; Support and Privacy open clearly labeled in-drawer preview information with Back (no invented contact or policy). Follow-up: wire actual support and privacy destinations once designed and approved. Profile avatar currently uses initial 'M' instead of an uploaded owner profile image, since no confirmed linked user image is available in prototype data.
 - Verification: static source checks pass for exactly six direct sections, no arrow markup, all three footer controls, active styling and click handler. Browser-rendered click testing still outstanding; do not claim full visual QA.
 - Code commit: `24326df60d8fda325457c7a28f0850e6ca17f3f2`.
+
+
+### 2026-11-05 · ChatGPT — drawer covers contextual bottom bar (commit 55eecda)
+- Mike's screenshot showed contextual Live Session bottom nav exposed below the open hamburger. The requested open drawer must instead display exactly six main navigation tabs plus its own anchored Profile / SUPPORT / Privacy utility footer.
+- Root cause: drawer was previously sized to END ABOVE the bottom bar. Fixed `drawer(st)` to extend down to the phone bottom (`d.style.bottom='0px'`), overlaying the contextual bar. It reappears when the drawer closes.
+- Verified source contains the `.nn-footer` with Profile, SUPPORT, Privacy and its 72px layout, and z-index 45 on the drawer. No underlying screens or workflows changed. Visual browser verification pending.
+- Code commit `55eecdaa0f693f45d80cd9a36fa7da3eabf15816`; branch `nora-nav-v2`; untouched backup and Gaurav's code.
