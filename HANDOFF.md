@@ -36,7 +36,7 @@ Previews:
 ## Decisions
 - Accounting model in the demo: Net = Rake + F&B sales − (operating expenses + team compensation). Buy-ins/rebuys are chips sold, not revenue. Cash-outs are settlements. Sign & Settle owed is a receivable. Team compensation is counted once.
 - Control Center desktop = rail · player grid · always-visible Snapshot · contextual panel. Tiles stay portrait and are not enlarged.
-- One shared bottom nav (Tables, Players, Team, Reporting, Settings) on every phone screen. Settings workflows always highlight Settings.
+- SUPERSEDED (nora-nav-v2): hamburger = 6 sections (Live Session, Schedule, Reporting, Players, Team, Settings). Bottom bar is contextual: Live Session 6 tabs, Reporting 5, Settings 6, none in Schedule/Players/Team.
 - Settings config is one shared store (`nora.cfg.v2`) read by Settings, WF48 and the checklist.
 
 ## Open / next
@@ -72,3 +72,8 @@ Update "Current state" and "Open / next" only if your work changes them.
 - SHA / preview: `aa57f57`
 - Decisions: this file is the single shared channel between Claude, ChatGPT and Gemini.
 - Open issues: see "Open / next".
+
+### 2026-11-05 · Claude (navigation rework)
+- Did: backup branch `backup-before-nav-rework-20261105` (do not touch). Work continues ONLY on branch `nora-nav-v2`. Six-section hamburger + contextual bottom bars implemented centrally in sweep2 (`ctx()` maps workflow/step to bar+active tab). Removed stray stage-level bars in WF41-46. Audited all 71 workflows at 390/820/1280: one bar max, correct active tab, no clipping.
+- Decisions: WF19-24 = Live Session, Team tab. WF54-58 are Players (data says CRM), no bar. Reporting Accounts/Inventory and Settings Expenses/Hospitality/Players tabs map to nearest existing screens (69:2, 70:0, 64:1, 64:0, 48:2).
+- Open issues: preview not visually seen from raw.githack (own screenshots only).

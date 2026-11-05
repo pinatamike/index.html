@@ -2166,7 +2166,7 @@ html body .storyboard>.stage:has(.snap-phone){width:auto!important;min-width:0!i
 .storyboard .phone .ux-head .ux-close svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:square}
 
 /* -- bottom nav: exactly 5 primary sections, filled icons -- */
-.storyboard .phone .ux-bottom.s2-nav{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;height:61px!important;min-height:61px!important;flex:0 0 61px!important;gap:0!important;padding:4px 0 0!important;margin:0 -6px!important;border-top:2px solid #00baff!important;align-items:stretch!important;background:#020d18!important}
+.storyboard .phone .ux-bottom.s2-nav{display:grid!important;grid-template-columns:repeat(var(--s2n,5),minmax(0,1fr))!important;height:calc(61px + env(safe-area-inset-bottom))!important;min-height:calc(61px + env(safe-area-inset-bottom))!important;flex:0 0 calc(61px + env(safe-area-inset-bottom))!important;padding-bottom:env(safe-area-inset-bottom)!important;box-sizing:border-box!important;gap:0!important;padding:4px 0 0!important;margin:0 -6px!important;border-top:2px solid #00baff!important;align-items:stretch!important;background:#020d18!important}
 .storyboard .phone .ux-bottom.s2-nav .ux-tab{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;border:2px solid transparent!important;border-right:1px solid #13649b!important;background:transparent!important;color:#fff!important;cursor:pointer;padding:0!important;min-width:0!important}
 .storyboard .phone .ux-bottom.s2-nav .ux-tab:last-child{border-right-color:transparent!important}
 .storyboard .phone .ux-bottom.s2-nav .ux-tab.chosen{background:#005638!important;border:2px solid #00ed94!important}
@@ -2299,6 +2299,12 @@ html body .storyboard>.stage:has(.snap-phone){width:auto!important;min-width:0!i
 .storyboard .phone .dc-dashboard .dc-tile strong{white-space:nowrap!important}
 .storyboard .phone .dc-dashboard .dc-date{min-height:34px!important;padding:4px!important}
 .storyboard .phone :is(details,summary,.wf32-group,.nr-card,select,input,textarea){border-radius:0!important}
+
+.storyboard .phone .ux-bottom.s2-nav .ux-tab:nth-child(6) .ux-ico{color:#ff9bb8!important}
+.storyboard .phone .ux-bottom.s2-nav[data-bar=settings] .s2-lbl,.storyboard .phone .ux-bottom.s2-nav[data-bar=live] .s2-lbl{letter-spacing:-.3px!important}
+.storyboard .phone .ux-bottom.s2-nav.s2-none{display:none!important}
+.storyboard .phone .ux-bottom.s2-nav[data-bar=settings] .s2-lbl{font-size:10px!important;letter-spacing:-.3px!important}
+.storyboard .phone .ux-bottom.s2-nav[data-bar=live] .s2-lbl{font-size:10.5px!important;letter-spacing:-.2px!important}
 
 </style>
 <style id="nora-s3">
@@ -7056,34 +7062,52 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  };
  function ic(n,cls){return '<svg class="'+(cls||'')+'" viewBox="0 0 24 24" aria-hidden="true"><path d="'+F[n]+'" fill-rule="evenodd"/></svg>';}
  function valid(r){var p=r.split(':');try{return typeof rnValid!=='function'||rnValid(+p[0],+p[1]);}catch(e){return false;}}
+ /* Hamburger = six sections (navigation between areas). Bottom bar = contextual, only in Live Session, Reporting and Settings. */
  var NAV=[
-  {key:'Tables',icon:'Tables',label:'Live Session',home:'1:2',range:[[1,18],[25,47]],items:[
+  {key:'Live Session',icon:'Tables',label:'Live Session',home:'1:2',items:[
    ['Live Tables','Tables','1:2'],['Seat a Player','seat','3:1'],['Wait List','list','8:1'],['Table Controls','game','11:1'],['Expenses','receipt','25:0'],['Food & Beverage','glass','27:0'],['Inventory','box','30:0'],
    ['Snapshot','chart','32:0'],['Account Balances','card','35:0'],['Sign & Settle','pen','36:0'],['Daily Close','check','40:0'],['Ask Nora','mic','13:0']]},
-  {key:'Players',icon:'Players',label:'Players',home:'54:0',range:[[48,58]],items:[
-   ['Find Player','search','54:0'],['Add Player','plus','55:1'],['Scheduled Games','cal','48:0'],['Invitations','mail','49:0'],['Attendance','list','51:0'],['Arrivals · ETA','clock','52:0']]},
-  {key:'Team',icon:'Team',label:'Team',home:'19:0',range:[[19,24]],items:[
-   ['Team on Shift','Team','19:0'],['Check-in','clock','20:2'],['Chip Tips','coin','21:2'],['Payments & Advances','card','22:2'],['Checkout','check','23:2'],['Earnings & Balances','chart','24:2']]},
-  {key:'Reporting',icon:'Reporting',label:'Reporting',home:'67:0',range:[[67,71]],items:[
+  {key:'Schedule',icon:'cal',label:'Schedule',home:'48:0',items:[
+   ['Scheduled Games','cal','48:0'],['Invitations','mail','49:0'],['Attendance','list','51:0'],['Arrivals · ETA','clock','52:0']]},
+  {key:'Reporting',icon:'Reporting',label:'Reporting',home:'67:0',items:[
    ['Reports Home','chart','67:0'],['Player Reports','user','68:0'],['Rake & Revenue','coin','69:0'],['Team & Expenses','receipt','70:0'],['Export','down','71:0']]},
-  {key:'Settings',icon:'Settings',label:'Settings',home:'60:0',range:[[59,66]],items:[
+  {key:'Players',icon:'Players',label:'Players',home:'54:0',items:[
+   ['Find Player','search','54:0'],['Add Player','plus','55:1']]},
+  {key:'Team',icon:'Team',label:'Team',home:'19:0',items:[
+   ['Team on Shift','Team','19:0'],['Check-in','clock','20:2'],['Chip Tips','coin','21:2'],['Payments & Advances','card','22:2'],['Checkout','check','23:2'],['Earnings & Balances','chart','24:2']]},
+  {key:'Settings',icon:'Settings',label:'Settings',home:'60:0',items:[
    ['Quick Setup','plus','59:0'],['Business Profile & Preferences','user','65:0'],['Game Rules & Tables','game','60:0'],['Account Balances','card','61:0'],['Team Members & Invitations','mail','66:0'],['Team Roles & Permissions','lock','63:0'],['Sign & Settle','pen','62:0'],['Expenses & Inventory','box','64:1'],['Food, Beverage & Menu Pricing','glass','64:0'],['Invitations, RSVP & WhatsApp','cal','48:2'],['Nora AI Preferences','mic','65:1']]}
  ];
- window.NORA_NAV=function(){return NAV.map(function(s){return {key:s.key,icon:s.icon,label:s.label,home:s.home,range:s.range,items:s.items.filter(function(it){return valid(it[2]);})};});};
- function sectionOf(id){for(var i=0;i<NAV.length;i++)for(var j=0;j<NAV[i].range.length;j++){var r=NAV[i].range[j];if(id>=r[0]&&id<=r[1])return NAV[i].key;}return 'Tables';}
- window.NORA_NAV_ICON=ic;window.NORA_NAV_SECTION=sectionOf;
+ var BARS={
+  live:[['Tables','Tables','1:2'],['Players','Players','3:1'],['Team','Team','19:0'],['Expenses','receipt','25:0'],['Snapshot','chart','32:0'],['Close','check','40:0']],
+  reporting:[['Revenue','coin','69:0'],['Analytics','chart','68:0'],['Sessions','list','67:0'],['Accounts','card','69:2'],['Inventory','box','70:0']],
+  settings:[['Core','Settings','59:0'],['Payments','card','61:0'],['Team','Team','63:0'],['Expenses','receipt','64:1'],['Hospitality','glass','64:0'],['Players','Players','48:2']]};
+ /* which hamburger section a screen belongs to */
+ function sectionOf(id,step){if(id===48&&step===2)return 'Settings';if(id>=19&&id<=24)return 'Team';if(id>=1&&id<=47)return 'Live Session';if(id>=48&&id<=53)return 'Schedule';if(id>=54&&id<=58)return 'Players';if(id>=59&&id<=66)return 'Settings';if(id>=67&&id<=71)return 'Reporting';return 'Live Session';}
+ /* contextual bottom bar + active tab; null = no bottom bar (Schedule, Players, Team-only screens) */
+ function ctx(id,step){var t;
+  if(id===53&&step===3)return {bar:'live',tab:'Tables'};
+  if(id>=1&&id<=47){t=(id>=3&&id<=9)?'Players':(id>=19&&id<=24)?'Team':(id>=25&&id<=31)?'Expenses':(id>=32&&id<=39)?'Snapshot':(id>=40&&id<=47)?'Close':'Tables';return {bar:'live',tab:t};}
+  if(id===48&&step===2)return {bar:'settings',tab:'Players'};
+  if(id>=59&&id<=66){t=(id===61||id===62)?'Payments':(id===63||id===66)?'Team':(id===64)?(step===1?'Expenses':'Hospitality'):'Core';return {bar:'settings',tab:t};}
+  if(id>=67&&id<=71){t=id===67||id===71?'Sessions':id===68?'Analytics':id===70?'Inventory':(step===2?'Accounts':'Revenue');return {bar:'reporting',tab:t};}
+  return null;}
+ window.NORA_NAV=function(){return NAV.map(function(s){return {key:s.key,icon:s.icon,label:s.label,home:s.home,items:s.items.filter(function(it){return valid(it[2]);})};});};
+ window.NORA_NAV_ICON=ic;window.NORA_NAV_SECTION=sectionOf;window.NORA_NAV_CTX=ctx;
 
  /* ---------- 1. navigation ---------- */
- function nav(st,ph){var id=+st.dataset.rnWorkflow||0,sec=sectionOf(id);var nb=ph.querySelector(':scope>.ux-bottom');
+ function nav(st,ph){Array.prototype.forEach.call(st.querySelectorAll(':scope>.ux-bottom'),function(x){x.remove();});var id=+st.dataset.rnWorkflow||0,step=+st.dataset.rnStep||0,c=ctx(id,step),key=c?c.bar+':'+c.tab:'none';var nb=ph.querySelector(':scope>.ux-bottom');
   if(!nb){nb=document.createElement('div');nb.className='ux-bottom';ph.appendChild(nb);}
-  if(nb.dataset.s2===sec&&nb.classList.contains('s2-nav'))return;
-  nb.className='ux-bottom s2-nav';nb.dataset.s2=sec;
-  nb.innerHTML=NAV.map(function(s){return '<div class="ux-tab'+(s.key===sec?' chosen':'')+'" role="button" tabindex="0" aria-label="'+s.key+'" data-s2-home="'+s.home+'"><span class="ux-ico">'+ic(s.icon,'nf')+'</span><span class="s2-lbl">'+s.key+'</span></div>';}).join('');
+  if(nb.dataset.s2!==key||!nb.classList.contains('s2-nav')){
+   nb.className='ux-bottom s2-nav'+(c?'':' s2-none');nb.dataset.s2=key;ph.classList.toggle('s2-nobar',!c);
+   if(c){var T=BARS[c.bar];nb.style.setProperty('--s2n',T.length);nb.dataset.bar=c.bar;
+    nb.innerHTML=T.map(function(t){return '<div class="ux-tab'+(t[0]===c.tab?' chosen':'')+'" role="button" tabindex="0" aria-label="'+t[0]+'"'+(t[0]===c.tab?' aria-current="page"':'')+' data-s2-home="'+t[2]+'"><span class="ux-ico">'+ic(t[1],'nf')+'</span><span class="s2-lbl">'+t[0]+'</span></div>';}).join('');}
+   else{nb.innerHTML='';nb.removeAttribute('data-bar');}}
   var cx=ph.querySelector('.ux-head .ux-close');if(cx&&!cx.dataset.s2){cx.dataset.s2=1;cx.innerHTML='<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>';}
   var h=ph.querySelector('.ux-head .ux-hamb');if(h&&!h.dataset.s2){h.dataset.s2=1;h.innerHTML=ic('menu');h.setAttribute('role','button');h.setAttribute('aria-label','Menu');}
  }
  function drawer(st){var ph=st.querySelector('.phone'),uc=ph&&ph.querySelector('.ux-content');if(!uc)return;var old=ph.querySelector('.nn-drawer');if(old){old.remove();return;}
-  var id=+st.dataset.rnWorkflow||0,step=+st.dataset.rnStep||0,sec=sectionOf(id),here=id+':'+step,S=NORA_NAV();
+  var id=+st.dataset.rnWorkflow||0,step=+st.dataset.rnStep||0,sec=sectionOf(id,step),here=id+':'+step,S=NORA_NAV();
   var html=S.map(function(s){var open=s.key===sec;return '<div class="nn-sec'+(open?' open cur':'')+'"><button type="button" class="nn-sh" data-nn-toggle="1">'+ic(s.icon)+s.label+'<svg class="nn-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button><div class="nn-items">'+s.items.map(function(it){var w=it[2].split(':')[0];var cur=it[2]===here||(w==id&&s.items.filter(function(x){return x[2].split(':')[0]==id;}).length===1);return '<button type="button" class="nn-it'+(cur?' cur':'')+'" data-nn-go="'+it[2]+'">'+ic(it[1])+it[0]+'</button>';}).join('')+'</div></div>';}).join('');
   var d=document.createElement('div');d.className='nn-drawer';var pr=ph.getBoundingClientRect(),ur=uc.getBoundingClientRect(),nb=ph.querySelector('.ux-bottom');d.style.top=(ur.top-pr.top-2)+'px';d.style.bottom=(nb?nb.getBoundingClientRect().height:0)+'px';
   d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div>';
