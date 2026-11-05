@@ -98,3 +98,12 @@ Update "Current state" and "Open / next" only if your work changes them.
 - Code checks: six section objects exactly, drawer no longer contains `nn-items`, `nn-chev`, or `data-nn-toggle`. Actual rendered browser test has NOT been done; do not declare visual completion.
 - Work branch `nora-nav-v2` only. Backup `backup-before-nav-rework-20261105` untouched.
 - Latest prototype code commit: `25112736b1eadf28e099212bb11dc85f72adc6bf`.
+
+
+### 2026-11-05 · ChatGPT — owner hamburger styling and utility footer (commit 24326df)
+- Implemented on prototype branch `nora-nav-v2`, file `index.html` only. Backup untouched. Gaurav app untouched.
+- User reviewed six-tab hamburger and approved structure. Requested removal of right-pointing chevron/caret from each main tab, restoration of stronger Live Session prominence (larger text and distinct teal background), and three utility tabs anchored at the bottom of the opened hamburger: user thumbnail/Profile, SUPPORT, Privacy.
+- Hamburger still has exactly six main section tabs (no submenus). Implemented Live Session at 21px with distinct teal background; other six-tab labels are 18px, active section retains green highlight. Added fixed bottom row with user-initial avatar Profile, chat icon SUPPORT, lock icon Privacy.
+- Profile routes to WF65 step 1; Support and Privacy open clearly labeled in-drawer preview information with Back (no invented contact or policy). Follow-up: wire actual support and privacy destinations once designed and approved. Profile avatar currently uses initial 'M' instead of an uploaded owner profile image, since no confirmed linked user image is available in prototype data.
+- Verification: static source checks pass for exactly six direct sections, no arrow markup, all three footer controls, active styling and click handler. Browser-rendered click testing still outstanding; do not claim full visual QA.
+- Code commit: `24326df60d8fda325457c7a28f0850e6ca17f3f2`.
