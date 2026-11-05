@@ -7149,7 +7149,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   }).join('');
   var d=document.createElement('div');d.className='nn-drawer nn-six-only';
   var pr=ph.getBoundingClientRect(),ur=uc.getBoundingClientRect(),nb=ph.querySelector(':scope>.ux-bottom.s2-nav');
-  d.style.top=(ur.top-pr.top-2)+'px';d.style.bottom=(nb?nb.getBoundingClientRect().height:0)+'px';
+  d.style.top=(ur.top-pr.top-2)+'px';d.style.bottom='0px'; // cover contextual bottom bar while the menu is open
   d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div><div class="nn-footer"><button type="button" class="nn-foot nn-profile" data-nn-go="65:0" aria-label="User profile"><span class="nn-avatar">M</span><span>Profile</span></button><button type="button" class="nn-foot" data-nn-info="Support">'+ic('chat')+'<span>SUPPORT</span></button><button type="button" class="nn-foot" data-nn-info="Privacy">'+ic('lock')+'<span>Privacy</span></button></div>';
   ph.classList.add('nn-host');ph.appendChild(d);
  }
