@@ -123,3 +123,12 @@ Update "Current state" and "Open / next" only if your work changes them.
 - Sessions grouped by session date and result. Selecting a date shows transactions with type, amount, time and posting operator (Alex · Cashier). Data is illustrative.
 - Changes limited to WF54 specific rendering, code and styles; other workflows intentionally left alone.
 - Latest code commit d10de8ef6e73bbb4a2320d1b1c9fcb1f81a764d8. Browser/mobile rendering and interaction tests remain outstanding.
+
+
+### 2026-11-05 · WF54 correction — remove fifth screen, restore original initials, tighten first three
+- Owner reported unwanted fifth WhatsApp/Invites screen still present after earlier WF54 edit, player tile initials made too small, and poor spacing/format on screens 1–3. Do not alter other workflows.
+- Root cause fifth screen: pre-existing legacy IIFE appended a fifth entry to WORKFLOWS[54].steps and SCREEN_SPECS[54].types. Disabled only WF54 append and deleted dead fifth-screen renderer. WF68 extension logic unchanged.
+- WF54 first screen now uses previously used crmRoster56(false) photo grid with full-size 45px initial fallback, preserving same names/images, and existing player selection routing.
+- WF54 profile screen: compact identity layout, aligned Sessions/Hours with correct spacing, slightly tightened contact/CTA areas; retains approved data only. WF54 Session History: compact header and date tiles; retains date grouping and click-through.
+- Scope: only WF54 source and scoped WF54 CSS were edited. The four-step workflow remains Find → Profile → Session History → Transactions. Gaurav React repo and protected backup branch untouched.
+- Code commit e203ddb1f8aadaf3047871e77a3eeb5a61e46f3f. Static code checks confirm no fifth-screen append; mobile browser visual verification still needed.
