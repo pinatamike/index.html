@@ -2019,6 +2019,21 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .storyboard .phone .st-sec .fb-li{min-height:44px!important;padding-top:2px!important;padding-bottom:2px!important}
 .storyboard .phone.st-phone .fb-body>.fb-list>.fb-li{max-height:60px!important}
 
+/* settings home: grouped accordion */
+.storyboard .phone .st-grps{display:flex!important;flex-direction:column!important;gap:5px!important;flex:none!important}
+.storyboard .phone .st-gh{display:flex!important;align-items:center!important;gap:12px!important;width:100%!important;min-height:56px!important;padding:6px 12px!important;border:2px solid #2fa6d9!important;background:#0b3a58!important;color:#fff!important;text-align:left!important;cursor:pointer!important}
+.storyboard .phone .st-gh .fb-i{width:26px!important;height:26px!important;color:#4cddff!important;flex:none!important}
+.storyboard .phone .st-gh div{flex:1 1 auto!important;min-width:0!important}
+.storyboard .phone .st-gh b{display:block!important;font-size:17px!important;font-weight:900!important;line-height:1.15!important}
+.storyboard .phone .st-gh small{display:block!important;font-size:14px!important;font-weight:700!important;color:#bfe3f2!important}
+.storyboard .phone .st-gc .fb-i{width:16px!important;height:16px!important;transition:transform .15s!important}
+.storyboard .phone .st-gp.open .st-gc .fb-i{transform:rotate(90deg)!important}
+.storyboard .phone .st-gp.open .st-gh{border-color:#00ed94!important;background:#0b4a45!important}
+.storyboard .phone .st-gb{display:none!important}
+.storyboard .phone .st-gp.open .st-gb{display:flex!important;flex-direction:column!important;gap:4px!important;padding:5px 0 3px 12px!important;border-left:3px solid #00ed94!important;margin-left:8px!important}
+.storyboard .phone .st-gb .fb-li{min-height:50px!important}
+.storyboard .phone .st-gb .fb-li.na{opacity:.55!important;cursor:default!important}
+
 </style>
 <style id="nora-iv">
 .storyboard .phone .iv-sim{display:flex!important;align-items:center!important;gap:6px!important;padding:4px 8px!important;border:2px solid #ffb02e!important;background:#3a2606!important;color:#ffe2b0!important;font-size:14px!important;font-weight:800!important;line-height:1.2!important}
@@ -6702,7 +6717,13 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var c=counts(),banner='';
   if(started&&!CFG.dismissed)banner='<button type="button" class="st-fin" data-rn-route="60:1"><span class="st-ring">'+c.d+'/'+c.n+'</span><div><b>FINISH SETTING UP YOUR BUSINESS</b><small>'+c.d+' of '+c.n+' completed</small></div><span class="fb-chev">›</span></button>';
   if(!started)banner='<button type="button" class="st-hero" data-rn-route="2:0">'+I('bolt')+'<div><b>START YOUR FIRST SESSION</b><small>Checklist appears after it</small></div></button>';
-  return banner+'<div class="fb-list st-sec">'+[['sliders','Game Settings','Formats · blinds · rake · templates','60:4'],['bank','Account Balances','Cash · Nequi · Bancolombia','61:0'],['pen','Sign & Settle','Optional','62:0'],['lock','Team & Permissions','Roles and access','63:0'],['burger','Food & Beverage','Accounting · menu · inventory','64:0'],['user','Profile & Preferences','Language · time zone · Nora','65:0'],['chat','Invitations & WhatsApp','RSVP · seats · reminders','48:2'],['mail','Team Invitations','Invite and revoke','66:0']].map(function(x){return li(x[0],x[1],x[2],x[3]);}).join('')+'</div>';}
+  var G=[['A','sliders','Business & Game Setup',[['user','Business Profile & Preferences','Name · currency · language','65:0'],['game','Game Rules & Tables','Type · blinds · tables · rake','60:4'],['bank','Account Balances','Cash · Nequi · Bancolombia','61:0']]],
+   ['B','team','People & Access',[['mail','Team Members & Invitations','Invite · role · revoke','66:0'],['lock','Team Roles & Permissions','Roles and access','63:0'],['user','Player Preferences & CRM','Not in this prototype','']]],
+   ['C','pen','Financial Operations',[['pen','Sign & Settle','Optional','62:0'],['box','Expenses & Inventory','Simple or advanced tracking','64:1'],['burger','Food, Beverage & Menu Pricing','Accounting · menu · prices','64:0']]],
+   ['D','chat','Communications & AI',[['chat','Invitations, RSVP & WhatsApp','RSVP · seats · reminders','48:2'],['bell','Nora AI Preferences','Voice · suggestions · alerts','65:1']]],
+   ['E','shield','Account & Administration',[['coin','Subscription & Billing','Not in this prototype',''],['lock','Security','Not in this prototype','']]]];
+  var gl=G.map(function(g){return '<div class="st-gp"><button type="button" class="st-gh" data-st-group="'+g[0]+'" aria-expanded="false">'+I(g[1])+'<div><b>'+g[2]+'</b><small>'+g[3].length+' modules</small></div><span class="st-gc">'+I('chev')+'</span></button><div class="st-gb">'+g[3].map(function(x){return x[3]?li(x[0],x[1],x[2],x[3]):'<div class="fb-li na" aria-disabled="true">'+I(x[0])+'<div><b>'+x[1]+'</b><small>'+x[2]+'</small></div></div>';}).join('')+'</div></div>';}).join('');
+  return banner+'<div class="st-grps">'+gl+'</div>'+li('plus','Quick Setup with Nora','Reconfigure any time','59:0');}
  function ckRows(){return visible().map(function(x){var s=stateOf(x.id);return '<div class="st-ck '+s+'" data-ck="'+x.id+'"><button type="button" class="st-ckm" data-rn-route="'+x.r+'">'+I(x.ic)+'<b>'+x.t+'</b><span class="st-sbox">'+(s==='done'?I('check'):s==='skip'?I('dash'):'')+'</span></button><button type="button" class="st-micsm" data-st-nora="'+x.id+'" data-rn-route="60:2" aria-label="Ask Nora">'+I('mic')+'</button></div>';}).join('');}
  S[60]={sec:'SETTINGS',nav:'Settings',steps:['Settings home','Finish setting up your business','Nora helps with a checklist item','Settings home · before the first session','Game settings · saved templates','Edit game template','Review changes before saving'],
   heads:['Settings','Checklist','Nora Help','Settings','Game Settings','Edit Template','Review Changes'],
@@ -6788,7 +6809,8 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
 
  /* ---------- interactions (prototype-only, nothing posted) ---------- */
  var lock=false;
- window.addEventListener('click',function(ev){var t=ev.target.closest('.st-phone [data-st-start],.st-phone [data-st-tog],.st-phone [data-st-pm],.st-phone [data-st-revoke],.st-phone [data-st-expand],.st-phone [data-st-dismiss],.st-phone [data-st-nora],.st-phone [data-st-skip],.st-phone [data-st-open],.st-phone [data-st-edit],.st-phone [data-st-restore],.st-phone [data-st-na],.st-phone [data-cfg-done],.st-phone [data-cfg][data-cfg-val]');if(!t)return;
+ window.addEventListener('click',function(ev){var t=ev.target.closest('.st-phone [data-st-group],.st-phone [data-st-start],.st-phone [data-st-tog],.st-phone [data-st-pm],.st-phone [data-st-revoke],.st-phone [data-st-expand],.st-phone [data-st-dismiss],.st-phone [data-st-nora],.st-phone [data-st-skip],.st-phone [data-st-open],.st-phone [data-st-edit],.st-phone [data-st-restore],.st-phone [data-st-na],.st-phone [data-cfg-done],.st-phone [data-cfg][data-cfg-val]');if(!t)return;
+  if(t.dataset.stGroup){var gp=t.closest('.st-gp'),was=gp.classList.contains('open');t.closest('.st-grps').querySelectorAll('.st-gp').forEach(function(x){x.classList.remove('open');x.querySelector('.st-gh').setAttribute('aria-expanded','false');});if(!was){gp.classList.add('open');t.setAttribute('aria-expanded','true');}ev.preventDefault();ev.stopPropagation();return;}
   if(t.dataset.cfgDone){markDone(t.dataset.cfgDone);}
   if(t.dataset.cfg&&t.dataset.cfgVal!==undefined){var v=t.dataset.cfgVal;setP(t.dataset.cfg,/^\d+$/.test(v)?+v:v);return;}
   if(t.dataset.stStart){if(lock){ev.preventDefault();ev.stopPropagation();return;}lock=true;t.classList.add('busy');t.textContent='STARTING…';setTimeout(function(){lock=false;},1500);return;}

@@ -41,7 +41,7 @@ Previews:
 
 ## Open / next
 1. **Settings & Onboarding correction (not started):** WF59 as a 3-screen Nora conversation (Welcome, Tell Nora, Confirm) + one compact manual screen; START FIRST SESSION / SAVE FOR LATER; Settings home as 5 groups / 15 modules; internal order per module; checklist refinement.
-2. Settings home (WF60 screen 4) list scrolls; last row is cut until scrolled. Fixed by the accordion rebuild above.
+2. (done) Settings home is now a 5-group accordion.
 3. WF64 screen 2 has ~7px nav clearance instead of 12px.
 4. Control Center: only the Cashbox balance exists in demo data (no Nequi/Bancolombia). Old `cc5.js` test selectors need updating (hidden toolbar).
 5. Owner approval needed on Control Center v4 before applying the layout to other screens.
@@ -58,6 +58,10 @@ Append one block under Log:
 Update "Current state" and "Open / next" only if your work changes them.
 
 ## Log
+
+### 2026-11-05 · Claude
+- Did: Settings home (WF60 screen 4) rebuilt as 5 groups (A Business & Game Setup, B People & Access, C Financial Operations, D Communications & AI, E Account & Administration), one open at a time. Unbuilt modules (Player Preferences & CRM, Subscription & Billing, Security) shown disabled. Quick Setup row kept.
+- Open issues: WF59 Nora conversation rewrite and module-internal order still to do; WF64 screen 2 has 7px nav clearance.
 
 ### 2026-11-05 · Claude
 - Did: Settings entries in the phone menu drawer renamed to the approved hierarchy (Business Profile & Preferences, Account Balances, Team Members & Invitations, Team Roles & Permissions, Expenses & Inventory, Food/Beverage & Menu Pricing, Invitations/RSVP/WhatsApp, Nora AI Preferences). Quick Setup kept.
