@@ -2343,6 +2343,26 @@ html body .storyboard>.stage:has(.snap-phone){width:auto!important;min-width:0!i
 .storyboard .crm54-phone .crm54-total{flex:0 0 auto;padding:10px 3px;display:flex;align-items:center;justify-content:space-between;gap:6px;border-top:2px solid #268bb6;font-size:14px;font-weight:800}
 .storyboard .crm54-phone .crm54-total strong{font-size:16px}
 .storyboard .crm54-phone .crm54-empty{padding:12px;font-size:15px}
+
+/* WF54 screens 1–3 ONLY: restore previous full-size initials and compact readable layout. */
+.storyboard .crm54-stage:nth-child(1) .crm54-phone .seat-roster-photo .person-face:not(.photo){font-size:45px!important;font-weight:900!important;line-height:1!important}
+.storyboard .crm54-stage:nth-child(1) .crm54-phone .seat-roster-card>strong{font-size:16px!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm56-identity{min-height:126px!important;height:126px!important;display:flex!important;align-items:center!important;gap:12px!important;padding:8px!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm56-identity>.person-face{flex:0 0 113px!important;width:113px!important;height:109px!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm56-identity>.person-face img{height:100%!important;width:100%!important;object-fit:cover!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm-tile-info{flex:1!important;min-width:0!important;display:flex!important;flex-direction:column!important;gap:7px!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm-tile-info>b{font-size:18px!important;line-height:1.15!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm54-stats{display:flex;flex-direction:column;gap:5px;width:100%}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm-mini{display:flex!important;justify-content:space-between!important;align-items:baseline!important;gap:6px!important;padding:2px 0!important;border-top:1px solid #286381!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm-mini span{font-size:13px!important;font-weight:800!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm-mini strong{font-size:17px!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm56-card{padding:8px 10px!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm56-row{min-height:52px!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm56-actions{min-height:49px!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm56-actions .crm56-btn{flex:1!important;min-height:49px!important}
+.storyboard .crm54-stage:nth-child(2) .crm54-phone .crm56-btn.crm-cta{min-height:55px!important;width:100%!important;font-size:17px!important}
+.storyboard .crm54-stage:nth-child(3) .crm54-phone .crm54-heading{padding:8px 10px!important;gap:2px!important}
+.storyboard .crm54-stage:nth-child(3) .crm54-phone .crm54-session{min-height:69px!important;gap:5px!important;padding:9px!important}
 </style>
 <style id="nora-s3">
 /* NORA sweep3 — global spacing/tile/title consistency (tokens) */
@@ -3534,7 +3554,7 @@ var CRM54_PLAYER='Diego R.',CRM54_SESSION=0;
 function crm54Profile(){
  var name=CRM54_PLAYER==='Diego R.'?'Diego Restrepo':CRM54_PLAYER,diego=name==='Diego Restrepo';
  var initials=name.split(' ').map(function(n){return n[0]}).join('').slice(0,2);
- var identity='<div class="crm56-identity crm-tile">'+portrait(name,initials,true)+'<div class="crm-tile-info"><b>'+esc(name)+'</b>'+crmStats(diego?'14':'—',diego?'62':'—')+'</div></div>';
+ var identity='<div class="crm56-identity crm-tile">'+portrait(name,initials,true)+'<div class="crm-tile-info"><b>'+esc(name)+'</b><div class="crm54-stats">'+crmStats(diego?'14':'—',diego?'62':'—')+'</div></div></div>';
  var row=function(k,v){return '<div class="crm56-row"><span>'+k+'</span><strong>'+v+'</strong></div>';};
  return identity+'<div class="crm56-card crm-contact">'+row('WHATSAPP',diego?'<a class="crm56-contact-link" href="https://wa.me/573001234567">+57 300 123 4567</a>':'Not provided')+row('EMAIL',diego?'<a class="crm56-contact-link" href="mailto:diego@example.com">diego@example.com</a>':'Not provided')+'</div>'
  +'<div class="crm56-card crm-money">'+row('LIFETIME WIN / LOSS',diego?'<span class="crm-pos"><small>COP</small> +2,150,000</span>':'—')+'</div>'
@@ -3559,7 +3579,7 @@ function crm54Screen(w,step,i){
  var titles=['Find Player','Player Profile','Session History','Session Transactions'];
  var body;
  if(i===0){
-  var e=document.createElement('div');e.innerHTML=sharedRoster('FIND PLAYER',false);
+  var e=document.createElement('div');e.innerHTML=crmRoster56(false);
   e.querySelectorAll('.seat-roster-card').forEach(function(c){c.dataset.crm54Player=c.querySelector('strong')?.textContent.trim()||'Diego R.';c.setAttribute('aria-label','Open player CRM');});
   var input=e.querySelector('input');if(input)input.setAttribute('onkeydown',"if(event.key==='Enter'){var cards=[...this.closest('.seat-roster-v3').querySelectorAll('.seat-roster-card')].filter(c=>c.textContent.toLowerCase().includes(this.value.toLowerCase()));if(this.value.trim()&&cards.length===1){event.preventDefault();cards[0].click();}}");
   body=e.innerHTML;
@@ -7081,7 +7101,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   if(+id===8){w.steps=w.steps.slice(0,4).concat(d.extra.map(function(x){return x.step;}));}
   if(typeof SCREEN_SPECS!=='undefined'&&SCREEN_SPECS[id]){var old=SCREEN_SPECS[id].types||[];SCREEN_SPECS[id].types=w.steps.map(function(_,i){var has=(d.screens&&d.screens[i])||(+id===8&&(i>=4||i===1))||(d.special&&d.special[i]);return has?'iv-'+id+'-'+i:(old[i]||'iv-'+id+'-'+i);});}
  });
- (function(){var w=WORKFLOWS.find(function(x){return x.id===54;});if(w&&w.steps.length<5){w.steps=w.steps.concat(['WhatsApp consent & invitation history']);if(SCREEN_SPECS[54])SCREEN_SPECS[54].types=SCREEN_SPECS[54].types.concat(['iv-54-4']);}
+ (function(){/* WF54 deleted invitation fifth screen at owner's request. */
   var r=WORKFLOWS.find(function(x){return x.id===68;});if(r&&r.steps.length<4){r.steps=r.steps.concat(['Attendance, cancellations & no-shows']);if(SCREEN_SPECS[68])SCREEN_SPECS[68].types=SCREEN_SPECS[68].types.concat(['iv-68-3']);}})();
 
  /* reserved-seat overlay on the approved seating grid (same tiles, no redesign) */
