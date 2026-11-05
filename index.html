@@ -7045,7 +7045,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   {key:'Reporting',icon:'Reporting',label:'Reporting',home:'67:0',range:[[67,71]],items:[
    ['Reports Home','chart','67:0'],['Player Reports','user','68:0'],['Rake & Revenue','coin','69:0'],['Team & Expenses','receipt','70:0'],['Export','down','71:0']]},
   {key:'Settings',icon:'Settings',label:'Settings',home:'60:0',range:[[59,66]],items:[
-   ['Quick Setup','plus','59:0'],['Game Rules & Tables','game','60:0'],['Payment Accounts','card','61:0'],['Sign & Settle','pen','62:0'],['Team Permissions','lock','63:0'],['Food, Beverage & Inventory','glass','64:0'],['Profile & Language','user','65:0'],['Team Access','mail','66:0']]}
+   ['Quick Setup','plus','59:0'],['Business Profile & Preferences','user','65:0'],['Game Rules & Tables','game','60:0'],['Account Balances','card','61:0'],['Team Members & Invitations','mail','66:0'],['Team Roles & Permissions','lock','63:0'],['Sign & Settle','pen','62:0'],['Expenses & Inventory','box','64:1'],['Food, Beverage & Menu Pricing','glass','64:0'],['Invitations, RSVP & WhatsApp','cal','48:2'],['Nora AI Preferences','mic','65:1']]}
  ];
  window.NORA_NAV=function(){return NAV.map(function(s){return {key:s.key,icon:s.icon,label:s.label,home:s.home,range:s.range,items:s.items.filter(function(it){return valid(it[2]);})};});};
  function sectionOf(id){for(var i=0;i<NAV.length;i++)for(var j=0;j<NAV[i].range.length;j++){var r=NAV[i].range[j];if(id>=r[0]&&id<=r[1])return NAV[i].key;}return 'Tables';}

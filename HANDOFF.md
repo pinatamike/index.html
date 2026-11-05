@@ -60,6 +60,10 @@ Update "Current state" and "Open / next" only if your work changes them.
 ## Log
 
 ### 2026-11-05 · Claude
+- Did: Settings entries in the phone menu drawer renamed to the approved hierarchy (Business Profile & Preferences, Account Balances, Team Members & Invitations, Team Roles & Permissions, Expenses & Inventory, Food/Beverage & Menu Pricing, Invitations/RSVP/WhatsApp, Nora AI Preferences). Quick Setup kept.
+- Open issues: Subscription & Billing, Security, Player Preferences & CRM Configuration have no screens yet, so they are not listed. Full accordion Settings home still to build.
+
+### 2026-11-05 · Claude
 - Did: created this file. Control Center v4 and Settings nav clearance already pushed (see Current state).
 - SHA / preview: `aa57f57`
 - Decisions: this file is the single shared channel between Claude, ChatGPT and Gemini.
