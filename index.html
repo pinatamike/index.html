@@ -7127,7 +7127,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    var o=fromHTML(html);var t=o.querySelector('.stage');
    return html.replace(/<div class="stage-title">[^<]*<\/div>/,'<div class="stage-title">'+e(step)+'</div>').replace(/<div class="stage-number">\d+<\/div>/,'<div class="stage-number">'+(i+1)+'</div>');}
   if(w.id===1&&i===2){return reserveSeats(prev(w,step,i),{9:{n:'Rafa',b:'ON WAY 12m'}},'2 waiting');}
-  if(w.id===54&&i===4)return K.stage(w,step,i,'PLAYER CRM','WhatsApp & Invites',CRM4(),step,'Players');
+  /* WF54 fifth screen deleted; no invitation screen renderer. */
   if(w.id===68&&i===3)return K.stage(w,step,i,'REPORTING','Attendance',REP3(),step,'Reporting');
   if(w.id===54&&i===2){var h=prev(w,step,i);var q=fromHTML(h);q.querySelectorAll('.crm56-btn,button').forEach(function(b){if(/invite to app/i.test(b.textContent)){b.textContent='WHATSAPP & INVITES';b.setAttribute('data-rn-route','54:4');b.removeAttribute('data-view');}});return q.innerHTML;}
   }catch(x){console.error('iv',x);}
