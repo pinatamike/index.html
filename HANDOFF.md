@@ -114,3 +114,12 @@ Update "Current state" and "Open / next" only if your work changes them.
 - Root cause: drawer was previously sized to END ABOVE the bottom bar. Fixed `drawer(st)` to extend down to the phone bottom (`d.style.bottom='0px'`), overlaying the contextual bar. It reappears when the drawer closes.
 - Verified source contains the `.nn-footer` with Profile, SUPPORT, Privacy and its 72px layout, and z-index 45 on the drawer. No underlying screens or workflows changed. Visual browser verification pending.
 - Code commit `55eecdaa0f693f45d80cd9a36fa7da3eabf15816`; branch `nora-nav-v2`; untouched backup and Gaurav's code.
+
+
+### 2026-11-05 · ChatGPT — WF54 Players CRM owner-approved updates
+- Only WF54 prototype implementation edited on nora-nav-v2. Backup and React app untouched.
+- Four screens now: Find Player → Player CRM Profile → Session History → Session Transactions & Audit Trail. The separate search-results screen was removed. Player selection routes directly to profile.
+- Profile retains sessions, hours, WhatsApp, email, lifetime win/loss, Edit Contact and Session History. Removed total lifetime buy-ins, invitation/history action and NOT REGISTERED badge. App User badge appears only when registered.
+- Sessions grouped by session date and result. Selecting a date shows transactions with type, amount, time and posting operator (Alex · Cashier). Data is illustrative.
+- Changes limited to WF54 specific rendering, code and styles; other workflows intentionally left alone.
+- Latest code commit d10de8ef6e73bbb4a2320d1b1c9fcb1f81a764d8. Browser/mobile rendering and interaction tests remain outstanding.
