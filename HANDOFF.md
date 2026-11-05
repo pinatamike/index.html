@@ -89,3 +89,12 @@ Update "Current state" and "Open / next" only if your work changes them.
 - Kept existing approved layouts and screen designs. Browser screenshot/click-through verification of raw.githack has NOT yet been completed; must not claim all 71 visually verified.
 - Commit: `80e64d95cc51f161be7c8350d1cd1057a3b4a9b0`. Preview: https://raw.githack.com/pinatamike/index.html/80e64d95cc51f161be7c8350d1cd1057a3b4a9b0/index.html#workflow-2
 - For Claude handoff, summarize this log and the remaining unbuilt nav destinations at the end of Mike's working session.
+
+
+### 2026-11-05 · ChatGPT — owner correction: six-tab hamburger (commit 2511273)
+- Mike rejected the previous preview because the hamburger still showed a long expanded submenu on the phone. Correct interpretation: hamburger MUST show exactly SIX direct, non-expanding tabs: Live Session / Schedule / Reporting / Players / Team / Settings. No nested submenu inside the hamburger.
+- Replaced sweep2 `drawer(st)` HTML with six direct section buttons; removed accordion toggling. Active section is highlighted. Each tab routes to its section home via `rnGo`. Settings home corrected to WF60 screen 4 (60:3).
+- Left contextual bottom navigation in place: Live Session 6, Reporting 5, Settings 6; no bottom bar for Schedule or standalone Players. No restyling of underlying workflow screens. No React app changes.
+- Code checks: six section objects exactly, drawer no longer contains `nn-items`, `nn-chev`, or `data-nn-toggle`. Actual rendered browser test has NOT been done; do not declare visual completion.
+- Work branch `nora-nav-v2` only. Backup `backup-before-nav-rework-20261105` untouched.
+- Latest prototype code commit: `25112736b1eadf28e099212bb11dc85f72adc6bf`.
