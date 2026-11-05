@@ -2325,6 +2325,24 @@ html body .storyboard>.stage:has(.snap-phone){width:auto!important;min-width:0!i
 .storyboard .phone .ux-bottom.s2-nav[data-bar=settings] .s2-lbl{font-size:10px!important;letter-spacing:-.3px!important}
 .storyboard .phone .ux-bottom.s2-nav[data-bar=live] .s2-lbl{font-size:10.5px!important;letter-spacing:-.2px!important}
 
+
+/* WF54 only: grouped session history and transaction drilldown */
+.storyboard .crm54-phone .crm54-body{gap:8px;min-height:0}
+.storyboard .crm54-phone .crm54-heading{display:flex;flex-direction:column;gap:4px;padding:10px;border:2px solid #1c6684;background:#092b43}
+.storyboard .crm54-phone .crm54-heading b{color:#fff;font-size:19px}
+.storyboard .crm54-phone .crm54-heading span{color:#c5e4f2;font-size:14px}
+.storyboard .crm54-phone .crm54-list{flex:1;min-height:0;display:flex;flex-direction:column;gap:6px;overflow-y:auto}
+.storyboard .crm54-phone .crm54-session{min-height:80px;flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;gap:8px;width:100%;padding:9px;text-align:left;border:2px solid #268bb6;background:#092b43;color:white;cursor:pointer}
+.storyboard .crm54-phone .crm54-session>b{font-size:18px}
+.storyboard .crm54-phone .crm54-session>span{font-size:15px;color:#c5e4f2}
+.storyboard .crm54-phone .crm54-entry{flex:0 0 auto;padding:10px;border:2px solid #1c6684;background:#092b43}
+.storyboard .crm54-phone .crm54-entry>div{display:flex;align-items:center;justify-content:space-between;gap:5px}
+.storyboard .crm54-phone .crm54-entry b{font-size:16px;color:#fff}
+.storyboard .crm54-phone .crm54-entry strong{font-size:16px;white-space:nowrap;color:#fff}
+.storyboard .crm54-phone .crm54-entry>span{display:block;font-size:14px;color:#c5e4f2;margin-top:7px}
+.storyboard .crm54-phone .crm54-total{flex:0 0 auto;padding:10px 3px;display:flex;align-items:center;justify-content:space-between;gap:6px;border-top:2px solid #268bb6;font-size:14px;font-weight:800}
+.storyboard .crm54-phone .crm54-total strong{font-size:16px}
+.storyboard .crm54-phone .crm54-empty{padding:12px;font-size:15px}
 </style>
 <style id="nora-s3">
 /* NORA sweep3 — global spacing/tile/title consistency (tokens) */
@@ -3518,7 +3536,7 @@ function crm54Profile(){
  var initials=name.split(' ').map(function(n){return n[0]}).join('').slice(0,2);
  var identity='<div class="crm56-identity crm-tile">'+portrait(name,initials,true)+'<div class="crm-tile-info"><b>'+esc(name)+'</b>'+crmStats(diego?'14':'—',diego?'62':'—')+'</div></div>';
  var row=function(k,v){return '<div class="crm56-row"><span>'+k+'</span><strong>'+v+'</strong></div>';};
- return identity+'<div class="crm56-card crm-contact">'+row('WHATSAPP',diego?'See contact details':'Not provided')+row('EMAIL',diego?'See contact details':'Not provided')+'</div>'
+ return identity+'<div class="crm56-card crm-contact">'+row('WHATSAPP',diego?'<a class="crm56-contact-link" href="https://wa.me/573001234567">+57 300 123 4567</a>':'Not provided')+row('EMAIL',diego?'<a class="crm56-contact-link" href="mailto:diego@example.com">diego@example.com</a>':'Not provided')+'</div>'
  +'<div class="crm56-card crm-money">'+row('LIFETIME WIN / LOSS',diego?'<span class="crm-pos"><small>COP</small> +2,150,000</span>':'—')+'</div>'
  +'<div class="crm56-actions"><button type="button" class="crm56-btn blue" data-rn-route="56:1">EDIT CONTACT</button></div>'
  +'<button type="button" class="crm56-btn green crm-cta" data-rn-route="54:2">SESSION HISTORY</button>';
