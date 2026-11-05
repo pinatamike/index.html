@@ -2210,8 +2210,19 @@ html body .storyboard>.stage:has(.snap-phone){width:auto!important;min-width:0!i
 .storyboard .phone .nn-six-only .nn-list{display:flex;flex-direction:column;gap:7px;padding:10px 8px;overflow-y:auto}
 .storyboard .phone .nn-six-only .nn-sh{flex:0 0 61px;min-height:61px;width:100%;font-size:18px}
 .storyboard .phone .nn-six-only .nn-sh.nn-active{border-color:#00ed94;background:#005638}
-.storyboard .phone .nn-six-only .nn-go-arrow{margin-left:auto;width:20px;height:20px;fill:none;stroke:#d4f7ff;stroke-width:2.6;stroke-linecap:square;stroke-linejoin:miter}
+.storyboard .phone .nn-six-only .nn-sh.nn-live{background:#064a61;border-color:#36d7fc;color:#f9ffff;font-size:21px;font-weight:950;letter-spacing:.1px;min-height:64px;flex-basis:64px}
+.storyboard .phone .nn-six-only .nn-sh.nn-live svg{width:27px;height:27px;color:#5bf4e0}
+.storyboard .phone .nn-six-only .nn-sh.nn-active{border-color:#00ed94;background:#005638}
+.storyboard .phone .nn-six-only .nn-sh.nn-live.nn-active{background:#00634b;border-color:#35ffb2}
 .storyboard .phone .nn-six-only .nn-top{flex:0 0 50px}
+.storyboard .phone .nn-six-only .nn-footer{flex:0 0 72px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;padding:5px 7px;border-top:2px solid #1b6684;background:#04101e}
+.storyboard .phone .nn-six-only .nn-foot{min-width:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;padding:3px 0;background:#0a2a40;border:1px solid #1e6680;color:#fff;font-size:12px;font-weight:850;cursor:pointer;line-height:1}
+.storyboard .phone .nn-six-only .nn-foot svg{height:23px;width:23px;fill:currentColor;color:#4cddff}
+.storyboard .phone .nn-six-only .nn-avatar{height:27px;width:27px;display:grid;place-items:center;border-radius:50%;background:#1f8a86;border:2px solid #9ef9df;color:white;font-size:16px;font-weight:950}
+.storyboard .phone .nn-six-only .nn-info{padding:14px 12px;font-size:16px;color:#fff}
+.storyboard .phone .nn-six-only .nn-info>b{font-size:22px}
+.storyboard .phone .nn-six-only .nn-info p{font-size:16px;line-height:1.4;color:#d9e8f6}
+.storyboard .phone .nn-six-only .nn-info-back{min-height:48px;width:100%;border:2px solid #35d6fa;background:#09374a;color:#fff;font-size:16px;font-weight:850}
 
 /* -- player photo tiles: photo + seat number + large white name, no money -- */
 .storyboard .phone .ux-seat:not(.empty) .ux-seat-label{display:flex!important;flex-direction:column!important;justify-content:flex-end!important;align-items:center!important;position:absolute!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;z-index:3!important;height:auto!important;min-height:52px!important;padding:16px 3px 6px!important;background:linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,.35) 40%,rgba(0,0,0,.72))!important;backdrop-filter:none!important}
@@ -7133,13 +7144,13 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var id=+st.dataset.rnWorkflow||0,step=+st.dataset.rnStep||0,sec=sectionOf(id,step),S=NORA_NAV();
   var html=S.map(function(section){
    var active=section.key===sec;
-   return '<button type="button" class="nn-sh'+(active?' nn-active':'')+'" data-nn-go="'+section.home+'"'+(active?' aria-current="page"':'')+'>'
-    +ic(section.icon)+'<span>'+section.label+'</span><svg class="nn-go-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>';
+   return '<button type="button" class="nn-sh'+(section.key==='Live Session'?' nn-live':'')+(active?' nn-active':'')+'" data-nn-go="'+section.home+'"'+(active?' aria-current="page"':'')+'>'
+    +ic(section.icon)+'<span>'+section.label+'</span></button>';
   }).join('');
   var d=document.createElement('div');d.className='nn-drawer nn-six-only';
   var pr=ph.getBoundingClientRect(),ur=uc.getBoundingClientRect(),nb=ph.querySelector(':scope>.ux-bottom.s2-nav');
   d.style.top=(ur.top-pr.top-2)+'px';d.style.bottom=(nb?nb.getBoundingClientRect().height:0)+'px';
-  d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div>';
+  d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div><div class="nn-footer"><button type="button" class="nn-foot nn-profile" data-nn-go="65:0" aria-label="User profile"><span class="nn-avatar">M</span><span>Profile</span></button><button type="button" class="nn-foot" data-nn-info="Support">'+ic('chat')+'<span>SUPPORT</span></button><button type="button" class="nn-foot" data-nn-info="Privacy">'+ic('lock')+'<span>Privacy</span></button></div>';
   ph.classList.add('nn-host');ph.appendChild(d);
  }
  function go(r,st){if(!r)return false;try{return rnGo(r,st);}catch(x){console.error('Navigation destination',r,x);return false;}}
@@ -7153,6 +7164,8 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var t=e.target.closest('.storyboard .ux-bottom.s2-nav .ux-tab');if(t){e.preventDefault();e.stopImmediatePropagation();var st2=t.closest('.stage'),dr0=st2&&st2.querySelector('.nn-drawer');if(dr0)dr0.remove();if(t.dataset.s2Pending){pending(st2,t.dataset.s2Pending);return;}go(t.dataset.s2Home,st2);return;}
   var dr=e.target.closest('.nn-drawer');if(!dr)return;e.preventDefault();e.stopImmediatePropagation();
   if(e.target.closest('.nn-x')){dr.remove();return;}
+  var info=e.target.closest('[data-nn-info]');if(info){var name=info.dataset.nnInfo,body=dr.querySelector('.nn-list');if(body){body.innerHTML='<div class="nn-info"><b>'+name+'</b><p>'+(name==='Support'?'Help & Support preview. This module is not yet wired to a support provider.':'Privacy preview. The final privacy policy and controls are not yet configured.')+'</p><button type="button" class="nn-info-back" data-nn-back="1">BACK TO MENU</button></div>';}return;}
+  if(e.target.closest('[data-nn-back]')){var stBack=dr.closest('.stage');dr.remove();drawer(stBack);return;}
   var g=e.target.closest('[data-nn-go]');if(g){var st3=dr.closest('.stage');dr.remove();go(g.dataset.nnGo,st3);}
  },true);
 
