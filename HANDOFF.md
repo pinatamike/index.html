@@ -77,3 +77,15 @@ Update "Current state" and "Open / next" only if your work changes them.
 - Did: backup branch `backup-before-nav-rework-20261105` (do not touch). Work continues ONLY on branch `nora-nav-v2`. Six-section hamburger + contextual bottom bars implemented centrally in sweep2 (`ctx()` maps workflow/step to bar+active tab). Removed stray stage-level bars in WF41-46. Audited all 71 workflows at 390/820/1280: one bar max, correct active tab, no clipping.
 - Decisions: WF19-24 = Live Session, Team tab. WF54-58 are Players (data says CRM), no bar. Reporting Accounts/Inventory and Settings Expenses/Hospitality/Players tabs map to nearest existing screens (69:2, 70:0, 64:1, 64:0, 48:2).
 - Open issues: preview not visually seen from raw.githack (own screenshots only).
+
+
+### 2026-11-05 · ChatGPT — direct navigation repair, commit 80e64d9
+- Repository: `pinatamike/index.html`; edited only `index.html` on `nora-nav-v2`. Backup `backup-before-nav-rework-20261105` untouched. Gaurav's React app untouched.
+- Removed obsolete review router bindings from hamburger and bottom tabs, which conflicted with the dedicated sweep2 navigation handling.
+- Corrected contextual bottom bar to one per phone, with no bar for Schedule / standalone Players; workflow 19–24 Team operations now consistently belong to Live Session, Team active. WF53 final live step marks Live Session.
+- Settings Core routes to WF60 step 4 (actual Settings home), not WF59 onboarding.
+- Reporting Accounts & Inventory and Settings Players tabs had misleading borrowed destinations. They remain visible but report an unbuilt destination instead of taking user to unrelated existing screens. These three destinations still need dedicated UI designs before they can be fully wired.
+- Reporting active states corrected to avoid marking unrelated reports as Accounts/Inventory.
+- Kept existing approved layouts and screen designs. Browser screenshot/click-through verification of raw.githack has NOT yet been completed; must not claim all 71 visually verified.
+- Commit: `80e64d95cc51f161be7c8350d1cd1057a3b4a9b0`. Preview: https://raw.githack.com/pinatamike/index.html/80e64d95cc51f161be7c8350d1cd1057a3b4a9b0/index.html#workflow-2
+- For Claude handoff, summarize this log and the remaining unbuilt nav destinations at the end of Mike's working session.
