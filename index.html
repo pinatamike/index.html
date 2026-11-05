@@ -4501,7 +4501,7 @@ function rnDecorate(){
  document.querySelectorAll('.storyboard>.stage').forEach((s,i)=>{
   s.dataset.rnWorkflow=current;s.dataset.rnStep=i;s.dataset.rnType=current===32?'snapshot-'+snapshotVisibleViews()[i]:SCREEN_SPECS[current].types[Math.min(i,SCREEN_SPECS[current].types.length-1)];
   const {id,type}=rnInfo(s);
-  s.querySelectorAll('.snap-link[onclick],.snap-back,[data-wizard-back],.ux-hamb,.ux-nora,.ux-close,.ux-tab,.ux-seat,.seat-roster-card,.seat-roster-add-toggle,.np4-amounts button,.screen-list-item,.screen-button,.shared-action,.np4-submit,.crm56-btn,.move7-mode-tile,.move7-confirm,.move7-next,.move7-tables>span,.move7-seats>div,.swap7-choice>span,.wf9-action,.co6-confirm,.co6-done-paid-next,.wait8-confirm,.wait8-add,.wf10-rake,.wf11-rake,.wf10-pause,.wf10-close,.wf11-action,.wf11-add-expense,.wf10-confirm,.wf9-arrow').forEach(e=>rnMark(e,rnRoute(s,e)));
+  s.querySelectorAll('.snap-link[onclick],.snap-back,[data-wizard-back],.ux-nora,.ux-close,.ux-seat,.seat-roster-card,.seat-roster-add-toggle,.np4-amounts button,.screen-list-item,.screen-button,.shared-action,.np4-submit,.crm56-btn,.move7-mode-tile,.move7-confirm,.move7-next,.move7-tables>span,.move7-seats>div,.swap7-choice>span,.wf9-action,.co6-confirm,.co6-done-paid-next,.wait8-confirm,.wait8-add,.wf10-rake,.wf11-rake,.wf10-pause,.wf10-close,.wf11-action,.wf11-add-expense,.wf10-confirm,.wf9-arrow').forEach(e=>rnMark(e,rnRoute(s,e)));
   s.querySelectorAll('.wf9-arrow:not([data-page])').forEach((e,j)=>{const p=Number(s.querySelector('.wf9-pages>strong')?.textContent.split('/')[0]||1);e.setAttribute('aria-disabled',String(p===(j===0?1:2)));});
   s.querySelector('.ux-close')?.setAttribute('aria-label','Back to previous screen');s.querySelector('.ux-hamb')?.setAttribute('aria-label','Open navigation');s.querySelector('.ux-nora')?.setAttribute('aria-label','Ask Nora');
   if(type==='invite-list'&&!s.querySelector('.rn-invite'))s.querySelector('.ux-content').insertAdjacentHTML('beforeend','<button class="shared-action rn-invite" data-rn-route="49:2">REVIEW INVITATION</button>');
@@ -7080,42 +7080,58 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  ];
  var BARS={
   live:[['Tables','Tables','1:2'],['Players','Players','3:1'],['Team','Team','19:0'],['Expenses','receipt','25:0'],['Snapshot','chart','32:0'],['Close','check','40:0']],
-  reporting:[['Revenue','coin','69:0'],['Analytics','chart','68:0'],['Sessions','list','67:0'],['Accounts','card','69:2'],['Inventory','box','70:0']],
-  settings:[['Core','Settings','59:0'],['Payments','card','61:0'],['Team','Team','63:0'],['Expenses','receipt','64:1'],['Hospitality','glass','64:0'],['Players','Players','48:2']]};
+  reporting:[['Revenue','coin','69:0'],['Analytics','chart','68:0'],['Sessions','list','67:0'],['Accounts','card',null],['Inventory','box',null]],
+  settings:[['Core','Settings','60:3'],['Payments','card','61:0'],['Team','Team','63:0'],['Expenses','receipt','64:1'],['Hospitality','glass','64:0'],['Players','Players',null]]};
  /* which hamburger section a screen belongs to */
- function sectionOf(id,step){if(id===48&&step===2)return 'Settings';if(id>=19&&id<=24)return 'Team';if(id>=1&&id<=47)return 'Live Session';if(id>=48&&id<=53)return 'Schedule';if(id>=54&&id<=58)return 'Players';if(id>=59&&id<=66)return 'Settings';if(id>=67&&id<=71)return 'Reporting';return 'Live Session';}
+ function sectionOf(id,step){if(id===53&&step===3)return 'Live Session';if(id>=1&&id<=47)return 'Live Session';if(id>=48&&id<=53)return 'Schedule';if(id>=54&&id<=58)return 'Players';if(id>=59&&id<=66)return 'Settings';if(id>=67&&id<=71)return 'Reporting';return 'Live Session';}
  /* contextual bottom bar + active tab; null = no bottom bar (Schedule, Players, Team-only screens) */
  function ctx(id,step){var t;
   if(id===53&&step===3)return {bar:'live',tab:'Tables'};
   if(id>=1&&id<=47){t=(id>=3&&id<=9)?'Players':(id>=19&&id<=24)?'Team':(id>=25&&id<=31)?'Expenses':(id>=32&&id<=39)?'Snapshot':(id>=40&&id<=47)?'Close':'Tables';return {bar:'live',tab:t};}
-  if(id===48&&step===2)return {bar:'settings',tab:'Players'};
   if(id>=59&&id<=66){t=(id===61||id===62)?'Payments':(id===63||id===66)?'Team':(id===64)?(step===1?'Expenses':'Hospitality'):'Core';return {bar:'settings',tab:t};}
-  if(id>=67&&id<=71){t=id===67||id===71?'Sessions':id===68?'Analytics':id===70?'Inventory':(step===2?'Accounts':'Revenue');return {bar:'reporting',tab:t};}
+  if(id>=67&&id<=71){t=id===67||id===71?'Sessions':(id===68||id===70)?'Analytics':'Revenue';return {bar:'reporting',tab:t};}
   return null;}
  window.NORA_NAV=function(){return NAV.map(function(s){return {key:s.key,icon:s.icon,label:s.label,home:s.home,items:s.items.filter(function(it){return valid(it[2]);})};});};
  window.NORA_NAV_ICON=ic;window.NORA_NAV_SECTION=sectionOf;window.NORA_NAV_CTX=ctx;
 
  /* ---------- 1. navigation ---------- */
- function nav(st,ph){Array.prototype.forEach.call(st.querySelectorAll(':scope>.ux-bottom'),function(x){x.remove();});var id=+st.dataset.rnWorkflow||0,step=+st.dataset.rnStep||0,c=ctx(id,step),key=c?c.bar+':'+c.tab:'none';var nb=ph.querySelector(':scope>.ux-bottom');
-  if(!nb){nb=document.createElement('div');nb.className='ux-bottom';ph.appendChild(nb);}
-  if(nb.dataset.s2!==key||!nb.classList.contains('s2-nav')){
-   nb.className='ux-bottom s2-nav'+(c?'':' s2-none');nb.dataset.s2=key;ph.classList.toggle('s2-nobar',!c);
-   if(c){var T=BARS[c.bar];nb.style.setProperty('--s2n',T.length);nb.dataset.bar=c.bar;
-    nb.innerHTML=T.map(function(t){return '<div class="ux-tab'+(t[0]===c.tab?' chosen':'')+'" role="button" tabindex="0" aria-label="'+t[0]+'"'+(t[0]===c.tab?' aria-current="page"':'')+' data-s2-home="'+t[2]+'"><span class="ux-ico">'+ic(t[1],'nf')+'</span><span class="s2-lbl">'+t[0]+'</span></div>';}).join('');}
-   else{nb.innerHTML='';nb.removeAttribute('data-bar');}}
+ function nav(st,ph){
+  // A single contextual navigation bar within the phone; remove legacy global bars.
+  Array.prototype.forEach.call(st.querySelectorAll(':scope>.ux-bottom'),function(x){x.remove();});
+  var bars=Array.prototype.slice.call(ph.querySelectorAll(':scope>.ux-bottom')),nb=bars.shift();
+  bars.forEach(function(x){x.remove();});
+  var id=+st.dataset.rnWorkflow||0,step=+st.dataset.rnStep||0,c=ctx(id,step),key=c?c.bar+':'+c.tab:'none';
+  ph.classList.toggle('s2-nobar',!c);
+  if(!c){if(nb)nb.remove();}
+  else{
+   if(!nb){nb=document.createElement('div');nb.className='ux-bottom';ph.appendChild(nb);}
+   if(nb.dataset.s2!==key||!nb.classList.contains('s2-nav')){
+    var T=BARS[c.bar];nb.className='ux-bottom s2-nav';nb.dataset.s2=key;nb.dataset.bar=c.bar;
+    nb.style.setProperty('--s2n',T.length);
+    nb.innerHTML=T.map(function(t){
+     var pending=!t[2];
+     return '<div class="ux-tab'+(t[0]===c.tab?' chosen':'')+(pending?' s2-pending':'')+'" role="button" tabindex="0" aria-label="'+t[0]+(pending?' (screen not yet designed)':'')+'"'+(t[0]===c.tab?' aria-current="page"':'')+(pending?' data-s2-pending="'+t[0]+'"':' data-s2-home="'+t[2]+'"')+'><span class="ux-ico">'+ic(t[1],'nf')+'</span><span class="s2-lbl">'+t[0]+'</span></div>';
+    }).join('');
+   }
+  }
   var cx=ph.querySelector('.ux-head .ux-close');if(cx&&!cx.dataset.s2){cx.dataset.s2=1;cx.innerHTML='<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>';}
-  var h=ph.querySelector('.ux-head .ux-hamb');if(h&&!h.dataset.s2){h.dataset.s2=1;h.innerHTML=ic('menu');h.setAttribute('role','button');h.setAttribute('aria-label','Menu');}
+  var h=ph.querySelector('.ux-head .ux-hamb');if(h&&!h.dataset.s2){h.dataset.s2=1;h.innerHTML=ic('menu');h.setAttribute('role','button');h.setAttribute('tabindex','0');h.setAttribute('aria-label','Open menu');}
  }
  function drawer(st){var ph=st.querySelector('.phone'),uc=ph&&ph.querySelector('.ux-content');if(!uc)return;var old=ph.querySelector('.nn-drawer');if(old){old.remove();return;}
   var id=+st.dataset.rnWorkflow||0,step=+st.dataset.rnStep||0,sec=sectionOf(id,step),here=id+':'+step,S=NORA_NAV();
   var html=S.map(function(s){var open=s.key===sec;return '<div class="nn-sec'+(open?' open cur':'')+'"><button type="button" class="nn-sh" data-nn-toggle="1">'+ic(s.icon)+s.label+'<svg class="nn-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button><div class="nn-items">'+s.items.map(function(it){var w=it[2].split(':')[0];var cur=it[2]===here||(w==id&&s.items.filter(function(x){return x[2].split(':')[0]==id;}).length===1);return '<button type="button" class="nn-it'+(cur?' cur':'')+'" data-nn-go="'+it[2]+'">'+ic(it[1])+it[0]+'</button>';}).join('')+'</div></div>';}).join('');
-  var d=document.createElement('div');d.className='nn-drawer';var pr=ph.getBoundingClientRect(),ur=uc.getBoundingClientRect(),nb=ph.querySelector('.ux-bottom');d.style.top=(ur.top-pr.top-2)+'px';d.style.bottom=(nb?nb.getBoundingClientRect().height:0)+'px';
+  var d=document.createElement('div');d.className='nn-drawer';var pr=ph.getBoundingClientRect(),ur=uc.getBoundingClientRect(),nb=ph.querySelector(':scope>.ux-bottom.s2-nav');d.style.top=(ur.top-pr.top-2)+'px';d.style.bottom=(nb?nb.getBoundingClientRect().height:0)+'px';
   d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div>';
   ph.classList.add('nn-host');ph.appendChild(d);}
- function go(r,st){try{rnGo(r,st);}catch(x){console.error(x);}}
+ function go(r,st){if(!r)return false;try{return rnGo(r,st);}catch(x){console.error('Navigation destination',r,x);return false;}}
+ function pending(st,name){var ph=st&&st.querySelector('.phone');if(!ph)return;var old=ph.querySelector('.s2-nav-notice');if(old)old.remove();
+  var d=document.createElement('div');d.className='s2-nav-notice';d.setAttribute('role','status');
+  d.textContent=name+' screen is not designed yet. No unrelated workflow was opened.';
+  d.style.cssText='position:absolute;left:10px;right:10px;bottom:78px;padding:12px;background:#073149;border:2px solid #4cddff;color:white;font-size:14px;font-weight:800;line-height:1.25;z-index:70;box-shadow:0 3px 12px #000';
+  ph.appendChild(d);d.addEventListener('click',function(){d.remove();},{once:true});}
  window.addEventListener('click',function(e){
   var h=e.target.closest('.storyboard .ux-hamb');if(h){var st=h.closest('.stage');if(st){e.preventDefault();e.stopImmediatePropagation();drawer(st);}return;}
-  var t=e.target.closest('.storyboard .ux-bottom.s2-nav .ux-tab');if(t){e.preventDefault();e.stopImmediatePropagation();var st2=t.closest('.stage'),dr0=st2&&st2.querySelector('.nn-drawer');if(dr0)dr0.remove();go(t.dataset.s2Home,st2);return;}
+  var t=e.target.closest('.storyboard .ux-bottom.s2-nav .ux-tab');if(t){e.preventDefault();e.stopImmediatePropagation();var st2=t.closest('.stage'),dr0=st2&&st2.querySelector('.nn-drawer');if(dr0)dr0.remove();if(t.dataset.s2Pending){pending(st2,t.dataset.s2Pending);return;}go(t.dataset.s2Home,st2);return;}
   var dr=e.target.closest('.nn-drawer');if(!dr)return;e.preventDefault();e.stopImmediatePropagation();
   if(e.target.closest('.nn-x')){dr.remove();return;}
   var tg=e.target.closest('[data-nn-toggle]');if(tg){tg.parentElement.classList.toggle('open');return;}
