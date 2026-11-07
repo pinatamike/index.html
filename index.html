@@ -238,6 +238,23 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .storyboard .st-phone .wf48-delivery-setting>span{font-size:16px;font-weight:900}
 .storyboard .st-phone .wf48-delivery-setting select{height:40px;width:100%;background:#0d4562;border:2px solid #2eadd9;color:white;font-size:16px;font-weight:900}
 .storyboard .st-phone .wf48-owner-preview .wf48-preview-notice{color:#74dfef;font-size:14px;font-weight:900}
+
+/* WF48 focused final design sweep: larger text, compact settings, no dark player-name bar */
+.storyboard .st-phone .wf48-schedule .wf48-invite-tile .wf2-label{font-size:16px!important;letter-spacing:-.5px!important;font-weight:900!important}
+.storyboard .st-phone .wf48-minimal.wf48-clean{gap:9px!important;justify-content:flex-start!important}
+.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-minirow{flex:0 0 81px!important;min-height:81px!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:center!important;gap:7px!important;padding:8px 12px!important}
+.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-minirow>span{font-size:17px!important;line-height:1.1!important;width:100%!important}
+.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-minirow select{width:100%!important;max-width:100%!important;min-width:0!important;height:41px!important;min-height:41px!important;font-size:18px!important;text-align:center!important;text-align-last:center!important;padding:2px 28px 2px 9px!important}
+.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-only-confirm{margin-top:auto!important;flex:0 0 54px!important}
+.storyboard .st-phone .wf48-player.has-photo b,.storyboard .st-phone .wf48-player b{background:none!important;background-color:transparent!important;background-image:none!important;box-shadow:none!important;text-shadow:0 1px 3px #000,0 0 4px #000!important;font-size:15px!important}
+.storyboard .st-phone .wf48-player.has-photo::before,.storyboard .st-phone .wf48-player.has-photo::after{display:none!important;content:none!important}
+.storyboard .st-phone .wf48-player.has-photo .wf48-face img{position:absolute!important;width:100%!important;height:100%!important;max-width:100%!important;left:0!important;top:0!important;right:auto!important;bottom:auto!important;object-fit:cover!important;object-position:center center!important}
+.storyboard .st-phone .wf48-message-card>span{font-size:17px!important;line-height:1.18!important}
+.storyboard .st-phone .wf48-note-label{font-size:17px!important}
+.storyboard .st-phone .wf48-message-facts{font-size:16px!important;gap:6px!important}
+.storyboard .st-phone .wf48-message-facts b{font-size:19px!important}
+.storyboard .st-phone .wf48-guest .wf48-message-card>span{font-size:17px!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat-hint,.storyboard .st-phone .wf48-table-screen .wf48-status{font-size:15px!important}
 </style><style>
 .seat-roster-v3 .seat-roster-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:5px}
 .seat-roster-v3 .seat-roster-card{flex-direction:row;justify-content:flex-start;text-align:left;padding:5px 7px;gap:9px}
@@ -7372,9 +7389,9 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   function select(field,options){return '<select data-wf48-select="'+field+'" aria-label="'+field+'">'+options.map(function(o){return '<option value="'+o[1]+'"'+(String(d[field])===String(o[1])?' selected':'')+'>'+o[0]+'</option>';}).join('')+'</select>';}
   return '<div class="wf48-invites wf48-minimal wf48-clean">'+
    '<div class="wf48-minirow"><span>PLAYERS</span>'+select('audience',[['SELECT','PICK'],['ACTIVE','ACTIVE'],['ALL','ALL']])+'</div>'+
-   '<div class="wf48-minirow"><span>HOLD SEATS</span>'+select('grace',[['15 MINUTES',15],['30 MINUTES',30],['60 MINUTES',60]])+'</div>'+
-   '<div class="wf48-minirow"><span>SEND INVITES</span>'+select('inviteTime',[['NOW','NOW'],['24 HOURS','24 H'],['12 HOURS','12 H'],['6 HOURS','6 H']])+'</div>'+
-   '<div class="wf48-minirow"><span>REMINDER</span>'+select('reminder',[['1 HOUR','1 H'],['30 MINUTES','30 MIN'],['OFF','OFF']])+'</div>'+
+   '<div class="wf48-minirow"><span>SEAT HOLD</span>'+select('grace',[['15 MIN',15],['30 MIN',30],['60 MIN',60]])+'</div>'+
+   '<div class="wf48-minirow"><span>SEND BEFORE GAME</span>'+select('inviteTime',[['NOW','NOW'],['24 H BEFORE','24 H'],['12 H BEFORE','12 H'],['6 H BEFORE','6 H']])+'</div>'+
+   '<div class="wf48-minirow"><span>REMINDER BEFORE</span>'+select('reminder',[['1 H BEFORE','1 H'],['30 MIN BEFORE','30 MIN'],['OFF','OFF']])+'</div>'+
    '<div class="wf48-footer-inv wf48-only-confirm"><button type="button" class="primary" data-wf48-settings-next="1">'+(d.audience==='PICK'?'SELECT PLAYERS':'CONTINUE')+'</button></div></div>';
  }
  function wf48PlayerForm(){
@@ -7399,7 +7416,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    '<span>Buy-in COP '+Number(g.min).toLocaleString('en-US')+' – COP '+Number(g.max).toLocaleString('en-US')+'</span></div>'+
    '<label class="wf48-note-label">PERSONAL MESSAGE (OPTIONAL)</label>'+
    '<textarea data-wf48-owner-note maxlength="280" placeholder="Add a personal note…">'+e(WF48INV.note||'')+'</textarea>'+
-   '<div class="wf48-message-facts"><b>'+n+' INVITEES</b><span>SEND: '+e(WF48INV.inviteTime)+'</span><span>REMINDER: '+e(WF48INV.reminder)+'</span><span class="wf48-preview-notice">STORYBOARD PREVIEW · NO MESSAGES SENT</span></div>'+
+   '<div class="wf48-message-facts"><b>'+n+' INVITEES</b><span>SEND: '+e(WF48INV.inviteTime==='NOW'?'NOW':WF48INV.inviteTime+' BEFORE GAME')+'</span><span>REMINDER: '+e(WF48INV.reminder==='OFF'?'OFF':WF48INV.reminder+' BEFORE GAME')+'</span><span class="wf48-preview-notice">PREVIEW ONLY · NO MESSAGES SENT</span></div>'+
    '<div class="wf48-message-footer"><button type="button" data-rn-route="'+(WF48INV.audience==='PICK'?'48:2':'48:1')+'">BACK</button><button type="button" class="primary" data-wf48-confirm-template="1">VIEW PLAYER INVITE</button></div></div>';
  }
  var WF48RESERVED=[{seat:1,name:'Luka D.',initial:'LD'},{seat:3,name:'Macaulay C.',initial:'MC'},{seat:5,name:'Miguel B.',initial:'MB'},{seat:7,name:'Paul Smith',initial:'PS'},{seat:9,name:'Nora A.',initial:'NA'}];
