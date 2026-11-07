@@ -232,6 +232,12 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .storyboard .st-phone .wf48-table-screen .wf48-confirm-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px}
 .storyboard .st-phone .wf48-table-screen .wf48-confirm-actions button{min-width:0!important;font-size:12px!important;padding:2px!important}
 .storyboard .st-phone .wf48-player.picked{border:4px solid #52f0b7!important}
+
+/* User-requested Settings > Communications invitation delivery preference */
+.storyboard .st-phone .wf48-delivery-setting{display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:10px;min-height:85px}
+.storyboard .st-phone .wf48-delivery-setting>span{font-size:16px;font-weight:900}
+.storyboard .st-phone .wf48-delivery-setting select{height:40px;width:100%;background:#0d4562;border:2px solid #2eadd9;color:white;font-size:16px;font-weight:900}
+.storyboard .st-phone .wf48-owner-preview .wf48-preview-notice{color:#74dfef;font-size:14px;font-weight:900}
 </style><style>
 .seat-roster-v3 .seat-roster-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:5px}
 .seat-roster-v3 .seat-roster-card{flex-direction:row;justify-content:flex-start;text-align:left;padding:5px 7px;gap:9px}
@@ -7163,9 +7169,9 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var G=[['A','sliders','Business & Game Setup',[['user','Business Profile & Preferences','Name · currency · language','65:0'],['game','Game Rules & Tables','Type · blinds · tables · rake','60:4'],['bank','Account Balances','Cash · Nequi · Bancolombia','61:0']]],
    ['B','team','People & Access',[['mail','Team Members & Invitations','Invite · role · revoke','66:0'],['lock','Team Roles & Permissions','Roles and access','63:0'],['user','Player Preferences & CRM','Not in this prototype','']]],
    ['C','pen','Financial Operations',[['pen','Sign & Settle','Optional','62:0'],['box','Expenses & Inventory','Simple or advanced tracking','64:1'],['burger','Food, Beverage & Menu Pricing','Accounting · menu · prices','64:0']]],
-   ['D','chat','Communications & AI',[['chat','Invitations, RSVP & WhatsApp','RSVP · seats · reminders','48:2'],['bell','Nora AI Preferences','Voice · suggestions · alerts','65:1']]],
+   ['D','chat','Communications & AI',[['chat','Invitations, RSVP & WhatsApp','RSVP · seats · reminders','48:2'],['send','Invitation Delivery','WhatsApp · SMS · share link','__PREF__'],['bell','Nora AI Preferences','Voice · suggestions · alerts','65:1']]],
    ['E','shield','Account & Administration',[['coin','Subscription & Billing','Not in this prototype',''],['lock','Security','Not in this prototype','']]]];
-  var gl=G.map(function(g){return '<div class="st-gp"><button type="button" class="st-gh" data-st-group="'+g[0]+'" aria-expanded="false">'+I(g[1])+'<div><b>'+g[2]+'</b><small>'+g[3].length+' modules</small></div><span class="st-gc">'+I('chev')+'</span></button><div class="st-gb">'+g[3].map(function(x){return x[3]?li(x[0],x[1],x[2],x[3]):'<div class="fb-li na" aria-disabled="true">'+I(x[0])+'<div><b>'+x[1]+'</b><small>'+x[2]+'</small></div></div>';}).join('')+'</div></div>';}).join('');
+  var gl=G.map(function(g){return '<div class="st-gp"><button type="button" class="st-gh" data-st-group="'+g[0]+'" aria-expanded="false">'+I(g[1])+'<div><b>'+g[2]+'</b><small>'+g[3].length+' modules</small></div><span class="st-gc">'+I('chev')+'</span></button><div class="st-gb">'+g[3].map(function(x){return x[3]==='__PREF__'?'<label class="fb-li wf48-delivery-setting"><span>INVITATION DELIVERY</span><select data-wf48-delivery aria-label="Invitation delivery preferences"><option value="WHATSAPP">WHATSAPP + LINK</option><option value="SMS">SMS + LINK</option><option value="BOTH">WHATSAPP + SMS + LINK</option><option value="LINK">LINK ONLY</option></select></label>':x[3]?li(x[0],x[1],x[2],x[3]):'<div class="fb-li na" aria-disabled="true">'+I(x[0])+'<div><b>'+x[1]+'</b><small>'+x[2]+'</small></div></div>';}).join('')+'</div></div>';}).join('');
   return banner+'<div class="st-grps">'+gl+'</div>'+li('plus','Quick Setup with Nora','Reconfigure any time','59:0');}
  function ckRows(){return visible().map(function(x){var s=stateOf(x.id);return '<div class="st-ck '+s+'" data-ck="'+x.id+'"><button type="button" class="st-ckm" data-rn-route="'+x.r+'">'+I(x.ic)+'<b>'+x.t+'</b><span class="st-sbox">'+(s==='done'?I('check'):s==='skip'?I('dash'):'')+'</span></button><button type="button" class="st-micsm" data-st-nora="'+x.id+'" data-rn-route="60:2" aria-label="Ask Nora">'+I('mic')+'</button></div>';}).join('');}
  S[60]={sec:'SETTINGS',nav:'Settings',steps:['Settings home','Finish setting up your business','Nora helps with a checklist item','Settings home · before the first session','Game settings · saved templates','Edit game template','Review changes before saving'],
@@ -7486,6 +7492,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var cancel=ev.target.closest('[data-wf48-cancel]');if(cancel){WF48INV.confirmed=false;WF48INV.seat=null;WF48INV.response='NO';WF48INV.rsvpLog.current={status:'Declined',updatedAt:new Date().toISOString()};wf48Store();wf48SavePreview();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:4');return;}
  },true);
  window.addEventListener('change',function(ev){var el=ev.target;if(!el.matches('[data-wf48-select]'))return;var f=el.dataset.wf48Select;WF48INV[f]=f==='grace'?Number(el.value):el.value;if(f==='audience')WF48INV.selected=[];wf48Store();var box=el.closest('.wf48-invites');if(box)box.outerHTML=wf48InviteForm();},true);
+ window.addEventListener('change',function(ev){if(!ev.target.matches('[data-wf48-delivery]'))return;try{localStorage.setItem('nora.wf48.delivery.preference',ev.target.value);}catch(err){}},true);
  window.addEventListener('touchstart',function(ev){var grid=ev.target.closest('[data-wf48-swipe]');if(grid)WF48SWIPE=ev.touches[0].clientX;},{passive:true});
  window.addEventListener('touchend',function(ev){var grid=ev.target.closest('[data-wf48-swipe]');if(!grid||!ev.changedTouches.length)return;var dx=ev.changedTouches[0].clientX-WF48SWIPE;if(Math.abs(dx)<40)return;WF48PAGE=Math.max(0,Math.min(Math.ceil(WF48PLAYERS.length/12)-1,WF48PAGE+(dx<0?1:-1)));var box=grid.closest('.wf48-player-screen');if(box)box.outerHTML=wf48PlayerForm();},{passive:true});
 
