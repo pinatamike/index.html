@@ -2486,6 +2486,33 @@ html body .storyboard .crm54-phone .crm54-body:has(>.crm54-profile-fixed){displa
 .storyboard .st-phone .wf2-one>.wf2-half>.wf2-tile,.storyboard .st-phone .wf2-one>.wf2-triple>.wf2-tile{height:100%;min-height:0}
 .storyboard .st-phone .wf2-one>.wf2-heading{flex:0 0 auto}
 .storyboard .st-phone .wf2-one>.wf2-actions{flex:0 0 auto}
+</style>
+<style id="wf48-only-nov6">
+/* WF48 schedule form reuses identical WF02 tiles, dates, typography and alignment. */
+.storyboard .st-phone:has(.wf48-schedule)>.ux-bottom,.storyboard .st-phone:has(.wf48-invites)>.ux-bottom{display:none!important}
+.storyboard .st-phone .ux-content:has(.wf48-invites){overflow:hidden!important;min-height:0!important;padding:5px 5px 9px!important;flex:1 1 auto!important}
+.storyboard .st-phone .fb-body:has(>.wf48-invites){display:flex!important;height:100%!important;min-height:0!important;padding:0!important;overflow:hidden!important}
+.storyboard .st-phone .wf48-schedule .wf48-footer{grid-template-columns:1fr 2fr}
+.storyboard .st-phone .wf48-schedule .wf48-footer button{font-size:14px}
+.storyboard .st-phone .wf48-invites{display:flex;flex-direction:column;width:100%;height:100%;min-height:0;gap:7px;padding:0 2px;overflow:hidden!important;box-sizing:border-box}
+.storyboard .st-phone .wf48-invites *{box-sizing:border-box}
+.storyboard .st-phone .wf48-intro{display:flex;flex-direction:column;gap:3px;border-bottom:2px solid #27badd;padding:6px 2px 8px;flex:none}
+.storyboard .st-phone .wf48-intro b{font-size:21px;color:white;line-height:1.1}
+.storyboard .st-phone .wf48-intro span{font-size:13px;font-weight:800;color:#90e4fa}
+.storyboard .st-phone .wf48-section{background:#092f48;border:2px solid #279cc8;padding:8px 9px;min-height:0;flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.storyboard .st-phone .wf48-line{display:flex;align-items:center;justify-content:space-between;gap:7px}
+.storyboard .st-phone .wf48-line>span,.storyboard .st-phone .wf48-label,.storyboard .st-phone .wf48-deadline>span{font-size:14px;line-height:1.15;font-weight:900;color:#78e3ff}
+.storyboard .st-phone .wf48-note{font-size:12px;line-height:1.15;color:#fff}
+.storyboard .st-phone .wf48-choices{display:grid;grid-auto-columns:minmax(0,1fr);grid-auto-flow:column;gap:5px}
+.storyboard .st-phone .wf48-choice{min-width:0;min-height:33px;border:2px solid #28aed5;background:#073148;color:white;font-size:12px;font-weight:900;border-radius:0!important;padding:3px 1px;line-height:1.1}
+.storyboard .st-phone .wf48-choice.on{background:#007d57;border-color:#50e0b0}
+.storyboard .st-phone .wf48-deadline{flex-direction:row;align-items:center;justify-content:space-between}
+.storyboard .st-phone .wf48-deadline input{font-size:18px;font-weight:900;background:transparent;color:white;border:0;width:95px;text-align:right;min-width:0}
+.storyboard .st-phone .wf48-footer-inv{display:grid;grid-template-columns:1fr 1.5fr;gap:6px;min-height:58px;margin-top:auto;flex:none;padding-bottom:5px}
+.storyboard .st-phone .wf48-footer-inv button{min-height:55px;border:2px solid #27a9d1;border-radius:0!important;background:#0e4963;color:white;font-size:14px;font-weight:900;padding:4px}
+.storyboard .st-phone .wf48-footer-inv button.primary{background:#007751;border-color:#40d9aa}
+.storyboard .st-phone .wf48-status{font-size:12px;font-weight:900;color:#74ecca}
+.storyboard .st-phone .wf48-status:empty{display:none}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -6389,7 +6416,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  const views={
  48:[
  page('Scheduled games',row('Sunday Hold’em','Nov 8 · 7:00 PM')+row('Venue','Provenza')+row('RSVP deadline','6:00 PM')+'<div class="sch-grid">'+tile('＋ Create Game','Schedule a new game','48:1')+tile('♧ Attendance','Confirmed and waitlist','51:0')+tile('✉ Invite Players','WhatsApp / SMS / email','49:0')+tile('▶ Start Session','When ready','53:0')+'</div>'),
- page('Create game',input('Game name','Sunday Hold’em')+input('Date','2026-11-08','date')+input('Start time','19:00','time')+select('Game type',['Hold’em','Pot Limit Omaha','Mixed'])+select('Tables',['1','2','3','4'])+input('Venue','Provenza')+input('RSVP deadline','18:00','time'),go('48:0','CANCEL')+go('48:2','REVIEW')),
+ page('Create game',input('Game name','Sunday Hold’em')+input('Date','2026-11-08','date')+input('Start time','19:00','time')+select('Game type',['Hold’em','Pot Limit Omaha','Mixed'])+select('Tables',['1','2','3','4'])+input('Venue','Provenza')+input('RSVP deadline','18:00','time'),go('48:0','CANCEL')+go('48:1','REVIEW')),
  page('Review schedule',row('Game','Sunday Hold’em')+row('Date','Nov 8, 2026')+row('Starts','7:00 PM')+row('RSVP deadline','6:00 PM')+row('Tables','2')+demo,go('48:1','EDIT')+go('49:0','SAVE PREVIEW · INVITE'))
  ],
  49:[
@@ -6772,6 +6799,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   if(t.dataset.fbToggle){var on=!t.classList.contains('on');t.classList.toggle('on',on);t.textContent=on?'ON MENU':'HIDDEN';}
  },true);
  window.NORA_FB={P:P,I:I,H:H,row:row,tile:tile,note:note,tips:tips,cop:cop,person:person,pgrid:pgrid,prow:prow,art:art,fromHTML:fromHTML,S63:S[63],modeChip:modeChip};
+ var w48Final=WORKFLOWS.find(function(x){return x.id===48;});if(w48Final)w48Final.steps=['Schedule Session','Invitations'];
  try{if(typeof show==='function'&&typeof current!=='undefined')show(current);}catch(x){console.error(x);}
 })();
 
@@ -6826,7 +6854,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   {id:'ss',ic:'pen',t:'Sign & Settle',r:'62:0',mod:'ss',nora:'Sign & Settle is optional. Want credit for trusted players?'},
   {id:'inv',ic:'box',t:'Expenses & Inventory',r:'64:1',mod:'inv',nora:'Simple tracking is fine to start. Want stock counts for the bar?'},
   {id:'fnb',ic:'menu',t:'Food & Beverage',r:'64:0',mod:'fnb',nora:'A player menu is optional. Add products with a photo?'},
-  {id:'wa',ic:'chat',t:'Invitations & WhatsApp',r:'48:2',mod:'wa',nora:'Invitations are optional. Want to connect WhatsApp so players can RSVP?'},
+  {id:'wa',ic:'chat',t:'Invitations & WhatsApp',r:'48:1',mod:'wa',nora:'Invitations are optional. Want to connect WhatsApp so players can RSVP?'},
   {id:'ai',ic:'bell',t:'Notifications & Nora AI',r:'65:1',nora:'Choose how Nora talks to you and what to be notified about.'}
  ];
  function visible(){return ITEMS.filter(function(x){return !x.mod||CFG.modules[x.mod];});}
@@ -6924,7 +6952,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   return '';
  }
  function wf2Strip(d){var r=Object.assign({},d);delete r.date;delete r.time;delete r.name;return r;}
- S[2]={sec:'LIVE SESSION',steps:['Game Structure · Start or Schedule'],heads:['Game Structure'],screens:[wf2Form]};
+ S[2]={sec:'LIVE SESSION',steps:['Game Structure · Start or Schedule'],heads:['Schedule Session'],screens:[wf2Form]};
  window.addEventListener('input',function(ev){
   var el=ev.target,box=el.closest('.wf2-one');if(!box||!el.matches('[data-wf2-field],[data-wf2-name],[data-wf2-date],[data-wf2-time]'))return;
   if(el.matches('.wf2-money input')){var p=el.selectionStart;var before=el.value.slice(0,p).replace(/[^0-9]/g,'').length;var formatted=wf2Parse(el.value).toLocaleString('en-US');el.value=formatted;if(el.dataset.wf2AutoWidth)el.style.width=(formatted.length+.3)+'ch';var pos=0,n=0;while(pos<formatted.length&&n<before){if(/[0-9]/.test(formatted[pos]))n++;pos++;}el.setSelectionRange(pos,pos);}
@@ -6978,7 +7006,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var G=[['A','sliders','Business & Game Setup',[['user','Business Profile & Preferences','Name · currency · language','65:0'],['game','Game Rules & Tables','Type · blinds · tables · rake','60:4'],['bank','Account Balances','Cash · Nequi · Bancolombia','61:0']]],
    ['B','team','People & Access',[['mail','Team Members & Invitations','Invite · role · revoke','66:0'],['lock','Team Roles & Permissions','Roles and access','63:0'],['user','Player Preferences & CRM','Not in this prototype','']]],
    ['C','pen','Financial Operations',[['pen','Sign & Settle','Optional','62:0'],['box','Expenses & Inventory','Simple or advanced tracking','64:1'],['burger','Food, Beverage & Menu Pricing','Accounting · menu · prices','64:0']]],
-   ['D','chat','Communications & AI',[['chat','Invitations, RSVP & WhatsApp','RSVP · seats · reminders','48:2'],['bell','Nora AI Preferences','Voice · suggestions · alerts','65:1']]],
+   ['D','chat','Communications & AI',[['chat','Invitations, RSVP & WhatsApp','RSVP · seats · reminders','48:1'],['bell','Nora AI Preferences','Voice · suggestions · alerts','65:1']]],
    ['E','shield','Account & Administration',[['coin','Subscription & Billing','Not in this prototype',''],['lock','Security','Not in this prototype','']]]];
   var gl=G.map(function(g){return '<div class="st-gp"><button type="button" class="st-gh" data-st-group="'+g[0]+'" aria-expanded="false">'+I(g[1])+'<div><b>'+g[2]+'</b><small>'+g[3].length+' modules</small></div><span class="st-gc">'+I('chev')+'</span></button><div class="st-gb">'+g[3].map(function(x){return x[3]?li(x[0],x[1],x[2],x[3]):'<div class="fb-li na" aria-disabled="true">'+I(x[0])+'<div><b>'+x[1]+'</b><small>'+x[2]+'</small></div></div>';}).join('')+'</div></div>';}).join('');
   return banner+'<div class="st-grps">'+gl+'</div>'+li('plus','Quick Setup with Nora','Reconfigure any time','59:0');}
@@ -7141,29 +7169,57 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  function bub(t,out,tm){return '<div class="iv-b '+(out?'out':'in')+'">'+t.replace(/\n/g,'<br>')+'<small>'+tm+'</small></div>';}
 
  var S={};
- /* ================= WF48 · Schedule + ONE Invitations & WhatsApp settings screen ================= */
- var CFGv=K.CFG,getP=K.getP;
- function ix(arr,v){var i=arr.indexOf(v);return i<0?0:i;}
- function trow(l,key,small){return '<div class="st-ar"><div class="st-arm"><div><b>'+l+'</b>'+(small?'<small>'+small+'</small>':'')+'</div></div>'+tog(!!getP(key),key)+'</div>';}
- function adv(label,hint,inner){return '<button type="button" class="st-er" data-st-expand="adv" data-st-label="'+hint+'"><span>'+label+'</span><b>'+hint+'</b>'+I('chev')+'</button><div class="iv-advbox">'+inner+'</div>';}
- S[48]={sec:'SCHEDULED',nav:'Players',steps:['Scheduled games','Create game','Settings → Invitations & WhatsApp'],
-  heads:['Scheduled Games','Create Game','Invitations Setup'],
-  screens:[
-  function(){var g=function(n,when,sub,r){return '<button type="button" class="fb-li iv-game-li" data-rn-route="'+r+'">'+I('calendar')+'<div><b>'+n+'</b><small>'+when+'</small><small>'+sub+'</small></div><span class="fb-chev">›</span></button>';};
-   return '<div class="fb-list iv-gl">'+g('Friday Night Hold’em','Fri Nov 6 · '+fmt(START),'11 in · 9 seats reserved','51:0')+g('Sunday Hold’em','Sun Nov 8 · '+fmt(START-60),'Invitations not sent yet','49:0')+'</div>'+
-   '<button type="button" class="st-sched" data-rn-route="2:0">'+I('bolt')+'<div><b>START WITHOUT INVITATIONS</b><small>Spontaneous game</small></div><span class="fb-chev">›</span></button>'+
-   '<button type="button" class="st-sched" data-rn-route="48:2">'+I('chat')+'<div><b>Invitation settings</b><small>WhatsApp · seats · reminders</small></div><span class="fb-chev">›</span></button>'+foot(['CREATE GAME','48:1']);},
-  function(){var r2=function(a,b){return '<div class="fb-grid2 st-fg">'+a+b+'</div>';};var iv=CFGv.invites;
-   return '<div class="iv-prim">'+r2(fld('Date','Fri Nov 6'),fld('Start time',fmt(START)))+'<button type="button" class="st-fld wide" data-rn-route="2:2"><small>Game · from your saved settings</small><b>Hold’em · '+BLM+' · 2 × 10</b></button>'+trow('Invite players after saving','invites.autoInvite')+'</div>'+
-   adv('Advanced Settings','seats · RSVP deadline',r2(fld('RSVP by',fmt(START-120)),fld('Venue','Provenza'))+trow('Players can pick a seat','invites.reserve')+chips('Hold a seat for (min)',['15','30','45','60'],ix([15,30,45,60],iv.grace),'gr','invites.grace',[15,30,45,60])+trow('Release seats automatically','invites.auto'))+
-   foot(['CANCEL','48:0'],['SAVE & INVITE','49:0'],' data-cfg-done="wa"');},
-  function(){var iv=CFGv.invites;
-   var prim='<div class="iv-prim"><div class="fb-li iv-wa">'+I('chat')+'<div><b>WhatsApp</b><small>Connected · Evolution API</small></div><em class="fb-chip on">DEMO</em></div>'+trow('Players can pick a seat','invites.reserve')+chips('Hold a seat for (min)',['15','30','45','60'],ix([15,30,45,60],iv.grace),'gr2','invites.grace',[15,30,45,60])+chips('Remind players',['24 H BEFORE','2 H BEFORE','OFF'],ix(['24 H BEFORE','2 H BEFORE','OFF'],iv.reminder),'rm','invites.reminder')+'</div>';
-   var advIn='<div class="fb-grid2 st-pmg">'+[['Release seats automatically','invites.auto'],['Alert waitlist on release','invites.notifyWait'],['Host approves seat changes','invites.hostApprove'],['Require WhatsApp opt-in','invites.optin']].map(function(x){var on=!!getP(x[1]);return '<button type="button" class="st-pm'+(on?' on':'')+'" data-st-pm="1" data-cfg="'+x[1]+'"><b>'+x[0]+'</b><span>'+(on?'ON':'OFF')+'</span></button>';}).join('')+'</div>'+chips('Grace countdown starts at',['GAME START','PLAYER ETA'],ix(['GAME START','PLAYER ETA'],iv.countdown),'cs','invites.countdown')+chips('Seat offer window',['5 MIN','10 MIN','15 MIN'],ix(['5 MIN','10 MIN','15 MIN'],iv.offer),'ow','invites.offer')+chips('Show address',['AFTER I’M IN','NEVER'],ix(['AFTER I’M IN','NEVER'],iv.address),'ad','invites.address')+chips('Language',['ENGLISH','ESPAÑOL'],ix(['ENGLISH','ESPAÑOL'],iv.lang),'lg','invites.lang');
-   return prim+adv('Advanced Settings','policy · privacy · language',advIn)+foot(['BACK','60:0'],['SAVE','60:0'],' data-cfg-done="wa"');}
- ]};
+ /* ================= WF48 · Schedule Session + Invitations · two-screen review =================
+   WF02 exact Game Structure form reused; only action footer changes.
+   Browser-local demo only: no actual WhatsApp invitations are sent. */
+ var WF48KEY='nora.wf48.schedule.preview.v2';
+ var WF48INVKEY='nora.wf48.invites.preview.v2';
+ var WF48INV={send:true,audience:'RECENT',seats:true,grace:30,reminder:'2 H BEFORE',deadline:'6:00 PM'};
+ try{Object.assign(WF48INV,JSON.parse(localStorage.getItem(WF48INVKEY)||'{}'));}catch(x){}
+ function wf48Store(){try{localStorage.setItem(WF48INVKEY,JSON.stringify(WF48INV));}catch(x){}}
+ function wf48Base(){
+  var html=wf2Form();
+  html=html.replace('class="wf2-one"','class="wf2-one wf48-schedule"');
+  html=html.replace('<div class="wf2-actions"><button type="button" data-rn-route="1:0">CANCEL</button><button type="button" data-wf2-commit="schedule">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>',
+   '<div class="wf2-actions wf48-footer"><button type="button" data-rn-route="48:0" data-wf48-cancel="1">CANCEL</button><button type="button" class="primary" data-wf48-next="1">CONTINUE TO INVITATIONS</button></div>');
+  return html;
+ }
+ function wf48Button(label,val,selected,field){return '<button type="button" class="wf48-choice'+(selected?' on':'')+'" data-wf48-field="'+field+'" data-wf48-value="'+val+'">'+label+'</button>';}
+ function wf48InviteForm(){
+  var d=WF48INV;
+  return '<div class="wf48-invites">'+
+   '<div class="wf48-intro"><b>INVITATIONS</b><span>WhatsApp · RSVPs · Seat preferences</span></div>'+
+   '<div class="wf48-section"><div class="wf48-line"><span>INVITE PLAYERS</span>'+wf48Button(d.send?'ON':'OFF',String(!d.send),d.send,'send')+'</div><div class="wf48-note">Optional — you can schedule without inviting anyone.</div></div>'+
+   '<div class="wf48-section"><div class="wf48-label">INVITE</div><div class="wf48-choices">'+wf48Button('RECENT','RECENT',d.audience==='RECENT','audience')+wf48Button('ALL','ALL',d.audience==='ALL','audience')+wf48Button('PICK','PICK',d.audience==='PICK','audience')+'</div></div>'+
+   '<div class="wf48-section"><div class="wf48-line"><span>PLAYERS CAN SELECT SEATS</span>'+wf48Button(d.seats?'ON':'OFF',String(!d.seats),d.seats,'seats')+'</div></div>'+
+   '<div class="wf48-section"><div class="wf48-label">HOLD RESERVED SEATS (MIN)</div><div class="wf48-choices">'+[15,30,45,60].map(function(v){return wf48Button(String(v),String(v),+d.grace===v,'grace');}).join('')+'</div></div>'+
+   '<div class="wf48-section wf48-deadline"><span>RSVP DEADLINE</span><input type="text" data-wf48-deadline maxlength="8" aria-label="RSVP deadline" value="'+e(wf2FormatTime(d.deadline))+'"></div>'+
+   '<div class="wf48-section"><div class="wf48-label">REMIND PLAYERS</div><div class="wf48-choices">'+['24 H BEFORE','2 H BEFORE','OFF'].map(function(v){return wf48Button(v,v,d.reminder===v,'reminder');}).join('')+'</div></div>'+
+   '<div class="wf48-footer-inv"><button type="button" data-rn-route="48:0">BACK</button><button type="button" class="primary" data-wf48-save="1">'+(d.send?'SAVE & INVITE':'SAVE SCHEDULE')+'</button></div>'+
+   '<div class="wf48-status" role="status" aria-live="polite"></div></div>';
+ }
+ S[48]={sec:'SCHEDULED',nav:'Players',steps:['Schedule Session','Invitations'],heads:['Schedule Session','Invitations'],screens:[wf48Base,wf48InviteForm]};
+ var wf48Def=WORKFLOWS.find(function(w){return w.id===48;});
+ if(wf48Def)wf48Def.steps=['Schedule Session','Invitations'];
+ window.addEventListener('click',function(ev){
+  var next=ev.target.closest('[data-wf48-next]'),save=ev.target.closest('[data-wf48-save]'),choice=ev.target.closest('[data-wf48-field]');
+  if(next){var panel=next.closest('.wf2-one');if(!panel)return;var d=wf2Read(panel),reason=wf2Check(d,'schedule'),status=panel.querySelector('.wf2-status');if(reason){ev.preventDefault();ev.stopImmediatePropagation();status.textContent=reason;return;}
+   WF2STATE.draft=d;wf2Store();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:1');return;}
+  if(choice){var f=choice.dataset.wf48Field,v=choice.dataset.wf48Value;
+   WF48INV[f]=(f==='send'||f==='seats')?(v==='true'):f==='grace'?Number(v):v;wf48Store();
+   var box=choice.closest('.wf48-invites');if(box){box.outerHTML=wf48InviteForm();}ev.preventDefault();ev.stopImmediatePropagation();return;}
+  if(save){var box=save.closest('.wf48-invites');if(!box)return;var dead=box.querySelector('[data-wf48-deadline]');if(dead){WF48INV.deadline=wf2FormatTime(dead.value);}
+   if(!wf2Time24(WF48INV.deadline)){box.querySelector('.wf48-status').textContent='Enter RSVP deadline as 6:00 PM.';ev.preventDefault();ev.stopImmediatePropagation();return;}
+   wf48Store();var d=WF2STATE.draft||{},reason=wf2Check(d,'schedule');if(reason){box.querySelector('.wf48-status').textContent=reason;ev.preventDefault();ev.stopImmediatePropagation();return;}
+   try{var arr=JSON.parse(localStorage.getItem(WF48KEY)||'[]');arr.push({session:d,invites:Object.assign({},WF48INV),status:'scheduled-preview'});localStorage.setItem(WF48KEY,JSON.stringify(arr));}catch(x){}
+   box.querySelector('.wf48-status').textContent=WF48INV.send?'SCHEDULE SAVED · Continue to choose and review invitees.':'SCHEDULE SAVED · No invitations will be sent.';
+   ev.preventDefault();ev.stopImmediatePropagation();
+   if(WF48INV.send)rnGo('49:0');return;}
+ },true);
+ window.addEventListener('input',function(ev){var el=ev.target;if(el.matches('[data-wf48-deadline]')){WF48INV.deadline=el.value;wf48Store();}},true);
+ window.addEventListener('focusout',function(ev){var el=ev.target;if(el.matches('[data-wf48-deadline]')){var v=wf2FormatTime(el.value);if(wf2Time24(v)){el.value=v;WF48INV.deadline=v;wf48Store();}}},true);
 
- /* ================= WF49 · Invite players ================= */
+/* ================= WF49 · Invite players ================= */
  S[49]={sec:'SCHEDULED',nav:'Players',steps:['Select players','Channel & message','Review & send'],heads:['Select Players','Channel','Review & Send'],
   screens:[
   function(){return chips('',['PICK','GROUPS','ALL','LAST FRI'],3,'pk')+'<div class="fb-pgrid">'+['Luka D.','Macaulay C.','Miguel B.','Nora A.','Paul Smith','Joe Shmoe','Diego R.','Mikey B.'].map(function(n,k){return '<button type="button" class="fb-ptile sel" data-fb-group="px'+k+'">'+portrait(n,n[0],true)+'<b>'+n+'</b></button>';}).join('')+'</div>'+note('<b>20 selected</b> · 2 without WhatsApp opt-in get the link only.')+foot(['CANCEL','48:0'],['NEXT','49:1']);},
@@ -7328,7 +7384,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   {key:'Team',icon:'Team',label:'Team',home:'19:0',items:[
    ['Team on Shift','Team','19:0'],['Check-in','clock','20:2'],['Chip Tips','coin','21:2'],['Payments & Advances','card','22:2'],['Checkout','check','23:2'],['Earnings & Balances','chart','24:2']]},
   {key:'Settings',icon:'Settings',label:'Settings',home:'60:3',items:[
-   ['Quick Setup','plus','59:0'],['Business Profile & Preferences','user','65:0'],['Game Rules & Tables','game','60:0'],['Account Balances','card','61:0'],['Team Members & Invitations','mail','66:0'],['Team Roles & Permissions','lock','63:0'],['Sign & Settle','pen','62:0'],['Expenses & Inventory','box','64:1'],['Food, Beverage & Menu Pricing','glass','64:0'],['Invitations, RSVP & WhatsApp','cal','48:2'],['Nora AI Preferences','mic','65:1']]}
+   ['Quick Setup','plus','59:0'],['Business Profile & Preferences','user','65:0'],['Game Rules & Tables','game','60:0'],['Account Balances','card','61:0'],['Team Members & Invitations','mail','66:0'],['Team Roles & Permissions','lock','63:0'],['Sign & Settle','pen','62:0'],['Expenses & Inventory','box','64:1'],['Food, Beverage & Menu Pricing','glass','64:0'],['Invitations, RSVP & WhatsApp','cal','48:1'],['Nora AI Preferences','mic','65:1']]}
  ];
  var BARS={
   live:[['Tables','Tables','1:2'],['Players','Players','3:1'],['Team','Team','19:0'],['Expenses','receipt','25:0'],['Snapshot','chart','32:0'],['Close','check','40:0']],
