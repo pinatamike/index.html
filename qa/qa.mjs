@@ -30,7 +30,7 @@ await send('Page.enable'); await send('Emulation.setFocusEmulationEnabled', { en
 await send('Emulation.setDeviceMetricsOverride', { width: Number(process.env.QA_W||390), height: Number(process.env.QA_H||844), deviceScaleFactor: 2, mobile: true });
 const url = 'file:///' + path.resolve(htmlPath).replace(/\\/g, '/') + `#workflow-${wf}`;
 await send('Page.navigate', { url });
-await sleep(3500);
+await sleep(2200); await send('Page.reload'); await sleep(4200);   // reload: the navigation layer must start from a clean load
 
 const sel = process.env.QA_SEL || `.storyboard .st-phone`;
 const info = await ev(`(() => {

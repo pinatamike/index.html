@@ -37,10 +37,11 @@ for (const W of [340, 375, 390, 430]) {
     check('invalid time still shows its validation message', /time as/i.test(await ev(`(${ph(1)}.querySelector('.wf2-status')||{}).textContent||''`)), await ev(`(${ph(1)}.querySelector('.wf2-status')||{}).textContent||''`));
   }
 }
-console.log('\n=== WF02 (protected) is untouched ===');
+console.log('
+=== WF02 (bridge; was the protected form before batch 1) ===');
 await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
 await send('Page.navigate', { url: url(2) }); await sleep(2500); await send('Page.reload'); await sleep(3500);
 const w2 = await rows(1);
-check('WF02 Date / Start Time row keeps its own equal 151.5 + 151.5px layout with a 7px gap', w2.r2.length === 2 && w2.r2[0].w === 151.5 && w2.r2[1].w === 151.5 && Math.abs(w2.r2[1].l - w2.r2[0].r - 7) < 0.05, JSON.stringify(w2.r2.map(x => [x.l, x.w])));
+check('WF02 is now the no-game bridge (batch 1): the schedule form lives only in WF48, so there is no Date / Start Time row in WF02', w2.r2.length === 0, JSON.stringify(w2.r2));
 check('no uncaught JavaScript exceptions', jsErrors.length === 0, jsErrors.join(' | '));
 console.log(`\nSUMMARY: ${pass} passed, ${fail} failed`); ws.close(); edge.kill(); process.exit(fail ? 1 : 0);

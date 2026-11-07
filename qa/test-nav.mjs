@@ -19,12 +19,13 @@ const url = n => 'file:///' + path.resolve(htmlPath).replace(/\\/g, '/') + '#wor
 const settle = async (wfNum) => { for (let k = 0; k < 60; k++) { await sleep(500); const st = await ev(`(()=>{const S=[...document.querySelectorAll('.storyboard .stage')];if(!S.length||typeof NORA_NAV_CTX!=='function')return JSON.stringify({ok:false});const w=${wfNum||0}||(+(location.hash.match(/workflow-(\d+)/)||[])[1]);let ok=true;S.forEach(s=>{const p=s.querySelector('.phone');if(!p){ok=false;return}const c=NORA_NAV_CTX(w,+s.dataset.rnStep);const nb=p.querySelector(':scope>.ux-bottom');const exp=c?c.bar:null;const act=nb?(nb.classList.contains('s2-nav')?(nb.dataset.bar||'x'):'legacy'):null;if(exp!==act)ok=false;if(!p.querySelector('.ux-hamb[data-s2]'))ok=false});return JSON.stringify({ok})})()`); try { if (JSON.parse(st).ok) { await sleep(500); return; } } catch {} } };
 let pass = 0, fail = 0; const fails = [];
 const check = (n, ok, d = '') => { ok ? pass++ : (fail++, fails.push(n)); if (!ok || process.env.VERBOSE) console.log(`${ok ? 'PASS' : 'FAIL'}  ${n}${d ? '  -> ' + d : ''}`); };
-const SIX = ['Tables', 'Players', 'Team', 'Schedule', 'Reports', 'Settings'];
+const SIX = ['Tables', 'Players', 'Team', 'Schedule', 'Reports', 'Settings'];   // section keys
+const SIXL = ['LIVE GAME', 'Players', 'Team', 'Schedule', 'Reports', 'Settings'];   // drawer labels (first tab renamed Live Session -> LIVE GAME)
 // ---- A. the central config (single source) -------------------------------------------------
 await send('Page.navigate', { url: url(1) }); await sleep(2500); await send('Page.reload'); await sleep(3500);
 const cfg = JSON.parse(await ev(`JSON.stringify({nav:(window.NORA_NAV?NORA_NAV():[]).map(s=>s.label),keys:(window.NORA_NAV?NORA_NAV():[]).map(s=>s.key),sec:[[1,0],[20,0],[48,0],[55,0],[60,0],[67,0],[53,0],[53,3]].map(a=>NORA_NAV_SECTION(a[0],a[1])),ctx:[[1,0],[4,0],[20,0],[26,0],[33,0],[41,0],[48,0],[54,0],[60,0],[61,0],[64,1],[67,0],[69,0]].map(a=>{const c=NORA_NAV_CTX(a[0],a[1]);return [a[0],c?c.bar+':'+c.tab:null]})})`));
 check('A1 exactly six primary tabs in the single NAV config', cfg.nav.length === 6, cfg.nav.join(','));
-check('A2 names and order are Tables, Players, Team, Schedule, Reports, Settings', cfg.nav.join() === SIX.join(), cfg.nav.join(','));
+check('A2 names and order are LIVE GAME, Players, Team, Schedule, Reports, Settings', cfg.nav.join() === SIXL.join(), cfg.nav.join(','));
 check('A3 nothing is still called Scheduled / Reporting / Live Session in the primary tabs', !cfg.nav.some(x => /Scheduled|Reporting|Live Session/.test(x)));
 check('A4 section keys agree with labels (no stale keys)', cfg.keys.join() === SIX.join(), cfg.keys.join());
 check('A5 workflow -> section mapping uses the new names', cfg.sec.join() === 'Tables,Tables,Schedule,Players,Settings,Reports,Schedule,Tables', cfg.sec.join());
@@ -51,7 +52,7 @@ const checkFrame = async (wf, i) => {
   drawerChecked++;
   if (typeof rawD === 'string' && rawD.startsWith('EXC:')) { bad.push('drawer probe threw ' + rawD); return bad; }
   const d = JSON.parse(rawD); if (!d) { bad.push('hamburger did not open a drawer'); return bad; }
-  if (d.tabs.join() !== SIX.join()) bad.push(`drawer tabs ${d.tabs.join('/')}`);
+  if (d.tabs.join() !== SIXL.join()) bad.push(`drawer tabs ${d.tabs.join('/')}`);
   if (d.extra > 0 || d.list !== 6) bad.push(`drawer has subtabs/extras (${d.extra}) or ${d.list} rows`);
   if (d.foot.join() !== 'Profile,Support,Privacy' || !d.avatar || !d.profileGo) bad.push(`drawer footer ${d.foot.join('/')} avatar=${d.avatar}`);
   if (d.footFs.some(x => x < 16)) bad.push(`footer font ${d.footFs.join('/')}`);
@@ -73,12 +74,12 @@ for (let wf = Number(process.env.START || 1); wf <= Number(maxWf); wf++) {
 const S = `${PH}[0]`;
 await send('Page.navigate', { url: url(1) }); await sleep(1800); await send('Page.reload'); await sleep(2600); await settle();
 const dest = {};
-for (const label of SIX) {
+for (const label of SIXL) {
   await send('Page.navigate', { url: url(1) }); await sleep(1800); await send('Page.reload'); await sleep(2600); await settle();
   const res = await ev(`(()=>{const st=${S};st.querySelector('.ux-hamb').click();const b=[...st.querySelectorAll('.nn-drawer .nn-list .nn-sh')].find(x=>x.textContent.trim()===${JSON.stringify(label)});if(!b)return 'no tab';const go=b.dataset.nnGo;b.click();return go})()`); await sleep(900);
   dest[label] = res + ' -> ' + (await ev(`location.hash`));
 }
-check('C1 each drawer tab opens its own section home', SIX.every(l => dest[l] && !/no tab/.test(dest[l])), JSON.stringify(dest));
+check('C1 each drawer tab opens its own section home', SIXL.every(l => dest[l] && !/no tab/.test(dest[l])), JSON.stringify(dest));
 check('C2 Support and Privacy open an in-drawer panel with a way back; Profile opens the profile screen', await (async () => { await send('Page.navigate', { url: url(1) }); await sleep(1800); await send('Page.reload'); await sleep(2600); await settle();
   const r = JSON.parse(await ev(`(()=>{const st=${S};st.querySelector('.ux-hamb').click();const dr=st.querySelector('.nn-drawer');const sup=dr.querySelector('[data-nn-info="Support"]');sup.click();const t1=dr.querySelector('.nn-info b')&&dr.querySelector('.nn-info b').textContent;const back=!!dr.querySelector('[data-nn-back]');dr.querySelector('[data-nn-back]').click();const dr2=st.querySelector('.nn-drawer');const pri=dr2.querySelector('[data-nn-info="Privacy"]');pri.click();const t2=dr2.querySelector('.nn-info b')&&dr2.querySelector('.nn-info b').textContent;return JSON.stringify({t1,t2,back,profile:dr2.querySelector('.nn-profile')?dr2.querySelector('.nn-profile').dataset.nnGo:null})})()`));
   return r.t1 === 'Support' && r.t2 === 'Privacy' && r.back && /^65:/.test(r.profile); })());
