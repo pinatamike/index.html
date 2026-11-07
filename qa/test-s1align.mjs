@@ -37,8 +37,7 @@ for (const W of [340, 375, 390, 430]) {
     check('invalid time still shows its validation message', /time as/i.test(await ev(`(${ph(1)}.querySelector('.wf2-status')||{}).textContent||''`)), await ev(`(${ph(1)}.querySelector('.wf2-status')||{}).textContent||''`));
   }
 }
-console.log('
-=== WF02 (bridge; was the protected form before batch 1) ===');
+console.log('=== WF02 (bridge; was the protected form before batch 1) ===');
 await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
 await send('Page.navigate', { url: url(2) }); await sleep(2500); await send('Page.reload'); await sleep(3500);
 const w2 = await rows(1);
