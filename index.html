@@ -2378,7 +2378,54 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
 .crm-profile-tight button{font-family:inherit;cursor:pointer;border-radius:0!important;font-weight:900;color:#fff}
 .crm-profile-tight .crm-p-edit{align-self:flex-start;background:#092f49;border:2px solid #25b8e5;min-height:40px;padding:5px 14px;font-size:14px}
 .crm-profile-tight .crm-p-history{width:100%;min-height:58px;background:#006d54;border:2px solid #43dab0;font-size:17px;margin-top:0}
-</style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
+</style><style id="wf2-only-nov6">
+/* Workflow 02 only: single-screen, large readable type, no scrolling, no bottom navigation. */
+.storyboard .st-phone:has(.wf2-one)>.ux-bottom{display:none!important}
+.storyboard .st-phone .ux-content:has(.wf2-one){overflow:hidden!important;min-height:0!important;padding:5px 5px 9px!important;flex:1 1 auto!important}
+.storyboard .st-phone .fb-body:has(>.wf2-one){display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important;padding:0!important;margin:0!important;overflow:hidden!important}
+.storyboard .st-phone .wf2-one{width:100%;height:100%;min-height:0;display:flex;flex-direction:column;gap:5px;overflow:hidden!important;padding:0 2px!important;box-sizing:border-box}
+.storyboard .st-phone .wf2-one *{box-sizing:border-box}
+.storyboard .st-phone .wf2-heading{font-size:21px;font-weight:900;line-height:1.08;padding:4px 2px 3px;color:#fff;border-bottom:2px solid #26bddd;flex:none}
+.storyboard .st-phone .wf2-tile{display:flex;flex-direction:column;justify-content:center;gap:4px;background:#092f48;border:2px solid #279cc8;border-radius:0!important;min-width:0;min-height:54px;padding:6px 9px;margin:0!important;flex:0 0 auto}
+.storyboard .st-phone .wf2-label{font-size:14px;line-height:1.15;color:#70e5ff;font-weight:900}
+.storyboard .st-phone .wf2-value{display:flex;align-items:baseline;justify-content:flex-start;gap:2px;width:100%;min-width:0;white-space:nowrap;color:white;font-size:21px;font-weight:900}
+.storyboard .st-phone .wf2-value input{background:transparent!important;border:0!important;outline-offset:2px;color:#fff;font:inherit;font-variant-numeric:tabular-nums;min-width:0;min-height:28px;height:28px;max-width:100%;padding:0!important;margin:0!important;border-radius:0!important}
+.storyboard .st-phone .wf2-name{min-height:59px}
+.storyboard .st-phone .wf2-name input{width:100%;font-size:22px!important;font-weight:900!important}
+.storyboard .st-phone .wf2-game input{width:100%;font-size:21px!important}
+.storyboard .st-phone .wf2-money{display:inline-flex;align-items:baseline;gap:3px;flex:none;min-width:0}
+.storyboard .st-phone .wf2-money input{font-size:20px!important;font-weight:900!important;letter-spacing:-.35px!important;flex:none;max-width:none!important}
+.storyboard .st-phone .wf2-cop{font-size:13px;line-height:1;color:#fff;font-weight:900;flex:none}
+.storyboard .st-phone .wf2-slash{font-size:22px;font-weight:900;color:#79e6fb;padding:0 2px;flex:none}
+.storyboard .st-phone .wf2-full .wf2-value{gap:2px}
+.storyboard .st-phone .wf2-full:has([data-wf2-field="min"]) .wf2-money input{font-size:18px!important;letter-spacing:-.45px!important}
+.storyboard .st-phone .wf2-full:has([data-wf2-field="min"]) .wf2-cop{font-size:11.7px}
+.storyboard .st-phone .wf2-half{display:grid;grid-template-columns:1fr 1fr;gap:7px;min-width:0}
+.storyboard .st-phone .wf2-half>.wf2-tile{width:100%}
+.storyboard .st-phone .wf2-datetime>.wf2-tile{min-height:58px;padding:6px 8px}
+.storyboard .st-phone .wf2-datetime .wf2-value input{font-size:18px!important;width:100%!important;min-width:0!important;height:29px}
+.storyboard .st-phone .wf2-triple{display:grid;grid-template-columns:minmax(0,.73fr) minmax(0,1.45fr) minmax(0,.75fr);gap:6px;min-width:0}
+.storyboard .st-phone .wf2-triple>.wf2-tile{width:100%;min-height:55px;padding:6px 5px}
+.storyboard .st-phone .wf2-triple .wf2-label{font-size:13px}
+.storyboard .st-phone .wf2-rate{width:1.2ch!important;font-size:21px!important;letter-spacing:0!important}
+.storyboard .st-phone .wf2-pct{font-size:21px;font-weight:900;margin:0!important;padding:0!important;letter-spacing:0!important}
+.storyboard .st-phone .wf2-triple .wf2-value{gap:0!important}
+.storyboard .st-phone .wf2-triple .wf2-money{gap:2px!important}
+.storyboard .st-phone .wf2-triple .wf2-money input{font-size:18px!important}
+.storyboard .st-phone .wf2-triple .wf2-cop{font-size:11.7px}
+.storyboard .st-phone .wf2-triple .wf2-tile:last-child .wf2-value{justify-content:center}
+.storyboard .st-phone .wf2-seats{width:2.6ch!important;font-size:22px!important;text-align:center!important}
+.storyboard .st-phone .wf2-actions{display:grid;grid-template-columns:.9fr 1.1fr 1.25fr;gap:6px;margin-top:auto;padding:3px 0 5px!important;flex:none;min-height:58px}
+.storyboard .st-phone .wf2-actions button{border:2px solid #2baad1!important;color:white;background:#0e4963;border-radius:0!important;font-size:14px;font-weight:900;line-height:1.1;min-height:52px;padding:5px 1px!important;display:flex;align-items:center;justify-content:center}
+.storyboard .st-phone .wf2-actions button.primary{background:#007751;border-color:#40d9aa!important}
+.storyboard .st-phone .wf2-status{font-size:12px;line-height:1.15;color:#65f0c0;font-weight:800;flex:none}
+.storyboard .st-phone .wf2-status:empty{display:none}
+.storyboard .st-phone .wf2-one>.wf2-tile,.storyboard .st-phone .wf2-one>.wf2-half,.storyboard .st-phone .wf2-one>.wf2-triple{flex:1 1 auto;min-height:0}
+.storyboard .st-phone .wf2-one>.wf2-half>.wf2-tile,.storyboard .st-phone .wf2-one>.wf2-triple>.wf2-tile{height:100%;min-height:0}
+.storyboard .st-phone .wf2-one>.wf2-heading{flex:0 0 auto}
+.storyboard .st-phone .wf2-one>.wf2-actions{flex:0 0 auto}
+</style>
+</head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
     "main": "Live Session",
@@ -6708,26 +6755,95 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
 
  /* ================= WF2 · Quick Start ================= */
  var TPLROWS=function(){return er('Game','Texas Hold’em')+er('Blinds',BL)+er('Tables','1')+er('Seats','10')+er('Buy-in min',cop(200000))+er('Buy-in max',cop(1000000))+er('Rake','5% per pot')+er('Venue','Provenza');};
- S[2]={sec:'LIVE SESSION',steps:['Start Session · Quick Start','Review last settings','Choose a saved game','Edit before starting','Custom setup · one screen','Final summary · save as template','Start scheduled game','New session · Live Table View'],
-  heads:['Schedule Session','Review & Start','Saved Games','Edit Settings','Custom Setup','Final Summary','Scheduled Game','Table View'],
-  screens:[
-  function(){return '<button type="button" class="st-hero" data-rn-route="2:1">'+I('bolt')+'<div><b>START WITH LAST SETTINGS</b><small>Sunday Hold’em · '+BL+'</small></div></button>'+
-   '<div class="fb-grid2">'+'<button type="button" class="fb-tile st-act" data-rn-route="2:2">'+I('bookmark')+'<b>CHOOSE SAVED GAME</b><small>4 templates</small></button>'+'<button type="button" class="fb-tile st-act" data-rn-route="2:4">'+I('sliders')+'<b>CUSTOM SETUP</b><small>New game</small></button>'+'</div>'+
-   '<button type="button" class="st-sched" data-rn-route="2:6">'+I('calendar')+'<div><b>START SCHEDULED GAME</b><small>Sunday 7:00 PM · 8 going · Provenza</small></div><span class="fb-chev">›</span></button>'+
-   note('Nothing starts until you press START LIVE SESSION.');},
-  function(){return '<div class="st-card"><b class="st-big">SUNDAY HOLD’EM</b><small>Tap any line to change it</small></div><div class="st-ers">'+TPLROWS()+'</div>'+foot(['CANCEL','2:0'],['START LIVE SESSION','2:7'],1);},
-  function(){var t=function(n,a,b,d){return '<button type="button" class="fb-tile st-saved'+(d?' sel':'')+'" data-rn-route="2:1">'+I('bookmark')+'<b>'+n+'</b><small>'+a+'</small><small>'+b+'</small>'+(d?'<em class="fb-chip on">DEFAULT</em>':'')+'</button>';};
-   return '<div class="st-card"><b class="st-big">CHOOSE A SAVED GAME</b><small>Opens the same review screen</small></div><div class="fb-grid2 st-saved-g">'+t('SUNDAY HOLD’EM','Hold’em · 1 table','5K / 10K · 5% rake',1)+t('TUESDAY CASH GAME','Hold’em · 2 tables','2K / 5K · 5% rake')+t('HIGH STAKES PLO','Omaha · 1 table','20K / 40K · 3% rake')+t('PRIVATE VIP GAME','Hold’em · 1 table','50K / 100K · No rake')+'</div>'+foot(['BACK','2:0'],['NEW CUSTOM','2:4']);},
-  function(){return '<div class="st-card"><b class="st-big">CHANGE BEFORE STARTING</b><small>Sunday Hold’em</small></div>'+chips('Blinds',['2K/4K','5K/10K','10K/20K'],1,'bl')+chips('Rake',['3%','5%','7%','NONE'],1,'rk')+chips('Tables',['1','2','3'],0,'tb')+'<div class="st-chips"><small>Apply changes to</small><div class="st-cr"><button type="button" class="fb-opt sel" data-fb-group="ap"><b>THIS SESSION</b></button><button type="button" class="fb-opt" data-fb-group="ap"><b>SAVE TO TEMPLATE</b></button></div></div>'+foot(['BACK','2:1'],['DONE','2:1']);},
-  function(){var g=function(t){return '<div class="st-gh">'+t+'</div>';},r2=function(a,b){return '<div class="fb-grid2 st-fg">'+a+b+'</div>';};
-   return g('GAME')+r2(fld('Session name','Friday Hold’em'),fld('Variant','Hold’em'))+r2(fld('Blinds · COP',BLF),fld('Ante · straddle','None'))+g('TABLES')+r2(fld('Tables','1'),fld('Seats per table','10'))+g('FINANCIAL RULES')+r2(fld('Min buy-in',cop(200000)),fld('Max buy-in',cop(1000000)))+r2(fld('Rake','5% per pot'),fld('Venue','Provenza'))+foot(['BACK','2:0'],['REVIEW','2:5']);},
-  function(){return '<div class="st-card"><b class="st-big">FRIDAY HOLD’EM</b><small>New game · not yet saved</small></div><div class="fb-rows">'+row('Game','Hold’em · '+BL)+row('Tables','1 × 10 seats')+row('Buy-in',cop(200000)+' – '+cop(1000000))+row('Rake','5% per pot')+row('Venue','Provenza')+'</div>'+note(I('check')+' Saving a template is optional.')+stack(['START LIVE SESSION','2:7'],['SAVE AS GAME TEMPLATE','2:2'],1);},
-  function(){return '<div class="st-card"><b class="st-big">SUNDAY HOLD’EM</b><small>Scheduled · Sun Nov 1 · 7:00 PM · Provenza</small></div><div class="fb-rows">'+row('RSVP','8 going · 2 maybe')+row('Wait list','1 waiting')+row('Game',BL)+row('Template','Sunday Hold’em')+'</div>'+note(I('warn')+' RSVPs are not seated automatically. Each player is seated through the buy-in flow.','def')+foot(['CANCEL','2:0'],['START LIVE SESSION','2:7'],1);},
-  function(){var seats='';for(var k=1;k<=10;k++)seats+='<div class="st-seat"><i>'+k+'</i>'+I('seat')+'<b>SEAT OPEN</b></div>';
-   return '<div class="st-ok">'+I('check')+'<div><b>SESSION STARTED</b><small>Timer 00:00 · 0 players · nothing posted</small></div></div><div class="st-seats">'+seats+'<div class="st-seat wl"><i>·</i>'+I('list')+'<b>WAIT LIST</b></div></div><small class="st-demo">DEMO · NOT POSTED · empty seats until players buy in</small>';}
- ]};
+ /* ================= WF2 · SINGLE SCREEN GAME STRUCTURE PREVIEW =================
+   WF2 ONLY. Review and edit on one screen. No template wizard or extra schedule screen.
+   Prototype persists in this browser only; production uses Nora's authoritative backend. */
+ var WF2KEY='nora.wf2.review.v1';
+ var WF2DEFAULT={game:'Texas Hold’em',small:5000,big:10000,min:200000,max:1000000,rake:5,cap:50000,seats:10};
+ var WF2STATE={structures:[],history:[],last:null,draft:null};
+ try{var wf2saved=JSON.parse(localStorage.getItem(WF2KEY)||'null');if(wf2saved&&typeof wf2saved==='object')Object.assign(WF2STATE,wf2saved);}catch(x){}
+ function wf2Store(){try{localStorage.setItem(WF2KEY,JSON.stringify(WF2STATE));}catch(x){}}
+ function wf2Norm(v){return [String(v.game||'').trim().toLowerCase(),+v.small,+v.big,+v.min,+v.max,+v.rake,+v.cap].join('|');}
+ function wf2Suggested(date){
+  if(WF2STATE.draft)return Object.assign({},WF2DEFAULT,WF2STATE.draft);
+  var now=date||new Date();
+  var day=now.getDay(),h=(WF2STATE.history||[]).filter(function(x){return x.day===day;});
+  var counts={};h.forEach(function(x){counts[x.key]=(counts[x.key]||0)+1;});
+  var best=Object.keys(counts).sort(function(x,y){return counts[y]-counts[x];})[0];
+  if(best&&counts[best]>=2&&counts[best]>h.length/2){var known=(WF2STATE.structures||[]).find(function(g){return wf2Norm(g)===best;});if(known)return Object.assign({},WF2DEFAULT,known);}
+  return Object.assign({},WF2DEFAULT,WF2STATE.last||{});
+ }
+ function wf2Remember(d,date){var key=wf2Norm(d);if(!(WF2STATE.structures||[]).some(function(x){return wf2Norm(x)===key;}))WF2STATE.structures.push(Object.assign({},d));
+  WF2STATE.last=Object.assign({},d);WF2STATE.history.push({key:key,day:date.getDay()});WF2STATE.draft=null;wf2Store();}
+ function wf2Amount(key,n){var value=Number(n||0).toLocaleString('en-US');return '<span class="wf2-money"><span class="wf2-cop">COP</span><input type="text" inputmode="numeric" data-wf2-field="'+key+'" aria-label="'+key+'" value="'+value+'" style="width:'+(value.length+.3)+'ch" data-wf2-auto-width="1"></span>';}
+ function wf2Tile(label,content,cls){return '<label class="wf2-tile '+(cls||'')+'"><span class="wf2-label">'+label+'</span><span class="wf2-value">'+content+'</span></label>';}
+ function wf2DateString(d){return String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0')+'/'+d.getFullYear();}
+ function wf2DateObj(s){var m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(String(s||'').trim());if(!m)return null;var d=new Date(+m[3],+m[1]-1,+m[2],12);return d.getFullYear()===+m[3]&&d.getMonth()===+m[1]-1&&d.getDate()===+m[2]?d:null;}
+ function wf2Time24(s){var m=/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(String(s||'').trim());if(!m||+m[1]<1||+m[1]>12||+m[2]>59)return null;return String((+m[1]%12)+(m[3].toUpperCase()==='PM'?12:0)).padStart(2,'0')+':'+m[2];}
+ function wf2FormatTime(s){var m=/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(String(s||'').trim());return m?Number(m[1])+':'+m[2]+' '+m[3].toUpperCase():String(s||'').trim();}
+ function wf2DateTime(d){var dt=wf2DateObj(d.date),clock=wf2Time24(d.time);return dt&&clock?new Date(dt.getFullYear(),dt.getMonth(),dt.getDate(),+clock.slice(0,2),+clock.slice(3,5)):null;}
+ function wf2SessionName(d){return String((d&&d.name)||'Sunday Hold’em').trim();}
+ function wf2Form(){
+  var d=wf2Suggested(),dt=new Date(),date=WF2STATE.draft&&WF2STATE.draft.date||wf2DateString(dt),time=wf2FormatTime(WF2STATE.draft&&WF2STATE.draft.time||'7:00 PM'),name=wf2SessionName(WF2STATE.draft||WF2STATE);
+  var game='<input type="text" list="wf2-game-types" data-wf2-field="game" aria-label="Game" value="'+e(d.game)+'" autocomplete="off"><datalist id="wf2-game-types"><option value="Texas Hold’em"><option value="Omaha"></datalist>';
+  return '<div class="wf2-one">'+
+   wf2Tile('GAME NAME','<input class="wf2-session-name" data-wf2-name aria-label="Game Name" type="text" maxlength="50" value="'+e(name)+'">','wf2-name')+
+   '<div class="wf2-half wf2-datetime">'+wf2Tile('DATE','<input data-wf2-date aria-label="Game date (MM/DD/YYYY)" type="text" inputmode="numeric" maxlength="10" placeholder="MM/DD/YYYY" value="'+e(date)+'">')+wf2Tile('START TIME','<input data-wf2-time aria-label="Start time (hh:mm AM/PM)" type="text" maxlength="8" placeholder="7:00 PM" value="'+e(time)+'">')+'</div>'+
+   '<div class="wf2-heading">GAME STRUCTURE</div>'+
+   wf2Tile('GAME',game,'wf2-game')+
+   wf2Tile('BLINDS',wf2Amount('small',d.small)+'<span class="wf2-slash">/</span>'+wf2Amount('big',d.big),'wf2-full')+
+   wf2Tile('MIN / MAX BUY-IN',wf2Amount('min',d.min)+'<span class="wf2-slash">/</span>'+wf2Amount('max',d.max),'wf2-full')+
+   '<div class="wf2-triple">'+wf2Tile('RAKE','<input class="wf2-rate" data-wf2-field="rake" aria-label="Rake percentage" inputmode="decimal" type="text" value="'+(+d.rake)+'"><span class="wf2-pct">%</span>')+wf2Tile('RAKE CAP',wf2Amount('cap',d.cap))+wf2Tile('SEATS','<input class="wf2-seats" data-wf2-field="seats" aria-label="Seats" type="text" inputmode="numeric" value="'+(+d.seats)+'">')+'</div>'+
+   '<div class="wf2-actions"><button type="button" data-rn-route="1:0">CANCEL</button><button type="button" data-wf2-commit="schedule">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>'+
+   '<div class="wf2-status" role="status" aria-live="polite"></div></div>';
+ }
+ function wf2Parse(str){var s=String(str||'').replace(/[^0-9]/g,'');return s?Number(s):0;}
+ function wf2Read(panel){
+  var d=Object.assign({},WF2DEFAULT,wf2Suggested());
+  panel.querySelectorAll('[data-wf2-field]').forEach(function(x){d[x.dataset.wf2Field]=x.dataset.wf2Field==='game'?x.value.trim():x.dataset.wf2Field==='rake'?Number(x.value):wf2Parse(x.value);});
+  d.name=panel.querySelector('[data-wf2-name]').value.trim();d.date=panel.querySelector('[data-wf2-date]').value;d.time=wf2FormatTime(panel.querySelector('[data-wf2-time]').value);return d;
+ }
+ function wf2Check(d,mode){
+  if(!d.game||d.small<=0||d.big<=d.small)return 'Enter valid blinds.';
+  if(d.min<=0||d.max<d.min)return 'Check the minimum and maximum buy-in.';
+  if(d.cap<0||d.rake<0||d.rake>100)return 'Check rake and rake cap.';
+  if(d.seats<2||d.seats>12)return 'Choose between 2 and 12 seats.';
+  if(!d.name)return 'Enter a game name.';
+  var dt=wf2DateTime(d);
+  if(!dt)return 'Enter date as MM/DD/YYYY and time as 07:00 PM.';
+  if(mode==='schedule'&&dt.getTime()<=Date.now())return 'Scheduled time must be in the future.';
+  return '';
+ }
+ function wf2Strip(d){var r=Object.assign({},d);delete r.date;delete r.time;delete r.name;return r;}
+ S[2]={sec:'LIVE SESSION',steps:['Schedule Session'],heads:['Schedule Session'],screens:[wf2Form]};
+ window.addEventListener('input',function(ev){
+  var el=ev.target,box=el.closest('.wf2-one');if(!box||!el.matches('[data-wf2-field],[data-wf2-name],[data-wf2-date],[data-wf2-time]'))return;
+  if(el.matches('.wf2-money input')){var p=el.selectionStart;var before=el.value.slice(0,p).replace(/[^0-9]/g,'').length;var formatted=wf2Parse(el.value).toLocaleString('en-US');el.value=formatted;if(el.dataset.wf2AutoWidth)el.style.width=(formatted.length+.3)+'ch';var pos=0,n=0;while(pos<formatted.length&&n<before){if(/[0-9]/.test(formatted[pos]))n++;pos++;}el.setSelectionRange(pos,pos);}
+  WF2STATE.draft=wf2Read(box);
+ },true);
+ window.addEventListener('focusout',function(ev){
+  var el=ev.target,box=el.closest('.wf2-one');if(!box)return;
+  if(el.matches('[data-wf2-time]')){var formatted=wf2FormatTime(el.value);if(wf2Time24(formatted))el.value=formatted;}
+  if(el.matches('[data-wf2-date]')){var date=wf2DateObj(el.value);if(date)el.value=wf2DateString(date);}
+  if(el.matches('[data-wf2-time],[data-wf2-date]'))WF2STATE.draft=wf2Read(box);
+ },true);
+ window.addEventListener('click',function(ev){
+  var btn=ev.target.closest('.st-phone [data-wf2-commit]');if(!btn)return;
+  var panel=btn.closest('.wf2-one');if(!panel)return;
+  var mode=btn.dataset.wf2Commit,d=wf2Read(panel),reason=wf2Check(d,mode),notice=panel.querySelector('.wf2-status');
+  if(reason){ev.preventDefault();ev.stopImmediatePropagation();notice.textContent=reason;return;}
+  if(mode==='start'&&wf2DateTime(d).getTime()>Date.now()+86400000){ev.preventDefault();ev.stopImmediatePropagation();notice.textContent='This date is in the future. Choose SCHEDULE to save it.';return;}
+  var structure=wf2Strip(d);
+  if(mode==='start'){wf2Remember(structure,wf2DateTime(d));WF2STATE.name=d.name;wf2Store();return;}
+  /* A scheduled entry is NOT a played session. Store separately; do not train weekday learning yet. */
+  try{var items=JSON.parse(localStorage.getItem('nora.wf2.scheduled.preview')||'[]');items.push({name:d.name,structure:structure,date:d.date,time:d.time});localStorage.setItem('nora.wf2.scheduled.preview',JSON.stringify(items));}catch(x){}
+  WF2STATE.draft=d;wf2Store();
+  WF2STATE.name=d.name;wf2Store();notice.textContent='SCHEDULE PREVIEW SAVED · '+d.name+' · '+d.date+' · '+d.time;
+  ev.preventDefault();ev.stopImmediatePropagation();
+ },true);
 
- /* ================= WF59 · Onboarding in 3 screens + Nora states ================= */
+ window.__NORA_WF2_FORM__={form:wf2Form,read:wf2Read,check:wf2Check,suggest:wf2Suggested,dateString:wf2DateString,formatTime:wf2FormatTime,time24:wf2Time24,state:WF2STATE,store:wf2Store};
+/* ================= WF59 · Onboarding in 3 screens + Nora states ================= */
  var RK=cop(50000);
  S[59]={sec:'SETTINGS',nav:'Settings',steps:['Meet Nora','Configure your game','Review & ready','Nora listening','Nora checks what she heard','Nora explains rake'],
   heads:['Welcome','Your Game','Review & Ready','Nora Setup','Confirm Setup','Rake Help'],
