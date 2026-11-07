@@ -2492,8 +2492,6 @@ html body .storyboard .crm54-phone .crm54-body:has(>.crm54-profile-fixed){displa
 .storyboard .st-phone:has(.wf48-schedule)>.ux-bottom,.storyboard .st-phone:has(.wf48-invites)>.ux-bottom{display:none!important}
 .storyboard .st-phone .ux-content:has(.wf48-invites){overflow:hidden!important;min-height:0!important;padding:5px 5px 9px!important;flex:1 1 auto!important}
 .storyboard .st-phone .fb-body:has(>.wf48-invites){display:flex!important;height:100%!important;min-height:0!important;padding:0!important;overflow:hidden!important}
-.storyboard .st-phone .wf48-schedule .wf48-footer{grid-template-columns:1fr 2fr}
-.storyboard .st-phone .wf48-schedule .wf48-footer button{font-size:14px}
 .storyboard .st-phone .wf48-invites{display:flex;flex-direction:column;width:100%;height:100%;min-height:0;gap:7px;padding:0 2px;overflow:hidden!important;box-sizing:border-box}
 .storyboard .st-phone .wf48-invites *{box-sizing:border-box}
 .storyboard .st-phone .wf48-intro{display:flex;flex-direction:column;gap:3px;border-bottom:2px solid #27badd;padding:6px 2px 8px;flex:none}
@@ -7188,7 +7186,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var html=WF2LINK.form();WF2LINK.state.draft=oldDraft;
   html=html.replace('class="wf2-one"','class="wf2-one wf48-schedule"');
   html=html.replace('<div class="wf2-actions"><button type="button" data-rn-route="1:0">CANCEL</button><button type="button" data-wf2-commit="schedule">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>',
-   '<div class="wf2-actions wf48-footer"><button type="button" data-rn-route="48:0" data-wf48-cancel="1">CANCEL</button><button type="button" class="primary" data-wf48-next="1">CONTINUE TO INVITATIONS</button></div>');
+   '<div class="wf2-actions"><button type="button" data-rn-route="48:0">CANCEL</button><button type="button" data-wf48-next="1">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>');
   return html;
  }
  function wf48Button(label,val,selected,field){return '<button type="button" class="wf48-choice'+(selected?' on':'')+'" data-wf48-field="'+field+'" data-wf48-value="'+val+'">'+label+'</button>';}
@@ -7211,13 +7209,13 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  window.addEventListener('click',function(ev){
   var next=ev.target.closest('[data-wf48-next]'),save=ev.target.closest('[data-wf48-save]'),choice=ev.target.closest('[data-wf48-field]');
   if(next){var panel=next.closest('.wf2-one');if(!panel)return;var d=WF2LINK.read(panel),reason=WF2LINK.check(d,'schedule'),status=panel.querySelector('.wf2-status');if(reason){ev.preventDefault();ev.stopImmediatePropagation();status.textContent=reason;return;}
-   WF48DRAFT=d;WF2LINK.state.draft=d;WF2LINK.store();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:1');return;}
+   WF48DRAFT=d;ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:1');return;}
   if(choice){var f=choice.dataset.wf48Field,v=choice.dataset.wf48Value;
    WF48INV[f]=(f==='send'||f==='seats')?(v==='true'):f==='grace'?Number(v):v;wf48Store();
    var box=choice.closest('.wf48-invites');if(box){box.outerHTML=wf48InviteForm();}ev.preventDefault();ev.stopImmediatePropagation();return;}
   if(save){var box=save.closest('.wf48-invites');if(!box)return;var dead=box.querySelector('[data-wf48-deadline]');if(dead){WF48INV.deadline=WF2LINK.formatTime(dead.value);}
    if(!WF2LINK.time24(WF48INV.deadline)){box.querySelector('.wf48-status').textContent='Enter RSVP deadline as 6:00 PM.';ev.preventDefault();ev.stopImmediatePropagation();return;}
-   wf48Store();var d=WF2LINK.state.draft||{},reason=WF2LINK.check(d,'schedule');if(reason){box.querySelector('.wf48-status').textContent=reason;ev.preventDefault();ev.stopImmediatePropagation();return;}
+   wf48Store();var d=WF48DRAFT||{},reason=WF2LINK.check(d,'schedule');if(reason){box.querySelector('.wf48-status').textContent=reason;ev.preventDefault();ev.stopImmediatePropagation();return;}
    try{var arr=JSON.parse(localStorage.getItem(WF48KEY)||'[]');arr.push({session:d,invites:Object.assign({},WF48INV),status:'scheduled-preview'});localStorage.setItem(WF48KEY,JSON.stringify(arr));}catch(x){}
    box.querySelector('.wf48-status').textContent=WF48INV.send?'SCHEDULE SAVED · Continue to choose and review invitees.':'SCHEDULE SAVED · No invitations will be sent.';
    ev.preventDefault();ev.stopImmediatePropagation();
