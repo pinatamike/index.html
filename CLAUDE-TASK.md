@@ -1,38 +1,67 @@
 # NORA — Current Claude Code implementation task
 
-**Owner approval context:** Mike approved correcting Screen 7's residual baked-in player-name captions and asked Claude to implement. ChatGPT is the UX director.
+## Task 002 — WF48 correct seat numbering and thumbnail height; then AUDIT ONLY
 
-## Task 001 — Workflow 48, Screen 7 photo caption crop
+**Authorized by Mike (Nov 7, 2026).** Scope: Workflow 48, **Screens 6 and 7** for the two fixes below. Then a comprehensive read-only audit of **all 7 screens**. Do **not** fix additional audit findings until Mike approves them.
 
-**Scope:** Modify ONLY the **WF48 Screen 7 seat-photo rendering** in `pinatamike/index.html` on branch `nora-ux-review-draft`. No production app changes.
+**Repository:** `pinatamike/index.html`  
+**Branch:** `nora-ux-review-draft`  
+**Current UI baseline to verify against remote:** `202b4146fde2c738f9b5bbc50d08ec635d7f94a6` (branch may have newer status/doc commits).  
+**Protected:** Workflow 02, all other workflows, production NORA repository, previous accepted WF48 behavior/appearance.
 
-### Problem
-The source photo assets contain baked-in captions. On Workflow 48 Screen 7 (Reserved Table), some seat thumbnails (e.g., Nora A. and Paul Smith) visibly show the original baked-in caption within the photo, in addition to NORA's separately rendered white name.
+### Part A — Implement ONLY these two approved changes
 
-On Workflow 48 Screen 3, the photos use a zoom/crop that hides the baked-in caption. Screen 7's `.wf48-seat-face img` currently uses plain fill and `object-fit:cover` instead.
+#### 1. Correct seat-number positions on Screens 6 (Choose Seat) and 7 (Reserved Table)
 
-### Required change
-- Apply a **localized image-only crop** to Screen 7 seat thumbnails, enough to hide baked-in name labels while preserving recognizable faces.
-- Do NOT crop the separately rendered white name label.
-- Maintain square corners, existing seat tile positions and sizes, border styles, selected status, available seats, layout and controls.
-- Avoid blurry/over-zoomed imagery as far as source quality permits. Inspect at 2× DPR. Do not use a global image rule.
-- Do not modify Screen 6 unless strictly necessary and explicitly approved. Do not modify Screen 3, WF02, other workflows, `DESIGN_RULES.md`, or production application files.
+The existing 10 physical seat positions are arranged around the table and currently numbered 1–10 incorrectly. Mike wants **the same positions**, with the following **exact old-position-label → new-seat-number** mapping:
 
-### Before editing
-1. Pull latest branch changes via SSH and read `CLAUDE-STATUS.md`, `DESIGN_RULES.md`, and `HANDOFF.md`.
-2. Confirm branch and create a rollback reference.
-3. Record baseline screenshots for all seven WF48 screens at 390×844, 2× DPR using the existing local Edge/Node capture script.
+| Current position/label | Correct number |
+|---|---|
+| 5 | **1** |
+| 6 | **2** |
+| 7 | **3** |
+| 8 | **4** |
+| 9 | **5** |
+| 10 | **6** |
+| 1 | **7** |
+| 2 | **8** |
+| 3 | **9** |
+| 4 | **10** |
 
-### QA / completion
-1. Fix Screen 7 caption crop.
-2. Re-capture all seven Workflow 48 screens and compare with baseline. Inspect each at full size.
-3. Confirm Screen 7's burned-in captions are no longer visible, faces are recognizable, separately rendered names remain visible, and no other UI changed.
-4. Verify no scrolling/clipping/regressions, code syntax, and Workflow 02 unchanged.
-5. Report exact modifications, screenshot results and any unresolved limitations.
-6. Commit & push only approved UI changes to `nora-ux-review-draft`; provide new full SHA and raw.githack URL.
-7. Update `CLAUDE-STATUS.md` with results and commit/push the status. Never claim browser QA passed unless actually inspected.
+This is a *seat renumbering*, not a request to rotate or relocate player tiles visually. Follow the mapping for the existing seat geometry, consistently on **both screens**. Check clockwise poker-seat ordering after implementation.
 
-**Do not expand this task to general UI cleanup.**
+**Critical:** Do not simply alter displayed number badges while leaving the reservation logic, occupied/open states, clicked seat IDs, selected-seat labels, current player's reservation, or confirmation data referring to the old numbers. New seat identifiers must be internally consistent and unique. Preserve the intended demo participants/occupied positions while mapping their seat IDs appropriately. Update fixtures such as `WF48RESERVED` if necessary to retain each illustrated player's physical position. Tests must verify no duplicates/double booking.
 
-### Future tasks
-Wait for the next authorized task from Mike/ChatGPT. ChatGPT will update this same file for future tasks. After Mike says “Read the task file” you can retrieve it and implement it.
+Avoid changing the seating appearance, table geometry, or any other workflows.
+
+#### 2. Increase the HEIGHT of every player seat thumbnail tile by 10%; do NOT increase WIDTH
+
+Applies to the seat tiles on **Screens 6 and 7**, including occupied and open seats. Increase *outer tile height* by exactly **10% from the existing computed size**, preserving existing width. For example, 68px tall becomes 74.8px (use appropriate CSS precision). Do not stretch images or crop player faces unintentionally; adjust their inner height and flex layout only if needed to use the extra tile space. Keep square corners, names visible, borders, labels, and action/footer positions unchanged. Verify no overlap or clipped tiles/number badges on 390×844 at DPR 2; check 340/375/430 widths. If the taller tiles collide, make the minimum scoped geometry adjustment needed, without width changes or unrelated redesign.
+
+### Part B — After implementing and testing, REVIEW Workflow 48 one final time (AUDIT ONLY)
+
+Inspect all seven screens and their meaningful interaction states, from Schedule Session → Invitations → Select Players → Invitation Preview → Player RSVP → Choose Seat → Reserved Table.
+
+Report the **remaining minor visual or functional issues** (P2/P3) with:
+- screen number and label
+- exact issue and why it matters
+- proposed precise fix
+- severity and whether it is newly introduced or pre-existing
+- screenshot/evidence location where applicable
+
+Check alignment, action/footer height, typography, dates/COP, cropping, name display, missing personal message, seat availability, arrivals, YES/NO/MAYBE, navigation, responsiveness, and duplicate copy. Note any serious issue (P0/P1) separately if found, but **do not repair anything outside Part A without Mike's explicit approval**.
+
+Do **not** report trivial non-issues as defects. Keep the owner-facing shortlist compact and prioritized.
+
+### Testing and release instructions
+1. Fetch remote HEAD via SSH; verify correct branch and clean worktree; read `CLAUDE.md`, `DESIGN_RULES.md`, `HANDOFF.md`, and `CLAUDE-STATUS.md`; record rollback point.
+2. Capture **before** screenshots of Screens 6/7 and all WF48 frames with existing local Edge+Node QA harness outside repo.
+3. Implement Part A with minimal, tightly scoped changes.
+4. Test mapping old→new for **all ten positions** and all relevant seat click, reserve, confirm, cancel, re-render and count states. Verify no duplicate seat IDs.
+5. Capture **after** Screens 1–7 at 390×844, DPR 2; compare Screens 1–5 against baseline unchanged; inspect 6/7 and alternate mobile widths. Test actual clicks and flows when feasible.
+6. Verify Workflow 02 pixel-identical (or substantively unchanged if capture nondeterminism), no horizontal/vertical overflow, no photo/name clipping, no JavaScript errors, and no whole-file CRLF churn.
+7. Only commit and push approved Part A UI changes; report actual full UI commit SHA and immutable raw.githack URL.
+8. Run Part B audit without extra UI edits. Post prioritized issue list **for Mike's approval** in `CLAUDE-STATUS.md` (and concise Claude reply), status-only commit/push separately.
+9. Do not call Workflow 48 fully approved until Mike personally checks the preview.
+
+**Important:** This task supersedes Task 001, which Claude has completed. No changes to the actual production NORA app.
