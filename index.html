@@ -2441,34 +2441,41 @@ html body .storyboard .crm54-phone .crm54-body:has(>.crm54-profile-fixed){displa
 .crm54-phone .crm54-profile-edit{align-self:flex-start;background:#092f49;border:2px solid #25bde8;font-size:14px;padding:7px 13px;min-height:42px}
 .crm54-phone .crm54-profile-history{display:block;width:100%;background:#006b52;border:2px solid #40d8ad;font-size:17px;min-height:58px;padding:8px;margin:0}
 </style><style id="wf2-only-nov6">
-/* Only WF02, one screen, fixed fit, no scrolling anywhere inside it. */
-.storyboard .st-phone .fb-body:has(>.wf2-one){height:100%!important;min-height:0!important;display:flex!important;overflow:hidden!important;padding:0!important;margin:0!important}
-.storyboard .st-phone .ux-content:has(.wf2-one){overflow:hidden!important;min-height:0!important;padding:4px 5px 8px!important}
-.storyboard .st-phone .wf2-one{display:flex;flex-direction:column;gap:6px;height:100%;min-height:0;width:100%;box-sizing:border-box;overflow:hidden!important;padding:0 1px!important}
+/* Workflow 02 only: fixed no-scroll review, no premature bottom navigation. */
+.storyboard .st-phone:has(.wf2-one)>.ux-bottom{display:none!important}
+.storyboard .st-phone .ux-content:has(.wf2-one){overflow:hidden!important;min-height:0!important;padding:5px 5px 12px!important;flex:1 1 auto!important}
+.storyboard .st-phone .fb-body:has(>.wf2-one){display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important;padding:0!important;margin:0!important;overflow:hidden!important}
+.storyboard .st-phone .wf2-one{width:100%;height:100%;min-height:0;display:flex;flex-direction:column;gap:7px;overflow:hidden!important;padding:0 2px!important;box-sizing:border-box}
 .storyboard .st-phone .wf2-one *{box-sizing:border-box}
-.storyboard .st-phone .wf2-heading{font-size:20px;font-weight:900;color:white;line-height:1.1;flex:none;padding:5px 2px 7px;border-bottom:2px solid #26bddd}
-.storyboard .st-phone .wf2-tile{display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:0;flex:0 0 auto;padding:6px 9px;background:#092b41;border:2px solid #2489b8;border-radius:0!important;min-height:54px;margin:0!important}
-.storyboard .st-phone .wf2-label{font-size:12px;font-weight:900;color:#69ddfb;line-height:1.15}
-.storyboard .st-phone .wf2-value{display:flex;align-items:baseline;gap:3px;min-width:0;white-space:nowrap;font-size:19px;font-weight:900;color:#fff}
-.storyboard .st-phone .wf2-value input,.storyboard .st-phone .wf2-value select{background:transparent;border:0!important;color:white;font:inherit;min-width:0;min-height:27px;height:27px;max-width:100%;padding:0;outline-offset:2px;border-radius:0!important}
-.storyboard .st-phone .wf2-value select option{color:#112c40;background:white}
-.storyboard .st-phone .wf2-money{display:inline-flex;align-items:baseline;min-width:0;flex:0 1 auto;gap:3px}
-.storyboard .st-phone .wf2-money input{width:100%;font-size:19px!important;font-weight:900!important;letter-spacing:-.35px;min-width:0}
-.storyboard .st-phone .wf2-cop{font-size:12.35px;line-height:1;font-weight:900;flex:none;color:#fff}
-.storyboard .st-phone .wf2-slash{font-size:20px;font-weight:900;flex:none;color:#6bddf6;padding:0 1px}
-.storyboard .st-phone .wf2-full .wf2-value{width:100%}
-.storyboard .st-phone .wf2-full .wf2-money{flex:1 1 0;min-width:0}
-.storyboard .st-phone .wf2-half{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;min-width:0}
-.storyboard .st-phone .wf2-half .wf2-tile{width:100%}
-.storyboard .st-phone .wf2-rate{width:57px!important}
-.storyboard .st-phone .wf2-pct{font-size:19px}
-.storyboard .st-phone .wf2-seats{width:100px!important}
-.storyboard .st-phone .wf2-datetime .wf2-tile{min-height:58px;padding:6px}
-.storyboard .st-phone .wf2-datetime input{font-size:14px!important;width:100%!important;min-width:0!important;min-height:29px}
-.storyboard .st-phone .wf2-actions{display:grid;grid-template-columns:0.9fr 1.1fr 1.25fr;gap:5px;margin-top:auto;flex:none}
-.storyboard .st-phone .wf2-actions button{border:2px solid #2baad1;border-radius:0!important;color:white;background:#0e4963;font-size:13px;font-weight:900;line-height:1.1;min-height:49px;padding:5px 1px}
-.storyboard .st-phone .wf2-actions .primary{background:#007751;border-color:#40d9aa}
-.storyboard .st-phone .wf2-status{min-height:0;font-size:12px;font-weight:800;line-height:1.15;color:#65f0c0}
+.storyboard .st-phone .wf2-heading{font-size:20px;font-weight:900;line-height:1.15;padding:8px 2px 5px;color:#fff;border-bottom:2px solid #26bddd;flex:none}
+.storyboard .st-phone .wf2-tile{display:flex;flex-direction:column;justify-content:center;gap:4px;background:#092b41;border:2px solid #2489b8;border-radius:0!important;min-width:0;min-height:56px;padding:7px 9px;margin:0!important;flex:0 0 auto}
+.storyboard .st-phone .wf2-label{font-size:13px;line-height:1.15;color:#6bdfff;font-weight:900}
+.storyboard .st-phone .wf2-value{display:flex;align-items:baseline;justify-content:flex-start;gap:3px;width:100%;min-width:0;white-space:nowrap;color:white;font-size:19px;font-weight:900}
+.storyboard .st-phone .wf2-value input{background:transparent!important;border:0!important;outline-offset:2px;color:#fff;font:inherit;font-variant-numeric:tabular-nums;min-width:0;min-height:26px;height:26px;max-width:100%;padding:0!important;margin:0!important;border-radius:0!important}
+.storyboard .st-phone .wf2-game input{width:100%;font-size:20px!important}
+.storyboard .st-phone .wf2-money{display:inline-flex;align-items:baseline;gap:3px;flex:none;min-width:0}
+.storyboard .st-phone .wf2-money input{font-size:19px!important;font-weight:900!important;letter-spacing:-.3px!important;flex:none;max-width:none!important}
+.storyboard .st-phone .wf2-cop{font-size:12.35px;line-height:1;color:#fff;font-weight:900;flex:none}
+.storyboard .st-phone .wf2-slash{font-size:21px;font-weight:900;color:#6bddf6;padding:0 3px;flex:none}
+.storyboard .st-phone .wf2-full .wf2-value{gap:2px}
+.storyboard .st-phone .wf2-full:has([data-wf2-field="min"]) .wf2-money input{font-size:17px!important;letter-spacing:-.4px!important}
+.storyboard .st-phone .wf2-full:has([data-wf2-field="min"]) .wf2-value{gap:0}
+.storyboard .st-phone .wf2-half{display:grid;grid-template-columns:1fr 1fr;gap:7px;min-width:0}
+.storyboard .st-phone .wf2-half>.wf2-tile{width:100%}
+.storyboard .st-phone .wf2-triple{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.45fr) minmax(0,.65fr);gap:6px;min-width:0}
+.storyboard .st-phone .wf2-triple>.wf2-tile{width:100%;padding:7px 5px}
+.storyboard .st-phone .wf2-triple .wf2-label{font-size:12px}
+.storyboard .st-phone .wf2-rate{width:19px!important;font-size:19px!important}
+.storyboard .st-phone .wf2-pct{font-size:19px;font-weight:900}
+.storyboard .st-phone .wf2-triple .wf2-money input{font-size:17px!important}
+.storyboard .st-phone .wf2-triple .wf2-cop{font-size:11.05px}
+.storyboard .st-phone .wf2-seats{width:35px!important;font-size:19px!important}
+.storyboard .st-phone .wf2-datetime>.wf2-tile{min-height:60px;padding:7px}
+.storyboard .st-phone .wf2-datetime .wf2-value input{font-size:15px!important;width:100%!important;min-width:0!important;height:28px}
+.storyboard .st-phone .wf2-actions{display:grid;grid-template-columns:.9fr 1.1fr 1.25fr;gap:6px;margin-top:auto;padding:3px 0 4px!important;flex:none;min-height:57px}
+.storyboard .st-phone .wf2-actions button{border:2px solid #2baad1!important;color:white;background:#0e4963;border-radius:0!important;font-size:14px;font-weight:900;line-height:1.1;min-height:51px;padding:5px 1px!important;display:flex;align-items:center;justify-content:center}
+.storyboard .st-phone .wf2-actions button.primary{background:#007751;border-color:#40d9aa!important}
+.storyboard .st-phone .wf2-status{font-size:12px;line-height:1.15;color:#65f0c0;font-weight:800;flex:none}
 .storyboard .st-phone .wf2-status:empty{display:none}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
@@ -6868,27 +6875,26 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  }
  function wf2Remember(d,date){var key=wf2Norm(d);if(!(WF2STATE.structures||[]).some(function(x){return wf2Norm(x)===key;}))WF2STATE.structures.push(Object.assign({},d));
   WF2STATE.last=Object.assign({},d);WF2STATE.history.push({key:key,day:date.getDay()});WF2STATE.draft=null;wf2Store();}
- function wf2Amount(key,n){return '<span class="wf2-money"><span class="wf2-cop">COP</span><input type="text" inputmode="numeric" data-wf2-field="'+key+'" aria-label="'+key+'" value="'+Number(n||0).toLocaleString('en-US')+'"></span>';}
+ function wf2Amount(key,n){var value=Number(n||0).toLocaleString('en-US');return '<span class="wf2-money"><span class="wf2-cop">COP</span><input type="text" inputmode="numeric" data-wf2-field="'+key+'" aria-label="'+key+'" value="'+value+'" style="width:'+(value.length+.3)+'ch" data-wf2-auto-width="1"></span>';}
  function wf2Tile(label,content,cls){return '<label class="wf2-tile '+(cls||'')+'"><span class="wf2-label">'+label+'</span><span class="wf2-value">'+content+'</span></label>';}
  function wf2DateString(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
  function wf2Form(){
   var d=wf2Suggested(),dt=new Date(),date=WF2STATE.draft&&WF2STATE.draft.date||wf2DateString(dt),time=WF2STATE.draft&&WF2STATE.draft.time||'19:00';
-  var game='<select data-wf2-field="game" aria-label="Game"><option'+(d.game==='Texas Hold’em'?' selected':'')+'>Texas Hold’em</option><option'+(d.game==='Omaha'?' selected':'')+'>Omaha</option><option'+(d.game==='Other'?' selected':'')+'>Other</option></select>';
+  var game='<input type="text" list="wf2-game-types" data-wf2-field="game" aria-label="Game" value="'+e(d.game)+'" autocomplete="off"><datalist id="wf2-game-types"><option value="Texas Hold’em"><option value="Omaha"></datalist>';
   return '<div class="wf2-one">'+
+   '<div class="wf2-half wf2-datetime">'+wf2Tile('DATE','<input data-wf2-date aria-label="Game date" type="date" value="'+e(date)+'">')+wf2Tile('START TIME','<input data-wf2-time aria-label="Game start time" type="time" value="'+e(time)+'">')+'</div>'+
    '<div class="wf2-heading">GAME STRUCTURE</div>'+
    wf2Tile('GAME',game,'wf2-game')+
    wf2Tile('BLINDS',wf2Amount('small',d.small)+'<span class="wf2-slash">/</span>'+wf2Amount('big',d.big),'wf2-full')+
    wf2Tile('MIN / MAX BUY-IN',wf2Amount('min',d.min)+'<span class="wf2-slash">/</span>'+wf2Amount('max',d.max),'wf2-full')+
-   '<div class="wf2-half">'+wf2Tile('RAKE %','<input class="wf2-rate" data-wf2-field="rake" aria-label="Rake percentage" inputmode="decimal" type="number" min="0" max="100" step=".5" value="'+(+d.rake)+'"><span class="wf2-pct">%</span>')+wf2Tile('RAKE CAP',wf2Amount('cap',d.cap))+'</div>'+
-   wf2Tile('SEATS AT TABLE','<input class="wf2-seats" data-wf2-field="seats" aria-label="Seats at table" type="number" min="2" max="12" inputmode="numeric" value="'+(+d.seats)+'">')+
-   '<div class="wf2-half wf2-datetime">'+wf2Tile('DATE','<input data-wf2-date aria-label="Game date" type="date" value="'+e(date)+'">')+wf2Tile('START TIME','<input data-wf2-time aria-label="Game start time" type="time" value="'+e(time)+'">')+'</div>'+
+   '<div class="wf2-triple">'+wf2Tile('RAKE','<input class="wf2-rate" data-wf2-field="rake" aria-label="Rake percentage" inputmode="decimal" type="text" value="'+(+d.rake)+'"><span class="wf2-pct">%</span>')+wf2Tile('RAKE CAP',wf2Amount('cap',d.cap))+wf2Tile('SEATS','<input class="wf2-seats" data-wf2-field="seats" aria-label="Seats" type="text" inputmode="numeric" value="'+(+d.seats)+'">')+'</div>'+
    '<div class="wf2-actions"><button type="button" data-rn-route="1:0">CANCEL</button><button type="button" data-wf2-commit="schedule">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>'+
    '<div class="wf2-status" role="status" aria-live="polite"></div></div>';
  }
  function wf2Parse(str){var s=String(str||'').replace(/[^0-9]/g,'');return s?Number(s):0;}
  function wf2Read(panel){
   var d=Object.assign({},WF2DEFAULT,wf2Suggested());
-  panel.querySelectorAll('[data-wf2-field]').forEach(function(x){d[x.dataset.wf2Field]=['game'].includes(x.dataset.wf2Field)?x.value:x.dataset.wf2Field==='rake'?Number(x.value):wf2Parse(x.value);});
+  panel.querySelectorAll('[data-wf2-field]').forEach(function(x){d[x.dataset.wf2Field]=x.dataset.wf2Field==='game'?x.value.trim():x.dataset.wf2Field==='rake'?Number(x.value):wf2Parse(x.value);});
   d.date=panel.querySelector('[data-wf2-date]').value;d.time=panel.querySelector('[data-wf2-time]').value;return d;
  }
  function wf2Check(d,mode){
@@ -6906,7 +6912,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  S[2]={sec:'LIVE SESSION',steps:['Game Structure · Start or Schedule'],heads:['Game Structure'],screens:[wf2Form]};
  window.addEventListener('input',function(ev){
   var el=ev.target,box=el.closest('.wf2-one');if(!box||!el.matches('[data-wf2-field],[data-wf2-date],[data-wf2-time]'))return;
-  if(el.matches('.wf2-money input')){var p=el.selectionStart;var before=el.value.slice(0,p).replace(/[^0-9]/g,'').length;var formatted=wf2Parse(el.value).toLocaleString('en-US');el.value=formatted;var pos=0,n=0;while(pos<formatted.length&&n<before){if(/[0-9]/.test(formatted[pos]))n++;pos++;}el.setSelectionRange(pos,pos);}
+  if(el.matches('.wf2-money input')){var p=el.selectionStart;var before=el.value.slice(0,p).replace(/[^0-9]/g,'').length;var formatted=wf2Parse(el.value).toLocaleString('en-US');el.value=formatted;if(el.dataset.wf2AutoWidth)el.style.width=(formatted.length+.3)+'ch';var pos=0,n=0;while(pos<formatted.length&&n<before){if(/[0-9]/.test(formatted[pos]))n++;pos++;}el.setSelectionRange(pos,pos);}
   WF2STATE.draft=wf2Read(box);
  },true);
  window.addEventListener('click',function(ev){
