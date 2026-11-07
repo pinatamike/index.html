@@ -6889,14 +6889,15 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  function wf2DateString(d){return String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0')+'/'+d.getFullYear();}
  function wf2DateObj(s){var m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(String(s||'').trim());if(!m)return null;var d=new Date(+m[3],+m[1]-1,+m[2],12);return d.getFullYear()===+m[3]&&d.getMonth()===+m[1]-1&&d.getDate()===+m[2]?d:null;}
  function wf2Time24(s){var m=/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(String(s||'').trim());if(!m||+m[1]<1||+m[1]>12||+m[2]>59)return null;return String((+m[1]%12)+(m[3].toUpperCase()==='PM'?12:0)).padStart(2,'0')+':'+m[2];}
+ function wf2FormatTime(s){var m=/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(String(s||'').trim());return m?Number(m[1])+':'+m[2]+' '+m[3].toUpperCase():String(s||'').trim();}
  function wf2DateTime(d){var dt=wf2DateObj(d.date),clock=wf2Time24(d.time);return dt&&clock?new Date(dt.getFullYear(),dt.getMonth(),dt.getDate(),+clock.slice(0,2),+clock.slice(3,5)):null;}
  function wf2SessionName(d){return String((d&&d.name)||'Sunday Hold’em').trim();}
  function wf2Form(){
-  var d=wf2Suggested(),dt=new Date(),date=WF2STATE.draft&&WF2STATE.draft.date||wf2DateString(dt),time=WF2STATE.draft&&WF2STATE.draft.time||'07:00 PM',name=wf2SessionName(WF2STATE.draft||WF2STATE);
+  var d=wf2Suggested(),dt=new Date(),date=WF2STATE.draft&&WF2STATE.draft.date||wf2DateString(dt),time=wf2FormatTime(WF2STATE.draft&&WF2STATE.draft.time||'7:00 PM'),name=wf2SessionName(WF2STATE.draft||WF2STATE);
   var game='<input type="text" list="wf2-game-types" data-wf2-field="game" aria-label="Game" value="'+e(d.game)+'" autocomplete="off"><datalist id="wf2-game-types"><option value="Texas Hold’em"><option value="Omaha"></datalist>';
   return '<div class="wf2-one">'+
    wf2Tile('GAME NAME','<input class="wf2-session-name" data-wf2-name aria-label="Game Name" type="text" maxlength="50" value="'+e(name)+'">','wf2-name')+
-   '<div class="wf2-half wf2-datetime">'+wf2Tile('DATE','<input data-wf2-date aria-label="Game date (MM/DD/YYYY)" type="text" inputmode="numeric" maxlength="10" placeholder="MM/DD/YYYY" value="'+e(date)+'">')+wf2Tile('START TIME','<input data-wf2-time aria-label="Start time (hh:mm AM/PM)" type="text" maxlength="8" placeholder="07:00 PM" value="'+e(time)+'">')+'</div>'+
+   '<div class="wf2-half wf2-datetime">'+wf2Tile('DATE','<input data-wf2-date aria-label="Game date (MM/DD/YYYY)" type="text" inputmode="numeric" maxlength="10" placeholder="MM/DD/YYYY" value="'+e(date)+'">')+wf2Tile('START TIME','<input data-wf2-time aria-label="Start time (hh:mm AM/PM)" type="text" maxlength="8" placeholder="7:00 PM" value="'+e(time)+'">')+'</div>'+
    '<div class="wf2-heading">GAME STRUCTURE</div>'+
    wf2Tile('GAME',game,'wf2-game')+
    wf2Tile('BLINDS',wf2Amount('small',d.small)+'<span class="wf2-slash">/</span>'+wf2Amount('big',d.big),'wf2-full')+
@@ -6909,7 +6910,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  function wf2Read(panel){
   var d=Object.assign({},WF2DEFAULT,wf2Suggested());
   panel.querySelectorAll('[data-wf2-field]').forEach(function(x){d[x.dataset.wf2Field]=x.dataset.wf2Field==='game'?x.value.trim():x.dataset.wf2Field==='rake'?Number(x.value):wf2Parse(x.value);});
-  d.name=panel.querySelector('[data-wf2-name]').value.trim();d.date=panel.querySelector('[data-wf2-date]').value;d.time=panel.querySelector('[data-wf2-time]').value;return d;
+  d.name=panel.querySelector('[data-wf2-name]').value.trim();d.date=panel.querySelector('[data-wf2-date]').value;d.time=wf2FormatTime(panel.querySelector('[data-wf2-time]').value);return d;
  }
  function wf2Check(d,mode){
   if(!d.game||d.small<=0||d.big<=d.small)return 'Enter valid blinds.';
@@ -6928,6 +6929,12 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var el=ev.target,box=el.closest('.wf2-one');if(!box||!el.matches('[data-wf2-field],[data-wf2-name],[data-wf2-date],[data-wf2-time]'))return;
   if(el.matches('.wf2-money input')){var p=el.selectionStart;var before=el.value.slice(0,p).replace(/[^0-9]/g,'').length;var formatted=wf2Parse(el.value).toLocaleString('en-US');el.value=formatted;if(el.dataset.wf2AutoWidth)el.style.width=(formatted.length+.3)+'ch';var pos=0,n=0;while(pos<formatted.length&&n<before){if(/[0-9]/.test(formatted[pos]))n++;pos++;}el.setSelectionRange(pos,pos);}
   WF2STATE.draft=wf2Read(box);
+ },true);
+ window.addEventListener('focusout',function(ev){
+  var el=ev.target,box=el.closest('.wf2-one');if(!box)return;
+  if(el.matches('[data-wf2-time]')){var formatted=wf2FormatTime(el.value);if(wf2Time24(formatted))el.value=formatted;}
+  if(el.matches('[data-wf2-date]')){var date=wf2DateObj(el.value);if(date)el.value=wf2DateString(date);}
+  if(el.matches('[data-wf2-time],[data-wf2-date]'))WF2STATE.draft=wf2Read(box);
  },true);
  window.addEventListener('click',function(ev){
   var btn=ev.target.closest('.st-phone [data-wf2-commit]');if(!btn)return;
