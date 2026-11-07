@@ -216,7 +216,23 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
    Seat name and buy-in remain exclusively in the overlay label. */
 .hi-phone:has(.rebuy-screen-one) .rebuy-screen-one .ux-seat:not(.empty) .person-face{position:relative!important;display:block!important;overflow:hidden!important}
 .hi-phone:has(.rebuy-screen-one) .rebuy-screen-one .ux-seat:not(.empty) .person-face img{position:absolute!important;top:0!important;left:0!important;width:100%!important;height:145%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:center top!important;transform:none!important}
-.hi-phone:has(.seat-entry-v3) .rebuy-entry-v2,.hi-phone:has(.seat-review-v3) .receipt-v4{height:100%}.seat-roster-v3{display:flex;flex-direction:column;gap:8px;height:100%}.seat-roster-search{border:2px solid #00baff;padding:12px;color:#fff;font-size:14px;font-weight:800;display:flex;justify-content:space-between}.seat-roster-v3 .screen-list{flex:1;overflow:auto}.seat-roster-v3 .screen-list-item{min-height:65px}.seat-roster-v3{overflow:hidden}.seat-roster-heading{border:2px solid #00baff;padding:10px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:13px}.seat-roster-heading span{font-size:10px;color:#9edcff}.seat-roster-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:7px;flex:1;min-height:0}.seat-roster-card{border:2px solid #00baff;background:#082c44;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:0;padding:5px;color:white;text-align:center}.seat-roster-photo{width:74px;height:74px;max-height:55%;overflow:hidden}.seat-roster-photo .person-face{width:100%;height:100%;display:block}.seat-roster-photo img{width:100%;height:100%;object-fit:cover}.seat-roster-card strong{font-size:15px}.seat-roster-card span{font-size:11px;color:#a6d8ee}.seat-roster-pages{display:flex;justify-content:space-between;align-items:center;color:#fff;font-weight:800;font-size:12px;padding:5px;border:1px solid #1689b6}.seat-roster-v3 .screen-button{flex-shrink:0}.seat-review-v3 .receipt-done{background:#073552;border-color:#00baff}</style><style>
+.hi-phone:has(.seat-entry-v3) .rebuy-entry-v2,.hi-phone:has(.seat-review-v3) .receipt-v4{height:100%}.seat-roster-v3{display:flex;flex-direction:column;gap:8px;height:100%}.seat-roster-search{border:2px solid #00baff;padding:12px;color:#fff;font-size:14px;font-weight:800;display:flex;justify-content:space-between}.seat-roster-v3 .screen-list{flex:1;overflow:auto}.seat-roster-v3 .screen-list-item{min-height:65px}.seat-roster-v3{overflow:hidden}.seat-roster-heading{border:2px solid #00baff;padding:10px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:13px}.seat-roster-heading span{font-size:10px;color:#9edcff}.seat-roster-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:7px;flex:1;min-height:0}.seat-roster-card{border:2px solid #00baff;background:#082c44;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:0;padding:5px;color:white;text-align:center}.seat-roster-photo{width:74px;height:74px;max-height:55%;overflow:hidden}.seat-roster-photo .person-face{width:100%;height:100%;display:block}.seat-roster-photo img{width:100%;height:100%;object-fit:cover}.seat-roster-card strong{font-size:15px}.seat-roster-card span{font-size:11px;color:#a6d8ee}.seat-roster-pages{display:flex;justify-content:space-between;align-items:center;color:#fff;font-weight:800;font-size:12px;padding:5px;border:1px solid #1689b6}.seat-roster-v3 .screen-button{flex-shrink:0}.seat-review-v3 .receipt-done{background:#073552;border-color:#00baff}
+/* WF48-only oval table layout */
+.storyboard .st-phone .wf48-table-screen .wf48-felt{display:none!important}
+.storyboard .st-phone .wf48-table-screen .wf48-table-seats{display:block!important;position:relative!important;flex:1 1 auto!important;min-height:245px!important;gap:0!important}
+.storyboard .st-phone .wf48-table-screen .wf48-oval{position:absolute;left:12%;top:18%;width:76%;height:64%;border:6px solid #238b7d;border-radius:48% / 43%;background:#00694c;box-shadow:0 0 0 3px #082739,inset 0 0 0 3px #4ad6aa;display:grid;place-items:center;color:white;font-size:18px;font-weight:900;text-align:center}
+.storyboard .st-phone .wf48-table-screen .wf48-seat{position:absolute!important;transform:translate(-50%,-50%);width:64px!important;height:69px!important;min-height:0!important;padding:2px!important;border:2px solid #2eadd9!important;z-index:2;overflow:hidden}
+.storyboard .st-phone .wf48-table-screen .wf48-seat.mine{border:3px solid #51f1ab!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat-face{width:46px!important;height:40px!important;max-height:40px!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat>b{font-size:10px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;line-height:1!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat-number{background:#082739;z-index:3;font-size:10px!important}
+.storyboard .st-phone .wf48-table-screen .wf48-table-tabs{display:flex;gap:4px;min-height:35px}
+.storyboard .st-phone .wf48-table-screen .wf48-table-tabs button{flex:1;background:#104b68;border:2px solid #2eadd9;color:white;font-size:12px;font-weight:900}
+.storyboard .st-phone .wf48-table-screen .wf48-table-tabs button.chosen{background:#007b54;border-color:#4bf1bd}
+.storyboard .st-phone .wf48-table-screen .wf48-confirm-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px}
+.storyboard .st-phone .wf48-table-screen .wf48-confirm-actions button{min-width:0!important;font-size:12px!important;padding:2px!important}
+.storyboard .st-phone .wf48-player.picked{border:4px solid #52f0b7!important}
+</style><style>
 .seat-roster-v3 .seat-roster-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:5px}
 .seat-roster-v3 .seat-roster-card{flex-direction:row;justify-content:flex-start;text-align:left;padding:5px 7px;gap:9px}
 .seat-roster-v3 .seat-roster-photo{width:72px;height:100%;max-height:100%;flex:0 0 72px}
@@ -7317,8 +7333,8 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  if(!WF2LINK)throw new Error('WF02 bridge must initialize before WF48');
  var WF48KEY='nora.wf48.schedule.preview.v2';
  var WF48INVKEY='nora.wf48.invites.preview.v2';
- var WF48INV={send:false,audience:'ACTIVE',grace:30,inviteTime:'24 H',reminder:'1 H',selected:[],note:'',response:'',arrival:'7:00 PM',seat:null};
- try{var restored=JSON.parse(localStorage.getItem(WF48INVKEY)||'{}');Object.assign(WF48INV,restored);if(WF48INV.audience==='RECENT')WF48INV.audience='ACTIVE';}catch(x){}
+ var WF48INV={send:false,audience:'PICK',grace:30,inviteTime:'24 H',reminder:'1 H',selected:[],note:'',response:'',arrival:'7:00 PM',seat:null,table:1,confirmed:false,rsvpLog:{}};
+ try{var restored=JSON.parse(localStorage.getItem(WF48INVKEY)||'{}');Object.assign(WF48INV,restored);if(WF48INV.audience==='RECENT')WF48INV.audience='PICK';WF48INV.table=WF48INV.table||1;WF48INV.rsvpLog=WF48INV.rsvpLog||{};}catch(x){}
  function wf48Store(){try{localStorage.setItem(WF48INVKEY,JSON.stringify(WF48INV));}catch(x){}}
  var WF48DRAFT=null,WF48MODE='schedule',WF48PAGE=0,WF48SWIPE=0;
  // Demo contacts only. Production selector must use tenant's actual player CRM.
@@ -7349,7 +7365,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var d=WF48INV;
   function select(field,options){return '<select data-wf48-select="'+field+'" aria-label="'+field+'">'+options.map(function(o){return '<option value="'+o[1]+'"'+(String(d[field])===String(o[1])?' selected':'')+'>'+o[0]+'</option>';}).join('')+'</select>';}
   return '<div class="wf48-invites wf48-minimal wf48-clean">'+
-   '<div class="wf48-minirow"><span>PLAYERS</span>'+select('audience',[['ACTIVE','ACTIVE'],['ALL','ALL'],['PICK','PICK']])+'</div>'+
+   '<div class="wf48-minirow"><span>PLAYERS</span>'+select('audience',[['SELECT','PICK'],['ACTIVE','ACTIVE'],['ALL','ALL']])+'</div>'+
    '<div class="wf48-minirow"><span>HOLD SEATS</span>'+select('grace',[['15 MINUTES',15],['30 MINUTES',30],['60 MINUTES',60]])+'</div>'+
    '<div class="wf48-minirow"><span>SEND INVITES</span>'+select('inviteTime',[['NOW','NOW'],['24 HOURS','24 H'],['12 HOURS','12 H'],['6 HOURS','6 H']])+'</div>'+
    '<div class="wf48-minirow"><span>REMINDER</span>'+select('reminder',[['1 HOUR','1 H'],['30 MINUTES','30 MIN'],['OFF','OFF']])+'</div>'+
@@ -7362,7 +7378,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   return '<div class="wf48-player-screen"><div class="wf48-player-top"><strong>SELECT PLAYERS</strong><span>'+sel.length+' SELECTED</span></div>'+
    '<div class="wf48-player-grid" data-wf48-swipe="1">'+tiles+'</div>'+
    '<div class="wf48-page"><span>SWIPE FOR MORE</span><span>'+Array.from({length:total},function(_,i){return '<button type="button" data-wf48-dot="'+i+'" aria-label="Page '+(i+1)+'">'+(i===page?'●':'○')+'</button>';}).join('')+'</span></div>'+
-   '<div class="wf48-player-actions"><button type="button" data-rn-route="48:1">BACK</button><button type="button" class="primary" data-wf48-finish="1">CONFIRM INVITES</button></div>'+
+   '<div class="wf48-player-actions"><button type="button" data-rn-route="48:1">BACK</button><button type="button" class="primary" data-wf48-finish="1">REVIEW INVITES</button></div>'+
    '<div class="wf48-status" role="status" aria-live="polite"></div></div>';
  }
 
@@ -7378,10 +7394,12 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    '<label class="wf48-note-label">PERSONAL MESSAGE (OPTIONAL)</label>'+
    '<textarea data-wf48-owner-note maxlength="280" placeholder="Add a personal note…">'+e(WF48INV.note||'')+'</textarea>'+
    '<div class="wf48-message-facts"><b>'+n+' INVITEES</b><span>SEND: '+e(WF48INV.inviteTime)+'</span><span>REMINDER: '+e(WF48INV.reminder)+'</span></div>'+
-   '<div class="wf48-message-footer"><button type="button" data-rn-route="'+(WF48INV.audience==='PICK'?'48:2':'48:1')+'">BACK</button><button type="button" class="primary" data-wf48-confirm-template="1">CONFIRM INVITES</button></div></div>';
+   '<div class="wf48-message-footer"><button type="button" data-rn-route="'+(WF48INV.audience==='PICK'?'48:2':'48:1')+'">BACK</button><button type="button" class="primary" data-wf48-confirm-template="1">SEND INVITATIONS</button></div></div>';
  }
  var WF48RESERVED=[{seat:1,name:'Luka D.',initial:'LD'},{seat:3,name:'Macaulay C.',initial:'MC'},{seat:5,name:'Miguel B.',initial:'MB'},{seat:7,name:'Paul Smith',initial:'PS'},{seat:9,name:'Nora A.',initial:'NA'}];
- function wf48Reservations(){var count=Math.max(2,Math.min(12,Number(wf48Game().seats)||10));return WF48RESERVED.filter(function(x){return x.seat<=count;});}
+ function wf48Reservations(){var count=Math.max(2,Math.min(12,Number(wf48Game().seats)||10));return WF48RESERVED.filter(function(x){return x.seat<=count&&WF48INV.table===1;});}
+ function wf48Count(){return wf48Reservations().length+(WF48INV.confirmed&&WF48INV.response==='YES'&&WF48INV.seat?1:0);}
+ function wf48Tables(){return Math.max(1,Math.min(4,Number(wf48Game().tables)||1));}
  function wf48GuestInvitation(){
   var g=wf48Game(),note=String(WF48INV.note||'').trim(),r=WF48INV.response;
   return '<div class="wf48-guest"><div class="wf48-message-title">YOU’RE INVITED</div>'+
@@ -7389,7 +7407,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    '<span>'+e(g.game)+' · COP '+Number(g.small).toLocaleString('en-US')+' / '+Number(g.big).toLocaleString('en-US')+'</span>'+
    '<span>Buy-in COP '+Number(g.min).toLocaleString('en-US')+' – '+Number(g.max).toLocaleString('en-US')+'</span>'+
    (note?'<div class="wf48-personal-note">'+e(note)+'</div>':'')+'</div>'+
-   '<div class="wf48-count"><strong>'+wf48Reservations().length+' PLAYERS</strong> ALREADY RESERVED SEATS</div>'+
+   '<div class="wf48-count"><strong>'+wf48Count()+' PLAYERS</strong> ALREADY RESERVED SEATS</div>'+
    '<div class="wf48-response-title">ARE YOU COMING?</div>'+
    '<div class="wf48-response-grid">'+['YES','NO','MAYBE'].map(function(t){return '<button type="button" data-wf48-rsvp="'+t+'" class="'+(r===t?'chosen':'')+'">'+t+'</button>';}).join('')+'</div>'+
    '<div class="wf48-rsvp-follow">'+(r==='YES'?'<div class="wf48-arrival"><strong>WHAT TIME WILL YOU ARRIVE?</strong><div class="wf48-arrival-buttons"><button type="button" data-wf48-arrival="START" class="'+(WF48INV.arrival===g.time?'chosen':'')+'">START · '+e(g.time)+'</button><button type="button" data-wf48-arrival="OTHER">OTHER TIME</button></div><input data-wf48-arrival-input aria-label="Other arrival time" placeholder="8:30 PM" value="'+e(WF48INV.arrival===g.time?'':WF48INV.arrival)+'"></div>':'')+
@@ -7397,28 +7415,20 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    '<div class="wf48-message-footer"><button type="button" class="primary wf48-single" '+(r==='YES'?'data-wf48-choose-seat="1"':'data-wf48-submit-rsvp="1"')+'>'+(r==='YES'?'SELECT SEAT':'SEND RESPONSE')+'</button></div>'+
    '<div class="wf48-status" role="status" aria-live="polite"></div></div>';
  }
+
  function wf48Table(){
   var count=Math.max(2,Math.min(12,Number(wf48Game().seats)||10)),reserved=wf48Reservations(),map={};
   reserved.forEach(function(p){map[p.seat]=p;});
-  return '<div class="wf48-table-seats">'+Array.from({length:count},function(_,i){
-   var num=i+1,p=map[num],mine=WF48INV.seat===num;
-   return '<button type="button" class="wf48-seat'+(p?' reserved':'')+(mine?' mine':'')+'" data-wf48-seat="'+num+'" '+(p?'disabled':'')+'><span class="wf48-seat-number">'+num+'</span>'+
-    '<span class="wf48-seat-face">'+(p?wf48Img(p.name,p.initial):mine?wf48Img('James K.','JK'):'<span class="wf48-seat-open">+</span>')+'</span>'+
-    '<b>'+(p?e(p.name):mine?'YOU':'OPEN')+'</b></button>';
-  }).join('')+'</div>';
+  var seats=Array.from({length:count},function(_,i){
+   var n=i+1,p=map[n],mine=WF48INV.seat===n&&WF48INV.response==='YES';
+   var theta=2*Math.PI*i/count-Math.PI/2,x=50+41*Math.cos(theta),y=50+42*Math.sin(theta);
+   return '<button type="button" style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%" class="wf48-seat'+(p?' reserved':'')+(mine?' mine':'')+'" data-wf48-seat="'+n+'" '+(p?'disabled':'')+'><span class="wf48-seat-number">'+n+'</span><span class="wf48-seat-face">'+(p?wf48Img(p.name,p.initial):mine?wf48Img('James K.','JK'):'<span class="wf48-seat-open">+</span>')+'</span><b>'+(p?e(p.name):mine?'YOU':'OPEN')+'</b></button>';
+  }).join('');
+  return '<div class="wf48-table-seats"><div class="wf48-oval">POKER TABLE</div>'+seats+'</div>';
  }
- function wf48SeatSelect(){
-  return '<div class="wf48-table-screen"><div class="wf48-message-title">SELECT YOUR SEAT</div><div class="wf48-count"><strong>'+wf48Reservations().length+' PLAYERS</strong> RESERVED</div>'+
-   '<div class="wf48-felt">POKER TABLE</div>'+wf48Table()+'<div class="wf48-seat-hint">TAP AN OPEN SEAT · '+(WF48INV.seat?'SEAT '+WF48INV.seat:'NONE SELECTED')+'</div>'+
-   '<div class="wf48-message-footer"><button type="button" data-rn-route="48:4">BACK</button><button type="button" class="primary" data-wf48-reserve="1">RESERVE SEAT</button></div><div class="wf48-status"></div></div>';
- }
- function wf48SeatConfirmed(){
-  return '<div class="wf48-table-screen"><div class="wf48-message-title">SEAT RESERVED</div>'+
-   '<div class="wf48-confirm-top">ARRIVAL '+e(WF48INV.arrival)+' · SEAT '+(WF48INV.seat||'—')+'</div>'+
-   '<div class="wf48-felt">POKER TABLE</div>'+wf48Table()+
-   '<div class="wf48-count"><strong>'+(wf48Reservations().length+1)+' PLAYERS</strong> RESERVED SEATS</div>'+
-   '<div class="wf48-message-footer"><button type="button" class="primary wf48-single" data-wf48-done="1">DONE</button></div></div>';
- }
+ function wf48TableTabs(){return wf48Tables()<2?'':'<div class="wf48-table-tabs">'+Array.from({length:wf48Tables()},function(_,i){return '<button type="button" class="'+(WF48INV.table===i+1?'chosen':'')+'" data-wf48-table="'+(i+1)+'">TABLE '+(i+1)+'</button>';}).join('')+'</div>';}
+ function wf48SeatSelect(){return '<div class="wf48-table-screen"><div class="wf48-message-title">SELECT YOUR SEAT</div><div class="wf48-count"><strong>'+wf48Count()+' PLAYERS</strong> RESERVED</div>'+wf48TableTabs()+wf48Table()+'<div class="wf48-seat-hint">TAP AN OPEN SEAT · '+(WF48INV.seat?'SEAT '+WF48INV.seat:'NONE SELECTED')+'</div><div class="wf48-message-footer"><button type="button" data-rn-route="48:4">BACK</button><button type="button" class="primary" data-wf48-reserve="1">RESERVE SEAT</button></div><div class="wf48-status"></div></div>';}
+ function wf48SeatConfirmed(){return '<div class="wf48-table-screen"><div class="wf48-message-title">SEAT RESERVED</div><div class="wf48-confirm-top">ARRIVAL '+e(WF48INV.arrival)+' · TABLE '+WF48INV.table+' · SEAT '+(WF48INV.seat||'—')+'</div>'+wf48TableTabs()+wf48Table()+'<div class="wf48-count"><strong>'+wf48Count()+' PLAYERS</strong> RESERVED SEATS</div><div class="wf48-message-footer wf48-confirm-actions"><button type="button" data-wf48-change="1">CHANGE</button><button type="button" data-wf48-cancel="1">CANCEL RSVP</button><button type="button" class="primary" data-wf48-done="1">DONE</button></div><div class="wf48-status"></div></div>';}
  S[48]={sec:'SCHEDULE',nav:'Players',steps:['Schedule Session','Invitations','Select Players','Invitation Preview','Player RSVP','Choose Seat','Reserved Table'],heads:['Schedule Session','Invitations','Select Players','Invitation Preview','Player RSVP','Choose Seat','Reserved Table'],screens:[wf48Base,wf48InviteForm,wf48PlayerForm,wf48OwnerPreview,wf48GuestInvitation,wf48SeatSelect,wf48SeatConfirmed]};
  var wf48Def=WORKFLOWS.find(function(w){return w.id===48;});
  if(wf48Def)wf48Def.steps=S[48].steps.slice();
@@ -7463,14 +7473,17 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var template=ev.target.closest('[data-wf48-confirm-template]'),rsvp=ev.target.closest('[data-wf48-rsvp]'),arrival=ev.target.closest('[data-wf48-arrival]'),
       chooseSeat=ev.target.closest('[data-wf48-choose-seat]'),seat=ev.target.closest('[data-wf48-seat]'),reserve=ev.target.closest('[data-wf48-reserve]'),
       submit=ev.target.closest('[data-wf48-submit-rsvp]'),done=ev.target.closest('[data-wf48-done]');
-  if(template){var area=template.closest('.wf48-owner-preview')?.querySelector('[data-wf48-owner-note]');WF48INV.note=area?area.value.trim():'';wf48Store();wf48SavePreview();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:4');return;}
-  if(rsvp){WF48INV.response=rsvp.dataset.wf48Rsvp;WF48INV.seat=null;wf48Store();ev.preventDefault();ev.stopImmediatePropagation();var el=rsvp.closest('.wf48-guest');if(el)el.outerHTML=wf48GuestInvitation();return;}
+  if(template){var area=template.closest('.wf48-owner-preview')?.querySelector('[data-wf48-owner-note]');WF48INV.note=area?area.value.trim():'';WF48INV.invitationStatus='PREVIEW ONLY · SEND NOT CONNECTED';wf48Store();wf48SavePreview();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:4');return;}
+  if(rsvp){WF48INV.response=rsvp.dataset.wf48Rsvp;WF48INV.seat=null;WF48INV.confirmed=false;wf48Store();ev.preventDefault();ev.stopImmediatePropagation();var el=rsvp.closest('.wf48-guest');if(el)el.outerHTML=wf48GuestInvitation();return;}
   if(arrival){WF48INV.arrival=arrival.dataset.wf48Arrival==='START'?wf48Game().time:'8:30 PM';wf48Store();ev.preventDefault();ev.stopImmediatePropagation();var el=arrival.closest('.wf48-guest');if(el)el.outerHTML=wf48GuestInvitation();return;}
   if(chooseSeat){var input=chooseSeat.closest('.wf48-guest')?.querySelector('[data-wf48-arrival-input]');if(input&&input.value.trim())WF48INV.arrival=input.value.trim();wf48Store();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:5');return;}
-  if(seat){WF48INV.seat=Number(seat.dataset.wf48Seat);wf48Store();ev.preventDefault();ev.stopImmediatePropagation();var el=seat.closest('.wf48-table-screen');if(el)el.outerHTML=wf48SeatSelect();return;}
-  if(reserve){ev.preventDefault();ev.stopImmediatePropagation();if(!WF48INV.seat){var st=reserve.closest('.wf48-table-screen')?.querySelector('.wf48-status');if(st)st.textContent='SELECT AN OPEN SEAT';return;}wf48Store();rnGo('48:6');return;}
-  if(submit){ev.preventDefault();ev.stopImmediatePropagation();var st=submit.closest('.wf48-guest')?.querySelector('.wf48-status');if(st)st.textContent=WF48INV.response==='MAYBE'?'MAYBE RECORDED':'DECLINED';return;}
-  if(done){ev.preventDefault();ev.stopImmediatePropagation();var st=done.closest('.wf48-table-screen');if(st){var v=st.querySelector('.wf48-confirm-top');if(v)v.textContent='RSVP CONFIRMED · SEAT '+WF48INV.seat;}return;}
+  if(seat){if(seat.disabled)return;WF48INV.seat=Number(seat.dataset.wf48Seat);wf48Store();ev.preventDefault();ev.stopImmediatePropagation();var el=seat.closest('.wf48-table-screen');if(el)el.outerHTML=wf48SeatSelect();return;}
+  if(reserve){ev.preventDefault();ev.stopImmediatePropagation();if(!WF48INV.seat){var st=reserve.closest('.wf48-table-screen')?.querySelector('.wf48-status');if(st)st.textContent='SELECT AN OPEN SEAT';return;}WF48INV.confirmed=true;WF48INV.rsvpLog.current={status:'Coming',table:WF48INV.table,seat:WF48INV.seat,arrival:WF48INV.arrival,updatedAt:new Date().toISOString()};wf48Store();wf48SavePreview();rnGo('48:6');return;}
+  if(submit){ev.preventDefault();ev.stopImmediatePropagation();WF48INV.confirmed=false;WF48INV.seat=null;WF48INV.rsvpLog.current={status:WF48INV.response==='MAYBE'?'Maybe':'Declined',updatedAt:new Date().toISOString()};wf48Store();wf48SavePreview();var st=submit.closest('.wf48-guest')?.querySelector('.wf48-status');if(st)st.textContent=WF48INV.response==='MAYBE'?'MAYBE RECORDED · NO SEAT':'DECLINED · NO SEAT';return;}
+  if(done){ev.preventDefault();ev.stopImmediatePropagation();var st=done.closest('.wf48-table-screen');if(st){var v=st.querySelector('.wf48-confirm-top');if(v)v.textContent='RSVP CONFIRMED · TABLE '+WF48INV.table+' · SEAT '+WF48INV.seat;}return;}
+  var tab=ev.target.closest('[data-wf48-table]');if(tab){WF48INV.table=Number(tab.dataset.wf48Table);WF48INV.seat=null;WF48INV.confirmed=false;wf48Store();ev.preventDefault();ev.stopImmediatePropagation();var bx=tab.closest('.wf48-table-screen');if(bx)bx.outerHTML=wf48SeatSelect();return;}
+  var change=ev.target.closest('[data-wf48-change]');if(change){WF48INV.confirmed=false;wf48Store();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:4');return;}
+  var cancel=ev.target.closest('[data-wf48-cancel]');if(cancel){WF48INV.confirmed=false;WF48INV.seat=null;WF48INV.response='NO';WF48INV.rsvpLog.current={status:'Declined',updatedAt:new Date().toISOString()};wf48Store();wf48SavePreview();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:4');return;}
  },true);
  window.addEventListener('change',function(ev){var el=ev.target;if(!el.matches('[data-wf48-select]'))return;var f=el.dataset.wf48Select;WF48INV[f]=f==='grace'?Number(el.value):el.value;if(f==='audience')WF48INV.selected=[];wf48Store();var box=el.closest('.wf48-invites');if(box)box.outerHTML=wf48InviteForm();},true);
  window.addEventListener('touchstart',function(ev){var grid=ev.target.closest('[data-wf48-swipe]');if(grid)WF48SWIPE=ev.touches[0].clientX;},{passive:true});
