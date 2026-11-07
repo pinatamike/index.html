@@ -2895,6 +2895,21 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
 .storyboard .st-phone .wf48-guest:has(.wf48-rsvp-follow:not(:empty)) .wf48-guest-note{max-height:120px!important}
 .storyboard .st-phone .wf48-guest:has(.wf48-arrival) .wf48-guest-note{max-height:61px!important}
 </style>
+<style id="wf48-items45-seat-tile-labels">
+/* Audit item 5 (revised per Mike) -- WF48 Screens 6 and 7 ONLY (.wf48-table-screen).
+   Occupied seats (reserved players and your own seat) show NO corner seat number: the seat is already numbered. Open seats keep their original small number.
+   Every source photo has a yellow rank badge baked into its top-left corner (about 24% of the image) and a caption along the bottom, so reserved photos are cropped:
+   the picture is drawn 146% wide x 147% tall of the photo area (cover, no stretching), shifted left by 29% of that width, so the visible window starts at about x 26.5%-29% and ends at y 68%
+   of the photo: the badge (x up to ~25%) and everything from the sign/caption line (starts ~71%) down are outside it.
+   The face area also uses the extra height from Task 002 (43px -> 49.8px; width stays 51px). */
+.storyboard .st-phone .wf48-table-screen .wf48-seat.reserved .wf48-seat-number,
+.storyboard .st-phone .wf48-table-screen .wf48-seat.mine .wf48-seat-number{display:none!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat-face{height:49.8px!important;max-height:49.8px!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat.reserved .wf48-seat-face{position:relative!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat.reserved .wf48-seat-face img{position:absolute!important;left:0!important;top:0!important;width:146%!important;height:147%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:0% 0%!important;transform:translateX(-29%)!important;align-self:auto!important}
+/* Audit item 4 -- same screens: names are first names only (see wf48SeatName); the name line may use the tile's 1px side padding so the longest demo name, "Macaulay", fits without an ellipsis. */
+.storyboard .st-phone .wf48-table-screen .wf48-seat>b{width:calc(100% + 2px)!important;max-width:none!important;margin-left:-1px!important;margin-right:-1px!important}
+</style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -7513,6 +7528,8 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  var WF48INV={send:false,audience:'PICK',grace:30,inviteTime:'24 H',reminder:'1 H',selected:[],note:'',response:'',arrival:'7:00 PM',seat:null,seatScheme:2,table:1,confirmed:false,rsvpLog:{}};
  try{var restored=JSON.parse(localStorage.getItem(WF48INVKEY)||'{}');Object.assign(WF48INV,restored);wf48MigrateSeats(restored);if(WF48INV.audience==='RECENT')WF48INV.audience='PICK';WF48INV.table=WF48INV.table||1;WF48INV.rsvpLog=WF48INV.rsvpLog||{};if(!['OFF','1 H','30 MIN'].includes(WF48INV.reminder))WF48INV.reminder='1 H';if(!['NOW','24 H','12 H','6 H'].includes(WF48INV.inviteTime))WF48INV.inviteTime='24 H';if(!['PICK','ACTIVE','ALL'].includes(WF48INV.audience))WF48INV.audience='PICK';}catch(x){}
  /* Task 002 seat numbering: position index (the old 1-10 label, which fixes the physical spot) -> new seat id. Only the 10-seat layout is renumbered. */
+ /* Items 4: seat tiles are 68px wide, so they show the first name only; the full name stays in the tooltip and the accessible label. */
+ function wf48SeatName(full){return String(full||'').trim().split(/\s+/)[0];}
  function wf48SeatNew(pos,count){return count===10?((pos+5)%10)+1:pos;}
  function wf48MigrateSeats(saved){if(saved&&saved.seatScheme===2)return;if(WF48INV.seat)WF48INV.seat=wf48SeatNew(Number(WF48INV.seat),10);var cur=WF48INV.rsvpLog&&WF48INV.rsvpLog.current;if(cur&&cur.seat)cur.seat=wf48SeatNew(Number(cur.seat),10);WF48INV.seatScheme=2;}
  function wf48Store(){try{localStorage.setItem(WF48INVKEY,JSON.stringify(WF48INV));}catch(x){}}
@@ -7604,7 +7621,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    var n=wf48SeatNew(i+1,count),p=map[n],mine=WF48INV.seat===n&&WF48INV.response==='YES';
    var coords=count===10?[[17,14],[50,14],[83,14],[83,38],[83,62],[83,86],[50,86],[17,86],[17,62],[17,38]]:null; /* Task 002: rows evenly spaced (14/38/62/86 %, was 17/40/62/83) so the 10%-taller tiles keep a clear gap; columns unchanged */
    var theta=2*Math.PI*i/count-Math.PI/2,x=coords?coords[i][0]:50+32*Math.cos(theta),y=coords?coords[i][1]:50+32*Math.sin(theta);
-   return '<button type="button" style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%" class="wf48-seat'+(p?' reserved':'')+(mine?' mine':'')+'" data-wf48-seat="'+n+'" '+((p||readOnly)?'disabled':'')+'><span class="wf48-seat-number">'+n+'</span><span class="wf48-seat-face">'+(p?wf48Img(p.name,p.initial):mine?wf48Img('James K.','JK'):'<span class="wf48-seat-open">+</span>')+'</span><b>'+(p?e(p.name):mine?'YOU':'OPEN')+'</b></button>';
+   return '<button type="button" style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%" class="wf48-seat'+(p?' reserved':'')+(mine?' mine':'')+'" data-wf48-seat="'+n+'" '+(p?'title="'+e(p.name)+'" aria-label="Seat '+n+', '+e(p.name)+'" ':'')+((p||readOnly)?'disabled':'')+'><span class="wf48-seat-number">'+n+'</span><span class="wf48-seat-face">'+(p?wf48Img(p.name,p.initial):mine?wf48Img('James K.','JK'):'<span class="wf48-seat-open">+</span>')+'</span><b>'+(p?e(wf48SeatName(p.name)):mine?'YOU':'OPEN')+'</b></button>';
   }).join('');
   return '<div class="wf48-table-seats"><div class="wf48-oval">POKER TABLE</div>'+seats+'</div>';
  }
