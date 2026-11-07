@@ -2450,6 +2450,40 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
 .storyboard .st-phone .wf48-status{font-size:12px;font-weight:900;color:#74ecca}
 .storyboard .st-phone .wf48-status:empty{display:none}
 </style>
+
+<style id="wf48-refresh-nov6">
+/* WF48-only overrides, no changes to WF02 */
+.storyboard .st-phone .wf48-invites{gap:5px}
+.storyboard .st-phone .wf48-invites .wf48-intro,.storyboard .st-phone .wf48-invites .wf48-note{display:none}
+.storyboard .st-phone .wf48-invites .wf48-section{padding:6px 8px;gap:3px}
+.storyboard .st-phone .wf48-invites .wf48-compact{flex:0 0 45px}
+.storyboard .st-phone .wf48-invites .wf48-toggle{flex:0 0 47px}
+.storyboard .st-phone .wf48-invites .wf48-choice{min-height:30px;font-size:12px}
+.storyboard .st-phone .wf48-invites .wf48-footer-inv{min-height:52px;padding-bottom:2px}
+.storyboard .st-phone .wf48-invites .wf48-footer-inv button{min-height:49px}
+.storyboard .st-phone:has(.wf48-player-screen)>.ux-bottom{display:none!important}
+.storyboard .st-phone .ux-content:has(.wf48-player-screen){overflow:hidden!important;min-height:0!important;padding:5px!important;flex:1 1 auto!important}
+.storyboard .st-phone .fb-body:has(>.wf48-player-screen){display:flex!important;flex-direction:column;height:100%!important;min-height:0!important;padding:0!important}
+.storyboard .st-phone .wf48-player-screen{display:flex;flex-direction:column;width:100%;height:100%;min-height:0;gap:6px;padding:0 2px;box-sizing:border-box;overflow:hidden}
+.storyboard .st-phone .wf48-player-screen *{box-sizing:border-box;border-radius:0!important}
+.storyboard .st-phone .wf48-player-top{display:flex;align-items:center;justify-content:space-between;min-height:32px;gap:4px;color:#fff}
+.storyboard .st-phone .wf48-player-top strong{font-size:18px}
+.storyboard .st-phone .wf48-player-top span{font-size:13px;font-weight:900;color:#66e8bd}
+.storyboard .st-phone .wf48-player-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:5px;flex:1;min-height:0}
+.storyboard .st-phone .wf48-player{background:#104a68;border:2px solid #26add9;color:white;min-width:0;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:4px 2px}
+.storyboard .st-phone .wf48-player.picked{background:#006b4d;border-color:#4ee6b6}
+.storyboard .st-phone .wf48-player .wf48-avatar{display:flex;align-items:center;justify-content:center;background:#0a2a44;color:#fff;border:2px solid #4bbad8;width:40px;height:40px;font-size:17px;font-weight:900}
+.storyboard .st-phone .wf48-player b{font-size:11px;line-height:1.1;text-align:center;overflow-wrap:anywhere}
+.storyboard .st-phone .wf48-player .wf48-check{position:absolute;right:2px;top:2px;background:#00a16e;color:white;font-size:12px;font-weight:900;padding:0 3px}
+.storyboard .st-phone .wf48-page{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;gap:5px;min-height:35px;color:white;font-size:12px;font-weight:900;text-align:center}
+.storyboard .st-phone .wf48-page button{min-height:33px;background:#0e4963;border:2px solid #27a9d1;color:white;font-size:12px;font-weight:900}
+.storyboard .st-phone .wf48-page button:disabled{opacity:.35}
+.storyboard .st-phone .wf48-player-actions{display:grid;grid-template-columns:1fr 1.4fr;gap:6px;min-height:52px}
+.storyboard .st-phone .wf48-player-actions button{min-height:49px;border:2px solid #27a9d1;background:#0e4963;color:white;font-size:13px;font-weight:900}
+.storyboard .st-phone .wf48-player-actions button.primary{background:#007751;border-color:#40d9aa}
+.storyboard .st-phone .wf48-player-screen .wf48-status{color:#79eec4;font-weight:900;font-size:12px}
+.storyboard .st-phone .wf48-player-screen .wf48-status:empty{display:none}
+</style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -7058,61 +7092,111 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  function bub(t,out,tm){return '<div class="iv-b '+(out?'out':'in')+'">'+t.replace(/\n/g,'<br>')+'<small>'+tm+'</small></div>';}
 
  var S={};
- /* ================= WF48 · Schedule Session + Invitations · two-screen review =================
-   WF02 exact Game Structure form reused; only action footer changes.
-   Browser-local demo only: no actual WhatsApp invitations are sent. */
+ /* ================= WF48 · Schedule + optional invitations · three screens =================
+  Screen 1 uses WF02 exact form. Screens 2/3 are WF48-specific.
+  This UX storyboard is a browser-local preview; it does not send WhatsApp messages. */
  var WF2LINK=window.__NORA_WF2_FORM__;
- if(!WF2LINK)throw new Error('NORA WF02 bridge must initialize before WF48');
+ if(!WF2LINK)throw new Error('WF02 bridge must initialize before WF48');
  var WF48KEY='nora.wf48.schedule.preview.v2';
  var WF48INVKEY='nora.wf48.invites.preview.v2';
- var WF48INV={send:false,audience:'RECENT',seats:true,grace:30,reminder:'2 H BEFORE',deadline:'6:00 PM'};
- try{Object.assign(WF48INV,JSON.parse(localStorage.getItem(WF48INVKEY)||'{}'));}catch(x){}
+ var WF48INV={send:false,audience:'ACTIVE',seats:true,grace:30,deadline:'30 MIN',inviteTime:'24 H',reminder:'1 H',selected:[]};
+ try{var restored=JSON.parse(localStorage.getItem(WF48INVKEY)||'{}');Object.assign(WF48INV,restored);if(WF48INV.audience==='RECENT')WF48INV.audience='ACTIVE';}catch(x){}
  function wf48Store(){try{localStorage.setItem(WF48INVKEY,JSON.stringify(WF48INV));}catch(x){}}
- var WF48DRAFT=null;
+ var WF48DRAFT=null,WF48MODE='schedule',WF48PAGE=0;
+ // Demo contacts only. Production selector must use tenant's actual player CRM.
+ var WF48PLAYERS=[
+ ['Luka D.','LD'],['Macaulay C.','MC'],['Miguel B.','MB'],['Nora A.','NA'],
+ ['Paul Smith','PS'],['Joe Shmoe','JS'],['Diego R.','DR'],['Mikey B.','MB'],
+ ['James K.','JK'],['Carlos M.','CM'],['Andrés P.','AP'],['David R.','DR'],
+ ['Alex T.','AT'],['Sam B.','SB'],['Peter L.','PL'],['Oscar G.','OG'],
+ ['Chris M.','CM'],['Juan F.','JF'],['Tony S.','TS'],['Robert H.','RH'],
+ ['Frank P.','FP'],['Daniel C.','DC'],['Andy N.','AN'],['Mark D.','MD']
+ ];
  function wf48Base(){
   if(!WF48DRAFT){var now=new Date(),next=new Date(now),advance=(7-now.getDay())%7;next.setDate(now.getDate()+advance);if(!advance&&now.getHours()>=19)next.setDate(next.getDate()+7);
-   WF48DRAFT=Object.assign({},WF2LINK.suggest(),{name:'Sunday Hold’em',date:WF2LINK.dateString(next),time:'7:00 PM'});}
+    WF48DRAFT=Object.assign({},WF2LINK.suggest(),{name:'Sunday Hold’em',date:WF2LINK.dateString(next),time:'7:00 PM'});}
   var oldDraft=WF2LINK.state.draft;WF2LINK.state.draft=WF48DRAFT;
   var html=WF2LINK.form();WF2LINK.state.draft=oldDraft;
   html=html.replace('class="wf2-one"','class="wf2-one wf48-schedule"');
+  // Screen 1: identical visible controls and styling to frozen WF02; only WF48 click handling.
   html=html.replace('<div class="wf2-actions"><button type="button" data-rn-route="1:0">CANCEL</button><button type="button" data-wf2-commit="schedule">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>',
-   '<div class="wf2-actions"><button type="button" data-rn-route="48:0">CANCEL</button><button type="button" data-wf48-next="1">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>');
+   '<div class="wf2-actions"><button type="button" data-rn-route="48:0">CANCEL</button><button type="button" data-wf48-next="schedule">SCHEDULE</button><button type="button" class="primary" data-wf48-next="start">START NOW</button></div>');
   return html;
  }
  function wf48Button(label,val,selected,field){return '<button type="button" class="wf48-choice'+(selected?' on':'')+'" data-wf48-field="'+field+'" data-wf48-value="'+val+'">'+label+'</button>';}
  function wf48InviteForm(){
   var d=WF48INV;
   return '<div class="wf48-invites">'+
-   '<div class="wf48-intro"><b>INVITATIONS</b><span>WhatsApp · RSVPs · Seat preferences</span></div>'+
-   '<div class="wf48-section"><div class="wf48-line"><span>INVITE PLAYERS</span>'+wf48Button(d.send?'ON':'OFF',String(!d.send),d.send,'send')+'</div><div class="wf48-note">Optional — you can schedule without inviting anyone.</div></div>'+
-   '<div class="wf48-section"><div class="wf48-label">INVITE</div><div class="wf48-choices">'+wf48Button('RECENT','RECENT',d.audience==='RECENT','audience')+wf48Button('ALL','ALL',d.audience==='ALL','audience')+wf48Button('PICK','PICK',d.audience==='PICK','audience')+'</div></div>'+
-   '<div class="wf48-section"><div class="wf48-line"><span>PLAYERS CAN SELECT SEATS</span>'+wf48Button(d.seats?'ON':'OFF',String(!d.seats),d.seats,'seats')+'</div></div>'+
-   '<div class="wf48-section"><div class="wf48-label">HOLD RESERVED SEATS (MIN)</div><div class="wf48-choices">'+[15,30,45,60].map(function(v){return wf48Button(String(v),String(v),+d.grace===v,'grace');}).join('')+'</div></div>'+
-   '<div class="wf48-section wf48-deadline"><span>RSVP DEADLINE</span><input type="text" data-wf48-deadline maxlength="8" aria-label="RSVP deadline" value="'+e(WF2LINK.formatTime(d.deadline))+'"></div>'+
-   '<div class="wf48-section"><div class="wf48-label">REMIND PLAYERS</div><div class="wf48-choices">'+['24 H BEFORE','2 H BEFORE','OFF'].map(function(v){return wf48Button(v,v,d.reminder===v,'reminder');}).join('')+'</div></div>'+
-   '<div class="wf48-footer-inv"><button type="button" data-rn-route="48:0">BACK</button><button type="button" class="primary" data-wf48-save="1">'+(d.send?'SAVE & INVITE':'DONE')+'</button></div>'+
+   '<div class="wf48-section wf48-toggle"><div class="wf48-line"><span>INVITE PLAYERS</span>'+wf48Button(d.send?'ON':'OFF',String(!d.send),d.send,'send')+'</div></div>'+
+   '<div class="wf48-section"><div class="wf48-label">PLAYERS</div><div class="wf48-choices">'+wf48Button('ACTIVE','ACTIVE',d.audience==='ACTIVE','audience')+wf48Button('ALL','ALL',d.audience==='ALL','audience')+wf48Button('PICK','PICK',d.audience==='PICK','audience')+'</div></div>'+
+   '<div class="wf48-section wf48-compact"><div class="wf48-line"><span>SEAT SELECTION</span>'+wf48Button(d.seats?'ON':'OFF',String(!d.seats),d.seats,'seats')+'</div></div>'+
+   '<div class="wf48-section"><div class="wf48-label">HOLD RESERVED SEATS (MIN)</div><div class="wf48-choices">'+[15,30,60].map(function(v){return wf48Button(String(v),String(v),+d.grace===v,'grace');}).join('')+'</div></div>'+
+   '<div class="wf48-section"><div class="wf48-label">RSVP CLOSES BEFORE START</div><div class="wf48-choices">'+['15 MIN','30 MIN','1 H'].map(function(v){return wf48Button(v,v,d.deadline===v,'deadline');}).join('')+'</div></div>'+
+   '<div class="wf48-section"><div class="wf48-label">SEND INVITATIONS BEFORE START</div><div class="wf48-choices">'+['NOW','24 H','12 H','6 H'].map(function(v){return wf48Button(v,v,d.inviteTime===v,'inviteTime');}).join('')+'</div></div>'+
+   '<div class="wf48-section"><div class="wf48-label">REMINDER BEFORE START</div><div class="wf48-choices">'+['1 H','30 MIN','OFF'].map(function(v){return wf48Button(v,v,d.reminder===v,'reminder');}).join('')+'</div></div>'+
+   '<div class="wf48-footer-inv"><button type="button" data-rn-route="48:0">BACK</button><button type="button" class="primary" data-wf48-settings-next="1">'+(d.send?'SELECT PLAYERS':'DONE')+'</button></div>'+
    '<div class="wf48-status" role="status" aria-live="polite"></div></div>';
  }
- S[48]={sec:'SCHEDULED',nav:'Players',steps:['Schedule Session','Invitations'],heads:['Schedule Session','Invitations'],screens:[wf48Base,wf48InviteForm]};
+ function wf48PlayerForm(){
+  var d=WF48INV,page=WF48PAGE,total=Math.ceil(WF48PLAYERS.length/12),arr=WF48PLAYERS.slice(page*12,page*12+12);
+  var sel=d.selected||[];
+  var tiles=arr.map(function(p,j){var id=page*12+j,chosen=sel.indexOf(id)>=0;return '<button type="button" class="wf48-player'+(chosen?' picked':'')+'" data-wf48-player="'+id+'"><span class="wf48-avatar">'+e(p[1])+'</span><b>'+e(p[0])+'</b>'+(chosen?'<span class="wf48-check">✓</span>':'')+'</button>';}).join('');
+  return '<div class="wf48-player-screen"><div class="wf48-player-top"><strong>SELECT PLAYERS</strong><span>'+sel.length+' SELECTED</span></div>'+
+   '<div class="wf48-player-grid">'+tiles+'</div>'+
+   '<div class="wf48-page"><button type="button" data-wf48-page="-1" '+(page===0?'disabled':'')+'>‹ PREV</button><span>PAGE '+(page+1)+' / '+total+'</span><button type="button" data-wf48-page="1" '+(page>=total-1?'disabled':'')+'>NEXT ›</button></div>'+
+   '<div class="wf48-player-actions"><button type="button" data-rn-route="48:1">BACK</button><button type="button" class="primary" data-wf48-finish="1">CONFIRM INVITES</button></div>'+
+   '<div class="wf48-status" role="status" aria-live="polite"></div></div>';
+ }
+ S[48]={sec:'SCHEDULE',nav:'Players',steps:['Schedule Session','Invitations','Select Players'],heads:['Schedule Session','Invitations','Select Players'],screens:[wf48Base,wf48InviteForm,wf48PlayerForm]};
  var wf48Def=WORKFLOWS.find(function(w){return w.id===48;});
- if(wf48Def)wf48Def.steps=['Schedule Session','Invitations'];
+ if(wf48Def)wf48Def.steps=['Schedule Session','Invitations','Select Players'];
+ function wf48SavePreview(){
+   try{var arr=JSON.parse(localStorage.getItem(WF48KEY)||'[]'),r=arr[arr.length-1];if(r&&r.session&&r.session.name===(WF48DRAFT||{}).name){r.invites=WF48INV.send?Object.assign({},WF48INV):null;r.status='scheduled-preview';localStorage.setItem(WF48KEY,JSON.stringify(arr));}}catch(x){}
+ }
  window.addEventListener('click',function(ev){
-  var next=ev.target.closest('[data-wf48-next]'),save=ev.target.closest('[data-wf48-save]'),choice=ev.target.closest('[data-wf48-field]');
-  if(next){var panel=next.closest('.wf2-one');if(!panel)return;var d=WF2LINK.read(panel),reason=WF2LINK.check(d,'schedule'),status=panel.querySelector('.wf2-status');if(reason){ev.preventDefault();ev.stopImmediatePropagation();status.textContent=reason;return;}
-   WF48DRAFT=d;try{var items=JSON.parse(localStorage.getItem(WF48KEY)||'[]');items.push({session:d,invites:null,status:'scheduled-preview'});localStorage.setItem(WF48KEY,JSON.stringify(items));}catch(x){}ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:1');return;}
-  if(choice){var f=choice.dataset.wf48Field,v=choice.dataset.wf48Value;
-   WF48INV[f]=(f==='send'||f==='seats')?(v==='true'):f==='grace'?Number(v):v;wf48Store();
-   var box=choice.closest('.wf48-invites');if(box){box.outerHTML=wf48InviteForm();}ev.preventDefault();ev.stopImmediatePropagation();return;}
-  if(save){var box=save.closest('.wf48-invites');if(!box)return;var dead=box.querySelector('[data-wf48-deadline]');if(dead){WF48INV.deadline=WF2LINK.formatTime(dead.value);}
-   if(WF48INV.send&&!WF2LINK.time24(WF48INV.deadline)){box.querySelector('.wf48-status').textContent='Enter RSVP deadline as 6:00 PM.';ev.preventDefault();ev.stopImmediatePropagation();return;}
-   wf48Store();var d=WF48DRAFT||{},reason=WF2LINK.check(d,'schedule');if(reason){box.querySelector('.wf48-status').textContent=reason;ev.preventDefault();ev.stopImmediatePropagation();return;}
-   try{var arr=JSON.parse(localStorage.getItem(WF48KEY)||'[]');if(arr.length){arr[arr.length-1].invites=WF48INV.send?Object.assign({},WF48INV):null;localStorage.setItem(WF48KEY,JSON.stringify(arr));}}catch(x){}
-   box.querySelector('.wf48-status').textContent=WF48INV.send?'SCHEDULE SAVED · Continue to choose and review invitees.':'SCHEDULE SAVED · No invitations selected.';
+  var next=ev.target.closest('[data-wf48-next]'),choice=ev.target.closest('[data-wf48-field]'),
+      step=ev.target.closest('[data-wf48-settings-next]'),player=ev.target.closest('[data-wf48-player]'),
+      paging=ev.target.closest('[data-wf48-page]'),finish=ev.target.closest('[data-wf48-finish]');
+  if(next){
+   var panel=next.closest('.wf2-one');if(!panel)return;
+   var d=WF2LINK.read(panel),mode=next.dataset.wf48Next,reason=WF2LINK.check(d,mode);
+   if(reason){var status=panel.querySelector('.wf2-status');if(status)status.textContent=reason;ev.preventDefault();ev.stopImmediatePropagation();return;}
+   WF48DRAFT=d;WF48MODE=mode;
+   try{var items=JSON.parse(localStorage.getItem(WF48KEY)||'[]');items.push({session:d,mode:mode,invites:null,status:'scheduled-preview'});localStorage.setItem(WF48KEY,JSON.stringify(items));}catch(x){}
+   ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:1');return;
+  }
+  if(choice){
+   var f=choice.dataset.wf48Field,v=choice.dataset.wf48Value;
+   WF48INV[f]=(f==='send'||f==='seats')?(v==='true'):f==='grace'?Number(v):v;
+   wf48Store();var box=choice.closest('.wf48-invites');if(box)box.outerHTML=wf48InviteForm();
+   ev.preventDefault();ev.stopImmediatePropagation();return;
+  }
+  if(step){
    ev.preventDefault();ev.stopImmediatePropagation();
-   if(WF48INV.send)rnGo('49:0');return;}
+   wf48SavePreview();wf48Store();
+   if(WF48INV.send){WF48PAGE=0;rnGo('48:2');}
+   else{var status=step.closest('.wf48-invites')?.querySelector('.wf48-status');if(status)status.textContent=(WF48MODE==='start'?'SESSION START PREVIEW':'SESSION SCHEDULED')+' · NO INVITATIONS';}
+   return;
+  }
+  if(player){
+   var id=Number(player.dataset.wf48Player),list=WF48INV.selected||[];
+   WF48INV.selected=list.indexOf(id)>=0?list.filter(function(x){return x!==id;}):list.concat([id]);
+   wf48Store();var box=player.closest('.wf48-player-screen');if(box)box.outerHTML=wf48PlayerForm();
+   ev.preventDefault();ev.stopImmediatePropagation();return;
+  }
+  if(paging){
+   WF48PAGE=Math.max(0,Math.min(Math.ceil(WF48PLAYERS.length/12)-1,WF48PAGE+Number(paging.dataset.wf48Page)));
+   var box=paging.closest('.wf48-player-screen');if(box)box.outerHTML=wf48PlayerForm();
+   ev.preventDefault();ev.stopImmediatePropagation();return;
+  }
+  if(finish){
+   ev.preventDefault();ev.stopImmediatePropagation();
+   if(!(WF48INV.selected||[]).length){finish.closest('.wf48-player-screen').querySelector('.wf48-status').textContent='SELECT AT LEAST ONE PLAYER';return;}
+   wf48SavePreview();
+   finish.closest('.wf48-player-screen').querySelector('.wf48-status').textContent='INVITATIONS SAVED · '+WF48INV.selected.length+' PLAYERS · DEMO ONLY';
+   return;
+  }
  },true);
- window.addEventListener('input',function(ev){var el=ev.target;if(el.matches('[data-wf48-deadline]')){WF48INV.deadline=el.value;wf48Store();}},true);
- window.addEventListener('focusout',function(ev){var el=ev.target;if(el.matches('[data-wf48-deadline]')){var v=WF2LINK.formatTime(el.value);if(WF2LINK.time24(v)){el.value=v;WF48INV.deadline=v;wf48Store();}}},true);
 
 /* ================= WF49 · Invite players ================= */
  S[49]={sec:'SCHEDULED',nav:'Players',steps:['Select players','Channel & message','Review & send'],heads:['Select Players','Channel','Review & Send'],
