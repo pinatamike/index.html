@@ -7355,6 +7355,60 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    '<div class="wf48-player-actions"><button type="button" data-rn-route="48:1">BACK</button><button type="button" class="primary" data-wf48-finish="1">CONFIRM INVITES</button></div>'+
    '<div class="wf48-status" role="status" aria-live="polite"></div></div>';
  }
+
+ function wf48Game(){return WF48DRAFT||Object.assign({name:'Sunday Hold’em',date:'11/08/2026',time:'7:00 PM',game:'Texas Hold’em',small:5000,big:10000,min:200000,max:1000000,seats:10},WF2LINK.suggest());}
+ function wf48GameDate(){var v=String(wf48Game().date||''),t=v.split('/');if(t.length!==3)return v;return new Date(+t[2],+t[0]-1,+t[1]).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}
+ function wf48Img(name,initial){var url=LOCAL_PORTRAITS[name];return url?'<img src="'+url+'" alt="">':'<span>'+e(initial)+'</span>';}
+ function wf48OwnerPreview(){
+  var g=wf48Game(),n=WF48INV.selected.length;
+  return '<div class="wf48-message wf48-owner-preview"><div class="wf48-message-title">INVITATION PREVIEW</div>'+
+   '<div class="wf48-message-card"><b>'+e(g.name)+'</b><span>'+e(wf48GameDate())+' · '+e(g.time)+'</span>'+
+   '<span>'+e(g.game)+' · COP '+Number(g.small).toLocaleString('en-US')+' / '+Number(g.big).toLocaleString('en-US')+'</span>'+
+   '<span>Buy-in COP '+Number(g.min).toLocaleString('en-US')+' – '+Number(g.max).toLocaleString('en-US')+'</span></div>'+
+   '<label class="wf48-note-label">PERSONAL MESSAGE (OPTIONAL)</label>'+
+   '<textarea data-wf48-owner-note maxlength="280" placeholder="Add a personal note…">'+e(WF48INV.note||'')+'</textarea>'+
+   '<div class="wf48-message-facts"><b>'+n+' INVITEES</b><span>SEND: '+e(WF48INV.inviteTime)+'</span><span>REMINDER: '+e(WF48INV.reminder)+'</span></div>'+
+   '<div class="wf48-message-footer"><button type="button" data-rn-route="'+(WF48INV.audience==='PICK'?'48:2':'48:1')+'">BACK</button><button type="button" class="primary" data-wf48-confirm-template="1">CONFIRM INVITES</button></div></div>';
+ }
+ var WF48RESERVED=[{seat:1,name:'Luka D.',initial:'LD'},{seat:3,name:'Macaulay C.',initial:'MC'},{seat:5,name:'Miguel B.',initial:'MB'},{seat:7,name:'Paul Smith',initial:'PS'},{seat:9,name:'Nora A.',initial:'NA'}];
+ function wf48Reservations(){var count=Math.max(2,Math.min(12,Number(wf48Game().seats)||10));return WF48RESERVED.filter(function(x){return x.seat<=count;});}
+ function wf48GuestInvitation(){
+  var g=wf48Game(),note=String(WF48INV.note||'').trim(),r=WF48INV.response;
+  return '<div class="wf48-guest"><div class="wf48-message-title">YOU’RE INVITED</div>'+
+   '<div class="wf48-message-card"><b>'+e(g.name)+'</b><span>'+e(wf48GameDate())+' · '+e(g.time)+'</span>'+
+   '<span>'+e(g.game)+' · COP '+Number(g.small).toLocaleString('en-US')+' / '+Number(g.big).toLocaleString('en-US')+'</span>'+
+   '<span>Buy-in COP '+Number(g.min).toLocaleString('en-US')+' – '+Number(g.max).toLocaleString('en-US')+'</span>'+
+   (note?'<div class="wf48-personal-note">'+e(note)+'</div>':'')+'</div>'+
+   '<div class="wf48-count"><strong>'+wf48Reservations().length+' PLAYERS</strong> ALREADY RESERVED SEATS</div>'+
+   '<div class="wf48-response-title">ARE YOU COMING?</div>'+
+   '<div class="wf48-response-grid">'+['YES','NO','MAYBE'].map(function(t){return '<button type="button" data-wf48-rsvp="'+t+'" class="'+(r===t?'chosen':'')+'">'+t+'</button>';}).join('')+'</div>'+
+   '<div class="wf48-rsvp-follow">'+(r==='YES'?'<div class="wf48-arrival"><strong>WHAT TIME WILL YOU ARRIVE?</strong><div class="wf48-arrival-buttons"><button type="button" data-wf48-arrival="START" class="'+(WF48INV.arrival===g.time?'chosen':'')+'">START · '+e(g.time)+'</button><button type="button" data-wf48-arrival="OTHER">OTHER TIME</button></div><input data-wf48-arrival-input aria-label="Other arrival time" placeholder="8:30 PM" value="'+e(WF48INV.arrival===g.time?'':WF48INV.arrival)+'"></div>':'')+
+   (r==='NO'||r==='MAYBE'?'<div class="wf48-rsvp-note">'+(r==='MAYBE'?'MAYBE · NO SEAT RESERVED':'NOT COMING')+'</div>':'')+'</div>'+
+   '<div class="wf48-message-footer"><button type="button" class="primary wf48-single" '+(r==='YES'?'data-wf48-choose-seat="1"':'data-wf48-submit-rsvp="1"')+'>'+(r==='YES'?'SELECT SEAT':'SEND RESPONSE')+'</button></div>'+
+   '<div class="wf48-status" role="status" aria-live="polite"></div></div>';
+ }
+ function wf48Table(){
+  var count=Math.max(2,Math.min(12,Number(wf48Game().seats)||10)),reserved=wf48Reservations(),map={};
+  reserved.forEach(function(p){map[p.seat]=p;});
+  return '<div class="wf48-table-seats">'+Array.from({length:count},function(_,i){
+   var num=i+1,p=map[num],mine=WF48INV.seat===num;
+   return '<button type="button" class="wf48-seat'+(p?' reserved':'')+(mine?' mine':'')+'" data-wf48-seat="'+num+'" '+(p?'disabled':'')+'><span class="wf48-seat-number">'+num+'</span>'+
+    '<span class="wf48-seat-face">'+(p?wf48Img(p.name,p.initial):mine?wf48Img('James K.','JK'):'<span class="wf48-seat-open">+</span>')+'</span>'+
+    '<b>'+(p?e(p.name):mine?'YOU':'OPEN')+'</b></button>';
+  }).join('')+'</div>';
+ }
+ function wf48SeatSelect(){
+  return '<div class="wf48-table-screen"><div class="wf48-message-title">SELECT YOUR SEAT</div><div class="wf48-count"><strong>'+wf48Reservations().length+' PLAYERS</strong> RESERVED</div>'+
+   '<div class="wf48-felt">POKER TABLE</div>'+wf48Table()+'<div class="wf48-seat-hint">TAP AN OPEN SEAT · '+(WF48INV.seat?'SEAT '+WF48INV.seat:'NONE SELECTED')+'</div>'+
+   '<div class="wf48-message-footer"><button type="button" data-rn-route="48:4">BACK</button><button type="button" class="primary" data-wf48-reserve="1">RESERVE SEAT</button></div><div class="wf48-status"></div></div>';
+ }
+ function wf48SeatConfirmed(){
+  return '<div class="wf48-table-screen"><div class="wf48-message-title">SEAT RESERVED</div>'+
+   '<div class="wf48-confirm-top">ARRIVAL '+e(WF48INV.arrival)+' · SEAT '+(WF48INV.seat||'—')+'</div>'+
+   '<div class="wf48-felt">POKER TABLE</div>'+wf48Table()+
+   '<div class="wf48-count"><strong>'+(wf48Reservations().length+1)+' PLAYERS</strong> RESERVED SEATS</div>'+
+   '<div class="wf48-message-footer"><button type="button" class="primary wf48-single" data-wf48-done="1">DONE</button></div></div>';
+ }
  S[48]={sec:'SCHEDULE',nav:'Players',steps:['Schedule Session','Invitations','Select Players','Invitation Preview','Player RSVP','Choose Seat','Reserved Table'],heads:['Schedule Session','Invitations','Select Players','Invitation Preview','Player RSVP','Choose Seat','Reserved Table'],screens:[wf48Base,wf48InviteForm,wf48PlayerForm,wf48OwnerPreview,wf48GuestInvitation,wf48SeatSelect,wf48SeatConfirmed]};
  var wf48Def=WORKFLOWS.find(function(w){return w.id===48;});
  if(wf48Def)wf48Def.steps=S[48].steps.slice();
