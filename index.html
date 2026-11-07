@@ -7168,13 +7168,14 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   if(choice){
    var f=choice.dataset.wf48Field,v=choice.dataset.wf48Value;
    WF48INV[f]=(f==='send'||f==='seats')?(v==='true'):f==='grace'?Number(v):v;
+   if(f==='audience'){WF48INV.selected=v==='ACTIVE'?Array.from({length:12},function(_,i){return i;}):v==='ALL'?WF48PLAYERS.map(function(_,i){return i;}):[];}
    wf48Store();var box=choice.closest('.wf48-invites');if(box)box.outerHTML=wf48InviteForm();
    ev.preventDefault();ev.stopImmediatePropagation();return;
   }
   if(step){
    ev.preventDefault();ev.stopImmediatePropagation();
    wf48SavePreview();wf48Store();
-   if(WF48INV.send){WF48PAGE=0;rnGo('48:2');}
+   if(WF48INV.send){if(!(WF48INV.selected||[]).length&&WF48INV.audience!=='PICK')WF48INV.selected=WF48INV.audience==='ACTIVE'?Array.from({length:12},function(_,i){return i;}):WF48PLAYERS.map(function(_,i){return i;});WF48PAGE=0;wf48Store();rnGo('48:2');}
    else{var status=step.closest('.wf48-invites')?.querySelector('.wf48-status');if(status)status.textContent=(WF48MODE==='start'?'SESSION START PREVIEW':'SESSION SCHEDULED')+' · NO INVITATIONS';}
    return;
   }
