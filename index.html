@@ -7177,8 +7177,12 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  var WF48INV={send:true,audience:'RECENT',seats:true,grace:30,reminder:'2 H BEFORE',deadline:'6:00 PM'};
  try{Object.assign(WF48INV,JSON.parse(localStorage.getItem(WF48INVKEY)||'{}'));}catch(x){}
  function wf48Store(){try{localStorage.setItem(WF48INVKEY,JSON.stringify(WF48INV));}catch(x){}}
+ var WF48DRAFT=null;
  function wf48Base(){
-  var html=wf2Form();
+  if(!WF48DRAFT){var now=new Date(),next=new Date(now),advance=(7-now.getDay())%7;next.setDate(now.getDate()+advance);if(!advance&&now.getHours()>=19)next.setDate(next.getDate()+7);
+   WF48DRAFT=Object.assign({},wf2Suggested(),{name:'Sunday Hold’em',date:wf2DateString(next),time:'7:00 PM'});}
+  var oldDraft=WF2STATE.draft;WF2STATE.draft=WF48DRAFT;
+  var html=wf2Form();WF2STATE.draft=oldDraft;
   html=html.replace('class="wf2-one"','class="wf2-one wf48-schedule"');
   html=html.replace('<div class="wf2-actions"><button type="button" data-rn-route="1:0">CANCEL</button><button type="button" data-wf2-commit="schedule">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>',
    '<div class="wf2-actions wf48-footer"><button type="button" data-rn-route="48:0" data-wf48-cancel="1">CANCEL</button><button type="button" class="primary" data-wf48-next="1">CONTINUE TO INVITATIONS</button></div>');
@@ -7204,7 +7208,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  window.addEventListener('click',function(ev){
   var next=ev.target.closest('[data-wf48-next]'),save=ev.target.closest('[data-wf48-save]'),choice=ev.target.closest('[data-wf48-field]');
   if(next){var panel=next.closest('.wf2-one');if(!panel)return;var d=wf2Read(panel),reason=wf2Check(d,'schedule'),status=panel.querySelector('.wf2-status');if(reason){ev.preventDefault();ev.stopImmediatePropagation();status.textContent=reason;return;}
-   WF2STATE.draft=d;wf2Store();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:1');return;}
+   WF48DRAFT=d;WF2STATE.draft=d;wf2Store();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:1');return;}
   if(choice){var f=choice.dataset.wf48Field,v=choice.dataset.wf48Value;
    WF48INV[f]=(f==='send'||f==='seats')?(v==='true'):f==='grace'?Number(v):v;wf48Store();
    var box=choice.closest('.wf48-invites');if(box){box.outerHTML=wf48InviteForm();}ev.preventDefault();ev.stopImmediatePropagation();return;}
