@@ -22,29 +22,17 @@ After **every substantive answer to Mike** (including readiness, test results, i
 
 ### Message template
 
-**Updated (Bogotá time):** YYYY-MM-DD HH:MM  
-**Current task:** ...  
-**State:** Ready / In progress / Needs Mike decision / Blocked / Complete  
-**Latest Claude response:** 1–5 sentences including the useful result or question  
-**Changed UI files:** None / paths  
-**UI commit SHA:** (only if changed)  
-**Testing:** Passed, failed, and unverified clearly separated  
-**Needs Mike/ChatGPT:** Specific decision/action or None
-
-## Latest status
-
-**Updated (Bogotá time):** 2026-11-06 23:52  
-**Current task:** Task 001 — WF48 Screen 7 seat-photo caption crop (from CLAUDE-TASK.md) + owner add-on from Mike: remove CHANGE SEAT tile on Screen 7  
-**State:** Complete — awaiting Mike's visual review of the preview  
-**Latest Claude response:** Task 001 done. Screen 7 seat photos are cropped (image-only, scoped with `.wf48-table-screen:has(.wf48-confirm-top)` so Screen 6 is untouched); the baked-in "Nora A" and "Paul Smith" captions are no longer visible, faces are recognizable, white names and the yellow rank badges are intact. Separately, per Mike's direct request, the CHANGE SEAT tile was removed from Screen 7; CANCEL RSVP + DONE now split 50/50 at 152×54px / 17px, identical to Screen 6's footer. The two changes are separate commits so either can be reverted alone.  
-**Changed UI files:** `index.html` only (+5 CSS lines crop; footer: 1 button removed, +5 CSS lines)  
-**UI commit SHAs:** crop `fc4b54f816eb6b65253b69b45183533fa4621304`; footer `c27e1e403c84c4829b15d2931abbe9aa3d5595aa` (final UI version). Rollback tag (local): `rollback-before-task001` = `af63eed8ae0d9f5f00cc991b328783cbaa1cf418`.  
-**Preview (final):** https://raw.githack.com/pinatamike/index.html/c27e1e403c84c4829b15d2931abbe9aa3d5595aa/index.html#workflow-48  
-**Testing — passed:** All 7 WF48 screens re-captured at 390×844 @2x and viewed; Screens 1-6 pixel-identical to the pre-task baseline, only Screen 7 differs; no vertical scroll on any screen; selector verified to match exactly 5 images, all on Screen 7; WF02 pixel-identical; 41 inline scripts pass syntax check; DONE click works with no page errors; footer buttons measured 152×54 @17px = Screen 6.  
-**Testing — unverified / limitations:** raw.githack URL not opened from Claude's PC (not reachable here); only DONE/CANCEL clicks were exercised, no swipes; CANCEL RSVP produced no visible change in the static preview (unchanged behavior, not investigated). Screen 3 captures occasionally come out as a tiled image from my screenshot tool (not the app; re-runs match baseline).  
-**Pre-existing issues noticed, NOT changed (out of scope):** (1) Screen 6 seat photos still show the baked-in "Nora A"/"Paul Smith" captions — Task said not to touch Screen 6. (2) After tapping DONE on Screen 7 with no seat chosen, the banner reads "SEAT null". (3) The orphaned `data-wf48-change` handler remains in JS (harmless, now unreachable). (4) Photos are ~140px source and look soft when zoomed.  
-**Needs Mike/ChatGPT:** Review Screen 7 in the preview; decide whether to apply the same caption crop to Screen 6 and fix the "SEAT null" banner.
-
+**Updated (Bogotá time):** 2026-11-06 23:56  
+**Current task:** Mike-approved follow-up to Task 001: apply the same seat-photo caption crop to WF48 Screen 6 (Choose Seat)  
+**State:** Complete — awaiting Mike's visual review  
+**Latest Claude response:** Screen 6 seat photos now use the same image-only caption crop as Screen 7; the baked-in "Nora A" / "Paul Smith" captions are no longer visible, faces recognizable, white names, yellow badges, footer and layout unchanged. Rule is scoped to `.wf48-table-screen:not(:has(.wf48-confirm-top))` and matches exactly 5 images, all on Screen 6. Read the new CLAUDE.md and followed its gates (`git diff --check` clean, small focused diff, scratch tools outside repo).  
+**Changed UI files:** `index.html` only (+5 CSS lines)  
+**UI commit SHA (latest visual revision):** `4ab959e04fde7a824f0fd24ca0f608378fce1009`. Earlier UI commits this task: `fc4b54f` (Screen 7 crop), `c27e1e4` (Screen 7 CHANGE SEAT removed). Local rollback tag `rollback-before-screen6-crop` = `816cd9a`.  
+**Preview:** https://raw.githack.com/pinatamike/index.html/4ab959e04fde7a824f0fd24ca0f608378fce1009/index.html#workflow-48  
+**QA — PASS:** all 7 WF48 screens captured at 390×844 @2x on the committed tree and Screen 6 viewed at full size; Screens 1-5 and 7 pixel-identical to the previous commit (Screen 4 re-run 3× to rule out a capture fluke); no vertical scroll; WF02 pixel-identical; 41 inline scripts pass syntax check; selector scope verified (0 matches on screens 1-5 and 7).  
+**QA — UNVERIFIED:** raw.githack URL not opened from Claude's PC; no swipe/tap test on Screen 6 seat selection this round (only layout/visual change, no handler changes); other workflows not re-rendered beyond WF02 (rule cannot match them: it requires WF48's table markup).  
+**Still open (not changed, out of scope):** (1) "SEAT null" in the Screen 7 banner after tapping DONE with no seat chosen. (2) Orphaned `data-wf48-change` JS handler, now unreachable. (3) Source photos are ~140px, so they look soft when zoomed.  
+**Needs Mike/ChatGPT:** Review Screens 6 and 7 in the preview; decide whether to fix the "SEAT null" banner.
 ## History
 
 - 2026-11-06 23:52 — Claude: Task 001 complete (fc4b54f crop, c27e1e4 footer: CHANGE SEAT removed on Mike's request). Only Screen 7 changed; WF02 identical.
