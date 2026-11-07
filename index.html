@@ -4428,7 +4428,7 @@ display:flex!important;flex-direction:column!important;justify-content:center!im
 <script>/* Header-only corrections: the approved original screen bodies remain unchanged. */
 window.addEventListener('load',function(){
  const original=customPhone;
- const labels={1:['Opening NORA','Restoring Session','Table View'],2:['Start Session','Review & Start','Saved Games'],3:['Table View','Select Player','Initial Buy-in','Buy-in Confirmed','Table View'],4:['Table View','Select Player','Add New Player','Buy-in Confirmed'],5:['Table View','Player Actions','Rebuy','Rebuy Confirmed','Table View'],6:['Table View','Player Actions','Cash-out','Payment Confirmed','Bust-out Confirmed','S&S Settled','S&S Outstanding'],7:['Table View','Move or Swap','Move to Open Seat','Move between Tables','Swap Seats','Swap between Tables','Seats Swapped','Player Moved'],8:['Table View','Wait List','Seat from Wait List','Table View'],9:['Table View','Player Ledger','Player Ledger']};
+ const labels={1:['Opening NORA','Restoring Session','Table View'],2:['Schedule Session','Review & Start','Saved Games'],3:['Table View','Select Player','Initial Buy-in','Buy-in Confirmed','Table View'],4:['Table View','Select Player','Add New Player','Buy-in Confirmed'],5:['Table View','Player Actions','Rebuy','Rebuy Confirmed','Table View'],6:['Table View','Player Actions','Cash-out','Payment Confirmed','Bust-out Confirmed','S&S Settled','S&S Outstanding'],7:['Table View','Move or Swap','Move to Open Seat','Move between Tables','Swap Seats','Swap between Tables','Seats Swapped','Player Moved'],8:['Table View','Wait List','Seat from Wait List','Table View'],9:['Table View','Player Ledger','Player Ledger']};
  customPhone=function(w,step,i){let html=original(w,step,i);if(labels[w.id]?.[i]){const h=document.createElement('div');h.innerHTML=html;h.querySelector('.ux-headtitle small').textContent=labels[w.id][i];html=h.innerHTML;}return html;};
  show(current);
 });
@@ -6709,7 +6709,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  /* ================= WF2 · Quick Start ================= */
  var TPLROWS=function(){return er('Game','Texas Hold’em')+er('Blinds',BL)+er('Tables','1')+er('Seats','10')+er('Buy-in min',cop(200000))+er('Buy-in max',cop(1000000))+er('Rake','5% per pot')+er('Venue','Provenza');};
  S[2]={sec:'LIVE SESSION',steps:['Start Session · Quick Start','Review last settings','Choose a saved game','Edit before starting','Custom setup · one screen','Final summary · save as template','Start scheduled game','New session · Live Table View'],
-  heads:['Start Session','Review & Start','Saved Games','Edit Settings','Custom Setup','Final Summary','Scheduled Game','Table View'],
+  heads:['Schedule Session','Review & Start','Saved Games','Edit Settings','Custom Setup','Final Summary','Scheduled Game','Table View'],
   screens:[
   function(){return '<button type="button" class="st-hero" data-rn-route="2:1">'+I('bolt')+'<div><b>START WITH LAST SETTINGS</b><small>Sunday Hold’em · '+BL+'</small></div></button>'+
    '<div class="fb-grid2">'+'<button type="button" class="fb-tile st-act" data-rn-route="2:2">'+I('bookmark')+'<b>CHOOSE SAVED GAME</b><small>4 templates</small></button>'+'<button type="button" class="fb-tile st-act" data-rn-route="2:4">'+I('sliders')+'<b>CUSTOM SETUP</b><small>New game</small></button>'+'</div>'+
