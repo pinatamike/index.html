@@ -22,6 +22,17 @@ After **every substantive answer to Mike** (including readiness, test results, i
 
 ### Message template
 
+**Updated (Bogotá time):** YYYY-MM-DD HH:MM  
+**Current task:** ...  
+**State:** Ready / In progress / Needs Mike decision / Blocked / Complete  
+**Latest Claude response:** 1–5 sentences including the useful result or question  
+**Changed UI files:** None / paths  
+**UI commit SHA:** (only if changed)  
+**Testing:** Passed, failed, and unverified clearly separated  
+**Needs Mike/ChatGPT:** Specific decision/action or None
+
+## Latest status
+
 **Updated (Bogotá time):** 2026-11-06 23:56  
 **Current task:** Mike-approved follow-up to Task 001: apply the same seat-photo caption crop to WF48 Screen 6 (Choose Seat)  
 **State:** Complete — awaiting Mike's visual review  
@@ -33,8 +44,10 @@ After **every substantive answer to Mike** (including readiness, test results, i
 **QA — UNVERIFIED:** raw.githack URL not opened from Claude's PC; no swipe/tap test on Screen 6 seat selection this round (only layout/visual change, no handler changes); other workflows not re-rendered beyond WF02 (rule cannot match them: it requires WF48's table markup).  
 **Still open (not changed, out of scope):** (1) "SEAT null" in the Screen 7 banner after tapping DONE with no seat chosen. (2) Orphaned `data-wf48-change` JS handler, now unreachable. (3) Source photos are ~140px, so they look soft when zoomed.  
 **Needs Mike/ChatGPT:** Review Screens 6 and 7 in the preview; decide whether to fix the "SEAT null" banner.
+
 ## History
 
+- 2026-11-06 23:56 — Claude: Screen 6 caption crop applied (UI 4ab959e), approved by Mike. Only Screen 6 changed; WF02 identical. (Also restored the message template section accidentally dropped in 69de5a6.)
 - 2026-11-06 23:52 — Claude: Task 001 complete (fc4b54f crop, c27e1e4 footer: CHANGE SEAT removed on Mike's request). Only Screen 7 changed; WF02 identical.
 - 2026-11-06 23:45 — Claude: Screen 3 overflow = clipped intentional crop (false positive); noted soft photos and Screen 7 residual captions. No UI changes.
 - 2026-11-06 (earlier) — Claude: onboarding complete; SSH access works; Edge+Node screenshot QA ready (`qa.mjs` outside repo); branch was at `0ae1c0e`.
