@@ -34,18 +34,20 @@ After **every substantive answer to Mike** (including readiness, test results, i
 ## Latest status
 
 **Updated (Bogotá time):** 2026-11-06 23:52  
-**Current task:** Mike approved including the Screen 7 caption crop in the first UI task. Waiting for the rest of the brief from ChatGPT; no edits made.  
-**Prep finding (read-only):** Screen 7 seat photos use `.wf48-seat-face img{width:100%;height:100%;object-fit:cover}` (`index.html` L2710) with no zoom-crop, so the baked-in caption shows. Screen 3 hides it with a 175% crop (L2719-2722). Likely fix is a scoped crop on `.wf48-table-screen .wf48-seat-face img` only. Will verify before/after on all 7 screens and check WF02 is unchanged.  
-**State:** Ready — waiting for the first UI brief  
-**Previous investigation (Screen 3 overflow, 23:45):**  
-**Latest Claude response:** The Screen 3 "overflow" is not a visible defect. The 8 photo tiles use an intentional 175% zoom-crop on the `<img>` (`index.html` ~L2719-2722, "crop badges baked into photo assets") so the image box is ~155×162px inside a 94×98px tile. The parent `.wf48-face` has `overflow:hidden` (~L2585), so it is clipped to the tile; nothing bleeds onto the screen and no vertical scroll exists. It was a false positive from my geometry check. Two real observations (not fixed): (1) source photos are only ~140×136px, so the 175% crop upscales them ~2.2× and they look soft at 2× DPR; (2) on Screen 7 the Nora A. and Paul S. seat photos still show a faint burned-in caption ("Nora A", "Paul Smith") — the caption crop used on Screen 3 is not applied there (DESIGN_RULES: "Player photos crop out the burned-in name caption"). Read DESIGN_RULES.md and HANDOFF.md; will follow them, WF02 untouched.  
-**Changed UI files:** None  
-**UI commit SHA:** `0ae1c0ebaa449b0881f6c5b4c31e598b56ca4c56` (UI baseline; HEAD before this status commit was `3505b73`)  
-**Testing:** Passed: 7 screens render at 390×844, no vertical scroll on any, geometry probe identifies the single flagged element type. Unverified: tap/swipe interactions; raw.githack rendering from Claude's PC; Screen 7 caption observation is from a screenshot, not measured.  
-**Needs Mike/ChatGPT:** Decide whether Screen 7 caption crop and/or higher-resolution player photos should be part of the first UI task; otherwise send the first implementation task.
+**Current task:** Task 001 — WF48 Screen 7 seat-photo caption crop (from CLAUDE-TASK.md) + owner add-on from Mike: remove CHANGE SEAT tile on Screen 7  
+**State:** Complete — awaiting Mike's visual review of the preview  
+**Latest Claude response:** Task 001 done. Screen 7 seat photos are cropped (image-only, scoped with `.wf48-table-screen:has(.wf48-confirm-top)` so Screen 6 is untouched); the baked-in "Nora A" and "Paul Smith" captions are no longer visible, faces are recognizable, white names and the yellow rank badges are intact. Separately, per Mike's direct request, the CHANGE SEAT tile was removed from Screen 7; CANCEL RSVP + DONE now split 50/50 at 152×54px / 17px, identical to Screen 6's footer. The two changes are separate commits so either can be reverted alone.  
+**Changed UI files:** `index.html` only (+5 CSS lines crop; footer: 1 button removed, +5 CSS lines)  
+**UI commit SHAs:** crop `fc4b54f816eb6b65253b69b45183533fa4621304`; footer `c27e1e403c84c4829b15d2931abbe9aa3d5595aa` (final UI version). Rollback tag (local): `rollback-before-task001` = `af63eed8ae0d9f5f00cc991b328783cbaa1cf418`.  
+**Preview (final):** https://raw.githack.com/pinatamike/index.html/c27e1e403c84c4829b15d2931abbe9aa3d5595aa/index.html#workflow-48  
+**Testing — passed:** All 7 WF48 screens re-captured at 390×844 @2x and viewed; Screens 1-6 pixel-identical to the pre-task baseline, only Screen 7 differs; no vertical scroll on any screen; selector verified to match exactly 5 images, all on Screen 7; WF02 pixel-identical; 41 inline scripts pass syntax check; DONE click works with no page errors; footer buttons measured 152×54 @17px = Screen 6.  
+**Testing — unverified / limitations:** raw.githack URL not opened from Claude's PC (not reachable here); only DONE/CANCEL clicks were exercised, no swipes; CANCEL RSVP produced no visible change in the static preview (unchanged behavior, not investigated). Screen 3 captures occasionally come out as a tiled image from my screenshot tool (not the app; re-runs match baseline).  
+**Pre-existing issues noticed, NOT changed (out of scope):** (1) Screen 6 seat photos still show the baked-in "Nora A"/"Paul Smith" captions — Task said not to touch Screen 6. (2) After tapping DONE on Screen 7 with no seat chosen, the banner reads "SEAT null". (3) The orphaned `data-wf48-change` handler remains in JS (harmless, now unreachable). (4) Photos are ~140px source and look soft when zoomed.  
+**Needs Mike/ChatGPT:** Review Screen 7 in the preview; decide whether to apply the same caption crop to Screen 6 and fix the "SEAT null" banner.
 
 ## History
 
+- 2026-11-06 23:52 — Claude: Task 001 complete (fc4b54f crop, c27e1e4 footer: CHANGE SEAT removed on Mike's request). Only Screen 7 changed; WF02 identical.
 - 2026-11-06 23:45 — Claude: Screen 3 overflow = clipped intentional crop (false positive); noted soft photos and Screen 7 residual captions. No UI changes.
 - 2026-11-06 (earlier) — Claude: onboarding complete; SSH access works; Edge+Node screenshot QA ready (`qa.mjs` outside repo); branch was at `0ae1c0e`.
 - 2026-11-06 — Status bridge created by ChatGPT. Awaiting Claude Code to read this file and start posting updates.
