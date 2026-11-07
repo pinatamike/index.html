@@ -2441,30 +2441,35 @@ html body .storyboard .crm54-phone .crm54-body:has(>.crm54-profile-fixed){displa
 .crm54-phone .crm54-profile-edit{align-self:flex-start;background:#092f49;border:2px solid #25bde8;font-size:14px;padding:7px 13px;min-height:42px}
 .crm54-phone .crm54-profile-history{display:block;width:100%;background:#006b52;border:2px solid #40d8ad;font-size:17px;min-height:58px;padding:8px;margin:0}
 </style><style id="wf2-only-nov6">
-/* Scoped exclusively to Workflow 02's newly named game structure screens */
-.storyboard .st-phone .wf2-structure{display:flex;flex-direction:column;gap:7px;min-height:0;height:100%;width:100%;padding:0 1px 4px;box-sizing:border-box}
-.storyboard .st-phone .wf2-structure *{box-sizing:border-box}
-.storyboard .st-phone .wf2-title{background:#082c44;border:2px solid #24c5eb;padding:9px 10px;display:flex;flex-direction:column;gap:3px}
-.storyboard .st-phone .wf2-title b{font-size:20px;line-height:1.15;color:#fff}
-.storyboard .st-phone .wf2-title small{font-size:13px;line-height:1.2;color:#d3ecfb;font-weight:750}
-.storyboard .st-phone .wf2-field{display:flex;flex-direction:column;gap:4px;padding:7px 9px;background:#0a3049;border:2px solid #2685b2;min-width:0}
-.storyboard .st-phone .wf2-field>span{font-size:12px;line-height:1.1;font-weight:900;color:#70deff}
-.storyboard .st-phone .wf2-field input,.storyboard .st-phone .wf2-field select{display:block;width:100%;min-width:0;padding:0;margin:0;min-height:24px;background:transparent;border:0;color:white;font-size:17px;font-weight:900;outline-offset:3px;border-radius:0}
-.storyboard .st-phone .wf2-field select option{color:#0a2438;background:#fff}
-.storyboard .st-phone .wf2-two{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.storyboard .st-phone .wf2-sub{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:900;font-size:13px;color:#fff;border-bottom:1px solid #2ba8d7;padding:3px 2px}
-.storyboard .st-phone .wf2-sub span{font-size:12px;font-weight:750;color:#9bdbf1}
-.storyboard .st-phone .wf2-note{font-size:12px;line-height:1.25;font-weight:750;color:#c2e5f3;padding:5px;background:#082338}
-.storyboard .st-phone .wf2-actions{display:grid;grid-template-columns:0.9fr 1.1fr 1.25fr;gap:6px;margin-top:auto}
-.storyboard .st-phone .wf2-actions button{min-height:56px;color:white;background:#104765;border:2px solid #28bce7;border-radius:0;font-size:14px;line-height:1.15;font-weight:900;padding:5px}
-.storyboard .st-phone .wf2-actions button.primary{background:#007752;border-color:#48e5b3}
-.storyboard .st-phone .wf2-schedule-summary{border:2px solid #25b9e9;background:#0c2f47;padding:13px;display:flex;flex-direction:column;gap:9px}
-.storyboard .st-phone .wf2-schedule-summary b{font-size:22px}
-.storyboard .st-phone .wf2-schedule-summary span{font-size:17px;font-weight:800}
-.storyboard .st-phone .wf2-scheduling .wf2-field{padding:13px 10px}
-.storyboard .st-phone .wf2-scheduling .wf2-field input{min-height:38px}
-.storyboard .st-phone .wf2-schedule-actions{grid-template-columns:1fr 1.5fr}
-.storyboard .st-phone .wf2-saved{font-size:13px;color:#69f0c6;font-weight:850}
+/* Only WF02, one screen, fixed fit, no scrolling anywhere inside it. */
+.storyboard .st-phone .fb-body:has(>.wf2-one){height:100%!important;min-height:0!important;display:flex!important;overflow:hidden!important;padding:0!important;margin:0!important}
+.storyboard .st-phone .ux-content:has(.wf2-one){overflow:hidden!important;min-height:0!important;padding:4px 5px 8px!important}
+.storyboard .st-phone .wf2-one{display:flex;flex-direction:column;gap:6px;height:100%;min-height:0;width:100%;box-sizing:border-box;overflow:hidden!important;padding:0 1px!important}
+.storyboard .st-phone .wf2-one *{box-sizing:border-box}
+.storyboard .st-phone .wf2-heading{font-size:20px;font-weight:900;color:white;line-height:1.1;flex:none;padding:5px 2px 7px;border-bottom:2px solid #26bddd}
+.storyboard .st-phone .wf2-tile{display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:0;flex:0 0 auto;padding:6px 9px;background:#092b41;border:2px solid #2489b8;border-radius:0!important;min-height:54px;margin:0!important}
+.storyboard .st-phone .wf2-label{font-size:12px;font-weight:900;color:#69ddfb;line-height:1.15}
+.storyboard .st-phone .wf2-value{display:flex;align-items:baseline;gap:3px;min-width:0;white-space:nowrap;font-size:19px;font-weight:900;color:#fff}
+.storyboard .st-phone .wf2-value input,.storyboard .st-phone .wf2-value select{background:transparent;border:0!important;color:white;font:inherit;min-width:0;min-height:27px;height:27px;max-width:100%;padding:0;outline-offset:2px;border-radius:0!important}
+.storyboard .st-phone .wf2-value select option{color:#112c40;background:white}
+.storyboard .st-phone .wf2-money{display:inline-flex;align-items:baseline;min-width:0;flex:0 1 auto;gap:3px}
+.storyboard .st-phone .wf2-money input{width:100%;font-size:19px!important;font-weight:900!important;letter-spacing:-.35px;min-width:0}
+.storyboard .st-phone .wf2-cop{font-size:12.35px;line-height:1;font-weight:900;flex:none;color:#fff}
+.storyboard .st-phone .wf2-slash{font-size:20px;font-weight:900;flex:none;color:#6bddf6;padding:0 1px}
+.storyboard .st-phone .wf2-full .wf2-value{width:100%}
+.storyboard .st-phone .wf2-full .wf2-money{flex:1 1 0;min-width:0}
+.storyboard .st-phone .wf2-half{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;min-width:0}
+.storyboard .st-phone .wf2-half .wf2-tile{width:100%}
+.storyboard .st-phone .wf2-rate{width:57px!important}
+.storyboard .st-phone .wf2-pct{font-size:19px}
+.storyboard .st-phone .wf2-seats{width:100px!important}
+.storyboard .st-phone .wf2-datetime .wf2-tile{min-height:58px;padding:6px}
+.storyboard .st-phone .wf2-datetime input{font-size:14px!important;width:100%!important;min-width:0!important;min-height:29px}
+.storyboard .st-phone .wf2-actions{display:grid;grid-template-columns:0.9fr 1.1fr 1.25fr;gap:5px;margin-top:auto;flex:none}
+.storyboard .st-phone .wf2-actions button{border:2px solid #2baad1;border-radius:0!important;color:white;background:#0e4963;font-size:13px;font-weight:900;line-height:1.1;min-height:49px;padding:5px 1px}
+.storyboard .st-phone .wf2-actions .primary{background:#007751;border-color:#40d9aa}
+.storyboard .st-phone .wf2-status{min-height:0;font-size:12px;font-weight:800;line-height:1.15;color:#65f0c0}
+.storyboard .st-phone .wf2-status:empty{display:none}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -6843,96 +6848,83 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   function(){return '<div class="st-card"><b class="st-big">NO ACTIVE SESSION</b><small>Your last session was closed</small></div><button type="button" class="st-hero" data-rn-route="2:0">'+I('bolt')+'<div><b>START A SESSION</b><small>Quick Start · about two taps</small></div></button>'+note('A permanently closed session is never reopened automatically.')+foot(['QUICK START','2:0']);}
  ]};
 
- /* ================= WF2 · ONE-TABLE SMART GAME STRUCTURE (approved Nov 6) =================
-   UX review simulation. Actual account-wide template history and scheduled games require the Base44 database.
-   Onboarding, Settings, and Schedule must later consume the same authoritative Game Structure model. */
+ /* ================= WF2 · SINGLE SCREEN GAME STRUCTURE PREVIEW =================
+   WF2 ONLY. Review and edit on one screen. No template wizard or extra schedule screen.
+   Prototype persists in this browser only; production uses Nora's authoritative backend. */
  var WF2KEY='nora.wf2.review.v1';
- var WF2DEFAULT={game:'Texas Hold’em',small:5000,big:10000,min:200000,max:1000000,rake:5,cap:50000,seats:10,venue:'Provenza'};
+ var WF2DEFAULT={game:'Texas Hold’em',small:5000,big:10000,min:200000,max:1000000,rake:5,cap:50000,seats:10};
  var WF2STATE={structures:[],history:[],last:null,draft:null};
  try{var wf2saved=JSON.parse(localStorage.getItem(WF2KEY)||'null');if(wf2saved&&typeof wf2saved==='object')Object.assign(WF2STATE,wf2saved);}catch(x){}
  function wf2Store(){try{localStorage.setItem(WF2KEY,JSON.stringify(WF2STATE));}catch(x){}}
  function wf2Norm(v){return [String(v.game||'').trim().toLowerCase(),+v.small,+v.big,+v.min,+v.max,+v.rake,+v.cap].join('|');}
- function wf2Date(){return new Date().toISOString().slice(0,10);}
  function wf2Suggested(date){
-  if(WF2STATE.draft)return Object.assign({},WF2STATE.draft);
-  var day=new Date((date||wf2Date())+'T12:00:00').getDay();
-  var relevant=(WF2STATE.history||[]).filter(function(h){return h.day===day;});
-  var counts={};relevant.forEach(function(h){counts[h.key]=(counts[h.key]||0)+1;});
+  if(WF2STATE.draft)return Object.assign({},WF2DEFAULT,WF2STATE.draft);
+  var now=date||new Date();
+  var day=now.getDay(),h=(WF2STATE.history||[]).filter(function(x){return x.day===day;});
+  var counts={};h.forEach(function(x){counts[x.key]=(counts[x.key]||0)+1;});
   var best=Object.keys(counts).sort(function(x,y){return counts[y]-counts[x];})[0];
-  if(best&&counts[best]>=2&&counts[best]>relevant.length/2){
-   var known=(WF2STATE.structures||[]).find(function(g){return wf2Norm(g)===best;});
-   if(known)return Object.assign({},known);
-  }
-  return Object.assign({},WF2STATE.last||WF2DEFAULT);
+  if(best&&counts[best]>=2&&counts[best]>h.length/2){var known=(WF2STATE.structures||[]).find(function(g){return wf2Norm(g)===best;});if(known)return Object.assign({},WF2DEFAULT,known);}
+  return Object.assign({},WF2DEFAULT,WF2STATE.last||{});
  }
- function wf2Money(n){return Number(n||0).toLocaleString('en-US');}
- function wf2Field(label,key,value,kind){
-  var a=kind==='select'?'<select data-wf2-field="'+key+'" aria-label="'+label+'"><option'+(value==='Texas Hold’em'?' selected':'')+'>Texas Hold’em</option><option'+(value==='Omaha'?' selected':'')+'>Omaha</option><option'+(value==='Other'?' selected':'')+'>Other</option></select>':
-   '<input data-wf2-field="'+key+'" aria-label="'+label+'" inputmode="'+(kind==='number'?'numeric':'text')+'" type="'+(kind==='number'?'number':'text')+'" min="'+(kind==='number'?'0':'')+'" value="'+e(value)+'">';
-  return '<label class="wf2-field"><span>'+label+'</span>'+a+'</label>';
+ function wf2Remember(d,date){var key=wf2Norm(d);if(!(WF2STATE.structures||[]).some(function(x){return wf2Norm(x)===key;}))WF2STATE.structures.push(Object.assign({},d));
+  WF2STATE.last=Object.assign({},d);WF2STATE.history.push({key:key,day:date.getDay()});WF2STATE.draft=null;wf2Store();}
+ function wf2Amount(key,n){return '<span class="wf2-money"><span class="wf2-cop">COP</span><input type="text" inputmode="numeric" data-wf2-field="'+key+'" aria-label="'+key+'" value="'+Number(n||0).toLocaleString('en-US')+'"></span>';}
+ function wf2Tile(label,content,cls){return '<label class="wf2-tile '+(cls||'')+'"><span class="wf2-label">'+label+'</span><span class="wf2-value">'+content+'</span></label>';}
+ function wf2DateString(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+ function wf2Form(){
+  var d=wf2Suggested(),dt=new Date(),date=WF2STATE.draft&&WF2STATE.draft.date||wf2DateString(dt),time=WF2STATE.draft&&WF2STATE.draft.time||'19:00';
+  var game='<select data-wf2-field="game" aria-label="Game"><option'+(d.game==='Texas Hold’em'?' selected':'')+'>Texas Hold’em</option><option'+(d.game==='Omaha'?' selected':'')+'>Omaha</option><option'+(d.game==='Other'?' selected':'')+'>Other</option></select>';
+  return '<div class="wf2-one">'+
+   '<div class="wf2-heading">GAME STRUCTURE</div>'+
+   wf2Tile('GAME',game,'wf2-game')+
+   wf2Tile('BLINDS',wf2Amount('small',d.small)+'<span class="wf2-slash">/</span>'+wf2Amount('big',d.big),'wf2-full')+
+   wf2Tile('MIN / MAX BUY-IN',wf2Amount('min',d.min)+'<span class="wf2-slash">/</span>'+wf2Amount('max',d.max),'wf2-full')+
+   '<div class="wf2-half">'+wf2Tile('RAKE %','<input class="wf2-rate" data-wf2-field="rake" aria-label="Rake percentage" inputmode="decimal" type="number" min="0" max="100" step=".5" value="'+(+d.rake)+'"><span class="wf2-pct">%</span>')+wf2Tile('RAKE CAP',wf2Amount('cap',d.cap))+'</div>'+
+   wf2Tile('SEATS AT TABLE','<input class="wf2-seats" data-wf2-field="seats" aria-label="Seats at table" type="number" min="2" max="12" inputmode="numeric" value="'+(+d.seats)+'">')+
+   '<div class="wf2-half wf2-datetime">'+wf2Tile('DATE','<input data-wf2-date aria-label="Game date" type="date" value="'+e(date)+'">')+wf2Tile('START TIME','<input data-wf2-time aria-label="Game start time" type="time" value="'+e(time)+'">')+'</div>'+
+   '<div class="wf2-actions"><button type="button" data-rn-route="1:0">CANCEL</button><button type="button" data-wf2-commit="schedule">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>'+
+   '<div class="wf2-status" role="status" aria-live="polite"></div></div>';
  }
- function wf2Form(){var d=wf2Suggested();
-  return '<div class="wf2-structure">'+
-   '<div class="wf2-title"><b>GAME STRUCTURE</b><small>Last-used settings · tap any value to edit</small></div>'+
-   wf2Field('GAME', 'game', d.game, 'select')+
-   '<div class="wf2-two">'+wf2Field('SMALL BLIND · COP','small',d.small,'number')+wf2Field('BIG BLIND · COP','big',d.big,'number')+'</div>'+
-   '<div class="wf2-two">'+wf2Field('MIN BUY-IN · COP','min',d.min,'number')+wf2Field('MAX BUY-IN · COP','max',d.max,'number')+'</div>'+
-   '<div class="wf2-two">'+wf2Field('RAKE · %','rake',d.rake,'number')+wf2Field('RAKE CAP · COP','cap',d.cap,'number')+'</div>'+
-   '<div class="wf2-sub"><b>SESSION DETAILS</b><span>Starts with one table</span></div>'+
-   '<div class="wf2-two">'+wf2Field('SEATS','seats',d.seats,'number')+wf2Field('VENUE','venue',d.venue,'text')+'</div>'+
-   '<div class="wf2-note">Nora remembers different game structures automatically. No templates to manage before playing.</div>'+
-   '<div class="wf2-actions"><button type="button" data-rn-route="1:0">CANCEL</button><button type="button" data-rn-route="2:1" data-wf2-schedule-open="1">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>'+
-   '</div>';
+ function wf2Parse(str){var s=String(str||'').replace(/[^0-9]/g,'');return s?Number(s):0;}
+ function wf2Read(panel){
+  var d=Object.assign({},WF2DEFAULT,wf2Suggested());
+  panel.querySelectorAll('[data-wf2-field]').forEach(function(x){d[x.dataset.wf2Field]=['game'].includes(x.dataset.wf2Field)?x.value:x.dataset.wf2Field==='rake'?Number(x.value):wf2Parse(x.value);});
+  d.date=panel.querySelector('[data-wf2-date]').value;d.time=panel.querySelector('[data-wf2-time]').value;return d;
  }
- function wf2Schedule(){
-  var date=new Date();date.setDate(date.getDate()+1);
-  var next=date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0');
-  var d=wf2Suggested();
-  return '<div class="wf2-structure wf2-scheduling"><div class="wf2-title"><b>SCHEDULE GAME</b><small>Use the reviewed game structure</small></div>'+
-   '<div class="wf2-schedule-summary"><b>'+e(d.game)+'</b><span>COP '+wf2Money(d.small)+' / '+wf2Money(d.big)+'</span><span>1 table · '+e(d.seats)+' seats</span></div>'+
-   '<label class="wf2-field"><span>DATE</span><input type="date" data-wf2-date value="'+next+'"></label>'+
-   '<label class="wf2-field"><span>START TIME</span><input type="time" data-wf2-time value="19:00"></label>'+
-   '<div class="wf2-note">Scheduling does not start the session or seat players. Preview only; no database posting.</div>'+
-   '<div class="wf2-actions wf2-schedule-actions"><button type="button" data-rn-route="2:0">BACK</button><button type="button" class="primary" data-wf2-commit="schedule">SAVE SCHEDULE</button></div>'+
-   '<div class="wf2-saved" role="status" aria-live="polite"></div></div>';
+ function wf2Check(d,mode){
+  if(!d.game||d.small<=0||d.big<=d.small)return 'Enter valid blinds.';
+  if(d.min<=0||d.max<d.min)return 'Check the minimum and maximum buy-in.';
+  if(d.cap<0||d.rake<0||d.rake>100)return 'Check rake and rake cap.';
+  if(d.seats<2||d.seats>12)return 'Choose between 2 and 12 seats.';
+  if(!d.date||!d.time)return 'Choose a date and start time.';
+  var dt=new Date(d.date+'T'+d.time+':00');
+  if(Number.isNaN(dt.valueOf()))return 'Choose a valid date and time.';
+  if(mode==='schedule'&&dt.getTime()<=Date.now())return 'Scheduled time must be in the future.';
+  return '';
  }
- function wf2Read(){
-  var d=Object.assign({},wf2Suggested());
-  document.querySelectorAll('.wf2-structure [data-wf2-field]').forEach(function(n){d[n.dataset.wf2Field]=n.type==='number'?Number(n.value):n.value;});
-  return d;
- }
- function wf2Remember(d,day){
-  var key=wf2Norm(d);
-  if(!(WF2STATE.structures||[]).some(function(x){return wf2Norm(x)===key;}))WF2STATE.structures.push(Object.assign({},d));
-  WF2STATE.last=Object.assign({},d);
-  WF2STATE.history.push({key:key,day:day});
-  WF2STATE.draft=null;
-  wf2Store();
- }
- S[2]={sec:'LIVE SESSION',steps:['Review Game Structure','Schedule game · optional'],
-  heads:['Game Structure','Schedule Game'],
-  screens:[wf2Form,wf2Schedule]};
- window.addEventListener('input',function(ev){if(ev.target.matches('.wf2-structure [data-wf2-field]'))WF2STATE.draft=wf2Read();},true);
+ function wf2Strip(d){var r=Object.assign({},d);delete r.date;delete r.time;return r;}
+ S[2]={sec:'LIVE SESSION',steps:['Game Structure · Start or Schedule'],heads:['Game Structure'],screens:[wf2Form]};
+ window.addEventListener('input',function(ev){
+  var el=ev.target,box=el.closest('.wf2-one');if(!box||!el.matches('[data-wf2-field],[data-wf2-date],[data-wf2-time]'))return;
+  if(el.matches('.wf2-money input')){var p=el.selectionStart;var before=el.value.slice(0,p).replace(/[^0-9]/g,'').length;var formatted=wf2Parse(el.value).toLocaleString('en-US');el.value=formatted;var pos=0,n=0;while(pos<formatted.length&&n<before){if(/[0-9]/.test(formatted[pos]))n++;pos++;}el.setSelectionRange(pos,pos);}
+  WF2STATE.draft=wf2Read(box);
+ },true);
  window.addEventListener('click',function(ev){
-  var schedule=ev.target.closest('.st-phone [data-wf2-schedule-open]');
-  if(schedule){WF2STATE.draft=wf2Read();return;}
-  var btn=ev.target.closest('.st-phone [data-wf2-commit]');
-  if(!btn)return;
-  if(btn.dataset.wf2Commit==='start'){
-   var d=wf2Read();if(!(d.big>d.small&&d.max>=d.min&&d.seats>0)){ev.preventDefault();ev.stopImmediatePropagation();alert('Review blinds, buy-in limits and seats before starting.');return;}
-   wf2Remember(d,new Date().getDay());
-  }else{
-   var dateInput=btn.closest('.wf2-structure').querySelector('[data-wf2-date]');
-   var timeInput=btn.closest('.wf2-structure').querySelector('[data-wf2-time]');
-   if(!dateInput.value||!timeInput.value){ev.preventDefault();ev.stopImmediatePropagation();alert('Choose a date and time.');return;}
-   var d=wf2Suggested();var plannedDay=new Date(dateInput.value+'T12:00:00').getDay();
-   wf2Remember(d,plannedDay);
-   btn.closest('.wf2-structure').querySelector('.wf2-saved').textContent='SCHEDULE PREVIEW SAVED · '+dateInput.value+' · '+timeInput.value+' · no database posting';
-   ev.preventDefault();ev.stopImmediatePropagation();
-  }
+  var btn=ev.target.closest('.st-phone [data-wf2-commit]');if(!btn)return;
+  var panel=btn.closest('.wf2-one');if(!panel)return;
+  var mode=btn.dataset.wf2Commit,d=wf2Read(panel),reason=wf2Check(d,mode),notice=panel.querySelector('.wf2-status');
+  if(reason){ev.preventDefault();ev.stopImmediatePropagation();notice.textContent=reason;return;}
+  if(mode==='start'&&new Date(d.date+'T'+d.time+':00').getTime()>Date.now()+86400000){ev.preventDefault();ev.stopImmediatePropagation();notice.textContent='This date is in the future. Choose SCHEDULE to save it.';return;}
+  var structure=wf2Strip(d);
+  if(mode==='start'){wf2Remember(structure,new Date(d.date+'T12:00:00'));return;}
+  /* A scheduled entry is NOT a played session. Store separately; do not train weekday learning yet. */
+  try{var items=JSON.parse(localStorage.getItem('nora.wf2.scheduled.preview')||'[]');items.push({structure:structure,date:d.date,time:d.time});localStorage.setItem('nora.wf2.scheduled.preview',JSON.stringify(items));}catch(x){}
+  WF2STATE.draft=d;wf2Store();
+  notice.textContent='SCHEDULE PREVIEW SAVED · '+d.date+' · '+d.time+' · no live session started';
+  ev.preventDefault();ev.stopImmediatePropagation();
  },true);
 
- /* ================= WF59 · Onboarding in 3 screens + Nora states ================= */
+/* ================= WF59 · Onboarding in 3 screens + Nora states ================= */
  var RK=cop(50000);
  S[59]={sec:'SETTINGS',nav:'Settings',steps:['Meet Nora','Configure your game','Review & ready','Nora listening','Nora checks what she heard','Nora explains rake'],
   heads:['Welcome','Your Game','Review & Ready','Nora Setup','Confirm Setup','Rake Help'],
