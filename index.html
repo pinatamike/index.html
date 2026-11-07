@@ -6952,7 +6952,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   return '';
  }
  function wf2Strip(d){var r=Object.assign({},d);delete r.date;delete r.time;delete r.name;return r;}
- S[2]={sec:'LIVE SESSION',steps:['Game Structure · Start or Schedule'],heads:['Schedule Session'],screens:[wf2Form]};
+ S[2]={sec:'LIVE SESSION',steps:['Schedule Session'],heads:['Schedule Session'],screens:[wf2Form]};
  window.addEventListener('input',function(ev){
   var el=ev.target,box=el.closest('.wf2-one');if(!box||!el.matches('[data-wf2-field],[data-wf2-name],[data-wf2-date],[data-wf2-time]'))return;
   if(el.matches('.wf2-money input')){var p=el.selectionStart;var before=el.value.slice(0,p).replace(/[^0-9]/g,'').length;var formatted=wf2Parse(el.value).toLocaleString('en-US');el.value=formatted;if(el.dataset.wf2AutoWidth)el.style.width=(formatted.length+.3)+'ch';var pos=0,n=0;while(pos<formatted.length&&n<before){if(/[0-9]/.test(formatted[pos]))n++;pos++;}el.setSelectionRange(pos,pos);}
@@ -6979,6 +6979,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   ev.preventDefault();ev.stopImmediatePropagation();
  },true);
 
+ window.__NORA_WF2_FORM__={form:wf2Form,read:wf2Read,check:wf2Check,suggest:wf2Suggested,dateString:wf2DateString,formatTime:wf2FormatTime,time24:wf2Time24,state:WF2STATE,store:wf2Store};
 /* ================= WF59 · Onboarding in 3 screens + Nora states ================= */
  var RK=cop(50000);
  S[59]={sec:'SETTINGS',nav:'Settings',steps:['Meet Nora','Configure your game','Review & ready','Nora listening','Nora checks what she heard','Nora explains rake'],
@@ -7172,6 +7173,8 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  /* ================= WF48 · Schedule Session + Invitations · two-screen review =================
    WF02 exact Game Structure form reused; only action footer changes.
    Browser-local demo only: no actual WhatsApp invitations are sent. */
+ var WF2LINK=window.__NORA_WF2_FORM__;
+ if(!WF2LINK)throw new Error('NORA WF02 bridge must initialize before WF48');
  var WF48KEY='nora.wf48.schedule.preview.v2';
  var WF48INVKEY='nora.wf48.invites.preview.v2';
  var WF48INV={send:true,audience:'RECENT',seats:true,grace:30,reminder:'2 H BEFORE',deadline:'6:00 PM'};
@@ -7180,9 +7183,9 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  var WF48DRAFT=null;
  function wf48Base(){
   if(!WF48DRAFT){var now=new Date(),next=new Date(now),advance=(7-now.getDay())%7;next.setDate(now.getDate()+advance);if(!advance&&now.getHours()>=19)next.setDate(next.getDate()+7);
-   WF48DRAFT=Object.assign({},wf2Suggested(),{name:'Sunday Hold’em',date:wf2DateString(next),time:'7:00 PM'});}
-  var oldDraft=WF2STATE.draft;WF2STATE.draft=WF48DRAFT;
-  var html=wf2Form();WF2STATE.draft=oldDraft;
+   WF48DRAFT=Object.assign({},WF2LINK.suggest(),{name:'Sunday Hold’em',date:WF2LINK.dateString(next),time:'7:00 PM'});}
+  var oldDraft=WF2LINK.state.draft;WF2LINK.state.draft=WF48DRAFT;
+  var html=WF2LINK.form();WF2LINK.state.draft=oldDraft;
   html=html.replace('class="wf2-one"','class="wf2-one wf48-schedule"');
   html=html.replace('<div class="wf2-actions"><button type="button" data-rn-route="1:0">CANCEL</button><button type="button" data-wf2-commit="schedule">SCHEDULE</button><button type="button" class="primary" data-rn-route="1:2" data-wf2-commit="start">START NOW</button></div>',
    '<div class="wf2-actions wf48-footer"><button type="button" data-rn-route="48:0" data-wf48-cancel="1">CANCEL</button><button type="button" class="primary" data-wf48-next="1">CONTINUE TO INVITATIONS</button></div>');
@@ -7197,7 +7200,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    '<div class="wf48-section"><div class="wf48-label">INVITE</div><div class="wf48-choices">'+wf48Button('RECENT','RECENT',d.audience==='RECENT','audience')+wf48Button('ALL','ALL',d.audience==='ALL','audience')+wf48Button('PICK','PICK',d.audience==='PICK','audience')+'</div></div>'+
    '<div class="wf48-section"><div class="wf48-line"><span>PLAYERS CAN SELECT SEATS</span>'+wf48Button(d.seats?'ON':'OFF',String(!d.seats),d.seats,'seats')+'</div></div>'+
    '<div class="wf48-section"><div class="wf48-label">HOLD RESERVED SEATS (MIN)</div><div class="wf48-choices">'+[15,30,45,60].map(function(v){return wf48Button(String(v),String(v),+d.grace===v,'grace');}).join('')+'</div></div>'+
-   '<div class="wf48-section wf48-deadline"><span>RSVP DEADLINE</span><input type="text" data-wf48-deadline maxlength="8" aria-label="RSVP deadline" value="'+e(wf2FormatTime(d.deadline))+'"></div>'+
+   '<div class="wf48-section wf48-deadline"><span>RSVP DEADLINE</span><input type="text" data-wf48-deadline maxlength="8" aria-label="RSVP deadline" value="'+e(WF2LINK.formatTime(d.deadline))+'"></div>'+
    '<div class="wf48-section"><div class="wf48-label">REMIND PLAYERS</div><div class="wf48-choices">'+['24 H BEFORE','2 H BEFORE','OFF'].map(function(v){return wf48Button(v,v,d.reminder===v,'reminder');}).join('')+'</div></div>'+
    '<div class="wf48-footer-inv"><button type="button" data-rn-route="48:0">BACK</button><button type="button" class="primary" data-wf48-save="1">'+(d.send?'SAVE & INVITE':'SAVE SCHEDULE')+'</button></div>'+
    '<div class="wf48-status" role="status" aria-live="polite"></div></div>';
@@ -7207,21 +7210,21 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  if(wf48Def)wf48Def.steps=['Schedule Session','Invitations'];
  window.addEventListener('click',function(ev){
   var next=ev.target.closest('[data-wf48-next]'),save=ev.target.closest('[data-wf48-save]'),choice=ev.target.closest('[data-wf48-field]');
-  if(next){var panel=next.closest('.wf2-one');if(!panel)return;var d=wf2Read(panel),reason=wf2Check(d,'schedule'),status=panel.querySelector('.wf2-status');if(reason){ev.preventDefault();ev.stopImmediatePropagation();status.textContent=reason;return;}
-   WF48DRAFT=d;WF2STATE.draft=d;wf2Store();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:1');return;}
+  if(next){var panel=next.closest('.wf2-one');if(!panel)return;var d=WF2LINK.read(panel),reason=WF2LINK.check(d,'schedule'),status=panel.querySelector('.wf2-status');if(reason){ev.preventDefault();ev.stopImmediatePropagation();status.textContent=reason;return;}
+   WF48DRAFT=d;WF2LINK.state.draft=d;WF2LINK.store();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:1');return;}
   if(choice){var f=choice.dataset.wf48Field,v=choice.dataset.wf48Value;
    WF48INV[f]=(f==='send'||f==='seats')?(v==='true'):f==='grace'?Number(v):v;wf48Store();
    var box=choice.closest('.wf48-invites');if(box){box.outerHTML=wf48InviteForm();}ev.preventDefault();ev.stopImmediatePropagation();return;}
-  if(save){var box=save.closest('.wf48-invites');if(!box)return;var dead=box.querySelector('[data-wf48-deadline]');if(dead){WF48INV.deadline=wf2FormatTime(dead.value);}
-   if(!wf2Time24(WF48INV.deadline)){box.querySelector('.wf48-status').textContent='Enter RSVP deadline as 6:00 PM.';ev.preventDefault();ev.stopImmediatePropagation();return;}
-   wf48Store();var d=WF2STATE.draft||{},reason=wf2Check(d,'schedule');if(reason){box.querySelector('.wf48-status').textContent=reason;ev.preventDefault();ev.stopImmediatePropagation();return;}
+  if(save){var box=save.closest('.wf48-invites');if(!box)return;var dead=box.querySelector('[data-wf48-deadline]');if(dead){WF48INV.deadline=WF2LINK.formatTime(dead.value);}
+   if(!WF2LINK.time24(WF48INV.deadline)){box.querySelector('.wf48-status').textContent='Enter RSVP deadline as 6:00 PM.';ev.preventDefault();ev.stopImmediatePropagation();return;}
+   wf48Store();var d=WF2LINK.state.draft||{},reason=WF2LINK.check(d,'schedule');if(reason){box.querySelector('.wf48-status').textContent=reason;ev.preventDefault();ev.stopImmediatePropagation();return;}
    try{var arr=JSON.parse(localStorage.getItem(WF48KEY)||'[]');arr.push({session:d,invites:Object.assign({},WF48INV),status:'scheduled-preview'});localStorage.setItem(WF48KEY,JSON.stringify(arr));}catch(x){}
    box.querySelector('.wf48-status').textContent=WF48INV.send?'SCHEDULE SAVED · Continue to choose and review invitees.':'SCHEDULE SAVED · No invitations will be sent.';
    ev.preventDefault();ev.stopImmediatePropagation();
    if(WF48INV.send)rnGo('49:0');return;}
  },true);
  window.addEventListener('input',function(ev){var el=ev.target;if(el.matches('[data-wf48-deadline]')){WF48INV.deadline=el.value;wf48Store();}},true);
- window.addEventListener('focusout',function(ev){var el=ev.target;if(el.matches('[data-wf48-deadline]')){var v=wf2FormatTime(el.value);if(wf2Time24(v)){el.value=v;WF48INV.deadline=v;wf48Store();}}},true);
+ window.addEventListener('focusout',function(ev){var el=ev.target;if(el.matches('[data-wf48-deadline]')){var v=WF2LINK.formatTime(el.value);if(WF2LINK.time24(v)){el.value=v;WF48INV.deadline=v;wf48Store();}}},true);
 
 /* ================= WF49 · Invite players ================= */
  S[49]={sec:'SCHEDULED',nav:'Players',steps:['Select players','Channel & message','Review & send'],heads:['Select Players','Channel','Review & Send'],
@@ -7622,5 +7625,22 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  pass();
 })();
 
+</script>
+<script id="wf02-header-schedule-final">
+(function(){
+ if(typeof customPhone!=='function')return;
+ var prior=customPhone;
+ customPhone=function(w,step,i){
+  var html=prior(w,step,i);
+  if(w&&w.id===2&&i===0){
+   var tmp=document.createElement('div');tmp.innerHTML=html;
+   var h=tmp.querySelector('.ux-headtitle small');
+   if(h)h.textContent='Schedule Session';
+   return tmp.innerHTML;
+  }
+  return html;
+ };
+ try{if(typeof show==='function'&&typeof current!=='undefined')show(current);}catch(err){console.error('wf02 header',err);}
+})();
 </script>
 </body></html>
