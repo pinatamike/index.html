@@ -2576,6 +2576,38 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
 .storyboard .st-phone .wf48-player.has-photo::before,.storyboard .st-phone .wf48-player.has-photo::after{
  content:none!important;display:none!important
 }
+
+/* WF48 — balanced compact one-line invitation settings; fix full time labels */
+.storyboard .st-phone .wf48-schedule .wf48-name-inv{
+ grid-template-columns:minmax(0,1.72fr) minmax(0,1.28fr)!important
+}
+.storyboard .st-phone .wf48-schedule .wf48-invite-tile .wf2-label{
+ font-size:14px!important;letter-spacing:-.65px!important;white-space:nowrap!important
+}
+.storyboard .st-phone .wf48-minimal{
+ gap:9px!important;justify-content:space-between!important
+}
+.storyboard .st-phone .wf48-minimal .wf48-minirow{
+ display:grid!important;grid-template-columns:minmax(0,1fr) 145px!important;
+ align-items:center!important;justify-content:space-between!important;
+ flex:1 1 0!important;min-height:0!important;gap:8px!important;
+ padding:10px 8px!important
+}
+.storyboard .st-phone .wf48-minimal .wf48-minirow>span{
+ font-size:16px!important;letter-spacing:-.1px!important;line-height:1.13!important;
+ display:block!important;min-width:0!important
+}
+.storyboard .st-phone .wf48-minimal .wf48-minirow select{
+ display:block!important;width:145px!important;max-width:145px!important;
+ height:46px!important;min-height:46px!important;
+ padding:4px 23px 4px 7px!important;border:2px solid #35bedc!important;
+ background:#104b68!important;font-size:18px!important;font-weight:900!important;
+ text-align:center!important;text-align-last:center!important;
+ border-radius:0!important;white-space:nowrap!important
+}
+.storyboard .st-phone .wf48-minimal .wf48-only-confirm{
+ flex:0 0 53px!important;margin-top:0!important
+}
 </style></head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -7223,9 +7255,9 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   function select(field,options){return '<select data-wf48-select="'+field+'" aria-label="'+field+'">'+options.map(function(o){return '<option value="'+o[1]+'"'+(String(d[field])===String(o[1])?' selected':'')+'>'+o[0]+'</option>';}).join('')+'</select>';}
   return '<div class="wf48-invites wf48-minimal">'+
    '<div class="wf48-minirow"><span>PLAYERS</span>'+select('audience',[['ACTIVE','ACTIVE'],['ALL','ALL'],['PICK','PICK']])+'</div>'+
-   '<div class="wf48-minirow"><span>HOLD SEATS</span>'+select('grace',[['15 MIN',15],['30 MIN',30],['60 MIN',60]])+'</div>'+
-   '<div class="wf48-minirow"><span>SEND INVITES</span>'+select('inviteTime',[['NOW','NOW'],['24 H','24 H'],['12 H','12 H'],['6 H','6 H']])+'</div>'+
-   '<div class="wf48-minirow"><span>REMINDER</span>'+select('reminder',[['1 H','1 H'],['30 MIN','30 MIN'],['OFF','OFF']])+'</div>'+
+   '<div class="wf48-minirow"><span>HOLD SEATS</span>'+select('grace',[['15 MINUTES',15],['30 MINUTES',30],['60 MINUTES',60]])+'</div>'+
+   '<div class="wf48-minirow"><span>SEND INVITES</span>'+select('inviteTime',[['NOW','NOW'],['24 HOURS','24 H'],['12 HOURS','12 H'],['6 HOURS','6 H']])+'</div>'+
+   '<div class="wf48-minirow"><span>REMINDER</span>'+select('reminder',[['1 HOUR','1 H'],['30 MINUTES','30 MIN'],['OFF','OFF']])+'</div>'+
    '<div class="wf48-footer-inv wf48-only-confirm"><button type="button" class="primary" data-wf48-settings-next="1">'+(d.audience==='PICK'?'CONTINUE':'CONFIRM INVITES')+'</button></div>'+
    '<div class="wf48-status" role="status" aria-live="polite"></div></div>';
  }
