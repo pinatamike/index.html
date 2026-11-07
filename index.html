@@ -239,22 +239,6 @@ box-sizing:border-box!important;height:62px!important;min-height:62px!important;
 .storyboard .st-phone .wf48-delivery-setting select{height:40px;width:100%;background:#0d4562;border:2px solid #2eadd9;color:white;font-size:16px;font-weight:900}
 .storyboard .st-phone .wf48-owner-preview .wf48-preview-notice{color:#74dfef;font-size:14px;font-weight:900}
 
-/* WF48 focused final design sweep: larger text, compact settings, no dark player-name bar */
-.storyboard .st-phone .wf48-schedule .wf48-invite-tile .wf2-label{font-size:16px!important;letter-spacing:-.5px!important;font-weight:900!important}
-.storyboard .st-phone .wf48-minimal.wf48-clean{gap:9px!important;justify-content:flex-start!important}
-.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-minirow{flex:0 0 81px!important;min-height:81px!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:center!important;gap:7px!important;padding:8px 12px!important}
-.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-minirow>span{font-size:17px!important;line-height:1.1!important;width:100%!important}
-.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-minirow select{width:100%!important;max-width:100%!important;min-width:0!important;height:41px!important;min-height:41px!important;font-size:18px!important;text-align:center!important;text-align-last:center!important;padding:2px 28px 2px 9px!important}
-.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-only-confirm{margin-top:auto!important;flex:0 0 54px!important}
-.storyboard .st-phone .wf48-player.has-photo b,.storyboard .st-phone .wf48-player b{background:none!important;background-color:transparent!important;background-image:none!important;box-shadow:none!important;text-shadow:0 1px 3px #000,0 0 4px #000!important;font-size:15px!important}
-.storyboard .st-phone .wf48-player.has-photo::before,.storyboard .st-phone .wf48-player.has-photo::after{display:none!important;content:none!important}
-.storyboard .st-phone .wf48-player.has-photo .wf48-face img{position:absolute!important;width:100%!important;height:100%!important;max-width:100%!important;left:0!important;top:0!important;right:auto!important;bottom:auto!important;object-fit:cover!important;object-position:center center!important}
-.storyboard .st-phone .wf48-message-card>span{font-size:17px!important;line-height:1.18!important}
-.storyboard .st-phone .wf48-note-label{font-size:17px!important}
-.storyboard .st-phone .wf48-message-facts{font-size:16px!important;gap:6px!important}
-.storyboard .st-phone .wf48-message-facts b{font-size:19px!important}
-.storyboard .st-phone .wf48-guest .wf48-message-card>span{font-size:17px!important}
-.storyboard .st-phone .wf48-table-screen .wf48-seat-hint,.storyboard .st-phone .wf48-table-screen .wf48-status{font-size:15px!important}
 </style><style>
 .seat-roster-v3 .seat-roster-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:5px}
 .seat-roster-v3 .seat-roster-card{flex-direction:row;justify-content:flex-start;text-align:left;padding:5px 7px;gap:9px}
@@ -2740,6 +2724,33 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
  background:none!important;background-color:transparent!important;
  font-size:15px!important;text-shadow:0 1px 3px #00111b,0 0 4px #00111b!important
 }
+</style>
+
+<style id="wf48-final-last-cascade">
+/* FINAL WF48 OVERRIDES -- these are after all previous CSS, avoiding cascade regression. */
+.storyboard .st-phone .wf48-schedule .wf48-invite-tile .wf2-label{font-size:16px!important;font-weight:900!important;letter-spacing:-.55px!important;white-space:nowrap!important}
+.storyboard .st-phone .wf48-schedule .wf48-name-inv{grid-template-columns:minmax(0,1.62fr) minmax(0,1.38fr)!important}
+.storyboard .st-phone .wf48-minimal.wf48-clean{gap:9px!important;justify-content:flex-start!important}
+.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-minirow{flex:0 0 81px!important;min-height:81px!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:center!important;gap:6px!important;padding:8px 10px!important}
+.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-minirow>span{font-size:17px!important;font-weight:900!important;line-height:1.1!important;width:100%!important;min-width:0!important}
+.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-minirow select{width:100%!important;max-width:100%!important;min-width:0!important;height:41px!important;min-height:41px!important;flex:0 0 41px!important;font-size:18px!important;text-align:center!important;text-align-last:center!important;padding:2px 25px 2px 7px!important;border-radius:0!important}
+.storyboard .st-phone .wf48-minimal.wf48-clean .wf48-only-confirm{margin-top:auto!important;flex:0 0 54px!important}
+.storyboard .st-phone .wf48-player.has-photo b,.storyboard .st-phone .wf48-player b{background:none!important;background-color:transparent!important;background-image:none!important;box-shadow:none!important;text-shadow:0 1px 3px #000,0 0 4px #000!important;font-size:15px!important;min-height:0!important}
+.storyboard .st-phone .wf48-player.has-photo::before,.storyboard .st-phone .wf48-player.has-photo::after{display:none!important;content:none!important}
+.storyboard .st-phone .wf48-player.has-photo .wf48-face img{position:absolute!important;width:100%!important;height:100%!important;max-width:100%!important;left:0!important;top:0!important;right:auto!important;bottom:auto!important;object-fit:cover!important;object-position:center center!important}
+.storyboard .st-phone .wf48-player.picked{border:4px solid #52f0b7!important}
+.storyboard .st-phone .wf48-message-card>span{font-size:16px!important;line-height:1.18!important}
+.storyboard .st-phone .wf48-note-label{font-size:16px!important}
+.storyboard .st-phone .wf48-message-facts{font-size:16px!important;gap:6px!important}
+.storyboard .st-phone .wf48-message-facts b{font-size:19px!important}
+.storyboard .st-phone .wf48-guest .wf48-message-card>span{font-size:16px!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat-hint,.storyboard .st-phone .wf48-table-screen .wf48-status{font-size:15px!important}
+.storyboard .st-phone .wf48-table-screen .wf48-table-seats{min-height:250px!important}
+.storyboard .st-phone .wf48-table-screen .wf48-oval{left:18%!important;width:64%!important;top:20%!important;height:60%!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat{width:60px!important;height:64px!important;border-radius:0!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat-face{height:36px!important;width:42px!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat>b{font-size:11px!important;line-height:1.08!important}
+.storyboard .st-phone .wf48-table-screen .wf48-confirm-actions button{font-size:13px!important;line-height:1.15!important;font-weight:900!important;min-height:54px!important}
 </style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
@@ -7444,14 +7455,15 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   reserved.forEach(function(p){map[p.seat]=p;});
   var seats=Array.from({length:count},function(_,i){
    var n=i+1,p=map[n],mine=WF48INV.seat===n&&WF48INV.response==='YES';
-   var theta=2*Math.PI*i/count-Math.PI/2,x=50+32*Math.cos(theta),y=50+32*Math.sin(theta);
+   var coords=count===10?[[17,17],[50,17],[83,17],[83,40],[83,62],[83,83],[50,83],[17,83],[17,62],[17,40]]:null;
+   var theta=2*Math.PI*i/count-Math.PI/2,x=coords?coords[i][0]:50+32*Math.cos(theta),y=coords?coords[i][1]:50+32*Math.sin(theta);
    return '<button type="button" style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%" class="wf48-seat'+(p?' reserved':'')+(mine?' mine':'')+'" data-wf48-seat="'+n+'" '+(p?'disabled':'')+'><span class="wf48-seat-number">'+n+'</span><span class="wf48-seat-face">'+(p?wf48Img(p.name,p.initial):mine?wf48Img('James K.','JK'):'<span class="wf48-seat-open">+</span>')+'</span><b>'+(p?e(p.name):mine?'YOU':'OPEN')+'</b></button>';
   }).join('');
   return '<div class="wf48-table-seats"><div class="wf48-oval">POKER TABLE</div>'+seats+'</div>';
  }
  function wf48TableTabs(){return wf48Tables()<2?'':'<div class="wf48-table-tabs">'+Array.from({length:wf48Tables()},function(_,i){return '<button type="button" class="'+(WF48INV.table===i+1?'chosen':'')+'" data-wf48-table="'+(i+1)+'">TABLE '+(i+1)+'</button>';}).join('')+'</div>';}
- function wf48SeatSelect(){return '<div class="wf48-table-screen"><div class="wf48-message-title">SELECT YOUR SEAT</div><div class="wf48-count"><strong>'+wf48Count()+' PLAYERS</strong> RESERVED</div>'+wf48TableTabs()+wf48Table()+'<div class="wf48-seat-hint">TAP AN OPEN SEAT · '+(WF48INV.seat?'SEAT '+WF48INV.seat:'NONE SELECTED')+'</div><div class="wf48-message-footer"><button type="button" data-rn-route="48:4">BACK</button><button type="button" class="primary" data-wf48-reserve="1">RESERVE SEAT</button></div><div class="wf48-status"></div></div>';}
- function wf48SeatConfirmed(){return '<div class="wf48-table-screen"><div class="wf48-message-title">SEAT RESERVED</div><div class="wf48-confirm-top">ARRIVAL '+e(WF48INV.arrival)+' · TABLE '+WF48INV.table+' · SEAT '+(WF48INV.seat||'—')+'</div>'+wf48Table()+'<div class="wf48-count"><strong>'+wf48Count()+' PLAYERS</strong> RESERVED SEATS</div><div class="wf48-message-footer wf48-confirm-actions"><button type="button" data-wf48-change="1">CHANGE</button><button type="button" data-wf48-cancel="1">CANCEL RSVP</button><button type="button" class="primary" data-wf48-done="1">DONE</button></div><div class="wf48-status"></div></div>';}
+ function wf48SeatSelect(){return '<div class="wf48-table-screen"><div class="wf48-message-title">SELECT YOUR SEAT</div><div class="wf48-count"><strong>'+wf48Count()+' PLAYERS</strong> RESERVED</div>'+wf48TableTabs()+wf48Table()+'<div class="wf48-seat-hint">'+(WF48INV.seat?'SELECTED: TABLE '+WF48INV.table+' · SEAT '+WF48INV.seat:'TAP AN OPEN SEAT TO CHOOSE')+'+'</div><div class="wf48-message-footer"><button type="button" data-rn-route="48:4">BACK</button><button type="button" class="primary" data-wf48-reserve="1">RESERVE SEAT</button></div><div class="wf48-status"></div></div>';}
+ function wf48SeatConfirmed(){return '<div class="wf48-table-screen"><div class="wf48-message-title">SEAT RESERVED</div><div class="wf48-confirm-top">ARRIVAL '+e(WF48INV.arrival)+' · TABLE '+WF48INV.table+' · SEAT '+(WF48INV.seat||'—')+'</div>'+wf48Table()+'<div class="wf48-count"><strong>'+wf48Count()+' PLAYERS</strong> RESERVED SEATS</div><div class="wf48-message-footer wf48-confirm-actions"><button type="button" data-wf48-change="1">CHANGE SEAT</button><button type="button" data-wf48-cancel="1">CANCEL RSVP</button><button type="button" class="primary" data-wf48-done="1">DONE</button></div><div class="wf48-status"></div></div>';}
  S[48]={sec:'SCHEDULE',nav:'Players',steps:['Schedule Session','Invitations','Select Players','Invitation Preview','Player RSVP','Choose Seat','Reserved Table'],heads:['Schedule Session','Invitations','Select Players','Invitation Preview','Player RSVP','Choose Seat','Reserved Table'],screens:[wf48Base,wf48InviteForm,wf48PlayerForm,wf48OwnerPreview,wf48GuestInvitation,wf48SeatSelect,wf48SeatConfirmed]};
  var wf48Def=WORKFLOWS.find(function(w){return w.id===48;});
  if(wf48Def)wf48Def.steps=S[48].steps.slice();
