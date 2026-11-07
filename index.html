@@ -2691,6 +2691,16 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
 .storyboard .st-phone .wf48-confirm-top{border:2px solid #3be0ae;background:#006e51;color:#fff;font-size:15px;font-weight:900;padding:9px;text-align:center}
 .storyboard .st-phone .wf48-status{font-size:12px;font-weight:900;color:#8af2c2}
 .storyboard .st-phone .wf48-status:empty{display:none}
+
+/* Crop badges already baked into illustrative photo assets; retain white names over photos, never bars */
+.storyboard .st-phone .wf48-player.has-photo .wf48-face img{
+ width:175%!important;height:175%!important;max-width:none!important;
+ left:-37.5%!important;top:-32%!important;object-fit:cover!important
+}
+.storyboard .st-phone .wf48-player.has-photo b{
+ background:none!important;background-color:transparent!important;
+ font-size:15px!important;text-shadow:0 1px 3px #00111b,0 0 4px #00111b!important
+}
 </style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
