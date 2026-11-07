@@ -2231,17 +2231,23 @@ html body .storyboard>.stage:has(.snap-phone){width:auto!important;min-width:0!i
 
 /* Nov 5 owner correction: hamburger is EXACTLY six direct main-section tabs. */
 .storyboard .phone .nn-six-only .nn-list{display:flex;flex-direction:column;gap:7px;padding:10px 8px;overflow-y:auto}
-.storyboard .phone .nn-six-only .nn-sh{flex:0 0 61px;min-height:61px;width:100%;font-size:18px}
+.storyboard .phone .nn-six-only .nn-sh{flex:0 0 57px;min-height:57px;width:100%;font-size:18px}
 .storyboard .phone .nn-six-only .nn-sh.nn-active{border-color:#00ed94;background:#005638}
 .storyboard .phone .nn-six-only .nn-sh.nn-live{background:#064a61;border-color:#36d7fc;color:#f9ffff;font-size:21px;font-weight:950;letter-spacing:.1px;min-height:64px;flex-basis:64px}
 .storyboard .phone .nn-six-only .nn-sh.nn-live svg{width:27px;height:27px;color:#5bf4e0}
 .storyboard .phone .nn-six-only .nn-sh.nn-active{border-color:#00ed94;background:#005638}
 .storyboard .phone .nn-six-only .nn-sh.nn-live.nn-active{background:#00634b;border-color:#35ffb2}
 .storyboard .phone .nn-six-only .nn-top{flex:0 0 50px}
-.storyboard .phone .nn-six-only .nn-footer{flex:0 0 72px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;padding:5px 7px;border-top:2px solid #1b6684;background:#04101e}
+.storyboard .phone .nn-six-only .nn-footer{flex:0 0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:7px 7px 7px;margin-top:8px;border-top:2px solid #1b6684;background:#04101e}
 .storyboard .phone .nn-six-only .nn-foot{min-width:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;padding:3px 0;background:#0a2a40;border:1px solid #1e6680;color:#fff;font-size:16px;font-weight:850;cursor:pointer;line-height:1}
 .storyboard .phone .nn-six-only .nn-foot svg{height:23px;width:23px;fill:currentColor;color:#4cddff}
-.storyboard .phone .nn-six-only .nn-avatar{height:27px;width:27px;display:grid;place-items:center;border-radius:50%;background:#1f8a86;border:2px solid #9ef9df;color:white;font-size:16px;font-weight:950}
+.storyboard .phone .nn-six-only .nn-foot.nn-profile{grid-column:1 / -1;flex-direction:row;justify-content:flex-start;gap:14px;padding:5px 10px;min-height:72px;text-align:left}
+.storyboard .phone .nn-six-only .nn-avatar{height:62px;width:52px;flex:0 0 52px;display:grid;place-items:center;border-radius:0;background:#17395a;border:3px solid #4cddff;color:white;font-size:28px;font-weight:950;overflow:hidden;position:relative}
+.storyboard .phone .nn-six-only .nn-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.4);transform-origin:90% 3%}
+.storyboard .phone .nn-six-only .nn-pt{display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.storyboard .phone .nn-six-only .nn-pn{font-size:22px;font-weight:900;line-height:1.05}
+.storyboard .phone .nn-six-only .nn-pt small{font-size:17px;font-weight:700;color:#b9d7e9}
+.storyboard .phone .nn-six-only .nn-foot:not(.nn-profile){flex-direction:row;gap:10px;min-height:44px}
 .storyboard .phone .nn-six-only .nn-info{padding:14px 12px;font-size:16px;color:#fff}
 .storyboard .phone .nn-six-only .nn-info>b{font-size:22px}
 .storyboard .phone .nn-six-only .nn-info p{font-size:16px;line-height:1.4;color:#d9e8f6}
@@ -2995,7 +3001,136 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
    Nora AI tiles/buttons (WF13-18), Snapshot (WF32-39), Daily Close (WF40-47) and Reports (WF67-71). One shared rule squares them; true circles (avatars, check icons, mic) are not listed and stay round. */
 .storyboard .phone :where(.nora-ai-tile,.wf32-footer-button,.wf32-return,.wf32-total,.wf32-chiplink,.wf32-tap,.wf32-metadata,.wf32-profit-card,.nr-btn,.dc-next,.dc-panel,.dc-tile,.dc-readiness){border-radius:0!important}
 </style>
-</head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
+<script id="nora-lucide">
+/* NORA icon family for the four action icons (plus, search, camera, upload): Lucide-style, 24px grid, 2.25 stroke, round joins. */
+window.NORA_LU={
+ cam:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',
+ upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/>',
+ search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+ plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',
+ userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>'
+};
+window.noraLuc=function(n,cls){return '<svg class="'+(cls||'')+' b1-lu b1-lu-'+n+'" data-lu="'+n+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+window.NORA_LU[n]+'</svg>';};
+</script>
+<script id="nora-team2">
+/* WF19-24 team workflow (batch 2). One shared, internally consistent sample dataset (matches the Snapshot staff data: Anna 150,000 earned,
+   100,000 advance, 15,000 chip tips; Costa 120,000 earned, 120,000 outstanding; Alex 90,000 earned). Prototype only - nothing here is a live posting. */
+window.NORA_TEAM2=(function(){
+ var M={Anna:{role:'Dealer',table:'Table 1',start:'7:00 PM',earn:150000,tips:15000,adv:100000,out:0},
+  Costa:{role:'Host',table:'Table 1',start:'7:10 PM',earn:120000,tips:10000,adv:0,out:120000},
+  Alex:{role:'Cashier',table:'Cash desk',start:'7:00 PM',earn:90000,tips:5000,adv:0,out:0},
+  Maya:{role:'Waitress'},Luis:{role:'Chef'},Sofia:{role:'Dealer'},Pablo:{role:'Dealer'},Lena:{role:'Waitress'},Tomas:{role:'Host'},Elena:{role:'Cashier'},Hugo:{role:'Chef'},Carla:{role:'Dealer'}};
+ var H={};
+ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+ function n(v){return Number(v).toLocaleString('en-US');}
+ function money(v){return '<i class="b1-cop">COP</i>'+n(v);}
+ function face(name){var p=H.LP&&H.LP[name];return '<span class="b2-face">'+(p?'<img alt="'+esc(name)+'" src="'+p+'">':'<span class="b2-ini">'+esc(name.charAt(0))+'</span>')+'</span>';}
+ var STAT={on:'ON SHIFT',asg:'ASSIGNED',out:'CHECKED OUT',off:'AVAILABLE'};
+ function tile(name,st,time,route){
+  return '<div class="b2-tm '+st+'" role="button" tabindex="0" data-rn-route="'+route+'">'+face(name)+'<span class="b2-st">'+STAT[st]+'</span><span class="b2-nm">'+esc(name)+'</span><span class="b2-rl">'+esc(M[name].role)+'</span>'+(time?'<span class="b2-tt">'+time+'</span>':'')+'</div>';}
+ function overview(id,state){ // state: pre | assigned | checkedin | closed
+  var s={Costa:['on','7:10 PM'],Alex:['on','7:00 PM'],Anna:['off',''],Maya:['off',''],Luis:['off',''],Sofia:['off','']};
+  if(state==='assigned')s.Anna=['asg','7:00 PM'];
+  if(state==='checkedin')s.Anna=['on','7:00 PM'];
+  if(state==='closed')s.Anna=['out','12:30 AM'];
+  var on=0,asg=0,out=0;Object.keys(s).forEach(function(k){if(s[k][0]==='on')on++;if(s[k][0]==='asg')asg++;if(s[k][0]==='out')out++;});
+  var order=['Anna','Costa','Alex','Maya','Luis','Sofia'];
+  return '<div class="b2-wrap"><div class="b2-stats"><div class="b2-stat on"><b>'+on+'</b><span>ON SHIFT</span></div><div class="b2-stat asg"><b>'+asg+'</b><span>ASSIGNED</span></div><div class="b2-stat out"><b>'+out+'</b><span>FINISHED</span></div></div>'
+   +'<div class="b2-grid">'+order.map(function(k){return tile(k,s[k][0],s[k][1],id+':1');}).join('')+'</div>'
+   +'<div class="screen-button blue b2-btn" role="button" tabindex="0" data-rn-route="19:1">'+H.ic('userplus')+'ASSIGN TEAM</div></div>';}
+ function idCard(name,o){
+  var m=M[name];return '<div class="b2-id"><div class="b2-photo">'+face(name)+'</div><div class="b2-idt"><b class="b2-n">'+esc(name)+'</b><span class="b2-r">'+esc(o.line||m.role+' · '+m.table)+'</span><em class="b2-chip '+o.cls+'">'+esc(o.status)+'</em>'+(o.k?'<small>'+o.k+'</small><strong>'+o.v+'</strong>':'')+'</div></div>';}
+ function row(k,v,cls){return '<div class="b2-row '+(cls||'')+'"><span>'+k+'</span><b>'+v+'</b></div>';}
+ function sel(label,opts,cur,rate){
+  var o=JSON.stringify(opts.map(function(x){return typeof x==='string'?{l:x}:x;}));
+  var c=opts[cur],cl=typeof c==='string'?c:c.l;
+  return '<div class="b2-fld"><span class="b2-k">'+label+'</span><button type="button" class="b1-seltile b2-sel" data-b2-opts=\''+esc(o).replace(/&quot;/g,'&quot;')+'\' data-b2-i="'+cur+'"'+(rate?' data-b2-rate="'+rate+'"':'')+' aria-label="'+label+'"><span class="b1-v">'+esc(cl)+'</span>'+H.chev+'</button></div>';}
+ function amount(label,v){return '<div class="b2-fld"><span class="b2-k">'+label+'</span><div class="b2-amt">'+money(v)+'</div></div>';}
+ function btn(label,route,cls){return '<div class="screen-button '+(cls||'green')+' b2-btn" role="button" tabindex="0" data-rn-route="'+route+'">'+label+'</div>';}
+ function hero(title,sub,tone){return '<div class="b2-hero '+(tone||'')+'"><div class="b2-check">'+(tone==='amber'?'!':'&#10003;')+'</div><b>'+title+'</b><span>'+sub+'</span></div>';}
+ function select12(){
+  var names=['Anna','Costa','Alex','Maya','Luis','Sofia','Pablo','Lena','Tomas','Elena','Hugo','Carla'];
+  var h=document.createElement('div');h.innerHTML=H.sharedRoster('SELECT TEAM MEMBER');
+  var g=h.querySelector('.seat-roster-grid');
+  g.className='b2-grid b2-sel12';g.innerHTML=names.map(function(k){var sel=k==='Anna';return '<div class="b2-tm pick'+(sel?' selected':'')+'" role="button" tabindex="0" data-rn-route="19:2" aria-pressed="'+(sel?'true':'false')+'">'+face(k)+(sel?'<i class="b2-tick">&#10003;</i>':'')+'<span class="b2-nm">'+esc(k)+'</span><span class="b2-rl">'+esc(M[k].role)+'</span></div>';}).join('');
+  var out=h.innerHTML.replace(/Add player/g,'Add team member').replace(/Search players/g,'Search team members').replace(/placeholder="Search team members…"/,'placeholder="Search team members…"');
+  return out;}
+ function render(id,type,i,helpers){
+  H=helpers;var A=M.Anna;
+  /* ---------- WF19 Add / assign team member ---------- */
+  if(id===19){
+   if(i===0)return overview(19,'pre');
+   if(i===1)return select12();
+   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{status:'NOT ASSIGNED YET',cls:'off',line:'Dealer',k:'TONIGHT',v:'Sunday Hold’em'})
+    +'<div class="b2-two">'+sel('ROLE',['Dealer','Host','Cashier','Waitress','Chef'],0)+sel('TABLE',['Table 1','Table 2','Cash desk','All tables'],0)+'</div>'
+    +sel('PAY ARRANGEMENT',[{l:'Fixed shift pay',s:'From staff profile',r:'COP 150,000 per shift'},{l:'Hourly pay',s:'Owner sets rate',r:'Hourly rate set by owner'},{l:'Custom shift pay',s:'Owner sets amount',r:'Amount set by owner per shift'}],0,'#b2rate')
+    +'<div class="b2-note"><b id="b2rate">COP 150,000 per shift</b><span>Assigning does not check in or pay anyone.</span></div>'
+    +btn('ASSIGN ANNA','19:3')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('ANNA ASSIGNED','Successfully posted by Nora')+idCard('Anna',{status:'ASSIGNED · NOT CHECKED IN',cls:'asg'})
+    +'<div class="b2-rows">'+row('PAY ARRANGEMENT','Fixed shift pay · '+money(A.earn),'stack')+row('TEAM TONIGHT','2 on shift · 1 assigned','stack')+'</div>'
+    +btn('BACK TO TEAM','20:0','blue')+'</div>';
+  }
+  /* ---------- WF20 Check-in / start shift ---------- */
+  if(id===20){
+   if(i===0)return overview(20,'assigned');
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'ASSIGNED · NOT CHECKED IN',cls:'asg',k:'SCHEDULED START',v:'7:00 PM'})
+    +'<div class="b2-rows">'+row('PAY TYPE','Fixed shift pay')+row('PAY PER SHIFT',money(A.earn))+row('HOURS TODAY','0h 00m')+row('EARNED SO FAR',money(0))+'</div>'+btn('CHECK IN','20:2')+'</div>';
+   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{status:'ASSIGNED · NOT CHECKED IN',cls:'asg'})
+    +'<div class="b2-two">'+sel('ROLE',['Dealer','Host','Cashier','Waitress','Chef'],0)+sel('TABLE',['Table 1','Table 2','Cash desk'],0)+'</div>'
+    +sel('START TIME',['7:00 PM','Now','7:15 PM','7:30 PM'],0)
+    +'<div class="b2-note"><b>Check-in starts the shift clock</b><span>Anna counts as ON SHIFT and earns from this time. Nothing is paid by checking in.</span></div>'
+    +btn('CHECK IN ANNA','20:3')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('ANNA CHECKED IN','Successfully posted by Nora')+idCard('Anna',{status:'ON SHIFT',cls:'on',k:'SHIFT STARTED',v:'7:00 PM'})
+    +'<div class="b2-rows">'+row('TEAM TONIGHT','3 on shift · 0 assigned')+row('POSTED BY','Alex · 7:00 PM')+'</div>'+btn('BACK TO TEAM','21:0','blue')+'</div>';
+  }
+  /* ---------- WF21 Chip tips ---------- */
+  if(id===21){
+   if(i===0)return overview(21,'checkedin');
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'ON SHIFT',cls:'on',k:'SHIFT START',v:'7:00 PM'})
+    +'<div class="b2-rows">'+row('HOURS TONIGHT','5h 30m')+row('COMPENSATION EARNED',money(A.earn))+row('CHIP TIPS TONIGHT',money(0))+'</div>'+btn('RECORD CHIP TIP','21:2')+'</div>';
+   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{status:'ON SHIFT',cls:'on'})+amount('TIP AMOUNT',A.tips)+sel('SOURCE',['Table tips · Chips','Cashbox tip jar'],0)
+    +'<div class="b2-note"><b>Chip tips</b><span>Posted to Anna’s record and tracked separately from her compensation.</span></div>'+btn('POST CHIP TIP','21:3')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('CHIP TIP POSTED','Successfully posted by Nora')+idCard('Anna',{status:'ON SHIFT',cls:'on'})
+    +'<div class="b2-rows">'+row('TIP POSTED',money(A.tips)+' · Chips')+row('ANNA’S TIPS TONIGHT',money(A.tips))+row('POSTED BY','Alex · 11:10 PM')+'</div>'+btn('BACK TO TEAM','22:0','blue')+'</div>';
+  }
+  /* ---------- WF22 Payments / advances ---------- */
+  if(id===22){
+   if(i===0)return overview(22,'checkedin');
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'ON SHIFT',cls:'on',k:'EARNED SO FAR',v:money(A.earn)})
+    +'<div class="b2-rows">'+row('COMPENSATION EARNED',money(A.earn))+row('CHIP TIPS',money(A.tips))+row('ADVANCES PAID',money(0))+row('BALANCE',money(A.earn))+'</div>'+btn('RECORD PAYMENT / ADVANCE','22:2')+'</div>';
+   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{status:'ON SHIFT',cls:'on'})+'<div class="b2-two">'+sel('TYPE',['Advance','Payment'],0)+sel('ACCOUNT',['Cashbox','Nequi','Bancolombia'],0)+'</div>'+amount('AMOUNT',A.adv)
+    +'<div class="b2-note"><b>An advance is not a checkout</b><span>It reduces Anna’s balance. The shift stays open.</span></div>'+btn('POST ADVANCE','22:3')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('ADVANCE POSTED','Successfully posted by Nora')+idCard('Anna',{status:'ON SHIFT',cls:'on'})
+    +'<div class="b2-rows">'+row('ADVANCE',money(A.adv)+' · Cashbox')+row('BALANCE AFTER ADVANCE',money(A.earn-A.adv))+row('POSTED BY','Alex · 8:30 PM')+'</div>'+btn('BACK TO TEAM','23:0','blue')+'</div>';
+  }
+  /* ---------- WF23 Checkout / end shift ---------- */
+  if(id===23){
+   var total=A.earn+A.tips,paid=A.adv+A.tips,bal=total-paid;
+   if(i===0)return overview(23,'checkedin');
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'ON SHIFT',cls:'on',k:'HOURS WORKED',v:'5h 30m'})
+    +'<div class="b2-rows">'+row('COMPENSATION EARNED',money(A.earn))+row('TIPS EARNED',money(A.tips))+row('ADVANCES PAID',money(A.adv))+row('BALANCE TO PAY',money(bal))+'</div>'+btn('CHECK OUT','23:2')+'</div>';
+   if(i===2)return '<div class="b2-wrap b2-tight">'+idCard('Anna',{status:'ON SHIFT',cls:'on',line:'Dealer · 5h 30m',k:'7:00 PM – 12:30 AM',v:'Fixed shift pay'})
+    +'<div class="b2-rows b2-math">'+row('COMPENSATION',money(A.earn))+row('TIPS',money(A.tips))+row('TOTAL DUE',money(total),'tot')+row('PAID BEFORE','&minus;'+money(paid))+row('BALANCE TO PAY',money(bal),'tot')+'</div>'
+    +sel('PAY NOW · Cashbox',[{l:'COP '+n(bal),s:'Pay full balance'},{l:'COP 0',s:'Close shift · unpaid stays outstanding'}],0)
+    +btn('CONFIRM CHECKOUT','23:3')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('SHIFT CLOSED','Successfully posted by Nora')+idCard('Anna',{status:'CHECKED OUT 12:30 AM',cls:'out'})
+    +'<div class="b2-rows">'+row('PAID · CASHBOX',money(bal))+row('OUTSTANDING',money(0),'ok')+row('SHIFT · BALANCE','CLOSED · PAID')+'</div>'+btn('BACK TO TEAM','24:0','blue')+'</div>';
+  }
+  /* ---------- WF24 Earnings and balances ---------- */
+  if(id===24){
+   if(i===0)return overview(24,'closed');
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'CHECKED OUT',cls:'out',k:'HOURS WORKED',v:'5h 30m'})
+    +'<div class="b2-rows">'+row('COMPENSATION EARNED',money(A.earn))+row('TIPS EARNED',money(A.tips))+row('PAID (ADVANCE + CHECKOUT)',money(150000))+row('OUTSTANDING',money(0),'ok')+'</div>'+btn('TEAM EARNINGS','24:2')+'</div>';
+   var L=[['Anna','CHECKED OUT',A.earn,A.tips,150000,0],['Costa','ON SHIFT',120000,10000,0,120000],['Alex','ON SHIFT',90000,5000,90000,0]];
+   return '<div class="b2-wrap b2-led">'+L.map(function(r){return '<div class="b2-lc"><div class="b2-lp">'+face(r[0])+'</div><div class="b2-lt"><b class="b2-n">'+r[0]+'</b><span class="b2-r">'+M[r[0]].role+' · 5h 30m</span>'
+     +'<div class="b2-lr"><span>EARNED</span><b>'+money(r[2])+'</b></div><div class="b2-lr"><span>PAID</span><b>'+money(r[4])+'</b></div><div class="b2-lr '+(r[5]?'bad':'ok')+'"><span>UNPAID</span><b>'+money(r[5])+'</b></div></div></div>';}).join('')
+    +'<div class="b2-tot"><span>TOTAL EARNED</span><b>'+money(360000)+'</b><span>OUTSTANDING</span><b class="bad">'+money(120000)+'</b></div></div>';
+  }
+  return null;}
+ return {render:render,M:M};
+})();
+</script>
+</head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Game</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
     "main": "Live Session",
@@ -3243,10 +3378,10 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
     "sub": "Team",
     "title": "Add or assign team member",
     "steps": [
-      "Open Team tab",
-      "Choose Add / Assign",
-      "Select existing or add new team member",
-      "Confirm assignment"
+      "Team overview",
+      "Select team member",
+      "Assign team",
+      "Assignment posted"
     ],
     "status": "draft"
   },
@@ -3256,10 +3391,10 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
     "sub": "Team",
     "title": "Team check-in / start shift",
     "steps": [
-      "Open Team tab",
-      "Select team member",
-      "Choose Check In",
-      "Confirm shift start"
+      "Team overview",
+      "Team member",
+      "Check in",
+      "Checked in"
     ],
     "status": "draft"
   },
@@ -3269,10 +3404,10 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
     "sub": "Team",
     "title": "Record team tips",
     "steps": [
-      "Open team member details",
-      "Choose Tips",
-      "Enter chip tips amount",
-      "Confirm and update team record"
+      "Team overview",
+      "Team member",
+      "Record chip tip",
+      "Tip posted"
     ],
     "status": "draft"
   },
@@ -3282,10 +3417,10 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
     "sub": "Team",
     "title": "Record team payments / advances",
     "steps": [
-      "Select team member",
-      "Choose Payment / Advance",
-      "Enter amount and payment method",
-      "Confirm and update balances"
+      "Team overview",
+      "Team member",
+      "Payment / advance",
+      "Advance posted"
     ],
     "status": "draft"
   },
@@ -3295,10 +3430,10 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
     "sub": "Team",
     "title": "Team checkout / end shift",
     "steps": [
-      "Select checked-in team member",
-      "Choose Checkout",
-      "Review hours, tips and advances",
-      "Confirm final settlement"
+      "Team overview",
+      "Team member",
+      "Review checkout",
+      "Shift closed"
     ],
     "status": "draft"
   },
@@ -3308,9 +3443,9 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
     "sub": "Team",
     "title": "Review team earnings and balances",
     "steps": [
-      "Open Team tab",
-      "Select team member or review summary",
-      "Inspect earnings and outstanding balances"
+      "Team overview",
+      "Team member",
+      "Earnings and balances"
     ],
     "status": "draft"
   },
@@ -3672,7 +3807,7 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
     "id": 53,
     "main": "Scheduled",
     "sub": "Games & RSVPs",
-    "title": "Move scheduled game into Live Session",
+    "title": "Move scheduled game into Live Game",
     "steps": [
       "Open scheduled game",
       "Choose Start Session",
@@ -3912,7 +4047,7 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
   }
 ];
 const displayId=id=>id;
-const storageKey='nora-ux-review-v4';let reviews={};try{const existing=localStorage.getItem(storageKey);if(existing){reviews=JSON.parse(existing)}else{const old=JSON.parse(localStorage.getItem('nora-ux-review-v3')||'{}');for(const [k,v] of Object.entries(old)){const id=Number(k);if(id!==12)reviews[id>12?id-1:id]=v}localStorage.setItem(storageKey,JSON.stringify(reviews))}}catch{}let current=1;const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const save=()=>{localStorage.setItem(storageKey,JSON.stringify(reviews));updateProgress();renderNav()};const review=id=>reviews[id]||{status:'pending',comment:''};function updateProgress(){let count=WORKFLOWS.filter(w=>review(w.id).status==='approved').length;$('progressText').textContent=count+' / '+WORKFLOWS.length;$('progressBar').style.width=count/WORKFLOWS.length*100+'%'}function renderNav(){let q=$('search').value.trim().toLowerCase();let groups=[];for(let w of WORKFLOWS){if(q&&!(`${w.id} ${w.title} ${w.main} ${w.sub}`).toLowerCase().includes(q))continue;let g=groups.find(g=>g.main===w.main);if(!g){g={main:w.main,subs:[]};groups.push(g)}let s=g.subs.find(s=>s.name===w.sub);if(!s){s={name:w.sub,items:[]};g.subs.push(s)}s.items.push(w)}$('nav').innerHTML=groups.map(g=>`<div class="navgroup"><div class="navtitle">${esc(g.main)} <small>${g.subs.reduce((n,s)=>n+s.items.length,0)} workflows</small></div>${g.subs.map(s=>`<div class="subheading">${esc(s.name)}</div>${s.items.map(w=>`<button class="navitem ${current===w.id?'active':''}" data-id="${w.id}"><span class="num">${String(w.id).padStart(2,'0')}</span><span>${esc(w.title)}</span><span class="dot ${esc(review(w.id).status)}"></span></button>`).join('')}`).join('')}</div>`).join('');document.querySelectorAll('.navitem').forEach(el=>el.onclick=()=>show(+el.dataset.id))}function workflowOneScreen(i){
+const MAINLBL=m=>({'Live Session':'Live Game','Scheduled':'Schedule'}[m]||m);const storageKey='nora-ux-review-v4';let reviews={};try{const existing=localStorage.getItem(storageKey);if(existing){reviews=JSON.parse(existing)}else{const old=JSON.parse(localStorage.getItem('nora-ux-review-v3')||'{}');for(const [k,v] of Object.entries(old)){const id=Number(k);if(id!==12)reviews[id>12?id-1:id]=v}localStorage.setItem(storageKey,JSON.stringify(reviews))}}catch{}let current=1;const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const save=()=>{localStorage.setItem(storageKey,JSON.stringify(reviews));updateProgress();renderNav()};const review=id=>reviews[id]||{status:'pending',comment:''};function updateProgress(){let count=WORKFLOWS.filter(w=>review(w.id).status==='approved').length;$('progressText').textContent=count+' / '+WORKFLOWS.length;$('progressBar').style.width=count/WORKFLOWS.length*100+'%'}function renderNav(){let q=$('search').value.trim().toLowerCase();let groups=[];for(let w of WORKFLOWS){if(q&&!(`${w.id} ${w.title} ${w.main} ${MAINLBL(w.main)} ${w.sub}`).toLowerCase().includes(q))continue;let g=groups.find(g=>g.main===w.main);if(!g){g={main:w.main,subs:[]};groups.push(g)}let s=g.subs.find(s=>s.name===w.sub);if(!s){s={name:w.sub,items:[]};g.subs.push(s)}s.items.push(w)}$('nav').innerHTML=groups.map(g=>`<div class="navgroup"><div class="navtitle">${esc(MAINLBL(g.main))} <small>${g.subs.reduce((n,s)=>n+s.items.length,0)} workflows</small></div>${g.subs.map(s=>`<div class="subheading">${esc(s.name)}</div>${s.items.map(w=>`<button class="navitem ${current===w.id?'active':''}" data-id="${w.id}"><span class="num">${String(w.id).padStart(2,'0')}</span><span>${esc(w.title)}</span><span class="dot ${esc(review(w.id).status)}"></span></button>`).join('')}`).join('')}</div>`).join('');document.querySelectorAll('.navitem').forEach(el=>el.onclick=()=>show(+el.dataset.id))}function workflowOneScreen(i){
 const people=[['1','Rafa','R','450K'],['2','Moshe','M','1.2M'],['3','Sam','S','500K'],['4','Costa','C','850K'],['5','Pikachu','P','750K'],['6','Uri','U','600K'],['7','Diego','D','450K'],['8','Alex','A','900K']];
 const tiles=people.map(([seat,name,initial,amount])=>`<div class="seat-tile"><small>SEAT ${seat}</small><div class="face">${initial}</div><b>${name}</b><div class="money">${amount}</div></div>`).join('')+`<div class="seat-tile open"><div class="plus">+</div><b>SEAT OPEN</b><small>SEAT 9</small></div><div class="seat-tile service"><div class="face">A</div><b>DEALER</b><small>Anna</small></div><div class="seat-tile open"><div class="plus">+</div><b>WAITLIST</b></div><div class="seat-tile open"><div class="plus">+</div><b>OPEN</b></div>`;
 const header=`<div class="phonehead"><small style="font-size:18px;color:#6adfff">☰</small><div style="text-align:center"><b>LIVE GAME</b><br><small>Table View</small></div><div class="avatar">N</div></div>`;
@@ -3946,7 +4081,7 @@ if(w.sub==='Snapshot'||w.sub==='Close'||w.main==='Reporting'||/report|balance|re
 if(w.sub==='Team'||w.main==='Team')return {active:'Team',body:listPanel('Team')};
 if(w.sub==='Expenses')return {active:'Expenses',body:listPanel('Expenses')};
 if(w.main==='Players'||w.sub==='Players')return {active:'Players',body:listPanel('Players')};
-if(w.main==='Scheduled')return {active:'Table',body:`<div class="ux-section">SCHEDULED GAMES</div><div class="ux-schedule"><small>NEXT GAME</small><b>SUNDAY POKER</b><strong>7:00 PM</strong><span>Provenza · RSVP by 6:00 PM</span></div>${actionButtons(['VIEW GUEST LIST','INVITE PLAYERS','EDIT GAME'])}`};
+if(w.main==='Scheduled')return {active:'Table',body:`<div class="ux-section">SCHEDULE</div><div class="ux-schedule"><small>NEXT GAME</small><b>SUNDAY POKER</b><strong>7:00 PM</strong><span>Provenza · RSVP by 6:00 PM</span></div>${actionButtons(['VIEW GUEST LIST','INVITE PLAYERS','EDIT GAME'])}`};
 if(w.main==='Settings')return {active:'Table',body:inputPanel('GAME SETTINGS',[['GAME TYPE','Hold’em'],['TABLES','1'],['RAKE','Configured']],'SAVE SETTINGS')};
 if(last&&w.sub==='Table')return {active:'Table',body:miniTable()};
 return {active,body:inputPanel(w.title.toUpperCase(),[['PLAYER','Diego Restrepo'],['ACTION',step],['STATUS',last?'Completed':'Ready']],'CONFIRM')};}
@@ -3995,8 +4130,8 @@ function authoredContent(w,step,i){
  case 'cashout-entry':if(w.id===6)return '<div class="co6"><div class="approved-player-profile co6-profile">'+portrait('Diego R.','D',true)+'<div class="approved-player-info"><strong>Diego Restrepo</strong><b>SEAT 7</b><span>TOTAL BUY-INS</span><strong class="approved-player-amount"><span class="currency-code">COP</span> 450,000</strong></div></div><div class="co6-card"><div class="co6-title">FULL CASH-OUT</div><div class="co6-label">CHIPS RETURNED</div><div class="co6-input-row"><span class="co6-currency">COP</span><input type="text" inputmode="numeric" value="720,000" aria-label="Value of chips returned" oninput="let digits=this.value.replace(/[^0-9]/g,&#39;&#39;);this.value=digits?Number(digits).toLocaleString(&#39;en-US&#39;):&#39;&#39;;this.closest(&#39;.co6&#39;).querySelector(&#39;.co6-busted&#39;).classList.toggle(&#39;active&#39;,digits===&#39;0&#39;);let v=Number(digits||0),delta=v-450000,root=this.closest(&#39;.co6&#39;);root.querySelector(&#39;.co6-result b&#39;).innerHTML=(delta>=0?&#39;<i class=co6-wl>WON</i>&#39;:&#39;<i class=co6-lost>LOST</i>&#39;)+&#39;<small>COP</small> &#39;+Math.abs(delta).toLocaleString(&#39;en-US&#39;);root.querySelector(&#39;.co6-confirm&#39;).innerHTML=&#39;CONFIRM DIEGO PAID<br><small>COP</small> &#39;+v.toLocaleString(&#39;en-US&#39;)"></div><button type="button" class="co6-busted" onclick="this.closest(\'.co6\').querySelector(\'.co6-input-row input\').value=\'0\';this.classList.add(\'active\');this.closest(\'.co6\').querySelector(\'.co6-input-row input\').dispatchEvent(new Event(\'input\',{bubbles:true}))">BUSTED · 0 CHIPS</button><div class="co6-result"><span>PLAYER RESULT</span><b><i class=co6-wl>WON</i><small>COP</small> 270,000</b></div><div class="co6-payment-title">PAYMENT METHOD</div><div class="co6-payment"><span class="co6-pay-chip">✓ Cashbox</span></div></div><button class="co6-confirm">CONFIRM DIEGO PAID<br><small>COP</small> 720,000</button></div>';return profile+screenForm('FULL CASH-OUT',[['TOTAL BUY-INS','COP 450,000'],['CHIPS RETURNED','COP 720,000'],['SIGN & SETTLE','COP 0'],['PAYMENT METHOD','Cashbox']],'CONFIRM CASH-OUT');
  case 'cashout-confirmation':return '<div class="co6-done"><div class="co6-done-brand"><strong>NORA</strong><span>YOUR CASH GAME MANAGER</span></div><div class="co6-done-detail"><strong>Diego Restrepo</strong><span>SEAT 7</span><div><span>PAID<br>CASHBOX</span><b><small>COP</small> 720,000</b></div><div class="co6-done-win"><span>WON</span><b><small>COP</small> 270,000</b></div></div><div class="screen-button co6-done-paid-next"><div class="co6-paid-status"><div class="co6-paid-stamp" aria-label="Paid in full"><span class="co6-stamp-stars">★ ★ ★</span><strong>PAID</strong><span class="co6-stamp-full">IN FULL</span></div><span>PAYMENT CONFIRMED</span></div><div class="co6-paid-summary"><strong>DIEGO RESTREPO</strong><span>PAID · CASHBOX</span><b><small>COP</small> 720,000</b></div><div class="co6-paid-continue">CONTINUE <span>→</span></div></div></div>';
  case 'bust-entry':return profile+screenForm('BUST OUT',[['CHIPS RETURNED','COP 0'],['TOTAL BUY-INS','COP 450,000'],['SIGN & SETTLE','Check outstanding balance']],'CONFIRM BUST-OUT');
- case 'move-swap-same':case 'move-swap-cross':{const cross=type==='move-swap-cross';const from=cross?'TABLE 1 · SEAT 3':'SEAT 3',to=cross?'TABLE 2 · SEAT 5':'SEAT 7';return '<div class="move7 move7-swap"><div class="swap7-heading">SWAP OCCUPIED SEATS <small>'+(cross?'TWO TABLES':'ONE TABLE')+'</small></div><div class="swap7-players"><div class="swap7-person">'+portrait('Diego R.','D',true)+'<div><strong>Diego Restrepo</strong><b>'+from+'</b></div></div><div class="swap7-arrow">⇄</div><div class="swap7-person">'+portrait('Rafa M.','R',true)+'<div><strong>Rafa Moreno</strong><b>'+to+'</b></div></div></div><div class="move7-panel swap7-panel"><div class="move7-heading">EXCHANGE SEATS</div>'+(cross?'<div class="move7-label">CHOOSE TABLE OF SECOND PLAYER</div><div class="move7-tables move7-multi-tabs"><span>TABLE 1</span><span class="selected">TABLE 2</span><span>TABLE 3</span></div>':'')+'<div class="move7-label">SELECT OCCUPIED SEAT</div><div class="swap7-choice"><span class="selected">SEAT '+(cross?'5':'7')+'<small>RAFA MORENO</small></span><span>SEAT '+(cross?'6':'8')+'<small>OTHER PLAYER</small></span></div><div class="swap7-summary"><div><b>DIEGO</b><span><em>'+from+' →</em> <em>'+to+'</em></span></div><div><b>RAFA</b><span><em>'+to+' →</em> <em>'+from+'</em></span></div></div></div><div class="move7-confirm">CONFIRM BOTH MOVES <span>⇄</span></div></div>';}
- case 'swap-confirmed':return '<div class="move7-done"><div class="move7-brand"><strong>NORA</strong><span>YOUR CASH GAME MANAGER</span></div><div class="move7-success"><div>✓</div><strong>SEATS SWAPPED</strong><span>Both player locations updated together</span></div><div class="move7-panel" style="flex:0 0 auto"><div class="move7-heading">NEW LOCATIONS</div><div class="swap7-summary"><div><b>DIEGO RESTREPO</b><span>TABLE 2 · SEAT 5</span></div><div><b>RAFA MORENO</b><span>TABLE 1 · SEAT 3</span></div></div></div><div class="move7-next">CONTINUE →</div></div>';
+ case 'move-swap-same':case 'move-swap-cross':{const cross=type==='move-swap-cross';const from=cross?'TABLE 1 · SEAT 3':'SEAT 3',to=cross?'TABLE 2 · SEAT 5':'SEAT 7';return '<div class="move7 move7-swap"><div class="swap7-heading">SWAP OCCUPIED SEATS <small>'+(cross?'TWO TABLES':'ONE TABLE')+'</small></div><div class="swap7-players"><div class="swap7-person">'+portrait('Diego R.','D',true)+'<div><strong>Diego Restrepo</strong><b>'+from+'</b></div></div><div class="swap7-arrow">⇄</div><div class="swap7-person">'+portrait('Rafa M.','R',true)+'<div><strong>Rafa Moreno</strong><b>'+to+'</b></div></div></div><div class="move7-panel swap7-panel"><div class="move7-heading">EXCHANGE SEATS</div>'+(cross?'<div class="move7-label">CHOOSE TABLE OF SECOND PLAYER</div><div class="move7-tables move7-multi-tabs"><span>TABLE 1</span><span class="selected">TABLE 2</span><span>TABLE 3</span></div>':'')+'<div class="move7-label">SELECT OCCUPIED SEAT</div><div class="swap7-choice"><span class="selected">SEAT '+(cross?'5':'7')+'<small>RAFA MORENO</small></span><span>SEAT '+(cross?'6':'8')+'<small>OTHER PLAYER</small></span></div><div class="swap7-summary"><div><b>DIEGO →</b><span><em>'+to+'</em></span></div><div><b>RAFA →</b><span><em>'+from+'</em></span></div></div></div><div class="move7-confirm">CONFIRM BOTH MOVES <span>⇄</span></div></div>';}
+ case 'swap-confirmed':return '<div class="move7-done"><div class="move7-brand"><strong>NORA</strong><span>YOUR CASH GAME MANAGER</span></div><div class="move7-success"><div>✓</div><strong>SEATS SWAPPED</strong><span>Both player locations updated together</span></div><div class="move7-panel" style="flex:0 0 auto"><div class="move7-heading">NEW SEATS</div><div class="swap7-summary"><div><b>DIEGO RESTREPO</b><span>TABLE 2 · SEAT 5</span></div><div><b>RAFA MORENO</b><span>TABLE 1 · SEAT 3</span></div></div></div><div class="move7-next">CONTINUE →</div></div>';
  case 'move-multitable':return '<div class="move7 move7-multi"><div class="move7-player">'+portrait('Diego R.','D',true)+'<div><strong>Diego Restrepo</strong><b>TABLE 1 · SEAT 7</b></div></div><div class="move7-panel"><div class="move7-heading">MOVE TO ANOTHER TABLE</div><div class="move7-label">SELECT DESTINATION TABLE</div><div class="move7-tables move7-multi-tabs"><span>TABLE 1 <small>8 SEATED</small></span><span class="selected">TABLE 2 <small>6 SEATED</small></span><span>TABLE 3 <small>5 SEATED</small></span></div><div class="move7-label">AVAILABLE SEATS · TABLE 2</div><div class="move7-seats move7-multi-seats"><div class="selected">3 <small>OPEN</small></div><div>8 <small>OPEN</small></div></div><div class="move7-route">FROM <b>TABLE 1 · SEAT 7</b><span>→</span> TO <b>TABLE 2 · SEAT 3</b></div></div><div class="move7-confirm">CONFIRM MOVE <span>→</span></div></div>';
  case 'move-choice':return '<div class="move7"><div class="move7-player">'+portrait('Diego R.','D',true)+'<div><strong>Diego Restrepo</strong><b>CURRENT SEAT 7</b></div></div><div class="move7-panel"><div class="move7-heading">CHANGE SEAT</div><div class="move7-label">SELECT ACTION</div><div class="move7-mode"><div class="move7-mode-tile"><strong>→ MOVE TO OPEN SEAT</strong><span>Choose an available seat</span></div><div class="move7-mode-tile"><strong>⇄ SWAP WITH PLAYER</strong><span>Exchange two occupied seats</span></div></div></div></div>';
  case 'move-entry':return '<div class="move7"><div class="move7-player">'+portrait('Diego R.','D',true)+'<div><strong>Diego Restrepo</strong><b>CURRENT SEAT 7</b></div></div><div class="move7-panel"><div class="move7-heading">MOVE TO OPEN SEAT</div><div class="move7-from">FROM <b>SEAT 7</b><span>→</span> TO <b>SEAT 9</b></div><div class="move7-label">SELECT AVAILABLE SEAT</div><div class="move7-seats"><div class="selected">9 <small>OPEN</small></div><div>10 <small>OPEN</small></div></div><div class="move7-multitable"><div class="move7-label">DESTINATION TABLE <small>(ONLY IF MULTIPLE TABLES ACTIVE)</small></div><div class="move7-tables"><span class="selected">TABLE A</span><span>TABLE B</span></div></div></div><div class="move7-confirm">CONFIRM MOVE <span>→</span></div></div>';
@@ -4066,7 +4201,7 @@ function authoredContent(w,step,i){
  case 'close-final':return screenCard('PERMANENT SESSION CLOSE',screenField('STATUS','Ready to close')+screenField('WARNING','This cannot be reopened'),'red')+screenBtn('CONFIRM PERMANENT CLOSE','red');
  case 'close-locked':return screenCard('SESSION PERMANENTLY CLOSED',screenField('STATUS','Locked · Read only')+screenField('REPORT','Available'),'green')+screenBtn('VIEW FINAL REPORT','blue');
  case 'close-report':return screenTiles([['BUY-INS','5,500,000'],['RAKE','780,000'],['EXPENSES','1,235,000'],['CHIP VARIANCE','50,000']]);
- case 'schedule':return screenTop('SCHEDULED GAMES','Upcoming')+screenCard('SUNDAY HOLD’EM',screenField('DATE','Sunday, Nov 1')+screenField('TIME','7:00 PM')+screenField('LOCATION','Provenza')+screenField('RSVP','By 6:00 PM'))+screenBtn('＋ SCHEDULE GAME','blue');
+ case 'schedule':return screenTop('SCHEDULE','Upcoming games')+screenCard('SUNDAY HOLD’EM',screenField('DATE','Sunday, Nov 1')+screenField('TIME','7:00 PM')+screenField('LOCATION','Provenza')+screenField('RSVP','By 6:00 PM'))+screenBtn('＋ SCHEDULE GAME','blue');
  case 'schedule-form':return screenForm('CREATE GAME',[['DAY','Sunday, Nov 1'],['START','7:00 PM'],['GAME','Hold’em'],['VENUE','Provenza']],'SAVE GAME');
  case 'schedule-review':return screenCard('SUNDAY HOLD’EM',screenField('START','7:00 PM')+screenField('GAME','Hold’em')+screenField('RSVP','6:00 PM'))+screenBtn('START SESSION');
  case 'invite-list':return screenTop('INVITE PLAYERS','Choose recipients')+people;
@@ -4131,15 +4266,28 @@ var CRM54_DATA=[
  {date:'Sunday · Oct 18, 2026',hours:'6h',result:'+750,000',entries:[['INITIAL BUY-IN','6:45 PM','1,000,000'],['CASH-OUT','12:45 AM','1,750,000']]}
 ];
 var CRM54_PLAYER='Diego R.',CRM54_SESSION=0;
+function crm54RewardsCfg(){var c={};try{c=JSON.parse(localStorage.getItem('nora.preview.rewards')||'{}')||{};}catch(x){}
+ var ref=!!c.referral,hrs=!!c.hours,on=!!c.on&&(ref||hrs);return {on:on,referral:on&&ref,hours:on&&hrs};}
 function crm54Profile(){
  var name=CRM54_PLAYER==='Diego R.'?'Diego Restrepo':CRM54_PLAYER,diego=name==='Diego Restrepo';
  var initials=name.split(' ').map(function(n){return n[0]}).join('').slice(0,2);
- var identity='<div class="crm56-identity crm-tile">'+portrait(name,initials,true)+'<div class="crm-tile-info"><b>'+esc(name)+'</b><div class="crm54-stats">'+crmStats(diego?'14':'—',diego?'62':'—')+'</div></div></div>';
- var row=function(k,v){return '<div class="crm56-row"><span>'+k+'</span><strong>'+v+'</strong></div>';};
- return identity+'<div class="crm56-card crm-contact">'+row('WHATSAPP',diego?'<a class="crm56-contact-link" href="https://wa.me/573001234567">+57 300 123 4567</a>':'Not provided')+row('EMAIL',diego?'<a class="crm56-contact-link" href="mailto:diego@example.com">diego@example.com</a>':'Not provided')+'</div>'
- +'<div class="crm56-card crm-money">'+row('LIFETIME WIN / LOSS',diego?'<span class="crm-pos"><small>COP</small> +2,150,000</span>':'—')+'</div>'
- +'<div class="crm56-actions"><button type="button" class="crm56-btn blue" data-rn-route="56:1">EDIT CONTACT</button></div>'
- +'<button type="button" class="crm56-btn green crm-cta" data-rn-route="54:2">SESSION HISTORY</button>';
+ var R=crm54RewardsCfg();
+ var tabs=R.on?'<div class="b2-subtabs" role="tablist"><button type="button" class="on" role="tab" aria-selected="true" data-b2-subtab="profile">PROFILE</button><button type="button" role="tab" aria-selected="false" data-b2-subtab="rewards">REWARDS</button></div>':'';
+ var id='<div class="b2-cid"><div class="b2-cphoto">'+portrait(name,initials,true)+'</div><div class="b2-cinfo"><b class="b2-cn">'+esc(name)+'</b>'+(diego?'<em class="b2-app">APP USER</em>':'')+'<div class="b2-cstats"><span>SESSIONS</span><strong>'+(diego?'14':'—')+'</strong><span>HOURS</span><strong>'+(diego?'62':'—')+'</strong></div></div></div>';
+ var row=function(k,v){return '<div class="b2-crow"><span>'+k+'</span><strong>'+v+'</strong></div>';};
+ var last=diego?'<span class="b2-la">Oct 25, 2026 · 10:20 PM</span><small>Cash-out · Sunday session</small>':'<span class="b2-la">—</span>';
+ var profile='<div class="b2-cpanel" data-b2-panel="profile">'+id
+  +'<div class="b2-ccard">'+'<div class="b2-crow b2-last"><span>LAST ACTIVE</span><strong>'+last+'</strong></div>'
+  +row('WHATSAPP',diego?'<a class="crm56-contact-link" href="https://wa.me/573001234567">+57 300 123 4567</a>':'Not provided')+row('EMAIL',diego?'<a class="crm56-contact-link" href="mailto:diego@example.com">diego@example.com</a>':'Not provided')
+  +'<div class="b2-crow"><span>LIFETIME</span><strong class="crm-pos">'+(diego?'+ <small class="b1-cop">COP</small> 2,150,000':'—')+'</strong></div></div>'
+  +'<div class="b2-cbtns"><button type="button" class="b2-cb" data-rn-route="56:1">EDIT CONTACT</button><button type="button" class="b2-cb go" data-rn-route="54:2">SESSION HISTORY</button></div></div>';
+ var dash='<small class="b2-nodata">Values appear when the program is configured</small>';
+ var prog=function(title,fields){return '<div class="b2-prog"><b>'+title+'</b>'+fields.map(function(f){return '<div class="b2-crow"><span>'+f+'</span><strong>—</strong></div>';}).join('')+'</div>';};
+ var rewards=R.on?'<div class="b2-cpanel" data-b2-panel="rewards" hidden>'
+  +(R.referral?prog('REFERRAL REWARDS',['REFERRED PLAYERS','QUALIFYING REFERRALS','REWARDS EARNED','REWARDS REDEEMED']):'')
+  +(R.hours?prog('PLAY-HOURS BONUS',['HOURS TOWARD BONUS','BONUS ELIGIBILITY','REMAINING TO NEXT REWARD']):'')
+  +dash+'</div>':'';
+ return tabs+profile+rewards;
 }
 function crm54History(){
  var name=CRM54_PLAYER==='Diego R.'?'Diego Restrepo':CRM54_PLAYER;
@@ -4151,7 +4299,7 @@ function crm54History(){
 }
 function crm54Transactions(){
  var d=CRM54_DATA[CRM54_SESSION]||CRM54_DATA[0],name=CRM54_PLAYER==='Diego R.'?'Diego Restrepo':CRM54_PLAYER;
- var items=d.entries.map(function(x){return '<div class="crm54-entry"><div><b>'+x[0]+'</b><strong><small>COP</small> '+x[2]+'</strong></div><span>'+x[1]+' · Posted by Alex · Cashier</span></div>';}).join('');
+ var items=d.entries.map(function(x){return '<div class="crm54-entry"><div><b>'+x[0]+'</b><strong><small>COP</small> '+x[2]+'</strong></div><span data-operator="Alex" data-operator-role="Cashier">'+x[1]+' · Posted by Alex</span></div>';}).join('');
  return '<div class="crm54-heading"><b>'+d.date+'</b><span>'+esc(name)+' · '+d.hours+'</span></div><div class="crm54-list">'+items+'</div>'
  +'<div class="crm54-total"><span>SESSION RESULT</span><strong class="'+(d.result[0]==='−'?'crm-neg':'crm-pos')+'">'+d.result[0]+' COP '+d.result.slice(1)+'</strong></div>';
 }
@@ -4315,6 +4463,7 @@ function sharedWizard(type){
 function screenContent(w,step,i){
  if(w.id<=11)return authoredContent(w,step,i);
  const spec=SCREEN_SPECS[w.id],type=spec.types[Math.min(i,spec.types.length-1)];
+ if(w.id>=19&&w.id<=24&&window.NORA_TEAM2){const tr=window.NORA_TEAM2.render(w.id,type,Math.min(i,spec.types.length-1),{LP:LOCAL_PORTRAITS,sharedRoster,esc,ic:k=>window.noraLuc(k,'b2-ic'),chev:'<svg class="b1-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>'});if(tr!=null)return tr;}
  if(w.id===59)return editableWizard(sharedWizard(type),type);
  if(type==='reports-ready')return screenCard('SAMPLE REPORT READY',sharedData([['Format','CSV'],['Report','Illustrative session summary'],['Data','Review sample · not live records']]),'green')+screenBtn('DOWNLOAD SAMPLE CSV');
  if(type==='reports-export')return screenForm('EXPORT SAMPLE REPORT',[['REPORT','Illustrative session summary'],['FORMAT','CSV · review preview'],['DATE','Oct 25']],'GENERATE SAMPLE EXPORT');
@@ -4376,6 +4525,7 @@ if(type==='crm-profile')return w.id===54?crmProfileTight():sharedCRMProfile(w.id
 WORKFLOWS.find(w=>w.id===59).steps=['Game basics','Game rules','Rake structure','Payment accounts','Optional modules','Team access','Review and finish'];
 SCREEN_SPECS[59].types=['onboarding','onboard-game','onboard-rake','onboard-payment','onboard-modules','onboard-team','onboard-done'];
 SCREEN_SPECS[54].types=['crm-list','crm-search','crm-profile','player-transactions'];
+SCREEN_SPECS[19].types=['tm-overview','tm-select','tm-assign','tm-assigned'];SCREEN_SPECS[20].types=['tm-overview','tm-profile','tm-checkin','tm-checkedin'];SCREEN_SPECS[21].types=['tm-overview','tm-profile','tm-tip','tm-tipposted'];SCREEN_SPECS[22].types=['tm-overview','tm-profile','tm-pay','tm-paid'];SCREEN_SPECS[23].types=['tm-overview','tm-profile','tm-checkout','tm-closed'];SCREEN_SPECS[24].types=['tm-overview','tm-profile','tm-earnings'];
 SCREEN_SPECS[13].types=['table','voice-record','voice-review','rebuy-review','table-rebuy'];
 SCREEN_SPECS[14].types=['table','text-command','voice-review','rebuy-review','table-rebuy'];
 
@@ -4383,7 +4533,7 @@ function sharedAccountLedger(){const h=document.createElement('div');h.innerHTML
 const SHARED_HEADERS={'rebuy-review':'Rebuy Confirmed',waitlist:'Wait List','waitlist-assign':'Seat from Wait List',
  'table':'Table View','table-rebuy':'Table View','table-cashout':'Table View','table-two':'Table 2','multi-tables':'Select Table',
  'voice-record':'Nora · Voice Note','voice-review':'Nora · Review Action','text-command':'Nora · Text Command','correction':'Correct Action','multi-review':'Nora · Review Actions','ask-nora':'Ask Nora','answer-nora':'Nora · Answer','error':'Nora · Action Not Recorded',
- 'team-list':'Team','team-select':'Select Team Member','team-assign':'Assign Team','team-profile':'Team Member','team-checkin':'Check-in','team-tip':'Chip Tips','team-payment':'Team Advance','team-checkout':'Checkout','team-summary':'Team Earnings',
+ 'tm-overview':'Team','tm-select':'Select Team Member','tm-assign':'Assign Team','tm-assigned':'Assignment Posted','tm-profile':'Team Member','tm-checkin':'Check-in','tm-checkedin':'Checked In','tm-tip':'Chip Tips','tm-tipposted':'Tip Posted','tm-pay':'Team Advance','tm-paid':'Advance Posted','tm-checkout':'Checkout','tm-closed':'Shift Closed','tm-earnings':'Team Earnings','team-list':'Team','team-select':'Select Team Member','team-assign':'Assign Team','team-profile':'Team Member','team-checkin':'Check-in','team-tip':'Chip Tips','team-payment':'Team Advance','team-checkout':'Checkout','team-summary':'Team Earnings',
  'expense-list':'Expenses','expense-entry':'Record Expense','expense-detail':'Expense Details','expense-review':'Review Expense',
  'service-menu':'Food & Beverage','service-item':'Sale Item','service-payment':'Sale Payment','service-comp':'Complimentary Item','service-confirm':'Item Recorded',
  'inventory-list':'Inventory','inventory-start':'Beginning Count','inventory-end':'Ending Count','inventory-summary':'Inventory Summary','inventory-variance':'Inventory Variance',
@@ -4452,7 +4602,7 @@ const SNAPSHOT_LABELS={overview:'Snapshot',ledger:'Session Ledger',tables:'Rake 
 function snapshotVisibleViews(){const m=SNAPSHOT_SESSION.modules;return ['overview','ledger','tables','team','expenses','accounts','chips',...(m.signSettle?['ss']:[]),...(m.inventory?['inventory']:[]),...(m.otherRevenue?['revenue']:[]),...(m.rewards?['rewards']:[]),'closed'];}
 function customPhone(w,step,i){if(w.id===54)return crm54Screen(w,step,i);if(w.id>=12&&w.id!==32)return harmonizedPhone(w,step,i);if(w.id===32)return snapshotStage(w,step,i);if(w.id===54)return crm56Screen(w,step,i);if(w.id===11&&i===1)return wf10Phone(w,step,1);if(w.id===10&&i>0)return wf10Phone(w,step,i);if(w.id===9&&i>0)return wf9Ledger(w,step,i);const sp=SCREEN_SPECS[w.id];const t=sp.types[Math.min(i,sp.types.length-1)];let active=w.main==='Live Session'?({Team:'Team',Expenses:'Expenses',Snapshot:'Snapshot',Close:'Close'}[w.sub]||'Table'):w.main==='Players'?'Players':w.main==='Team'?'Team':w.main==='Reporting'?'Snapshot':'Table';let title=w.main==='Live Session'?'LIVE GAME':w.main.toUpperCase();let subtitle=w.main==='Live Session'?(w.sub==='Table'?(['table','table-rebuy','table-cashout','table-moved'].includes(t)?'Table View':t==='quick-actions'?'Player Actions':t.includes('rebuy')?'Rebuy':t==='seat-entry'||t==='seat-review'?'Initial Buy-in':t.includes('cashout')?'Cash-out':'Table View'):w.sub==='Nora AI'?'Nora AI':w.sub==='Close'?'Daily Close':w.sub):w.main==='Settings'?'Settings':w.sub;return `<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">${i+1}</div><div class="stage-title">${esc(step)}</div></div><div class="phone hi-phone"><div class="notch"></div>${fullHead(title,subtitle)}<div class="ux-content screen-specific">${screenContent(w,step,i)}</div>${fixedNav(w.main==='Reporting'?'Overview':w.main==='Settings'?'Profile':active,w.main==='Reporting'?'Reporting':w.main==='Settings'?'Settings':'Live Session')}</div><p class="steptext">${esc(sp.focus)} · ${esc(sp.values)}</p></div>`}
 
-function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;if(w.id===32)w.steps=snapshotVisibleViews().map(v=>SNAPSHOT_LABELS[v]);location.hash='workflow-'+id;let r=review(id);$('breadcrumb').textContent=`NORA / ${w.main} / ${w.sub}`;$('content').innerHTML=`<h1>${String(id).padStart(2,'0')}. ${esc(w.title)}</h1><p class="intro">Review the intended interaction in the same order a person would use it inside NORA. Swipe horizontally to see every step.</p><div class="meta"><span>${esc(w.main)}</span><span>${esc(w.sub)}</span><span>${w.steps.length} steps</span><span>Workflow ${id} of ${WORKFLOWS.length}</span></div><div class="sectionlabel">Step-by-step mobile storyboard →</div><div class="storyboard">${w.steps.map((s,i)=>customPhone(w,s,i)).join('')}</div><div class="notice"><b>Review rule:</b> These are proposed NORA screens, not production screenshots or an interactive NORA app. Some screens require further business-rule and layout verification. Screen layouts and financial actions require your approval. The sequence and UI details require your approval. The existing live NORA app is not affected.${id===1?' <b>Workflow #1:</b> This is a screen-specific design proposal using illustrative player names and avatars, not production player photos. It requires your approval before developer handoff.':''}${id===5?' <b>Rebuy rule:</b> Show cumulative total buy-ins, never a supposed current physical chip stack.':''}</div><div class="review"><div class="panel"><h2>Decision</h2><div class="statusbuttons"><button data-status="pending" class="${r.status==='pending'?'selected pending':''}">Not reviewed</button><button data-status="approved" class="${r.status==='approved'?'selected approved':''}">✓ Approve</button><button data-status="changes" class="${r.status==='changes'?'selected changes':''}">✎ Needs changes</button></div><div class="saveinfo">Your decision is saved automatically on this device.</div></div><div class="panel"><h2>Comments / corrections</h2><label for="comments">What should change in this workflow?</label><textarea id="comments" placeholder="Example: Remove step 3. Make the amount larger. Keep the existing Table View.">${esc(r.comment)}</textarea><div class="saveinfo">Comments save as you type. Export to share them with the developer.</div></div></div><div class="footeractions"><button class="secondary" id="prev" ${id===1?'disabled':''}>← Previous</button><button class="primary" id="next" ${id===71?'disabled':''}>Next workflow →</button></div><p class="disclaimer">Prototype for review only. No connection to NORA’s production ledger, accounts, or player data.</p>`;document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{reviews[id]={...review(id),status:b.dataset.status};save();show(id)});$('comments').oninput=e=>{reviews[id]={...review(id),comment:e.target.value};save()};$('prev').onclick=()=>show(Math.max(1,id-1));$('next').onclick=()=>show(Math.min(71,id+1));renderNav();$('sidebar').classList.remove('open');window.scrollTo(0,0)}function showAll(){current=0;$('breadcrumb').textContent='NORA / All workflows';$('content').innerHTML=`<h1>All 71 workflows</h1><p>Grouped by NORA's main navigation, with Live Session ordered Table → Nora AI → Team → Expenses → Snapshot → Close. Choose any workflow to review.</p><div class="allindex">${WORKFLOWS.map(w=>`<button class="indexcard" data-id="${w.id}"><small>${esc(w.main)} / ${esc(w.sub)}</small><strong>${w.id}. ${esc(w.title)}</strong><small>${esc(review(w.id).status)}</small></button>`).join('')}</div>`;document.querySelectorAll('.indexcard').forEach(b=>b.onclick=()=>show(+b.dataset.id));renderNav();$('sidebar').classList.remove('open')}function download(name,content){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'application/json'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}$('exportbtn').onclick=()=>download('nora-ux-review-decisions.json',JSON.stringify({app:'NORA UX Review',version:1,exported:new Date().toISOString(),reviews},null,2));$('importbtn').onclick=()=>$('importfile').click();$('importfile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let data=JSON.parse(await f.text());if(!data.reviews||typeof data.reviews!=='object')throw Error('Invalid review file');if(!confirm('Import reviews from this file? This replaces reviews saved on this device.'))return;reviews=data.reviews;save();current?show(current):showAll();alert('Reviews imported successfully.')}catch(err){alert('Could not import: '+err.message)}e.target.value=''};$('allbtn').onclick=showAll;$('menubtn').onclick=()=>$('sidebar').classList.toggle('open');$('search').oninput=renderNav;updateProgress();let match=location.hash.match(/workflow-(\d+)/);show(match?Math.max(1,Math.min(WORKFLOWS.length,+match[1])):1);window.addEventListener('hashchange',function(){var m=location.hash.match(/workflow-(\d+)/);if(!m)return;var n=Math.max(1,Math.min(WORKFLOWS.length,+m[1]));if(n!==current)show(n);});/* browser Back/Forward and pasted #workflow-N links now switch workflows in an open tab (show() only writes the hash, so there is no loop) */</script><script>
+function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;if(w.id===32)w.steps=snapshotVisibleViews().map(v=>SNAPSHOT_LABELS[v]);location.hash='workflow-'+id;let r=review(id);$('breadcrumb').textContent=`NORA / ${MAINLBL(w.main)} / ${w.sub}`;$('content').innerHTML=`<h1>${String(id).padStart(2,'0')}. ${esc(w.title)}</h1><p class="intro">Review the intended interaction in the same order a person would use it inside NORA. Swipe horizontally to see every step.</p><div class="meta"><span>${esc(MAINLBL(w.main))}</span><span>${esc(w.sub)}</span><span>${w.steps.length} steps</span><span>Workflow ${id} of ${WORKFLOWS.length}</span></div><div class="sectionlabel">Step-by-step mobile storyboard →</div><div class="storyboard">${w.steps.map((s,i)=>customPhone(w,s,i)).join('')}</div><div class="notice"><b>Review rule:</b> These are proposed NORA screens, not production screenshots or an interactive NORA app. Some screens require further business-rule and layout verification. Screen layouts and financial actions require your approval. The sequence and UI details require your approval. The existing live NORA app is not affected.${id===1?' <b>Workflow #1:</b> This is a screen-specific design proposal using illustrative player names and avatars, not production player photos. It requires your approval before developer handoff.':''}${id===5?' <b>Rebuy rule:</b> Show cumulative total buy-ins, never a supposed current physical chip stack.':''}</div><div class="review"><div class="panel"><h2>Decision</h2><div class="statusbuttons"><button data-status="pending" class="${r.status==='pending'?'selected pending':''}">Not reviewed</button><button data-status="approved" class="${r.status==='approved'?'selected approved':''}">✓ Approve</button><button data-status="changes" class="${r.status==='changes'?'selected changes':''}">✎ Needs changes</button></div><div class="saveinfo">Your decision is saved automatically on this device.</div></div><div class="panel"><h2>Comments / corrections</h2><label for="comments">What should change in this workflow?</label><textarea id="comments" placeholder="Example: Remove step 3. Make the amount larger. Keep the existing Table View.">${esc(r.comment)}</textarea><div class="saveinfo">Comments save as you type. Export to share them with the developer.</div></div></div><div class="footeractions"><button class="secondary" id="prev" ${id===1?'disabled':''}>← Previous</button><button class="primary" id="next" ${id===71?'disabled':''}>Next workflow →</button></div><p class="disclaimer">Prototype for review only. No connection to NORA’s production ledger, accounts, or player data.</p>`;document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{reviews[id]={...review(id),status:b.dataset.status};save();show(id)});$('comments').oninput=e=>{reviews[id]={...review(id),comment:e.target.value};save()};$('prev').onclick=()=>show(Math.max(1,id-1));$('next').onclick=()=>show(Math.min(71,id+1));renderNav();$('sidebar').classList.remove('open');window.scrollTo(0,0)}function showAll(){current=0;$('breadcrumb').textContent='NORA / All workflows';$('content').innerHTML=`<h1>All 71 workflows</h1><p>Grouped by NORA's main navigation, with Live Game ordered Table → Nora AI → Team → Expenses → Snapshot → Close. Choose any workflow to review.</p><div class="allindex">${WORKFLOWS.map(w=>`<button class="indexcard" data-id="${w.id}"><small>${esc(MAINLBL(w.main))} / ${esc(w.sub)}</small><strong>${w.id}. ${esc(w.title)}</strong><small>${esc(review(w.id).status)}</small></button>`).join('')}</div>`;document.querySelectorAll('.indexcard').forEach(b=>b.onclick=()=>show(+b.dataset.id));renderNav();$('sidebar').classList.remove('open')}function download(name,content){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'application/json'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}$('exportbtn').onclick=()=>download('nora-ux-review-decisions.json',JSON.stringify({app:'NORA UX Review',version:1,exported:new Date().toISOString(),reviews},null,2));$('importbtn').onclick=()=>$('importfile').click();$('importfile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let data=JSON.parse(await f.text());if(!data.reviews||typeof data.reviews!=='object')throw Error('Invalid review file');if(!confirm('Import reviews from this file? This replaces reviews saved on this device.'))return;reviews=data.reviews;save();current?show(current):showAll();alert('Reviews imported successfully.')}catch(err){alert('Could not import: '+err.message)}e.target.value=''};$('allbtn').onclick=showAll;$('menubtn').onclick=()=>$('sidebar').classList.toggle('open');$('search').oninput=renderNav;updateProgress();let match=location.hash.match(/workflow-(\d+)/);show(match?Math.max(1,Math.min(WORKFLOWS.length,+match[1])):1);window.addEventListener('hashchange',function(){var m=location.hash.match(/workflow-(\d+)/);if(!m)return;var n=Math.max(1,Math.min(WORKFLOWS.length,+m[1]));if(n!==current)show(n);});/* browser Back/Forward and pasted #workflow-N links now switch workflows in an open tab (show() only writes the hash, so there is no loop) */</script><script>
 (function(){
  const done=new Map();
  function clean(){
@@ -7052,7 +7202,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   plus:'M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7Z',minus:'M4 11h16v2H4Z',
   cbon:'M3 3h18v18H3Zm7.5 13.8 8-8-1.6-1.6-6.4 6.4-3-3-1.6 1.6Z',cboff:'M3 3h18v18H3Zm2 2v14h14V5Z'
  };
- function I(n,c){return '<svg class="fb-i '+(c||'')+'" viewBox="0 0 24 24" aria-hidden="true"><path d="'+(P[n]||P.box)+'" fill-rule="evenodd"/></svg>';}
+ function I(n,c){if(window.NORA_LU&&window.NORA_LU[n])return window.noraLuc(n,'fb-i '+(c||''));return '<svg class="fb-i '+(c||'')+'" viewBox="0 0 24 24" aria-hidden="true"><path d="'+(P[n]||P.box)+'" fill-rule="evenodd"/></svg>';}
 
  /* ---------- product art: clean generic catalog images (no brand marks) ---------- */
  var ART={
@@ -7998,7 +8148,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   arrowr:'M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4Z',scale:'M11 2h2v3h7l-3 7a3 3 0 0 0 6 0l-3-7h-1V5h-1V20h4v2H6v-2h4V5H9v0H7l-3 7a3 3 0 0 0 6 0L7 5h4Z',
   plusc:'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 2.2a7.8 7.8 0 1 0 0 15.6 7.8 7.8 0 0 0 0-15.6ZM11 7h2v4h4v2h-4v4h-2v-4H7v-2h4Z'
  };
- function ic(n,cls){return '<svg class="'+(cls||'')+'" viewBox="0 0 24 24" aria-hidden="true"><path d="'+F[n]+'" fill-rule="evenodd"/></svg>';}
+ function ic(n,cls){if(window.NORA_LU&&window.NORA_LU[n])return window.noraLuc(n,cls||'');return '<svg class="'+(cls||'')+'" viewBox="0 0 24 24" aria-hidden="true"><path d="'+F[n]+'" fill-rule="evenodd"/></svg>';}
  function valid(r){var p=r.split(':');try{return typeof rnValid!=='function'||rnValid(+p[0],+p[1]);}catch(e){return false;}}
  /* Hamburger = six primary tabs in this order: Tables, Players, Team, Schedule, Reports, Settings (NAV below is the single source). Bottom bar = contextual (BARS below, chosen by ctx()): Table/Live 6, Reports 5, Settings 6; none in Schedule, Players or Team. */
  var NAV=[
@@ -8069,7 +8219,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var d=document.createElement('div');d.className='nn-drawer nn-six-only';
   var pr=ph.getBoundingClientRect(),ur=uc.getBoundingClientRect(),nb=ph.querySelector(':scope>.ux-bottom.s2-nav');
   d.style.top=(ur.top-pr.top-2)+'px';d.style.bottom='0px'; // cover contextual bottom bar while the menu is open
-  d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div><div class="nn-footer"><button type="button" class="nn-foot nn-profile" data-nn-go="65:0" aria-label="User profile"><span class="nn-avatar">M</span><span>Profile</span></button><button type="button" class="nn-foot" data-nn-info="Support">'+ic('chat')+'<span>Support</span></button><button type="button" class="nn-foot" data-nn-info="Privacy">'+ic('lock')+'<span>Privacy</span></button></div>';
+  d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div><div class="nn-footer"><button type="button" class="nn-foot nn-profile" data-nn-go="65:0" aria-label="User profile"><span class="nn-avatar">'+((typeof LOCAL_PORTRAITS!=='undefined'&&LOCAL_PORTRAITS['Mikey B.'])?'<img alt="" src="'+LOCAL_PORTRAITS['Mikey B.']+'">':'M')+'</span><span class="nn-pt"><span class="nn-pn">Profile</span><small>Mike · Owner</small></span></button><button type="button" class="nn-foot" data-nn-info="Support">'+ic('chat')+'<span>Support</span></button><button type="button" class="nn-foot" data-nn-info="Privacy">'+ic('lock')+'<span>Privacy</span></button></div>';
   ph.classList.add('nn-host');ph.appendChild(d);
  }
  function go(r,st){if(!r)return false;try{return rnGo(r,st);}catch(x){console.error('Navigation destination',r,x);return false;}}
@@ -8254,7 +8404,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
 /* 1 · Drawer: one close control. The header X (close screen) hides while the menu is open; the drawer X is the single close action. */
 .storyboard .phone:has(>.nn-drawer) .ux-head .ux-close{visibility:hidden!important}
 /* 2 · LIVE GAME row: 18px -> 23.4px (+30%), distinct premium teal band */
-.storyboard .phone .nn-six-only .nn-sh.nn-live{font-size:23.4px!important;font-weight:950!important;letter-spacing:.2px!important;min-height:70px!important;flex:0 0 70px!important;gap:14px!important;background:linear-gradient(90deg,#0b7a9a 0%,#075a77 55%,#064a61 100%)!important;border:2px solid #5bf4e0!important;box-shadow:inset 6px 0 0 #5bf4e0!important;padding-left:18px!important;color:#fff!important}
+.storyboard .phone .nn-six-only .nn-sh.nn-live{font-size:23.4px!important;font-weight:950!important;letter-spacing:.2px!important;min-height:66px!important;flex:0 0 66px!important;gap:14px!important;background:linear-gradient(90deg,#0b7a9a 0%,#075a77 55%,#064a61 100%)!important;border:2px solid #5bf4e0!important;box-shadow:inset 6px 0 0 #5bf4e0!important;padding-left:18px!important;color:#fff!important}
 .storyboard .phone .nn-six-only .nn-sh.nn-live svg{width:32px!important;height:32px!important;color:#b9fff4!important}
 .storyboard .phone .nn-six-only .nn-sh.nn-live span{font-size:21px!important;font-weight:950!important;letter-spacing:.3px!important}
 .storyboard .phone .nn-six-only .nn-sh.nn-live.nn-active{background:linear-gradient(90deg,#00835f 0%,#00634b 60%,#005638 100%)!important;border-color:#35ffb2!important;box-shadow:inset 6px 0 0 #35ffb2!important}
@@ -8285,8 +8435,8 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
 .storyboard>.stage:nth-child(n) .hi-phone .move7-multi .move7-route b{font-size:18px!important}
 .storyboard .phone button.b1-seltile .b1-sub{font-size:15px;font-weight:800;color:#8fe9c7;letter-spacing:.3px}
 .storyboard .phone .b1-seltile .b1-chev{flex:0 0 28px;width:28px;height:28px;fill:none;stroke:#5bf4e0;stroke-width:3.2;stroke-linecap:square;stroke-linejoin:miter}
-.storyboard .phone .b1-seltile[data-b1="amount"] small,.storyboard .phone .b1-seltile[data-b1="amount"] span:first-child{font-size:15px;font-weight:900;color:#b9d7e9}
-.storyboard .phone .b1-seltile[data-b1="amount"] strong{flex:1;display:flex;align-items:baseline;justify-content:flex-end;gap:.28em;white-space:nowrap;font-size:24px!important;font-weight:900;color:#fff;line-height:1.1}
+.storyboard .phone .b1-seltile[data-b1="amount"]>small,.storyboard .phone .b1-seltile[data-b1="amount"]>span:first-child{display:none!important}
+.storyboard .phone .b1-seltile[data-b1="amount"] strong{flex:1;display:flex;align-items:baseline;justify-content:flex-start;gap:.28em;white-space:nowrap;font-size:30px!important;font-weight:900;color:#fff;line-height:1.1}
 .storyboard .phone .b1-seltile[data-b1="amount"] strong small{margin:0!important;display:inline!important}
 .storyboard .phone .np4-buyin{display:flex;flex-direction:column;gap:12px}
 .storyboard .phone .np4-buyin .b1-seltile[data-b1="amount"]{width:calc(100% - 16px);margin:0 8px;min-height:66px}
@@ -8313,14 +8463,14 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
 .storyboard .phone .seat-roster-v3 .seat-roster-toolbar button.seat-roster-add-toggle,.storyboard .phone .seat-roster-v3 .seat-roster-toolbar button.seat-roster-search-toggle{width:54px!important;min-width:54px!important;height:46px!important;flex:0 0 54px!important;border:3px solid #1ebcf2!important;border-radius:0!important;background:#0a3048!important;padding:0!important;position:relative!important}
 .storyboard .phone .seat-roster-v3 .roster-icon-center::before,.storyboard .phone .seat-roster-v3 .roster-icon-center::after{display:none!important;content:none!important}
 .storyboard .phone .seat-roster-v3 .roster-icon-center{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;font-size:0!important;background-repeat:no-repeat!important;background-position:center!important;background-size:32px 32px!important}
-.storyboard .phone .seat-roster-v3 .seat-roster-add-toggle .roster-icon-center{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='square'%3E%3Ccircle cx='9' cy='7.6' r='3.7'/%3E%3Cpath d='M2.6 20.5c0-3.9 2.9-6.4 6.4-6.4s6.4 2.5 6.4 6.4'/%3E%3Cpath d='M19 7.5v6.4M15.8 10.7h6.4' stroke='%235bf4e0' stroke-width='2.8'/%3E%3C/svg%3E")!important}
-.storyboard .phone .seat-roster-v3 .seat-roster-search-toggle .roster-icon-center{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.9' stroke-linecap='square'%3E%3Ccircle cx='10.2' cy='10.2' r='6.3'/%3E%3Cpath d='M15 15l6 6' stroke='%235bf4e0' stroke-width='3.3'/%3E%3C/svg%3E")!important}
+.storyboard .phone .seat-roster-v3 .seat-roster-add-toggle .roster-icon-center{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M19 8v6'/%3E%3Cpath d='M22 11h-6'/%3E%3C/svg%3E")!important}
+.storyboard .phone .seat-roster-v3 .seat-roster-search-toggle .roster-icon-center{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E")!important}
 /* 6 · WF4 / player-photo tile: camera + upload bottom-left (+10%), details laid out like the WF6 cash-out tile */
 .storyboard>.stage:nth-child(n) .phone .np4-profile .np4-photo-actions{position:absolute!important;left:13px!important;bottom:11px!important;top:auto!important;right:auto!important;height:30px!important;min-height:0!important;align-items:flex-end!important;width:auto!important;display:flex!important;flex-direction:row!important;gap:5px!important}
 .storyboard>.stage:nth-child(n) .phone .np4-profile .np4-photo-actions label{margin:0!important;top:0!important;transform:none!important;align-self:flex-end!important;width:30px!important;height:30px!important;min-height:30px!important;border:2px solid #26bff1!important;background-color:#0a3048!important;background-repeat:no-repeat!important;background-position:center!important;background-size:20px 20px!important}
 .storyboard>.stage:nth-child(n) .phone .np4-profile .np4-photo-actions label::after,.storyboard>.stage:nth-child(n) .phone .np4-profile .np4-photo-actions label::before{content:none!important;display:none!important}
-.storyboard>.stage:nth-child(n) .phone .np4-profile .np4-photo-actions label:first-child{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='white' stroke-width='2.2' stroke-linejoin='miter'%3E%3Cpath d='M2.8 7.5h4.4l1.6-2.7h6.4l1.6 2.7h4.4v12.2H2.8z'/%3E%3Ccircle cx='12' cy='13.4' r='3.4'/%3E%3C/g%3E%3C/svg%3E")!important}
-.storyboard>.stage:nth-child(n) .phone .np4-profile .np4-photo-actions label:last-of-type{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M12 19V6M6 11.5l6-6 6 6M5 21h14'/%3E%3C/svg%3E")!important}
+.storyboard>.stage:nth-child(n) .phone .np4-profile .np4-photo-actions label:first-child{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/svg%3E")!important}
+.storyboard>.stage:nth-child(n) .phone .np4-profile .np4-photo-actions label:last-of-type{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpath d='m17 8-5-5-5 5'/%3E%3Cpath d='M12 3v12'/%3E%3C/svg%3E")!important}
 .storyboard>.stage:nth-child(n) .phone .np4-profile .np4-person-details{align-self:stretch!important;height:auto!important;justify-content:space-between!important;padding:2px 0!important;gap:0!important}
 .storyboard>.stage:nth-child(n) .phone .np4-profile .np4-person-details>b{font-size:22px!important;line-height:1.12!important}
 .storyboard>.stage:nth-child(n) .phone .np4-profile .np4-person-details>strong{font-size:20px!important}
@@ -8330,25 +8480,173 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
 .storyboard .phone .crm-new-tile{position:relative!important}
 .storyboard .phone .crm-new-tile .crm-tile-info{display:flex!important;flex-direction:column!important;justify-content:space-between!important;align-self:stretch!important;gap:0!important;padding:2px 0!important}
 .storyboard .phone .crm-new-tile .crm-photo-btn{position:absolute!important;bottom:3px;width:30px!important;height:30px!important;min-height:30px!important;padding:0!important;font-size:0!important;border:2px solid #26bff1!important;border-radius:0!important;background-color:#0a3048!important;background-repeat:no-repeat!important;background-position:center!important;background-size:20px 20px!important;overflow:hidden}
-.storyboard .phone .crm-new-tile .crm-photo-btn:nth-of-type(1){left:14px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='white' stroke-width='2.2' stroke-linejoin='miter'%3E%3Cpath d='M2.8 7.5h4.4l1.6-2.7h6.4l1.6 2.7h4.4v12.2H2.8z'/%3E%3Ccircle cx='12' cy='13.4' r='3.4'/%3E%3C/g%3E%3C/svg%3E")!important}
-.storyboard .phone .crm-new-tile .crm-photo-btn:nth-of-type(2){left:49px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M12 19V6M6 11.5l6-6 6 6M5 21h14'/%3E%3C/svg%3E")!important}
-.storyboard .phone .crm-new-tile .crm-photo-btn .wf2-ic{display:none!important}
+.storyboard .phone .crm-new-tile .crm-photo-btn:nth-of-type(1){left:14px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/svg%3E")!important}
+.storyboard .phone .crm-new-tile .crm-photo-btn:nth-of-type(2){left:49px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpath d='m17 8-5-5-5 5'/%3E%3Cpath d='M12 3v12'/%3E%3C/svg%3E")!important}
+.storyboard .phone .crm-new-tile .crm-photo-btn .s2-ic{display:none!important}
 .storyboard .phone .crm-new-tile .b1-n{font-size:22px;font-weight:900;line-height:1.12;color:#fff;word-break:break-word}
 .storyboard .phone .crm-new-tile .crm-note{font-size:15px!important;font-weight:900!important;color:#b9d7e9!important;letter-spacing:.2px;text-align:left!important}
 .storyboard .phone .crm-new-tile .b1-ph span{display:block;font-size:15px;font-weight:900;color:#b9d7e9;letter-spacing:.2px}
 .storyboard .phone .crm-new-tile .b1-ph div{font-size:16px;font-weight:900;letter-spacing:-.5px;white-space:nowrap;line-height:1.15}
+.storyboard .phone .roster-icon-center .s2-ic,.storyboard .phone .np4-photo-actions label .s2-ic{display:none!important}
+/* 6c · NORA action-icon family (batch 2): plus, search, camera, upload - one stroke weight, round joins */
+.storyboard .phone svg.b1-lu,.storyboard .phone svg.b1-lu *{fill:none!important;stroke:currentColor!important;stroke-width:2.25!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+.storyboard .phone .s2-ic svg.b1-lu{width:1.2em;height:1.2em}
 /* 7 · Buy-in / rebuy confirmation: player thumbnail row replaces the removed brand tile */
-.storyboard>.stage:nth-child(n) .hi-phone .nora-confirm-summary.b1-has-thumb{grid-template-columns:auto minmax(0,1fr) auto!important;grid-template-rows:auto 1fr 1fr!important;column-gap:12px!important;padding:12px 14px 10px!important;align-content:stretch!important}
-.storyboard .phone .nora-confirm-summary.b1-has-thumb>.b1-thumb{grid-column:1;grid-row:1;position:static;width:66px;height:74px;border:3px solid #1ebcf2;background:#17395a;overflow:hidden;box-sizing:border-box}
-.storyboard .phone .nora-confirm-summary.b1-has-thumb>strong{grid-column:2;grid-row:1;align-self:center}
-.storyboard .phone .nora-confirm-summary.b1-has-thumb>span{grid-column:3;grid-row:1;align-self:center}
-.storyboard .phone .nora-confirm-summary.b1-has-thumb>.nora-confirm-amount,.storyboard .phone .nora-confirm-summary.b1-has-thumb>.nora-confirm-total{grid-column:1 / -1}
-.storyboard .phone .nora-confirm-summary .b1-thumb .person-face{display:flex!important;align-items:center;justify-content:center;width:100%;height:100%;border:0!important;font-size:28px;font-weight:900;color:#bfe9ff;overflow:hidden;position:relative}
-.storyboard .phone .nora-confirm-summary .b1-thumb .person-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;transform:scale(1.4);transform-origin:72% 14%;display:block}
+.storyboard>.stage:nth-child(n) .hi-phone .nora-confirm-summary.b1-has-thumb{grid-template-columns:auto minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr) auto auto minmax(0,1fr) minmax(0,1.15fr) minmax(0,1.15fr)!important;column-gap:14px!important;row-gap:0!important;padding:12px 14px 8px!important;align-content:stretch!important}
+.storyboard .phone .nora-confirm-summary.b1-has-thumb>.b1-thumb{grid-column:1;grid-row:1 / span 4;align-self:start;position:static;width:112px;height:128px;border:3px solid #1ebcf2;background:#17395a;overflow:hidden;box-sizing:border-box}
+.storyboard>.stage:nth-child(n) .hi-phone .nora-confirm-summary.b1-has-thumb>strong{text-align:left!important;justify-self:start!important;grid-column:2;grid-row:2;align-self:end;margin:0;font-size:28px!important;line-height:1.08!important;white-space:normal!important;overflow-wrap:anywhere}
+.storyboard>.stage:nth-child(n) .hi-phone .nora-confirm-summary.b1-has-thumb>span{grid-column:2;grid-row:3;align-self:start;margin:2px 0 0;font-size:20px!important;font-weight:800!important;color:#bfe3f5!important;text-align:left!important;justify-self:start!important}
+.storyboard .phone .nora-confirm-summary.b1-has-thumb>.nora-confirm-amount{grid-column:1 / -1;grid-row:5}.storyboard .phone .nora-confirm-summary.b1-has-thumb>.nora-confirm-total{grid-column:1 / -1;grid-row:6}
+.storyboard .phone .nora-confirm-summary .b1-thumb .person-face{display:flex!important;align-items:center;justify-content:center;width:100%;height:100%;border:0!important;font-size:44px;font-weight:900;color:#bfe9ff;overflow:hidden;position:relative}
+.storyboard .phone .nora-confirm-summary .b1-thumb .person-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;transform:scale(1.42);transform-origin:72% 3%;display:block}
+/* 9 · Global player/team photo minimum = Table View thumbnail (98 x 121). List rows become photo tiles. */
+.storyboard .phone .iv-rl{display:grid!important;grid-template-columns:1fr 1fr;gap:6px;align-content:start}
+.storyboard .phone .iv-rl>.iv-ro{position:relative;display:block!important;height:172px;min-height:172px;padding:0!important;overflow:hidden;background:#17395a;text-shadow:0 1px 3px #000,0 0 6px #000;cursor:pointer}
+.storyboard .phone .iv-rl>.iv-ro>.person-face{position:absolute!important;inset:0;width:100%!important;height:100%!important;max-width:none!important;border:0!important;display:grid!important;place-items:center;overflow:hidden;font-size:64px!important;font-weight:900;color:#cfeeff;text-shadow:none;margin:0!important}
+.storyboard .phone .iv-rl>.iv-ro>.person-face img{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover;transform:scale(1.4);transform-origin:92% 3%}
+.storyboard .phone .iv-rl>.iv-ro>div{position:absolute;left:8px;right:6px;bottom:6px;display:flex;flex-direction:column;gap:1px;min-width:0}
+.storyboard .phone .iv-rl>.iv-ro>div b{font-size:21px!important;font-weight:900;color:#fff;line-height:1.1}
+.storyboard .phone .iv-rl>.iv-ro>div small{font-size:14px!important;font-weight:800;color:#e4f4ff;line-height:1.15}
+.storyboard .phone .iv-rl>.iv-ro>.iv-chip{position:absolute!important;top:6px;left:6px;margin:0!important;text-shadow:none;background:rgba(3,17,31,.82)}
+/* 9b · identity strips (F&B recipient, manage player, comp-for-player) and swap screens: photo >= Table View size */
+.storyboard .phone .fb-body>.fb-person,.storyboard .phone .fb-person,.storyboard .phone .fb-link:has(.person-face){align-items:center!important;gap:14px!important;padding:8px 12px!important;min-height:151px!important;height:auto!important;flex:0 0 auto!important}
+.storyboard .phone .fb-person>.person-face,.storyboard .phone .fb-link>.person-face{flex:0 0 104px!important;width:104px!important;height:127px!important;border:3px solid #1ebcf2!important;overflow:hidden!important;position:relative!important;display:block!important;margin:0!important;box-sizing:border-box!important}
+.storyboard .phone .fb-person>.person-face img,.storyboard .phone .fb-link>.person-face img{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover;transform:scale(1.38);transform-origin:84% 3%}
+.storyboard .phone .fb-person>div b,.storyboard .phone .fb-link>div b,.storyboard .phone .fb-person b{font-size:25px!important;line-height:1.1}
+.storyboard .phone .fb-person small,.storyboard .phone .fb-link small{font-size:17px!important}
+.storyboard>.stage:nth-child(n) .hi-phone .swap7-person>.person-face{width:104px!important;height:127px!important;min-height:127px!important;max-width:none!important;border:3px solid #1ebcf2!important;overflow:hidden!important;position:relative!important;box-sizing:border-box!important;flex:0 0 auto!important;display:block!important;font-size:48px!important;line-height:121px!important;text-align:center!important}
+.storyboard .phone .swap7-person>.person-face img{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover;transform:scale(1.38);transform-origin:84% 3%}
+.storyboard .phone .st-prof>.st-face.big{width:112px!important;height:136px!important;flex:0 0 112px!important}
+.storyboard .phone .st-prof>.st-face.big>.person-face{width:100%!important;height:100%!important;overflow:hidden}
+.storyboard .phone .st-prof>.st-face.big img{width:100%!important;height:100%!important;object-fit:cover}
+.storyboard .phone .swap7-heading{display:none!important}
+.storyboard .phone .fb-person+.fb-tabs+.fb-mgrid{grid-auto-rows:minmax(0,98px)!important;gap:6px!important}
+.storyboard .phone .fb-person~.fb-mgrid .fb-mtile{padding:4px 6px!important;gap:0!important;justify-content:center!important}
+.storyboard .phone .fb-person~.fb-mgrid .fb-art{width:44px!important;height:44px!important;flex:0 0 44px!important}
+.storyboard>.stage:nth-child(n) .hi-phone .move7-swap .swap7-players{flex:0 0 192px!important;height:192px!important}
+.storyboard>.stage:nth-child(n) .hi-phone .move7-swap .swap7-person{height:100%!important;justify-content:flex-start!important;padding-top:2px;gap:0!important}
+.storyboard>.stage:nth-child(n) .hi-phone .move7-swap .swap7-summary{padding:4px 12px!important}
+.storyboard>.stage:nth-child(n) .hi-phone .move7-swap .swap7-summary b{font-size:17px!important}.storyboard>.stage:nth-child(n) .hi-phone .move7-swap .swap7-summary em{font-size:17px!important}
+.storyboard .phone .st-prof>.st-face.big img{transform:scale(1.42);transform-origin:90% 3%}
+.storyboard .phone .st-nrow>.person-face{flex:0 0 104px!important;width:104px!important;height:127px!important;font-size:56px!important;display:grid!important;place-items:center;border:3px solid #1ebcf2!important;box-sizing:border-box;margin:0!important}
+.storyboard .phone .st-nrow:has(>.person-face){gap:14px!important;align-items:center!important}
+/* ===== Batch 2: WF54 player profile ===== */
+.storyboard .phone .b2-subtabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.storyboard .phone .b2-subtabs button{height:46px;border:3px solid #1ebcf2;border-radius:0;background:#0a3048;color:#cfe7f3;font-size:18px;font-weight:900;letter-spacing:.3px;cursor:pointer}
+.storyboard .phone .b2-subtabs button.on{border-color:#3bf0ae;background:#07543f;color:#fff}
+.storyboard .phone .b2-cpanel{display:flex;flex-direction:column;gap:8px}
+.storyboard .phone .b2-cpanel[hidden]{display:none}
+.storyboard .phone .b2-cid{display:flex;gap:12px;padding:10px;border:3px solid #1ebcf2;background:#082b43}
+.storyboard .phone .b2-cphoto{flex:0 0 110px;height:130px;border:3px solid #1ebcf2;background:#17395a;overflow:hidden;position:relative;box-sizing:border-box}
+.storyboard .phone .b2-cphoto .person-face{display:block!important;position:absolute;inset:0;width:100%!important;height:100%!important;border:0!important;font-size:44px;font-weight:900;color:#cfeeff;line-height:124px;text-align:center}
+.storyboard .phone .b2-cphoto .person-face img{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover;transform:scale(1.4);transform-origin:84% 3%}
+.storyboard .phone .b2-cinfo{display:flex;flex-direction:column;justify-content:center;gap:6px;min-width:0;flex:1}
+.storyboard .phone .b2-cn{font-size:26px;font-weight:900;line-height:1.05}
+.storyboard .phone .b2-app{align-self:flex-start;font-style:normal;font-size:14px;font-weight:900;letter-spacing:.3px;padding:3px 8px;border:2px solid #3bf0ae;background:#07543f;color:#7dffd0}
+.storyboard .phone .b2-cstats{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:baseline}
+.storyboard .phone .b2-cstats span{font-size:15px;font-weight:900;color:#b9d7e9}.storyboard .phone .b2-cstats strong{font-size:22px;font-weight:900;text-align:right}
+.storyboard .phone .b2-ccard,.storyboard .phone .b2-prog{display:flex;flex-direction:column;border:3px solid #1ebcf2;background:#082b43;padding:2px 12px}
+.storyboard .phone .b2-prog>b{font-size:18px;font-weight:900;letter-spacing:.3px;color:#6adfff;padding:8px 0 4px}
+.storyboard .phone .b2-prog .b2-crow{min-height:44px}
+.storyboard .phone .b2-crow{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;border-top:2px solid #134a6c}
+.storyboard .phone .b2-ccard>.b2-crow:first-child,.storyboard .phone .b2-prog>b+.b2-crow{border-top:0}
+.storyboard .phone .b2-crow span{font-size:15px;font-weight:900;color:#b9d7e9;letter-spacing:.2px}
+.storyboard .phone .b2-crow strong{font-size:19px;font-weight:900;text-align:right;min-width:0}
+.storyboard .phone .b2-last{min-height:70px;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px}.storyboard .phone .b2-last strong{display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left}
+.storyboard .phone .b2-last .b2-la{font-size:19px;font-weight:900}.storyboard .phone .b2-last small{font-size:14px;font-weight:700;color:#9fdcf3}
+.storyboard .phone .b2-crow .crm56-contact-link{font-size:18px}
+.storyboard .phone .b2-cbtns{display:grid;grid-template-columns:1fr 1.3fr;gap:8px}
+.storyboard .phone .b2-cb{height:63px;border:3px solid #1ebcf2;border-radius:0;background:#0a3048;color:#fff;font-size:17px;font-weight:900;cursor:pointer;white-space:nowrap}
+.storyboard .phone .b2-cb.go{border-color:#3bf0ae;background:#006a47}
+.storyboard .phone .b2-nodata{font-size:15px;font-weight:700;color:#9fdcf3;padding:2px 2px}
+.b2-preview{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0;padding:10px 12px;border:2px dashed #35566b;background:#0a1524;color:#b9d7e9;font-size:14px}
+.b2-preview b{color:#fff}.b2-preview button{padding:7px 12px;border:2px solid #35566b;background:#0d2236;color:#cfe7f3;font-weight:800;cursor:pointer;border-radius:0}.b2-preview button.on{border-color:#3bf0ae;color:#7dffd0}
 /* 8 · WON / LOST label: one size everywhere (20px, as on the WF6 cash-out entry tile) */
 .storyboard>.stage:nth-child(n) .hi-phone .co6-done-detail>.co6-done-win>span.b1-wl{font-size:20px!important;font-weight:900!important;letter-spacing:.4px!important;line-height:1!important}
 .storyboard>.stage:nth-child(n) .hi-phone .co6-unsettled-demo .co6-done-detail>.co6-b1-won>span,.storyboard>.stage:nth-child(n) .hi-phone .co6-unsettled-demo .co6-done-detail>.co6-b1-won>b{color:#5cf2b8!important}
 .storyboard>.stage:nth-child(n) .hi-phone .co6-unsettled-demo .co6-done-detail>.co6-b1-won>b small{color:#f7f4ea!important}
+</style>
+<style id="nora-batch2-team">
+/* ===== Batch 2: WF19-24 team workflow ===== */
+.storyboard .phone .b2-wrap{display:flex;flex-direction:column;gap:7px;height:100%;min-height:0;color:#fff}
+.storyboard .phone .b2-ic{width:24px;height:24px;margin-right:10px;vertical-align:-5px}
+.storyboard .phone .b2-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:0 0 58px}
+.storyboard .phone .b2-stat{display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid #1ebcf2;background:#0a3048;line-height:1.05}
+.storyboard .phone .b2-stat b{font-size:26px;font-weight:900}
+.storyboard .phone .b2-stat span{font-size:13px;font-weight:900;letter-spacing:0;color:#b9d7e9;white-space:nowrap}
+.storyboard .phone .b2-stat.on{border-color:#3bf0ae;background:#07543f}.storyboard .phone .b2-stat.on b{color:#7dffd0}
+.storyboard .phone .b2-stat.asg{border-color:#ffc24a}.storyboard .phone .b2-stat.asg b{color:#ffd37a}
+.storyboard .phone .b2-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:6px;flex:1 1 auto;min-height:0}
+.storyboard .phone .b2-tm{position:relative;overflow:hidden;border:3px solid #1ebcf2;background:#17395a;cursor:pointer;min-height:0;text-shadow:0 1px 3px #000,0 0 6px #000}
+.storyboard .phone .b2-tm.on{border-color:#3bf0ae}.storyboard .phone .b2-tm.asg{border-color:#ffc24a}.storyboard .phone .b2-tm.out{border-color:#9aa9b8}.storyboard .phone .b2-tm.off{border-color:#35566b}
+.storyboard .phone .b2-tm.off .b2-face img,.storyboard .phone .b2-tm.out .b2-face img{filter:saturate(.45) brightness(.72)}
+.storyboard .phone .b2-face{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;background:#17395a}
+.storyboard .phone .b2-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%;transform:scale(1.27);transform-origin:80% 3%}
+.storyboard .phone .b2-face .b2-ini{margin-top:-26px;font-size:64px!important;font-weight:900!important;color:#cfeeff!important;line-height:1!important;text-shadow:none!important}
+.storyboard .phone .b2-st,.storyboard .phone .b2-nm,.storyboard .phone .b2-rl,.storyboard .phone .b2-tt{position:absolute;left:6px;right:4px;white-space:nowrap}
+.storyboard .phone .b2-st{top:5px;font-size:14px!important;font-weight:900;letter-spacing:.3px;color:#cfe7f3}
+.storyboard .phone .b2-tm.on .b2-st{color:#7dffd0}.storyboard .phone .b2-tm.asg .b2-st{color:#ffd37a}
+.storyboard .phone .b2-nm{bottom:40px;font-size:20px!important;font-weight:900;color:#fff}
+.storyboard .phone .b2-rl{bottom:22px;font-size:15px!important;font-weight:800;color:#fff}
+.storyboard .phone .b2-tt{bottom:5px;font-size:14px!important;font-weight:800;color:#dff3ff}
+.storyboard .phone .b2-tm.off .b2-nm{bottom:24px}.storyboard .phone .b2-tm.off .b2-rl{bottom:6px}
+.storyboard .phone .b2-sel12{grid-template-rows:repeat(4,minmax(0,1fr))}
+.storyboard .phone .b2-tm.pick .b2-nm{bottom:25px}.storyboard .phone .b2-tm.pick .b2-rl{bottom:6px}
+.storyboard .phone .b2-tm.pick.selected{border-color:#3bf0ae;box-shadow:inset 0 0 0 3px #3bf0ae}
+.storyboard .phone .b2-tm.pick .b2-st{display:none}
+.storyboard .phone .b2-btn{flex:0 0 63px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.storyboard .phone .b2-id{display:flex;gap:12px;align-items:stretch;flex:0 0 auto;padding:10px;border:3px solid #1ebcf2;background:#082b43}
+.storyboard .phone .b2-photo{position:relative;flex:0 0 110px;height:130px;border:3px solid #1ebcf2;background:#17395a;overflow:hidden}
+.storyboard .phone .b2-idt{display:flex;flex-direction:column;justify-content:space-between;min-width:0;flex:1}
+.storyboard .phone .b2-n{font-size:28px;font-weight:900;line-height:1.05}
+.storyboard .phone .b2-r{font-size:19px;font-weight:800;color:#d7ecf7;line-height:1.1}
+.storyboard .phone .b2-chip{align-self:flex-start;font-style:normal;font-size:14px;font-weight:900;letter-spacing:.2px;line-height:1.15;padding:3px 7px;border:2px solid #35566b;color:#cfe7f3;white-space:normal}
+.storyboard .phone .b2-row.stack{flex-direction:column;align-items:flex-start;justify-content:center;gap:0;padding:4px 0}.storyboard .phone .b2-row.stack b{text-align:left;font-size:20px}
+.storyboard .phone .b2-chip.on{border-color:#3bf0ae;color:#7dffd0;background:#07543f}
+.storyboard .phone .b2-chip.asg{border-color:#ffc24a;color:#ffd37a;background:#4a3708}
+.storyboard .phone .b2-chip.out{border-color:#9aa9b8;color:#dfe8ef}
+.storyboard .phone .b2-idt small{font-size:14px;font-weight:900;color:#9fdcf3;letter-spacing:.3px}
+.storyboard .phone .b2-idt strong{font-size:21px;font-weight:900;line-height:1.1}
+.storyboard .phone .b2-rows{display:flex;flex-direction:column;border:3px solid #1ebcf2;background:#082b43;padding:2px 12px}
+.storyboard .phone .b2-row{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;border-top:2px solid #134a6c}
+.storyboard .phone .b2-row:first-child{border-top:0}
+.storyboard .phone .b2-row span{font-size:15px;font-weight:900;color:#b9d7e9;letter-spacing:.2px}
+.storyboard .phone .b2-row b{font-size:20px;font-weight:900;text-align:right}
+.storyboard .phone .b2-row.tot{background:#0c3a57}.storyboard .phone .b2-row.tot b{font-size:22px;color:#fff}
+.storyboard .phone .b2-row.ok b{color:#7dffd0}
+.storyboard .phone .b2-tight .b2-row{min-height:36px}.storyboard .phone .b2-tight .b2-photo{flex-basis:110px;height:130px}.storyboard .phone .b2-tight .b2-n{font-size:25px}.storyboard .phone .b2-tight{gap:6px}
+.storyboard .phone .b2-fld{display:flex;flex-direction:column;gap:3px;min-width:0}
+.storyboard .phone .b2-k{font-size:15px;font-weight:900;color:#b9d7e9;letter-spacing:.3px}
+.storyboard .phone .b2-two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.storyboard .phone .b2-sel{min-height:52px!important;font-size:20px!important}
+.storyboard .phone .b2-sel .b1-v{font-size:19px!important}
+.storyboard .phone .b2-amt{display:flex;align-items:center;min-height:56px;padding:4px 14px;border:3px solid #1ebcf2;background:#0a3048;font-size:30px;font-weight:900}
+.storyboard .phone .b2-note{display:flex;flex-direction:column;gap:2px;padding:8px 12px;border:2px solid #134a6c;background:#06263d}
+.storyboard .phone .b2-note b{font-size:19px;font-weight:900}.storyboard .phone .b2-note span{font-size:15px;font-weight:700;line-height:1.25;color:#b9d7e9}
+.storyboard .phone .b2-after{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 12px;border:2px solid #ffc24a;background:#2b2108}
+.storyboard .phone .b2-after small{font-size:14px;font-weight:900;color:#ffd37a}.storyboard .phone .b2-after b{font-size:16px;font-weight:900;color:#ffe3a5}
+.storyboard .phone .b2-hero{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 8px;border:3px solid #00c98d;background:linear-gradient(135deg,#0a4d4a,#06324a);text-align:center}
+.storyboard .phone .b2-check{width:48px;height:48px;border:3px solid #4cf2b8;border-radius:50%;display:grid;place-items:center;font-size:28px;font-weight:900;color:#4cf2b8;line-height:1}
+.storyboard .phone .b2-hero b{font-size:25px;font-weight:900;letter-spacing:.4px}.storyboard .phone .b2-hero span{font-size:17px;font-weight:700;color:#aef5d9}
+.storyboard .phone .b2-conf{gap:6px}
+.storyboard .phone .b2-conf .b2-photo{flex-basis:110px;height:130px}
+.storyboard .phone .b2-conf .b2-hero{padding:6px 8px}.storyboard .phone .b2-conf .b2-check{width:40px;height:40px;font-size:24px}
+.storyboard .phone .b2-conf .b2-row{min-height:42px}
+.storyboard .phone .b2-led{gap:6px}
+.storyboard .phone .b2-lc{display:flex;gap:10px;padding:4px;border:3px solid #1ebcf2;background:#082b43;flex:1 1 0;min-height:141px}
+.storyboard .phone .b2-lp{position:relative;flex:0 0 104px;border:3px solid #1ebcf2;background:#17395a;overflow:hidden}
+.storyboard .phone .b2-lt{display:flex;flex-direction:column;justify-content:center;min-width:0;flex:1;gap:1px}
+.storyboard .phone .b2-lt .b2-n{font-size:23px}.storyboard .phone .b2-lt .b2-r{font-size:15px;margin-bottom:3px}
+.storyboard .phone .b2-lr{display:flex;justify-content:space-between;align-items:baseline;gap:6px}.storyboard .phone .b2-lr span{font-size:13px;font-weight:900;color:#b9d7e9}.storyboard .phone .b2-lr b{font-size:17px;font-weight:900}
+.storyboard .phone .b2-lr.bad b{color:#ff8a8f}.storyboard .phone .b2-lr.ok b{color:#7dffd0}
+.storyboard .phone .b2-tot{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:baseline;padding:6px 12px;border:3px solid #1ebcf2;background:#0c3a57;flex:0 0 auto}
+.storyboard .phone .b2-tot span{font-size:14px;font-weight:900;color:#b9d7e9}.storyboard .phone .b2-tot b{font-size:20px;font-weight:900;text-align:right}.storyboard .phone .b2-tot b.bad{color:#ff8a8f}
+/* team roster tiles (select screen): selected state + role line */
+.storyboard .phone .seat-roster-card.b2-pick{position:relative}
+.storyboard .phone .seat-roster-card.b2-pick.selected{border-color:#3bf0ae!important;box-shadow:inset 0 0 0 3px #3bf0ae}
+.storyboard .phone .b2-tick{position:absolute;top:4px;right:4px;width:26px;height:26px;display:grid;place-items:center;background:#00a870;color:#fff;font-style:normal;font-size:18px;font-weight:900;text-shadow:none}
+.storyboard .phone .b2-pr{position:absolute;left:6px;right:4px;bottom:22px;font-size:14px;font-weight:800;color:#fff;text-shadow:0 1px 3px #000,0 0 6px #000;white-space:nowrap}
+.storyboard .phone .seat-roster-card.b2-pick .b2-face{position:absolute;inset:0}
 </style>
 <script id="nora-batch1-js">
 (function(){
@@ -8376,7 +8674,10 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    if(t.closest('[data-b1-close]'))wrap.remove();
    return;}
   var tile=t.closest('.b1-seltile');
-  if(tile){ev.preventDefault();ev.stopImmediatePropagation();var ph=tile.closest('.phone');if(ph&&tile._b1open)tile._b1open(ph);}
+  if(tile){ev.preventDefault();ev.stopImmediatePropagation();var ph=tile.closest('.phone');
+   if(ph&&!tile._b1open&&tile.dataset.b2Opts){var opts=JSON.parse(tile.dataset.b2Opts),cur=+tile.dataset.b2I||0,ttl=((tile.parentElement.querySelector('.b2-k')||{}).textContent||'CHOOSE').trim();
+    tile._b1open=function(p){openSheet(p,ttl,opts.map(function(o,i){return {label:esc(o.l),sub:o.s||'',on:i===cur};}),function(i){tile.dataset.b2I=i;var v=tile.querySelector('.b1-v');if(v)v.textContent=opts[i].l;var rt=tile.dataset.b2Rate&&document.querySelector(tile.dataset.b2Rate);if(rt&&opts[i].r)rt.textContent=opts[i].r;});};}
+   if(ph&&tile._b1open)tile._b1open(ph);}
  },true);
  function cop(n){return '<i class="b1-cop-s">COP</i> '+n;}
  /* A. amount chips (500K / 1M / 2M / CUSTOM) -> the AMOUNT row becomes the selector */
@@ -8428,7 +8729,19 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    sync();ins[0].addEventListener('input',sync);ins[1].addEventListener('input',sync);
   });
  }
- function pass(){var root=document.querySelector('.storyboard')||document.body;amountGroups(root);pickGroups(root);wonLost(root);crmTiles(root);}
+ /* E. WF54 profile subtabs (REWARDS is rendered only when the owner has rewards on) + studio-only preview switch for the owner setting */
+ window.addEventListener('click',function(ev){var t=ev.target&&ev.target.closest&&ev.target.closest('[data-b2-subtab]');if(!t)return;ev.preventDefault();ev.stopImmediatePropagation();var ph=t.closest('.phone');ph.querySelectorAll('[data-b2-subtab]').forEach(function(b){var on=b===t;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false');});ph.querySelectorAll('[data-b2-panel]').forEach(function(p){p.hidden=p.dataset.b2Panel!==t.dataset.b2Subtab;});},true);
+ function rewardsBar(){
+  if(!/workflow-54\b/.test(location.hash)){var o=document.querySelector('.b2-preview');if(o)o.remove();return;}
+  if(document.querySelector('.b2-preview'))return;var lab=document.querySelector('.sectionlabel');if(!lab)return;
+  var c={};try{c=JSON.parse(localStorage.getItem('nora.preview.rewards')||'{}')||{};}catch(x){}
+  var cur=!c.on?'off':(c.referral&&c.hours?'both':c.referral?'referral':c.hours?'hours':'off');
+  var d=document.createElement('div');d.className='b2-preview';
+  d.innerHTML='<b>Studio preview only · owner rewards setting:</b>'+[['off','Rewards off'],['referral','Referrals only'],['hours','Play hours only'],['both','Both programs']].map(function(x){return '<button type="button" data-b2-rw="'+x[0]+'" class="'+(cur===x[0]?'on':'')+'">'+x[1]+'</button>';}).join('');
+  lab.parentNode.insertBefore(d,lab);
+  d.addEventListener('click',function(ev){var b=ev.target.closest('[data-b2-rw]');if(!b)return;var v=b.dataset.b2Rw,o={on:v!=='off',referral:v==='referral'||v==='both',hours:v==='hours'||v==='both'};try{localStorage.setItem('nora.preview.rewards',JSON.stringify(o));}catch(x){}location.reload();});
+ }
+ function pass(){var root=document.querySelector('.storyboard')||document.body;amountGroups(root);pickGroups(root);wonLost(root);crmTiles(root);rewardsBar();}
  var q=0;function sched(){if(q)return;q=setTimeout(function(){q=0;pass();},40);}
  new MutationObserver(sched).observe(document.body,{childList:true,subtree:true});
  pass();
