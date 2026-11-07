@@ -2767,6 +2767,44 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
 .storyboard .st-phone .wf48-owner-preview .wf48-note-label{font-size:16px!important}
 .storyboard .st-phone .wf48-owner-preview textarea{min-height:86px!important;font-size:17px!important}
 </style>
+
+<style id="wf48-screens-4-7-owner-approved-nov7">
+/* Owner-requested changes only: WF48 screens 4-7. */
+
+/* Screen 4: substantially larger game details and personal-message heading.
+   Keep the personal-message input dimensions unchanged. */
+.storyboard .st-phone .wf48-owner-preview .wf48-message-card{gap:8px!important;padding:12px 10px!important}
+.storyboard .st-phone .wf48-owner-preview .wf48-message-card>b{font-size:27px!important;line-height:1.12!important}
+.storyboard .st-phone .wf48-owner-preview .wf48-message-card>span{font-size:18px!important;font-weight:900!important;line-height:1.18!important}
+.storyboard .st-phone .wf48-owner-preview .wf48-note-label{font-size:19px!important;line-height:1.14!important}
+.storyboard .st-phone .wf48-owner-preview .wf48-message-facts{font-size:16px!important;line-height:1.2!important;gap:7px!important}
+.storyboard .st-phone .wf48-owner-preview .wf48-message-facts b{font-size:19px!important}
+.storyboard .st-phone .wf48-owner-preview textarea{min-height:86px!important;height:86px!important;flex:0 0 86px!important;font-size:17px!important}
+
+/* Screen 5: much larger invitation detail text; move RSVP question/choices
+   toward the bottom, immediately above the response button when unselected. */
+.storyboard .st-phone .wf48-guest .wf48-message-card{gap:8px!important;padding:12px 10px!important}
+.storyboard .st-phone .wf48-guest .wf48-message-card>b{font-size:27px!important;line-height:1.12!important}
+.storyboard .st-phone .wf48-guest .wf48-message-card>span{font-size:18px!important;font-weight:900!important;line-height:1.18!important}
+.storyboard .st-phone .wf48-guest .wf48-personal-note{font-size:17px!important;line-height:1.2!important}
+.storyboard .st-phone .wf48-guest .wf48-response-title{margin-top:auto!important;font-size:17px!important}
+.storyboard .st-phone .wf48-guest .wf48-message-footer{margin-top:0!important}
+.storyboard .st-phone .wf48-guest .wf48-response-grid{flex:0 0 auto!important}
+.storyboard .st-phone .wf48-guest .wf48-rsvp-follow:empty{display:none!important}
+
+/* Screens 6-7: remove the green felt rectangle, keep existing seat positions
+   and increase thumbnail tile dimensions without changing reservation logic. */
+.storyboard .st-phone .wf48-table-screen .wf48-oval{display:none!important}
+.storyboard .st-phone .wf48-table-screen .wf48-table-seats{background:transparent!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat{width:68px!important;height:68px!important;padding:1px!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat-face{width:51px!important;height:43px!important;max-height:43px!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat>b{font-size:12px!important;line-height:1.08!important}
+.storyboard .st-phone .wf48-table-screen .wf48-seat-number{font-size:11px!important}
+
+/* Screen 7: exactly match the 62px footer height already used on screens 4-6. */
+.storyboard .st-phone .wf48-table-screen .wf48-confirm-actions{min-height:62px!important;height:62px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;align-items:stretch!important}
+.storyboard .st-phone .wf48-table-screen .wf48-confirm-actions button{height:100%!important;min-height:0!important;font-size:13px!important;font-weight:900!important;line-height:1.15!important;padding:4px 3px!important}
+</style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
