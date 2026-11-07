@@ -2805,6 +2805,65 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
 .storyboard .st-phone .wf48-table-screen .wf48-confirm-actions{min-height:62px!important;height:62px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;align-items:stretch!important}
 .storyboard .st-phone .wf48-table-screen .wf48-confirm-actions button{height:100%!important;min-height:0!important;font-size:13px!important;font-weight:900!important;line-height:1.15!important;padding:4px 3px!important}
 </style>
+
+<style id="wf48-owner-footer-and-card-alignment-nov7">
+/* Workflow 48 ONLY: consistent bottom action system across screens 2 through 7. */
+.storyboard .st-phone .wf48-invites.wf48-clean .wf48-footer-inv.wf48-only-confirm,
+.storyboard .st-phone .wf48-player-screen .wf48-player-actions,
+.storyboard .st-phone .wf48-owner-preview .wf48-message-footer,
+.storyboard .st-phone .wf48-guest .wf48-message-footer,
+.storyboard .st-phone .wf48-table-screen .wf48-message-footer {
+  flex:0 0 62px!important;height:62px!important;min-height:62px!important;max-height:62px!important;
+  margin-top:auto!important;margin-bottom:0!important;padding:4px 0 4px!important;
+  align-items:stretch!important;box-sizing:border-box!important;
+}
+.storyboard .st-phone .wf48-invites.wf48-clean .wf48-footer-inv.wf48-only-confirm {
+  padding:4px 0 5px!important;
+  min-width:0!important;
+}
+.storyboard .st-phone .wf48-invites.wf48-clean .wf48-footer-inv.wf48-only-confirm button,
+.storyboard .st-phone .wf48-player-screen .wf48-player-actions button,
+.storyboard .st-phone .wf48-owner-preview .wf48-message-footer button,
+.storyboard .st-phone .wf48-guest .wf48-message-footer button,
+.storyboard .st-phone .wf48-table-screen .wf48-message-footer button {
+  height:54px!important;min-height:54px!important;max-height:54px!important;
+  box-sizing:border-box!important;margin:0!important;align-self:start!important;
+  border-width:2px!important;border-style:solid!important;
+}
+.storyboard .st-phone .wf48-invites.wf48-clean{padding-bottom:3px!important;box-sizing:border-box!important}
+.storyboard .st-phone .wf48-player-screen{padding-bottom:3px!important;box-sizing:border-box!important}
+.storyboard .st-phone .wf48-player-screen .wf48-player-actions{margin-top:auto!important}
+
+/* Screens 4 and 5 must have identical header and identical game-card start/height. */
+.storyboard .st-phone .wf48-owner-preview .wf48-message-title,
+.storyboard .st-phone .wf48-guest .wf48-message-title {
+  flex:0 0 28px!important;height:28px!important;min-height:28px!important;
+  margin:0!important;padding:2px 1px!important;line-height:24px!important;
+}
+.storyboard .st-phone .wf48-owner-preview .wf48-message-card,
+.storyboard .st-phone .wf48-guest .wf48-message-card {
+  flex:0 0 184px!important;height:184px!important;min-height:184px!important;max-height:184px!important;
+  gap:7px!important;padding:10px 9px!important;overflow:hidden!important;
+}
+.storyboard .st-phone .wf48-owner-preview .wf48-message-card>b,
+.storyboard .st-phone .wf48-guest .wf48-message-card>b{font-size:26px!important;line-height:1.12!important}
+.storyboard .st-phone .wf48-owner-preview .wf48-message-card>span,
+.storyboard .st-phone .wf48-guest .wf48-message-card>span{font-size:17px!important;line-height:1.15!important}
+.storyboard .st-phone .wf48-guest-note {
+  border:2px solid #28b8df!important;background:#093047!important;
+  display:flex!important;flex-direction:column!important;gap:3px!important;
+  padding:7px 9px!important;min-height:0!important;max-height:88px!important;
+  overflow:hidden!important;font-size:16px!important;line-height:1.16!important;
+}
+.storyboard .st-phone .wf48-guest-note strong{font-size:16px!important;color:#7ee9ff!important;font-weight:900!important}
+.storyboard .st-phone .wf48-guest-note span{font-size:16px!important;font-weight:800!important;color:#fff!important}
+
+/* Screen 7 stays three equal-width buttons, matching the same 54px action height. */
+.storyboard .st-phone .wf48-table-screen .wf48-confirm-actions {
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important;
+}
+.storyboard .st-phone .wf48-table-screen .wf48-confirm-actions button{font-size:13px!important;line-height:1.15!important;padding:4px 2px!important}
+</style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -7493,7 +7552,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    '<div class="wf48-message-card"><b>'+e(g.name)+'</b><span>'+e(wf48GameDate())+' · '+e(g.time)+'</span>'+
    '<span>'+e(g.game)+'</span><span>BLINDS · COP '+Number(g.small).toLocaleString('en-US')+' / COP '+Number(g.big).toLocaleString('en-US')+'</span>'+
    '<span>Buy-in COP '+Number(g.min).toLocaleString('en-US')+' – COP '+Number(g.max).toLocaleString('en-US')+'</span>'+
-   (note?'<div class="wf48-personal-note">'+e(note)+'</div>':'')+'</div>'+
+   '</div>'+(note?'<div class="wf48-personal-note wf48-guest-note"><strong>PERSONAL MESSAGE</strong><span>'+e(note)+'</span></div>':'')+
    '<div class="wf48-count"><strong>'+wf48Count()+' PLAYERS</strong> ALREADY RESERVED SEATS</div>'+
    '<div class="wf48-response-title">ARE YOU COMING?</div>'+
    '<div class="wf48-response-grid">'+['YES','NO','MAYBE'].map(function(t){return '<button type="button" data-wf48-rsvp="'+t+'" class="'+(r===t?'chosen':'')+'">'+t+'</button>';}).join('')+'</div>'+
