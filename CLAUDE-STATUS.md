@@ -33,15 +33,17 @@ After **every substantive answer to Mike** (including readiness, test results, i
 
 ## Latest status
 
-**Updated:** 2026-11-06 (initial bridge setup)  
-**Current task:** Claude Code onboarding and reusable Edge screenshot QA for Workflow 48  
-**State:** Ready for first implementation task (as reported by Claude; no UI edits authorized)  
-**Latest Claude response:** SSH access to the UX repository is working. Local Edge + Node screenshot capture can render all seven Workflow 48 screens at 390×844, and a reusable `qa.mjs` is located outside the repo. Claude identified one possible image overflow on Screen 3; clicks/swipes remain untested. The branch is at the reviewed UI commit `0ae1c0ebaa449b0881f6c5b4c31e598b56ca4c56`.  
+**Updated (Bogotá time):** 2026-11-06 23:45  
+**Current task:** Investigate WF48 Screen 3 (Select Players) reported image overflow — read-only  
+**State:** Ready (investigation complete; no UI edits made or authorized)  
+**Latest Claude response:** The Screen 3 "overflow" is not a visible defect. The 8 photo tiles use an intentional 175% zoom-crop on the `<img>` (`index.html` ~L2719-2722, "crop badges baked into photo assets") so the image box is ~155×162px inside a 94×98px tile. The parent `.wf48-face` has `overflow:hidden` (~L2585), so it is clipped to the tile; nothing bleeds onto the screen and no vertical scroll exists. It was a false positive from my geometry check. Two real observations (not fixed): (1) source photos are only ~140×136px, so the 175% crop upscales them ~2.2× and they look soft at 2× DPR; (2) on Screen 7 the Nora A. and Paul S. seat photos still show a faint burned-in caption ("Nora A", "Paul Smith") — the caption crop used on Screen 3 is not applied there (DESIGN_RULES: "Player photos crop out the burned-in name caption"). Read DESIGN_RULES.md and HANDOFF.md; will follow them, WF02 untouched.  
 **Changed UI files:** None  
-**UI commit SHA:** `0ae1c0ebaa449b0881f6c5b4c31e598b56ca4c56` (existing approved review baseline)  
-**Testing:** Static screenshots reported successful and repeatable; tap/swipe interactions unverified; exact raw.githack rendering from Claude's environment unverified.  
-**Needs Mike/ChatGPT:** Choose first implementation task; request examination of Screen 3 overflow before claiming fully clean visual QA.
+**UI commit SHA:** `0ae1c0ebaa449b0881f6c5b4c31e598b56ca4c56` (UI baseline; HEAD before this status commit was `3505b73`)  
+**Testing:** Passed: 7 screens render at 390×844, no vertical scroll on any, geometry probe identifies the single flagged element type. Unverified: tap/swipe interactions; raw.githack rendering from Claude's PC; Screen 7 caption observation is from a screenshot, not measured.  
+**Needs Mike/ChatGPT:** Decide whether Screen 7 caption crop and/or higher-resolution player photos should be part of the first UI task; otherwise send the first implementation task.
 
 ## History
 
+- 2026-11-06 23:45 — Claude: Screen 3 overflow = clipped intentional crop (false positive); noted soft photos and Screen 7 residual captions. No UI changes.
+- 2026-11-06 (earlier) — Claude: onboarding complete; SSH access works; Edge+Node screenshot QA ready (`qa.mjs` outside repo); branch was at `0ae1c0e`.
 - 2026-11-06 — Status bridge created by ChatGPT. Awaiting Claude Code to read this file and start posting updates.
