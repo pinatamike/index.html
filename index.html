@@ -7383,14 +7383,14 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  }
 
  function wf48Game(){return WF48DRAFT||Object.assign({name:'Sunday Hold’em',date:'11/08/2026',time:'7:00 PM',game:'Texas Hold’em',small:5000,big:10000,min:200000,max:1000000,seats:10},WF2LINK.suggest());}
- function wf48GameDate(){var v=String(wf48Game().date||''),t=v.split('/');if(t.length!==3)return v;return new Date(+t[2],+t[0]-1,+t[1]).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}
+ function wf48GameDate(){var v=String(wf48Game().date||''),t=v.split('/');if(t.length!==3)return v;return new Date(+t[2],+t[0]-1,+t[1]).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});}
  function wf48Img(name,initial){var url=LOCAL_PORTRAITS[name];return url?'<img src="'+url+'" alt="">':'<span>'+e(initial)+'</span>';}
  function wf48OwnerPreview(){
   var g=wf48Game(),n=WF48INV.selected.length;
   return '<div class="wf48-message wf48-owner-preview"><div class="wf48-message-title">INVITATION PREVIEW</div>'+
    '<div class="wf48-message-card"><b>'+e(g.name)+'</b><span>'+e(wf48GameDate())+' · '+e(g.time)+'</span>'+
-   '<span>'+e(g.game)+' · COP '+Number(g.small).toLocaleString('en-US')+' / '+Number(g.big).toLocaleString('en-US')+'</span>'+
-   '<span>Buy-in COP '+Number(g.min).toLocaleString('en-US')+' – '+Number(g.max).toLocaleString('en-US')+'</span></div>'+
+   '<span>'+e(g.game)+' · COP '+Number(g.small).toLocaleString('en-US')+' / COP '+Number(g.big).toLocaleString('en-US')+'</span>'+
+   '<span>Buy-in COP '+Number(g.min).toLocaleString('en-US')+' – COP '+Number(g.max).toLocaleString('en-US')+'</span></div>'+
    '<label class="wf48-note-label">PERSONAL MESSAGE (OPTIONAL)</label>'+
    '<textarea data-wf48-owner-note maxlength="280" placeholder="Add a personal note…">'+e(WF48INV.note||'')+'</textarea>'+
    '<div class="wf48-message-facts"><b>'+n+' INVITEES</b><span>SEND: '+e(WF48INV.inviteTime)+'</span><span>REMINDER: '+e(WF48INV.reminder)+'</span></div>'+
@@ -7404,8 +7404,8 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var g=wf48Game(),note=String(WF48INV.note||'').trim(),r=WF48INV.response;
   return '<div class="wf48-guest"><div class="wf48-message-title">YOU’RE INVITED</div>'+
    '<div class="wf48-message-card"><b>'+e(g.name)+'</b><span>'+e(wf48GameDate())+' · '+e(g.time)+'</span>'+
-   '<span>'+e(g.game)+' · COP '+Number(g.small).toLocaleString('en-US')+' / '+Number(g.big).toLocaleString('en-US')+'</span>'+
-   '<span>Buy-in COP '+Number(g.min).toLocaleString('en-US')+' – '+Number(g.max).toLocaleString('en-US')+'</span>'+
+   '<span>'+e(g.game)+' · COP '+Number(g.small).toLocaleString('en-US')+' / COP '+Number(g.big).toLocaleString('en-US')+'</span>'+
+   '<span>Buy-in COP '+Number(g.min).toLocaleString('en-US')+' – COP '+Number(g.max).toLocaleString('en-US')+'</span>'+
    (note?'<div class="wf48-personal-note">'+e(note)+'</div>':'')+'</div>'+
    '<div class="wf48-count"><strong>'+wf48Count()+' PLAYERS</strong> ALREADY RESERVED SEATS</div>'+
    '<div class="wf48-response-title">ARE YOU COMING?</div>'+
@@ -7421,7 +7421,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   reserved.forEach(function(p){map[p.seat]=p;});
   var seats=Array.from({length:count},function(_,i){
    var n=i+1,p=map[n],mine=WF48INV.seat===n&&WF48INV.response==='YES';
-   var theta=2*Math.PI*i/count-Math.PI/2,x=50+41*Math.cos(theta),y=50+42*Math.sin(theta);
+   var theta=2*Math.PI*i/count-Math.PI/2,x=50+32*Math.cos(theta),y=50+36*Math.sin(theta);
    return '<button type="button" style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%" class="wf48-seat'+(p?' reserved':'')+(mine?' mine':'')+'" data-wf48-seat="'+n+'" '+(p?'disabled':'')+'><span class="wf48-seat-number">'+n+'</span><span class="wf48-seat-face">'+(p?wf48Img(p.name,p.initial):mine?wf48Img('James K.','JK'):'<span class="wf48-seat-open">+</span>')+'</span><b>'+(p?e(p.name):mine?'YOU':'OPEN')+'</b></button>';
   }).join('');
   return '<div class="wf48-table-seats"><div class="wf48-oval">POKER TABLE</div>'+seats+'</div>';
@@ -7476,7 +7476,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   if(template){var area=template.closest('.wf48-owner-preview')?.querySelector('[data-wf48-owner-note]');WF48INV.note=area?area.value.trim():'';WF48INV.invitationStatus='PREVIEW ONLY · SEND NOT CONNECTED';wf48Store();wf48SavePreview();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:4');return;}
   if(rsvp){WF48INV.response=rsvp.dataset.wf48Rsvp;WF48INV.seat=null;WF48INV.confirmed=false;wf48Store();ev.preventDefault();ev.stopImmediatePropagation();var el=rsvp.closest('.wf48-guest');if(el)el.outerHTML=wf48GuestInvitation();return;}
   if(arrival){WF48INV.arrival=arrival.dataset.wf48Arrival==='START'?wf48Game().time:'8:30 PM';wf48Store();ev.preventDefault();ev.stopImmediatePropagation();var el=arrival.closest('.wf48-guest');if(el)el.outerHTML=wf48GuestInvitation();return;}
-  if(chooseSeat){var input=chooseSeat.closest('.wf48-guest')?.querySelector('[data-wf48-arrival-input]');if(input&&input.value.trim())WF48INV.arrival=input.value.trim();wf48Store();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:5');return;}
+  if(chooseSeat){var input=chooseSeat.closest('.wf48-guest')?.querySelector('[data-wf48-arrival-input]');if(input&&input.value.trim())WF48INV.arrival=input.value.trim();if(!String(WF48INV.arrival||'').trim())WF48INV.arrival=wf48Game().time;wf48Store();ev.preventDefault();ev.stopImmediatePropagation();rnGo('48:5');return;}
   if(seat){if(seat.disabled)return;WF48INV.seat=Number(seat.dataset.wf48Seat);wf48Store();ev.preventDefault();ev.stopImmediatePropagation();var el=seat.closest('.wf48-table-screen');if(el)el.outerHTML=wf48SeatSelect();return;}
   if(reserve){ev.preventDefault();ev.stopImmediatePropagation();if(!WF48INV.seat){var st=reserve.closest('.wf48-table-screen')?.querySelector('.wf48-status');if(st)st.textContent='SELECT AN OPEN SEAT';return;}WF48INV.confirmed=true;WF48INV.rsvpLog.current={status:'Coming',table:WF48INV.table,seat:WF48INV.seat,arrival:WF48INV.arrival,updatedAt:new Date().toISOString()};wf48Store();wf48SavePreview();rnGo('48:6');return;}
   if(submit){ev.preventDefault();ev.stopImmediatePropagation();WF48INV.confirmed=false;WF48INV.seat=null;WF48INV.rsvpLog.current={status:WF48INV.response==='MAYBE'?'Maybe':'Declined',updatedAt:new Date().toISOString()};wf48Store();wf48SavePreview();var st=submit.closest('.wf48-guest')?.querySelector('.wf48-status');if(st)st.textContent=WF48INV.response==='MAYBE'?'MAYBE RECORDED · NO SEAT':'DECLINED · NO SEAT';return;}
