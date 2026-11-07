@@ -33,9 +33,11 @@ After **every substantive answer to Mike** (including readiness, test results, i
 
 ## Latest status
 
-**Updated (Bogotá time):** 2026-11-06 23:45  
-**Current task:** Investigate WF48 Screen 3 (Select Players) reported image overflow — read-only  
-**State:** Ready (investigation complete; no UI edits made or authorized)  
+**Updated (Bogotá time):** 2026-11-06 23:52  
+**Current task:** Mike approved including the Screen 7 caption crop in the first UI task. Waiting for the rest of the brief from ChatGPT; no edits made.  
+**Prep finding (read-only):** Screen 7 seat photos use `.wf48-seat-face img{width:100%;height:100%;object-fit:cover}` (`index.html` L2710) with no zoom-crop, so the baked-in caption shows. Screen 3 hides it with a 175% crop (L2719-2722). Likely fix is a scoped crop on `.wf48-table-screen .wf48-seat-face img` only. Will verify before/after on all 7 screens and check WF02 is unchanged.  
+**State:** Ready — waiting for the first UI brief  
+**Previous investigation (Screen 3 overflow, 23:45):**  
 **Latest Claude response:** The Screen 3 "overflow" is not a visible defect. The 8 photo tiles use an intentional 175% zoom-crop on the `<img>` (`index.html` ~L2719-2722, "crop badges baked into photo assets") so the image box is ~155×162px inside a 94×98px tile. The parent `.wf48-face` has `overflow:hidden` (~L2585), so it is clipped to the tile; nothing bleeds onto the screen and no vertical scroll exists. It was a false positive from my geometry check. Two real observations (not fixed): (1) source photos are only ~140×136px, so the 175% crop upscales them ~2.2× and they look soft at 2× DPR; (2) on Screen 7 the Nora A. and Paul S. seat photos still show a faint burned-in caption ("Nora A", "Paul Smith") — the caption crop used on Screen 3 is not applied there (DESIGN_RULES: "Player photos crop out the burned-in name caption"). Read DESIGN_RULES.md and HANDOFF.md; will follow them, WF02 untouched.  
 **Changed UI files:** None  
 **UI commit SHA:** `0ae1c0ebaa449b0881f6c5b4c31e598b56ca4c56` (UI baseline; HEAD before this status commit was `3505b73`)  
