@@ -2879,6 +2879,10 @@ html body .storyboard .phone .ux-content:has(>.crm-profile-tight){padding:6px 6p
    Screen 6 is the .wf48-table-screen that does NOT contain .wf48-confirm-top. */
 .storyboard .st-phone .wf48-table-screen:not(:has(.wf48-confirm-top)) .wf48-seat-face img{width:100%!important;height:128%!important;max-height:none!important;align-self:start!important;object-fit:cover!important;object-position:0% 0%!important}
 </style>
+<style id="wf48-task002-seat-tile-height">
+/* Task 002 -- WF48 Screens 6 and 7 ONLY (.wf48-table-screen): seat tiles are 10% taller (68px -> 74.8px); width stays 68px. Face, crop and name are unchanged. */
+.storyboard .st-phone .wf48-table-screen .wf48-seat{height:74.8px!important}
+</style>
 </head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Session</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
@@ -7494,8 +7498,11 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  if(!WF2LINK)throw new Error('WF02 bridge must initialize before WF48');
  var WF48KEY='nora.wf48.schedule.preview.v2';
  var WF48INVKEY='nora.wf48.invites.preview.v2';
- var WF48INV={send:false,audience:'PICK',grace:30,inviteTime:'24 H',reminder:'1 H',selected:[],note:'',response:'',arrival:'7:00 PM',seat:null,table:1,confirmed:false,rsvpLog:{}};
- try{var restored=JSON.parse(localStorage.getItem(WF48INVKEY)||'{}');Object.assign(WF48INV,restored);if(WF48INV.audience==='RECENT')WF48INV.audience='PICK';WF48INV.table=WF48INV.table||1;WF48INV.rsvpLog=WF48INV.rsvpLog||{};if(!['OFF','1 H','30 MIN'].includes(WF48INV.reminder))WF48INV.reminder='1 H';if(!['NOW','24 H','12 H','6 H'].includes(WF48INV.inviteTime))WF48INV.inviteTime='24 H';if(!['PICK','ACTIVE','ALL'].includes(WF48INV.audience))WF48INV.audience='PICK';}catch(x){}
+ var WF48INV={send:false,audience:'PICK',grace:30,inviteTime:'24 H',reminder:'1 H',selected:[],note:'',response:'',arrival:'7:00 PM',seat:null,seatScheme:2,table:1,confirmed:false,rsvpLog:{}};
+ try{var restored=JSON.parse(localStorage.getItem(WF48INVKEY)||'{}');Object.assign(WF48INV,restored);wf48MigrateSeats(restored);if(WF48INV.audience==='RECENT')WF48INV.audience='PICK';WF48INV.table=WF48INV.table||1;WF48INV.rsvpLog=WF48INV.rsvpLog||{};if(!['OFF','1 H','30 MIN'].includes(WF48INV.reminder))WF48INV.reminder='1 H';if(!['NOW','24 H','12 H','6 H'].includes(WF48INV.inviteTime))WF48INV.inviteTime='24 H';if(!['PICK','ACTIVE','ALL'].includes(WF48INV.audience))WF48INV.audience='PICK';}catch(x){}
+ /* Task 002 seat numbering: position index (the old 1-10 label, which fixes the physical spot) -> new seat id. Only the 10-seat layout is renumbered. */
+ function wf48SeatNew(pos,count){return count===10?((pos+5)%10)+1:pos;}
+ function wf48MigrateSeats(saved){if(saved&&saved.seatScheme===2)return;if(WF48INV.seat)WF48INV.seat=wf48SeatNew(Number(WF48INV.seat),10);var cur=WF48INV.rsvpLog&&WF48INV.rsvpLog.current;if(cur&&cur.seat)cur.seat=wf48SeatNew(Number(cur.seat),10);WF48INV.seatScheme=2;}
  function wf48Store(){try{localStorage.setItem(WF48INVKEY,JSON.stringify(WF48INV));}catch(x){}}
  var WF48DRAFT=null,WF48MODE='schedule',WF48PAGE=0,WF48SWIPE=0;
  // Demo contacts only. Production selector must use tenant's actual player CRM.
@@ -7557,7 +7564,8 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    '<div class="wf48-message-facts"><b>'+n+' INVITEES</b><span>SEND: '+e(WF48INV.inviteTime==='NOW'?'NOW':WF48INV.inviteTime+' BEFORE GAME')+'</span><span>REMINDER: '+e(WF48INV.reminder==='OFF'?'OFF':WF48INV.reminder+' BEFORE GAME')+'</span><span class="wf48-preview-notice">PREVIEW ONLY · NO MESSAGES SENT</span></div>'+
    '<div class="wf48-message-footer"><button type="button" data-rn-route="'+(WF48INV.audience==='PICK'?'48:2':'48:1')+'">BACK</button><button type="button" class="primary" data-wf48-confirm-template="1">VIEW PLAYER INVITE</button></div></div>';
  }
- var WF48RESERVED=[{seat:1,name:'Luka D.',initial:'LD'},{seat:3,name:'Macaulay C.',initial:'MC'},{seat:5,name:'Miguel B.',initial:'MB'},{seat:7,name:'Paul Smith',initial:'PS'},{seat:9,name:'Nora A.',initial:'NA'}];
+ /* Task 002: seat ids use the owner-approved numbering (old position 5,6,7,8,9,10,1,2,3,4 -> 1..10). Each demo player keeps the same physical position: old 1,3,5,7,9 are now 7,9,1,3,5. */
+ var WF48RESERVED=[{seat:7,name:'Luka D.',initial:'LD'},{seat:9,name:'Macaulay C.',initial:'MC'},{seat:1,name:'Miguel B.',initial:'MB'},{seat:3,name:'Paul Smith',initial:'PS'},{seat:5,name:'Nora A.',initial:'NA'}];
  function wf48Reservations(){var count=Math.max(2,Math.min(12,Number(wf48Game().seats)||10));return WF48RESERVED.filter(function(x){return x.seat<=count&&WF48INV.table===1;});}
  function wf48Count(){return wf48Reservations().length+(WF48INV.confirmed&&WF48INV.response==='YES'&&WF48INV.seat?1:0);}
  function wf48Tables(){return Math.max(1,Math.min(4,Number(wf48Game().tables)||1));}
@@ -7581,8 +7589,8 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var count=Math.max(2,Math.min(12,Number(wf48Game().seats)||10)),reserved=wf48Reservations(),map={};
   reserved.forEach(function(p){map[p.seat]=p;});
   var seats=Array.from({length:count},function(_,i){
-   var n=i+1,p=map[n],mine=WF48INV.seat===n&&WF48INV.response==='YES';
-   var coords=count===10?[[17,17],[50,17],[83,17],[83,40],[83,62],[83,83],[50,83],[17,83],[17,62],[17,40]]:null;
+   var n=wf48SeatNew(i+1,count),p=map[n],mine=WF48INV.seat===n&&WF48INV.response==='YES';
+   var coords=count===10?[[17,14],[50,14],[83,14],[83,38],[83,62],[83,86],[50,86],[17,86],[17,62],[17,38]]:null; /* Task 002: rows evenly spaced (14/38/62/86 %, was 17/40/62/83) so the 10%-taller tiles keep a clear gap; columns unchanged */
    var theta=2*Math.PI*i/count-Math.PI/2,x=coords?coords[i][0]:50+32*Math.cos(theta),y=coords?coords[i][1]:50+32*Math.sin(theta);
    return '<button type="button" style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%" class="wf48-seat'+(p?' reserved':'')+(mine?' mine':'')+'" data-wf48-seat="'+n+'" '+(p?'disabled':'')+'><span class="wf48-seat-number">'+n+'</span><span class="wf48-seat-face">'+(p?wf48Img(p.name,p.initial):mine?wf48Img('James K.','JK'):'<span class="wf48-seat-open">+</span>')+'</span><b>'+(p?e(p.name):mine?'YOU':'OPEN')+'</b></button>';
   }).join('');
