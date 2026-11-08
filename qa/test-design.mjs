@@ -8,7 +8,7 @@ const where = list => list.slice(0, 6).map(f => `wf${f.wf}/s${f.step}`).join(', 
 check(`inventory covers ${new Set(frames.map(f => f.wf)).size} workflows / ${frames.length} screens with no probe errors`, new Set(frames.map(f => f.wf)).size === 71 && frames.length >= 299 && inv.frames.length === frames.length, `${new Set(frames.map(f => f.wf)).size} workflows, ${frames.length} frames`);
 check('no JavaScript errors while rendering all workflows', (inv.jsErrors || []).length === 0, (inv.jsErrors || []).slice(0, 2).join(' | '));
 // 8. square corners (the paid stamp and the round mic button are the only intentional round shapes)
-const roundAllowed = /co6-paid-stamp|st-micbig/;
+const roundAllowed = /co6-paid-stamp|st-micbig|st-micsm/;
 const roundBad = frames.filter(f => (f.rounded || []).some(r => !roundAllowed.test(r.cls)));
 check('8. square tile corners: no rounded tiles or buttons except the paid stamp and the mic', roundBad.length === 0, where(roundBad) + ' ' + roundBad.slice(0, 3).map(f => f.rounded.map(r => r.cls + ' r=' + r.rad).join('/')).join('; '));
 // 9. standardised border thickness

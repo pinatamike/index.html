@@ -62,7 +62,7 @@ const want = ['Invitation message', 'Owner personal message', 'RSVP choices', 'A
 check('module lists message, owner note, RSVP choices, arrival, seat reservation, reserved count, photos', want.every((w, i) => rows[i] && rows[i].t === w), rows.map(r => r.t).join(' | '));
 check('5 real toggles bound to the shared invites.* settings, all ON by default', rows.filter(r => r.tog).length === 5 && rows.filter(r => r.tog).every(r => r.on && /^invites\./.test(r.key)), rows.filter(r => r.tog).map(r => r.key + ':' + r.on).join(' '));
 check('seat-hold chips (15/30/60 MIN) and the delivery link are present', (await ev(`[...${ph(8)}.querySelectorAll('.fb-opt b')].map(b=>b.textContent.trim()).join(',')`)) === '15 MIN,30 MIN,60 MIN' && (await has(8, '.fb-li[data-rn-route="60:3"]')));
-check('Settings home lists "Invitations" and it opens this screen (60:7)', (await ev(`[...${ph(1)}.querySelectorAll('.fb-li')].some(b=>b.dataset.rnRoute==='60:7'&&/Invitations/.test(b.textContent))`)) === true);
+check('Settings home has an INVITATIONS module tile (-> WF78, which links to this screen 60:7)', (await ev(`[...${ph(1)}.querySelectorAll('.s3-tile')].some(b=>b.dataset.rnRoute==='78:0'&&/INVITATIONS/.test(b.textContent))`)) === true);
 check('the Settings screen shows the honest backend note', /needs the delivery backend/.test(await txt(8, '.fb-note, .note, [class*=note]')) || (await ev(`${ph(8)}.innerText.includes('needs the delivery backend')`)) === true);
 // flip toggles and verify WF48 follows (same browser storage)
 const flip = async key => ev(`(()=>{const b=${ph(8)}.querySelector('.st-tog[data-cfg="invites.${key}"]');if(!b)return 'NOT FOUND';b.click();return b.classList.contains('on')?'on':'off'})()`);

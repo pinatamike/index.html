@@ -33,7 +33,7 @@ let cntOk = true, cntDet = [];
 for (const [w, n] of Object.entries(want)) { await go(w); const got = await nStages(); if (got !== n) { cntOk = false; cntDet.push(`wf${w}:${got}/${n}`); } }
 check('1. Step counts WF19-24 unchanged (4,4,4,4,4,3) and WF72-77 = 2,5,2,3,3,5; every screen inside the swipe row', cntOk, cntDet.join('; '));
 const total = await ev(`WORKFLOWS.length`);
-check('2. Exactly 77 workflows; WF1-71 ids intact', total === 77 && (await ev(`WORKFLOWS.slice(0,71).every((w,i)=>w.id===i+1)`)) === true, 'total=' + total);
+check('2. 85 workflows (WF78-85 added by Brief c); WF1-71 ids intact', total === 85 && (await ev(`WORKFLOWS.slice(0,71).every((w,i)=>w.id===i+1)`)) === true, 'total=' + total);
 
 // 3. terminology
 let termBad = [];
@@ -103,8 +103,8 @@ const tg1 = await J(`const t=${S(1)}.querySelector('.b2-tg');return {on:t.classL
 check('20. WF77 permission toggles render (10 preset toggles) and flip on tap with aria-checked', tg0.n === 10 && tg1.on === true && tg1.a === 'true', JSON.stringify([tg0, tg1]));
 await ev(`show(77)`); await sleep(800);
 const nxt = await ev(`document.getElementById('next').disabled`);
-const lbl = await ev(`document.body.innerText.includes('Workflow 77 of 77')&&document.getElementById('progressText').textContent`);
-check('21. Studio: Next disabled on WF77; "Workflow 77 of 77"; progress counter /77', nxt === true && /\/ 77/.test(String(lbl)), nxt + ' ' + lbl);
+const lbl = await ev(`document.body.innerText.includes('Workflow 77 of 85')&&document.getElementById('progressText').textContent`);
+check('21. Studio: Next enabled on WF77; Workflow 77 of 85; progress counter /85', nxt === false && /\/ 85/.test(String(lbl)), nxt + ' ' + lbl);
 await go(63); const s63 = (await allTxt()).join(' | '); await go(77); const s77 = (await allTxt()).join(' | ');
 check('22. WF77 reuses the Settings role/permission wording (same roles, access summaries and role-preset permission copy as WF63)', ['Everything · protected', 'Buy-ins · cash-outs · expenses', 'Seating · table actions', 'Sales · comps', 'Food orders · counts', 'Service access never grants reports'].every(x => s63.includes(x) && s77.includes(x)), ['Everything · protected', 'Buy-ins · cash-outs · expenses', 'Seating · table actions', 'Sales · comps', 'Food orders · counts', 'Service access never grants reports'].filter(x => !s63.includes(x) || !s77.includes(x)).map(x => x + (s63.includes(x) ? '' : '[no63]') + (s77.includes(x) ? '' : '[no77]')).join(' | ') + ' len ' + s63.length + '/' + s77.length);
 

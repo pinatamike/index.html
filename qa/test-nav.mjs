@@ -80,9 +80,9 @@ for (const label of SIXL) {
   dest[label] = res + ' -> ' + (await ev(`location.hash`));
 }
 check('C1 each drawer tab opens its own section home', SIXL.every(l => dest[l] && !/no tab/.test(dest[l])), JSON.stringify(dest));
-check('C2 Support and Privacy open an in-drawer panel with a way back; Profile opens the profile screen', await (async () => { await send('Page.navigate', { url: url(1) }); await sleep(1800); await send('Page.reload'); await sleep(2600); await settle();
+check('C2 Support and Privacy open an in-drawer panel with a way back; Profile (avatar) opens My Account (WF84)', await (async () => { await send('Page.navigate', { url: url(1) }); await sleep(1800); await send('Page.reload'); await sleep(2600); await settle();
   const r = JSON.parse(await ev(`(()=>{const st=${S};st.querySelector('.ux-hamb').click();const dr=st.querySelector('.nn-drawer');const sup=dr.querySelector('[data-nn-info="Support"]');sup.click();const t1=dr.querySelector('.nn-info b')&&dr.querySelector('.nn-info b').textContent;const back=!!dr.querySelector('[data-nn-back]');dr.querySelector('[data-nn-back]').click();const dr2=st.querySelector('.nn-drawer');const pri=dr2.querySelector('[data-nn-info="Privacy"]');pri.click();const t2=dr2.querySelector('.nn-info b')&&dr2.querySelector('.nn-info b').textContent;return JSON.stringify({t1,t2,back,profile:dr2.querySelector('.nn-profile')?dr2.querySelector('.nn-profile').dataset.nnGo:null})})()`));
-  return r.t1 === 'Support' && r.t2 === 'Privacy' && r.back && /^65:/.test(r.profile); })());
+  return r.t1 === 'Support' && r.t2 === 'Privacy' && r.back && /^84:/.test(r.profile); })());
 // contextual bar tabs navigate within the module and keep the module's bar
 await send('Page.navigate', { url: url(1) }); await sleep(1800); await send('Page.reload'); await sleep(2600); await settle();
 const tabNav = await ev(`(()=>{const st=${S};const t=[...st.querySelectorAll('.phone>.ux-bottom .ux-tab')].find(x=>(x.querySelector('.s2-lbl')||x).textContent.trim()==='Snapshot');if(!t)return 'none';t.click();return t.dataset.s2Home})()`); await sleep(1000);

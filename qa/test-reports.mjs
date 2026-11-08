@@ -39,7 +39,7 @@ await go(67);
 const stages = {}; for (const w of [67, 68, 69, 70, 71, 32, 38, 40, 41, 44, 45, 46, 47]) { await go(w); stages[w] = await ev(`document.querySelectorAll('.storyboard>.stage').length`); }
 check('2. WF67-71 step counts (4, 4, 4, 7, 3) and every screen sits inside the storyboard swipe row (WF41/WF44 stray-tag repair included)', stages[67] === 4 && stages[68] === 4 && stages[69] === 4 && stages[70] === 7 && stages[71] === 3 && stages[41] === 3 && stages[44] === 3 && stages[38] === 3 && stages[40] === 3 && stages[45] === 3 && stages[46] === 3 && stages[47] === 3, JSON.stringify(stages));
 const nav71 = await J(`return {n:WORKFLOWS.length,missing:[...Array(71).keys()].map(i=>i+1).filter(i=>!WORKFLOWS.find(w=>w.id===i))}`);
-check('3. all 71 original workflows still exist and none were renumbered (WF72-77 added by the TEAM batch)', nav71.n === 77 && nav71.missing.length === 0, JSON.stringify(nav71));
+check('3. all 71 original workflows still exist and none were renumbered (WF72-85 added by later batches)', nav71.n === 85 && nav71.missing.length === 0, JSON.stringify(nav71));
 
 // ---- 4. Overview accounting ----
 await go(67);

@@ -3137,7 +3137,7 @@ window.NORA_TEAM2=(function(){
  function txt(label,v){return '<div class="b2-fld"><span class="b2-k">'+label+'</span><div class="b2-amt b2-txt">'+esc(v)+'</div></div>';}
  function tog(label,on){return '<div class="b2-tg'+(on?' on':'')+'" role="switch" aria-checked="'+(on?'true':'false')+'" tabindex="0"><span>'+label+'</span><i>'+(on?'ON':'OFF')+'</i></div>';}
  function two(a,b){return '<div class="b2-two">'+a+b+'</div>';}
- var ACCESS=['Dealer · Seating · table actions','Cashier · Buy-ins · cash-outs · expenses','Waitress / Bartender · Sales · comps','Chef · Food orders · counts','Partner · Everything · protected'];
+ var ACCESS=['Dealer · Seating · table actions','Cashier · Buy-ins · cash-outs · expenses','Waitress / Bartender · Sales · comps','Chef · Food orders · counts','Game Owner · Everything · protected'];
  var PAYS=[{l:'Fixed pay per session',s:'Owner sets amount',r:'COP 150,000 per session'},{l:'Hourly pay',s:'Owner sets rate',r:'Hourly rate set by owner'},{l:'Custom pay per session',s:'Owner sets amount',r:'Amount set by owner per session'}];
  function main(id,i){
   var A=M.Anna;
@@ -3174,7 +3174,7 @@ window.NORA_TEAM2=(function(){
   }
   /* ---- WF77 Team Access & Permissions (same rows/toggles as Settings roles + team invitations) ---- */
   if(id===77){
-   if(i===0)return '<div class="b2-wrap"><div class="b2-rows b2-roles">'+row('Owner','Everything · protected','stack')+row('Partner','Everything · protected','stack')+row('Cashier','Buy-ins · cash-outs · expenses','stack')+row('Dealer','Seating · table actions','stack')+row('Waitress / Bartender','Sales · comps','stack')+row('Chef','Food orders · counts','stack')+'</div><div class="b2-note"><span>Roles can be combined, such as Dealer + Waitress. Only the owner can close a session permanently.</span></div><div class="b2-fill"></div>'+two(btn('PERMISSIONS','77:1','blue'),btn('INVITATIONS','77:2','blue'))+'</div>';
+   if(i===0)return '<div class="b2-wrap"><div class="b2-rows b2-roles">'+row('Primary Game Owner','Everything · protected','stack')+row('Game Owners','Everything · protected','stack')+row('Cashier','Buy-ins · cash-outs · expenses','stack')+row('Dealer','Seating · table actions','stack')+row('Waitress / Bartender','Sales · comps','stack')+row('Chef','Food orders · counts','stack')+'</div><div class="b2-note"><span>Roles can be combined, such as Dealer + Waitress. Only the owner can close a session permanently.</span></div><div class="b2-fill"></div>'+two(btn('PERMISSIONS','77:1','blue'),btn('INVITATIONS','77:2','blue'))+'</div>';
    if(i===1)return '<div class="b2-wrap b2-perm">'+sel('ROLE PRESET',['Waitress / Bartender','Cashier','Dealer','Chef'],0)+'<div class="b2-tgrid">'+tog('Seating & tables',false)+tog('Buy-ins · cash-outs',false)+tog('Rake',false)+tog('Sales & comps',true)+tog('Price override',false)+tog('Inventory count',true)+tog('Expenses',false)+tog('Reports',false)+tog('Sign & Settle',false)+tog('Daily Close',false)+'</div><div class="b2-note"><span>Service access never grants reports.</span></div><div class="b2-fill"></div>'+btn('BACK TO ACCESS','77:0','blue')+'</div>';
    if(i===2){var inv={Anna:'JOINED',Costa:'JOINED',Alex:'JOINED',Maya:'INVITED',Luis:'NO INVITE',Sofia:'NO INVITE',Pablo:'NO INVITE',Lena:'NO INVITE',Tomas:'NO INVITE',Elena:'NO INVITE',Hugo:'NO INVITE',Carla:'NO INVITE'};
     return '<div class="b2-wrap"><div class="b2-grid b2-sel12">'+ROSTER.map(function(k){return mtile(k,'77:3',inv[k]);}).join('')+'</div>'+btn('INVITE TEAM MEMBER','77:3','blue')+'</div>';}
@@ -3185,7 +3185,7 @@ window.NORA_TEAM2=(function(){
  return {render:render,M:M,main:main};
 })();
 </script>
-</head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 77</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 77 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Game</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 77</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
+</head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 85</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 85 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Game</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 85</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
     "main": "Live Session",
@@ -4173,6 +4173,101 @@ window.NORA_TEAM2=(function(){
       "Invitation sent"
     ],
     "status": "draft"
+  },
+  {
+    "id": 78,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Invitations Settings",
+    "steps": [
+      "Invitations settings",
+      "Delivery channel",
+      "Reminders and seat hold"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 79,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Players Settings",
+    "steps": [
+      "Players settings",
+      "Player profile fields"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 80,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Expenses Settings",
+    "steps": [
+      "Expense categories",
+      "Pay expenses from"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 81,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Rewards Settings",
+    "steps": [
+      "Rewards programs",
+      "Referral Rewards",
+      "Loyalty Rewards",
+      "New Player Welcome Bonus",
+      "Rakeback"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 82,
+    "main": "Players",
+    "sub": "CRM",
+    "title": "Player Rewards",
+    "steps": [
+      "Player rewards",
+      "Referral Rewards",
+      "Loyalty Rewards",
+      "Rakeback"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 83,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Rakeback Settlement",
+    "steps": [
+      "Rakeback outstanding",
+      "Amount and payment",
+      "Review settlement",
+      "Settlement recorded"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 84,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "My Account & Subscription",
+    "steps": [
+      "My Account",
+      "Subscription"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 85,
+    "main": "Settings",
+    "sub": "Profile & Configuration",
+    "title": "Settings More Menu",
+    "steps": [
+      "More settings"
+    ],
+    "status": "draft"
   }
 ];
 const displayId=id=>id;
@@ -4654,6 +4749,7 @@ if(type==='crm-profile')return w.id===54?crmProfileTight():sharedCRMProfile(w.id
 WORKFLOWS.find(w=>w.id===59).steps=['Game basics','Game rules','Rake structure','Payment accounts','Optional modules','Team access','Review and finish'];
 SCREEN_SPECS[59].types=['onboarding','onboard-game','onboard-rake','onboard-payment','onboard-modules','onboard-team','onboard-done'];
 SCREEN_SPECS[54].types=['crm-list','crm-search','crm-profile','player-transactions'];
+[[78,3],[79,2],[80,2],[81,5],[82,4],[83,4],[84,2],[85,1]].forEach(function(p){SCREEN_SPECS[p[0]]={types:Array.from({length:p[1]},function(_,k){return 'nora-set-'+p[0]+'-'+k}),focus:'Settings',values:'',cta:''};});
 [[72,2],[73,5],[74,2],[75,3],[76,3],[77,5]].forEach(function(p){SCREEN_SPECS[p[0]]={types:Array.from({length:p[1]},function(_,k){return 'nora-team-'+p[0]+'-'+k}),focus:'Team',values:'',cta:''};});
 SCREEN_SPECS[19].types=['tm-overview','tm-select','tm-assign','tm-assigned'];SCREEN_SPECS[20].types=['tm-overview','tm-profile','tm-checkin','tm-checkedin'];SCREEN_SPECS[21].types=['tm-overview','tm-profile','tm-tip','tm-tipposted'];SCREEN_SPECS[22].types=['tm-overview','tm-profile','tm-pay','tm-paid'];SCREEN_SPECS[23].types=['tm-overview','tm-profile','tm-checkout','tm-closed'];SCREEN_SPECS[24].types=['tm-overview','tm-profile','tm-earnings'];
 SCREEN_SPECS[13].types=['table','voice-record','voice-review','rebuy-review','table-rebuy'];
@@ -4732,7 +4828,7 @@ const SNAPSHOT_LABELS={overview:'Snapshot',ledger:'Session Ledger',tables:'Rake 
 function snapshotVisibleViews(){const m=SNAPSHOT_SESSION.modules;return ['overview','ledger','tables','team','expenses','accounts','chips',...(m.signSettle?['ss']:[]),...(m.inventory?['inventory']:[]),...(m.otherRevenue?['revenue']:[]),...(m.rewards?['rewards']:[]),'closed'];}
 function customPhone(w,step,i){if(w.id===54)return crm54Screen(w,step,i);if(w.id>=12&&w.id!==32)return harmonizedPhone(w,step,i);if(w.id===32)return snapshotStage(w,step,i);if(w.id===54)return crm56Screen(w,step,i);if(w.id===11&&i===1)return wf10Phone(w,step,1);if(w.id===10&&i>0)return wf10Phone(w,step,i);if(w.id===9&&i>0)return wf9Ledger(w,step,i);const sp=SCREEN_SPECS[w.id];const t=sp.types[Math.min(i,sp.types.length-1)];let active=w.main==='Live Session'?({Team:'Team',Expenses:'Expenses',Snapshot:'Snapshot',Close:'Close'}[w.sub]||'Table'):w.main==='Players'?'Players':w.main==='Team'?'Team':w.main==='Reporting'?'Snapshot':'Table';let title=w.main==='Live Session'?'LIVE GAME':w.main.toUpperCase();let subtitle=w.main==='Live Session'?(w.sub==='Table'?(['table','table-rebuy','table-cashout','table-moved'].includes(t)?'Table View':t==='quick-actions'?'Player Actions':t.includes('rebuy')?'Rebuy':t==='seat-entry'||t==='seat-review'?'Initial Buy-in':t.includes('cashout')?'Cash-out':'Table View'):w.sub==='Nora AI'?'Nora AI':w.sub==='Close'?'Daily Close':w.sub):w.main==='Settings'?'Settings':w.sub;return `<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">${i+1}</div><div class="stage-title">${esc(step)}</div></div><div class="phone hi-phone"><div class="notch"></div>${fullHead(title,subtitle)}<div class="ux-content screen-specific">${screenContent(w,step,i)}</div>${fixedNav(w.main==='Reporting'?'Overview':w.main==='Settings'?'Profile':active,w.main==='Reporting'?'Reporting':w.main==='Settings'?'Settings':'Live Session')}</div><p class="steptext">${esc(sp.focus)} · ${esc(sp.values)}</p></div>`}
 
-function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;if(w.id===32)w.steps=snapshotVisibleViews().map(v=>SNAPSHOT_LABELS[v]);location.hash='workflow-'+id;let r=review(id);$('breadcrumb').textContent=`NORA / ${MAINLBL(w.main)} / ${w.sub}`;$('content').innerHTML=`<h1>${String(id).padStart(2,'0')}. ${esc(w.title)}</h1><p class="intro">Review the intended interaction in the same order a person would use it inside NORA. Swipe horizontally to see every step.</p><div class="meta"><span>${esc(MAINLBL(w.main))}</span><span>${esc(w.sub)}</span><span>${w.steps.length} steps</span><span>Workflow ${id} of ${WORKFLOWS.length}</span></div><div class="sectionlabel">Step-by-step mobile storyboard →</div><div class="storyboard">${w.steps.map((s,i)=>customPhone(w,s,i)).join('')}</div><div class="notice"><b>Review rule:</b> These are proposed NORA screens, not production screenshots or an interactive NORA app. Some screens require further business-rule and layout verification. Screen layouts and financial actions require your approval. The sequence and UI details require your approval. The existing live NORA app is not affected.${id===1?' <b>Workflow #1:</b> This is a screen-specific design proposal using illustrative player names and avatars, not production player photos. It requires your approval before developer handoff.':''}${id===5?' <b>Rebuy rule:</b> Show cumulative total buy-ins, never a supposed current physical chip stack.':''}</div><div class="review"><div class="panel"><h2>Decision</h2><div class="statusbuttons"><button data-status="pending" class="${r.status==='pending'?'selected pending':''}">Not reviewed</button><button data-status="approved" class="${r.status==='approved'?'selected approved':''}">✓ Approve</button><button data-status="changes" class="${r.status==='changes'?'selected changes':''}">✎ Needs changes</button></div><div class="saveinfo">Your decision is saved automatically on this device.</div></div><div class="panel"><h2>Comments / corrections</h2><label for="comments">What should change in this workflow?</label><textarea id="comments" placeholder="Example: Remove step 3. Make the amount larger. Keep the existing Table View.">${esc(r.comment)}</textarea><div class="saveinfo">Comments save as you type. Export to share them with the developer.</div></div></div><div class="footeractions"><button class="secondary" id="prev" ${id===1?'disabled':''}>← Previous</button><button class="primary" id="next" ${id===WORKFLOWS.length?'disabled':''}>Next workflow →</button></div><p class="disclaimer">Prototype for review only. No connection to NORA’s production ledger, accounts, or player data.</p>`;document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{reviews[id]={...review(id),status:b.dataset.status};save();show(id)});$('comments').oninput=e=>{reviews[id]={...review(id),comment:e.target.value};save()};$('prev').onclick=()=>show(Math.max(1,id-1));$('next').onclick=()=>show(Math.min(WORKFLOWS.length,id+1));renderNav();$('sidebar').classList.remove('open');window.scrollTo(0,0)}function showAll(){current=0;$('breadcrumb').textContent='NORA / All workflows';$('content').innerHTML=`<h1>All 77 workflows</h1><p>Grouped by NORA's main navigation, with Live Game ordered Table → Nora AI → Team → Expenses → Snapshot → Close. Choose any workflow to review.</p><div class="allindex">${WORKFLOWS.map(w=>`<button class="indexcard" data-id="${w.id}"><small>${esc(MAINLBL(w.main))} / ${esc(w.sub)}</small><strong>${w.id}. ${esc(w.title)}</strong><small>${esc(review(w.id).status)}</small></button>`).join('')}</div>`;document.querySelectorAll('.indexcard').forEach(b=>b.onclick=()=>show(+b.dataset.id));renderNav();$('sidebar').classList.remove('open')}function download(name,content){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'application/json'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}$('exportbtn').onclick=()=>download('nora-ux-review-decisions.json',JSON.stringify({app:'NORA UX Review',version:1,exported:new Date().toISOString(),reviews},null,2));$('importbtn').onclick=()=>$('importfile').click();$('importfile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let data=JSON.parse(await f.text());if(!data.reviews||typeof data.reviews!=='object')throw Error('Invalid review file');if(!confirm('Import reviews from this file? This replaces reviews saved on this device.'))return;reviews=data.reviews;save();current?show(current):showAll();alert('Reviews imported successfully.')}catch(err){alert('Could not import: '+err.message)}e.target.value=''};$('allbtn').onclick=showAll;$('menubtn').onclick=()=>$('sidebar').classList.toggle('open');$('search').oninput=renderNav;updateProgress();let match=location.hash.match(/workflow-(\d+)/);show(match?Math.max(1,Math.min(WORKFLOWS.length,+match[1])):1);window.addEventListener('hashchange',function(){var m=location.hash.match(/workflow-(\d+)/);if(!m)return;var n=Math.max(1,Math.min(WORKFLOWS.length,+m[1]));if(n!==current)show(n);});/* browser Back/Forward and pasted #workflow-N links now switch workflows in an open tab (show() only writes the hash, so there is no loop) */</script><script>
+function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;if(w.id===32)w.steps=snapshotVisibleViews().map(v=>SNAPSHOT_LABELS[v]);location.hash='workflow-'+id;let r=review(id);$('breadcrumb').textContent=`NORA / ${MAINLBL(w.main)} / ${w.sub}`;$('content').innerHTML=`<h1>${String(id).padStart(2,'0')}. ${esc(w.title)}</h1><p class="intro">Review the intended interaction in the same order a person would use it inside NORA. Swipe horizontally to see every step.</p><div class="meta"><span>${esc(MAINLBL(w.main))}</span><span>${esc(w.sub)}</span><span>${w.steps.length} steps</span><span>Workflow ${id} of ${WORKFLOWS.length}</span></div><div class="sectionlabel">Step-by-step mobile storyboard →</div><div class="storyboard">${w.steps.map((s,i)=>customPhone(w,s,i)).join('')}</div><div class="notice"><b>Review rule:</b> These are proposed NORA screens, not production screenshots or an interactive NORA app. Some screens require further business-rule and layout verification. Screen layouts and financial actions require your approval. The sequence and UI details require your approval. The existing live NORA app is not affected.${id===1?' <b>Workflow #1:</b> This is a screen-specific design proposal using illustrative player names and avatars, not production player photos. It requires your approval before developer handoff.':''}${id===5?' <b>Rebuy rule:</b> Show cumulative total buy-ins, never a supposed current physical chip stack.':''}</div><div class="review"><div class="panel"><h2>Decision</h2><div class="statusbuttons"><button data-status="pending" class="${r.status==='pending'?'selected pending':''}">Not reviewed</button><button data-status="approved" class="${r.status==='approved'?'selected approved':''}">✓ Approve</button><button data-status="changes" class="${r.status==='changes'?'selected changes':''}">✎ Needs changes</button></div><div class="saveinfo">Your decision is saved automatically on this device.</div></div><div class="panel"><h2>Comments / corrections</h2><label for="comments">What should change in this workflow?</label><textarea id="comments" placeholder="Example: Remove step 3. Make the amount larger. Keep the existing Table View.">${esc(r.comment)}</textarea><div class="saveinfo">Comments save as you type. Export to share them with the developer.</div></div></div><div class="footeractions"><button class="secondary" id="prev" ${id===1?'disabled':''}>← Previous</button><button class="primary" id="next" ${id===WORKFLOWS.length?'disabled':''}>Next workflow →</button></div><p class="disclaimer">Prototype for review only. No connection to NORA’s production ledger, accounts, or player data.</p>`;document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{reviews[id]={...review(id),status:b.dataset.status};save();show(id)});$('comments').oninput=e=>{reviews[id]={...review(id),comment:e.target.value};save()};$('prev').onclick=()=>show(Math.max(1,id-1));$('next').onclick=()=>show(Math.min(WORKFLOWS.length,id+1));renderNav();$('sidebar').classList.remove('open');window.scrollTo(0,0)}function showAll(){current=0;$('breadcrumb').textContent='NORA / All workflows';$('content').innerHTML=`<h1>All 85 workflows</h1><p>Grouped by NORA's main navigation, with Live Game ordered Table → Nora AI → Team → Expenses → Snapshot → Close. Choose any workflow to review.</p><div class="allindex">${WORKFLOWS.map(w=>`<button class="indexcard" data-id="${w.id}"><small>${esc(MAINLBL(w.main))} / ${esc(w.sub)}</small><strong>${w.id}. ${esc(w.title)}</strong><small>${esc(review(w.id).status)}</small></button>`).join('')}</div>`;document.querySelectorAll('.indexcard').forEach(b=>b.onclick=()=>show(+b.dataset.id));renderNav();$('sidebar').classList.remove('open')}function download(name,content){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'application/json'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}$('exportbtn').onclick=()=>download('nora-ux-review-decisions.json',JSON.stringify({app:'NORA UX Review',version:1,exported:new Date().toISOString(),reviews},null,2));$('importbtn').onclick=()=>$('importfile').click();$('importfile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let data=JSON.parse(await f.text());if(!data.reviews||typeof data.reviews!=='object')throw Error('Invalid review file');if(!confirm('Import reviews from this file? This replaces reviews saved on this device.'))return;reviews=data.reviews;save();current?show(current):showAll();alert('Reviews imported successfully.')}catch(err){alert('Could not import: '+err.message)}e.target.value=''};$('allbtn').onclick=showAll;$('menubtn').onclick=()=>$('sidebar').classList.toggle('open');$('search').oninput=renderNav;updateProgress();let match=location.hash.match(/workflow-(\d+)/);show(match?Math.max(1,Math.min(WORKFLOWS.length,+match[1])):1);window.addEventListener('hashchange',function(){var m=location.hash.match(/workflow-(\d+)/);if(!m)return;var n=Math.max(1,Math.min(WORKFLOWS.length,+m[1]));if(n!==current)show(n);});/* browser Back/Forward and pasted #workflow-N links now switch workflows in an open tab (show() only writes the hash, so there is no loop) */</script><script>
 (function(){
  const done=new Map();
  function clean(){
@@ -7805,9 +7901,9 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   function(){return '<div class="st-nrow">'+nora()+'<div><b data-nm="t">NORA CAN HELP</b><small data-nm="s">Say it or type it. I’ll ask before saving.</small></div></div><div class="st-say" data-nm="q">What would you like to set up?</div>'+micBtn('TAP TO SPEAK','60:2','')+'<button type="button" class="st-dismiss" data-st-na="1" style="display:none">NOT NEEDED · REMOVE FROM LIST</button>'+foot(['SKIP FOR NOW','60:1'],['OPEN SETTINGS','60:1']).replace('data-rn-route="60:1"','data-st-skip="1" data-rn-route="60:1"').replace('data-rn-route="60:1">OPEN','data-st-open="1" data-rn-route="60:1">OPEN');},
   function(){return home(false);},
   function(){var t=function(n,s,d){return '<button type="button" class="fb-li" data-rn-route="60:5">'+I(d?'star':'bookmark')+'<div><b>'+n+'</b><small>'+s+'</small></div>'+(d?'<em class="fb-chip on">DEFAULT</em>':'')+'<span class="fb-chev">›</span></button>';};
-   return '<div class="fb-list">'+t('Sunday Hold’em','Hold’em · 1 table · 5% rake',1)+t('Tuesday Cash Game','Hold’em · 2 tables · 5% rake')+t('High Stakes PLO','Omaha · 1 table · 3% rake')+t('Private VIP Game','Hold’em · 1 table · no rake')+'</div>'+note('Changing a template never rewrites sessions already recorded.')+foot(['BACK','60:0'],['NEW TEMPLATE','60:5']);},
+   return '<div class="fb-list">'+t('Sunday Hold’em','Hold’em · 5% rake',1)+t('Tuesday Cash Game','Hold’em · 5% rake')+t('High Stakes PLO','Omaha · 3% rake')+t('Private VIP Game','Hold’em · no rake')+'</div>'+note('Changing a template never rewrites sessions already recorded.')+foot(['BACK','60:0'],['NEW TEMPLATE','60:5']);},
   function(){var r2=function(a,b){return '<div class="fb-grid2 st-fg">'+a+b+'</div>';};
-   return '<div class="st-card"><b class="st-big">SUNDAY HOLD’EM</b><small>Default template</small></div>'+r2(fld('Variant','Hold’em'),fld('Blinds · COP',BLF))+r2(fld('Tables','1'),fld('Seats','10'))+r2(fld('Min buy-in',cop(200000)),fld('Max buy-in',cop(1000000)))+r2(fld('Rake','5% per pot'),fld('Rake cap',cop(50000)))+'<button type="button" class="st-er" data-st-expand="1"><span>Advanced</span><b>ante · straddle</b>'+I('chev')+'</button>'+foot(['BACK','60:4'],['REVIEW','60:6']);},
+   return '<div class="st-card"><b class="st-big">SUNDAY HOLD’EM</b><small>Default template</small></div>'+r2(fld('Variant','Hold’em'),fld('Blinds · COP',BLF))+r2(fld('Seats per table','10'),fld('Rake','5% per pot'))+r2(fld('Min buy-in',cop(200000)),fld('Max buy-in',cop(1000000)))+r2(fld('Rake cap',cop(50000)),fld('Currency','COP'))+'<button type="button" class="st-er" data-st-expand="1"><span>Advanced</span><b>ante · straddle</b>'+I('chev')+'</button>'+foot(['BACK','60:4'],['REVIEW','60:6']);},
   function(){return '<div class="fb-rows">'+row('Blinds','<s>'+BL+'</s>')+row('New blinds','<span class="fb-m"><span class="s2-cop">COP</span>10,000 / 20,000</span>')+row('Rake cap',cop(50000))+row('Default','Sunday Hold’em')+'</div>'+note(I('lock')+' Applies to future sessions only. Recorded sessions stay as they were.','def')+foot(['BACK','60:5'],['SAVE','60:4']);},
   function(){var V=CFG.invites,ir=function(ic,n,s,k){return '<div class="st-ar"><div class="st-arm">'+I(ic)+'<div><b>'+n+'</b><small>'+s+'</small></div></div>'+tog(V[k]!==false,'invites.'+k)+'</div>';},fx=function(ic,n,s,c){return '<div class="st-ar"><div class="st-arm">'+I(ic)+'<div><b>'+n+'</b><small>'+s+'</small></div></div><em class="fb-chip on">'+c+'</em></div>';};
    return '<div class="st-card"><b class="st-big">INVITATIONS</b><small>Built from the scheduled game · applies to every new invitation</small></div><div class="iv-prim st-cks">'+fx('mail','Invitation message','Name, date, time, game, blinds, buy-in','AUTO')+ir('chat','Owner personal message','Players see the note you add','note')+fx('check','RSVP choices','Coming · Maybe · Not coming','ALWAYS')+ir('clock','Ask arrival time','Default is the scheduled start','askArrival')+ir('seat','Allow seat reservation','YES players can pick a seat','reserve')+ir('team','Show reserved count','Invited players see how many reserved','showCount')+ir('user','Photos on reserved seats','Off shows initials instead','thumbs')+'</div>'+chips('Hold a reserved seat for',['15 MIN','30 MIN','60 MIN'],Math.max(0,[15,30,60].indexOf(Number(V.grace))),'ivhold','invites.grace',[15,30,60])+li('send','Invitation delivery','WhatsApp · SMS · share link','60:3')+note(I('lock')+' Preview settings. Sending by WhatsApp or SMS needs the delivery backend.','def')+foot(['BACK','60:3']);}
@@ -7836,7 +7932,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  S[63]={sec:'SETTINGS',nav:'Settings',steps:['Team roles & presets','Permissions by module','Comp limits & approvals'],heads:['Team Roles','Waitress / Bartender',null],keep2:true,
   screens:[
   function(){var r=function(ic,n,s,lock){return '<button type="button" class="fb-li" data-rn-route="63:1">'+I(ic)+'<div><b>'+n+'</b><small>'+s+'</small></div>'+(lock?I('lock'):'')+'<span class="fb-chev">›</span></button>';};
-   return '<div class="fb-list">'+r('shield','Owner','Everything · protected',1)+r('team','Partners','Everything · protected',1)+r('cash','Cashier','Buy-ins · cash-outs · expenses')+r('chips','Dealer','Seating · table actions')+r('glass','Waitress / Bartender','Sales · comps')+r('kitchen','Chef','Food orders · counts')+'</div>'+note('Roles can be combined, such as Dealer + Waitress. Only the owner can close a session permanently.');},
+   return '<div class="fb-list">'+r('shield','Primary Game Owner','Everything · protected',1)+r('team','Game Owners','Everything · protected',1)+r('cash','Cashier','Buy-ins · cash-outs · expenses')+r('chips','Dealer','Seating · table actions')+r('glass','Waitress / Bartender','Sales · comps')+r('kitchen','Chef','Food orders · counts')+'</div>'+note('Roles can be combined, such as Dealer + Waitress. Only the owner can close a session permanently.');},
   function(){return '<div class="st-card"><b class="st-big">PRESET · WAITRESS / BARTENDER</b><small>Service access never grants reports</small></div><div class="fb-grid2 st-pmg">'+[['Seating & tables',0],['Buy-ins · cash-outs',0],['Rake',0],['Sales & comps',1],['Price overrides',0],['Inventory counts',1],['Expenses',0],['Reports',0],['Sign & Settle',0],['Daily Close',0]].map(function(x){return PM(x[0],x[1]);}).join('')+'</div>'+foot(['BACK','63:0'],['COMP LIMITS','63:2']);},
   null]};
 
@@ -8286,27 +8382,28 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    ['Live Tables','Tables','1:2'],['Seat a Player','seat','3:1'],['Wait List','list','8:1'],['Table Controls','game','11:1'],['Expenses','receipt','25:0'],['Food & Beverage','glass','27:0'],['Inventory','box','30:0'],
    ['Snapshot','chart','32:0'],['Account Balances','card','35:0'],['Sign & Settle','pen','36:0'],['Daily Close','check','40:0'],['Ask Nora','mic','13:0']]},
   {key:'Players',icon:'Players',label:'Players',home:'54:0',items:[
-   ['Find Player','search','54:0'],['Add Player','plus','55:1']]},
+   ['Find Player','search','54:0'],['Add Player','plus','55:1'],['Player Rewards','gift','82:0']]},
   {key:'Team',icon:'Team',label:'Team',home:'72:0',items:[
    ['Team Overview','Team','72:0'],['Add Team Member','plus','73:0'],['Team Member Profile','user','74:0'],['Edit Team Member','pen','75:0'],['Team History','list','76:0'],['Access & Permissions','lock','77:0']]},
   {key:'Schedule',icon:'cal',label:'Schedule',home:'48:0',items:[
    ['Scheduled Games','cal','48:0'],['Invitations','mail','49:0'],['Attendance','list','51:0'],['Arrivals · ETA','clock','52:0']]},
   {key:'Reports',icon:'Reporting',label:'Reports',home:'67:0',items:[
    ['Overview','chart','67:0'],['Session History','list','67:2'],['Players','user','68:0'],['Financials','coin','69:0'],['Team','Team','70:0'],['Inventory','box','70:3'],['Export','down','71:0']]},
-  {key:'Settings',icon:'Settings',label:'Settings',home:'60:3',items:[
-   ['Quick Setup','plus','59:0'],['Business Profile & Preferences','user','65:0'],['Game Rules & Tables','game','60:0'],['Account Balances','card','61:0'],['Team Members & Invitations','mail','66:0'],['Team Roles & Permissions','lock','63:0'],['Sign & Settle','pen','62:0'],['Expenses & Inventory','box','64:1'],['Food, Beverage & Menu Pricing','glass','64:0'],['Invitations, RSVP & WhatsApp','cal','48:2'],['Nora AI Preferences','mic','65:1']]}
+  {key:'Settings',icon:'Settings',label:'Settings',home:'60:0',items:[
+   ['Settings Home','Settings','60:0'],['Quick Setup','plus','59:0'],['Game','game','60:4'],['Invitations','mail','78:0'],['Players','Players','79:0'],['Team Roles & Permissions','lock','63:0'],['Account Balances','card','61:0'],['Expenses','receipt','80:0'],['Inventory','box','64:1'],['Rewards','gift','81:0'],['Sign & Settle','pen','62:0'],['Nora AI Preferences','mic','65:1']]}
  ];
  var BARS={
   live:[['Table','Tables','1:2'],['Players','Players','3:1'],['Team','Team','19:0'],['Expenses','receipt','25:0'],['Snapshot','chart','32:0'],['Close','check','40:0']],
   reporting:[['Overview','chart','67:0'],['Players','Players','68:0'],['Financials','coin','69:0'],['Team','Team','70:0'],['Inventory','box','70:3']],
-  settings:[['Core','Settings','60:3'],['Payments','card','61:0'],['Team','Team','63:0'],['Expenses','receipt','64:1'],['Hospitality','glass','64:0'],['Players','Players',null]]};
+  settings:[['GAME','game','60:4'],['INVITES','mail','78:0'],['PLAYERS','Players','79:0'],['TEAM','Team','63:0'],['ACCOUNTS','card','61:0'],['MORE','more','85:0']]};
  /* which hamburger section a screen belongs to */
- function sectionOf(id,step){if(id===53&&step===3)return 'Tables';if(id>=1&&id<=47)return 'Tables';if(id>=48&&id<=53)return 'Schedule';if(id>=54&&id<=58)return 'Players';if(id>=59&&id<=66)return 'Settings';if(id>=67&&id<=71)return 'Reports';if(id>=72&&id<=77)return 'Team';return 'Tables';}
+ function sectionOf(id,step){if(id===53&&step===3)return 'Tables';if(id>=1&&id<=47)return 'Tables';if(id>=48&&id<=53)return 'Schedule';if(id>=54&&id<=58)return 'Players';if(id===82)return 'Players';if(id>=59&&id<=66)return 'Settings';if(id>=78&&id<=85)return 'Settings';if(id>=67&&id<=71)return 'Reports';if(id>=72&&id<=77)return 'Team';return 'Tables';}
  /* contextual bottom bar + active tab; null = no bottom bar (Schedule, Players, Team-only screens) */
  function ctx(id,step){var t;
   if(id===53&&step===3)return {bar:'live',tab:'Table'};
   if(id>=1&&id<=47){t=(id>=3&&id<=9)?'Players':(id>=19&&id<=24)?'Team':(id>=25&&id<=31)?'Expenses':(id>=32&&id<=39)?'Snapshot':(id>=40&&id<=47)?'Close':'Table';return {bar:'live',tab:t};}
-  if(id>=59&&id<=66){t=(id===61||id===62)?'Payments':(id===63||id===66)?'Team':(id===64)?(step===1?'Expenses':'Hospitality'):'Core';return {bar:'settings',tab:t};}
+  if(id>=59&&id<=66){t=(id===61||id===62)?'ACCOUNTS':(id===63||id===66)?'TEAM':(id===64)?'MORE':(id===60&&step===7)?'INVITES':(id===65)?'':'GAME';return {bar:'settings',tab:t};}
+  if(id>=78&&id<=85&&id!==82&&id!==84){t=id===78?'INVITES':id===79?'PLAYERS':'MORE';return {bar:'settings',tab:t};}
   if(id>=67&&id<=71){t=(id===67||id===71)?'Overview':id===68?'Players':id===69?'Financials':(step<=2?'Team':'Inventory');return {bar:'reporting',tab:t};}
   return null;}
  window.NORA_NAV=function(){return NAV.map(function(s){return {key:s.key,icon:s.icon,label:s.label,home:s.home,items:s.items.filter(function(it){return valid(it[2]);})};});};
@@ -8349,7 +8446,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   var d=document.createElement('div');d.className='nn-drawer nn-six-only';
   var pr=ph.getBoundingClientRect(),ur=uc.getBoundingClientRect(),nb=ph.querySelector(':scope>.ux-bottom.s2-nav');
   d.style.top=(ur.top-pr.top-2)+'px';d.style.bottom='0px'; // cover contextual bottom bar while the menu is open
-  d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div><div class="nn-footer"><button type="button" class="nn-foot nn-profile" data-nn-go="65:0" aria-label="User profile"><span class="nn-avatar">'+((typeof LOCAL_PORTRAITS!=='undefined'&&LOCAL_PORTRAITS['Mikey B.'])?'<img alt="" src="'+LOCAL_PORTRAITS['Mikey B.']+'">':'M')+'</span><span class="nn-pt"><span class="nn-pn">Profile</span><small>Mike · Owner</small></span></button><button type="button" class="nn-foot" data-nn-info="Support">'+ic('chat')+'<span>Support</span></button><button type="button" class="nn-foot" data-nn-info="Privacy">'+ic('lock')+'<span>Privacy</span></button></div>';
+  d.innerHTML='<div class="nn-top"><b>MENU</b><button type="button" class="nn-x" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="nn-list">'+html+'</div><div class="nn-footer"><button type="button" class="nn-foot nn-profile" data-nn-go="84:0" aria-label="My account"><span class="nn-avatar">'+((typeof LOCAL_PORTRAITS!=='undefined'&&LOCAL_PORTRAITS['Mikey B.'])?'<img alt="" src="'+LOCAL_PORTRAITS['Mikey B.']+'">':'M')+'</span><span class="nn-pt"><span class="nn-pn">Profile</span><small>Mike · Owner</small></span></button><button type="button" class="nn-foot" data-nn-info="Support">'+ic('chat')+'<span>Support</span></button><button type="button" class="nn-foot" data-nn-info="Privacy">'+ic('lock')+'<span>Privacy</span></button></div>';
   ph.classList.add('nn-host');ph.appendChild(d);
  }
  function go(r,st){if(!r)return false;try{return rnGo(r,st);}catch(x){console.error('Navigation destination',r,x);return false;}}
@@ -9499,6 +9596,230 @@ try{if(typeof show==='function'&&typeof current!=='undefined'&&[32,38,40,41,42,4
  window.addEventListener('click',function(ev){var t=ev.target.closest&&ev.target.closest('.team-phone .b2-tg');if(!t)return;ev.preventDefault();ev.stopImmediatePropagation();var on=!t.classList.contains('on');t.classList.toggle('on',on);t.setAttribute('aria-checked',on?'true':'false');var i=t.querySelector('i');if(i)i.textContent=on?'ON':'OFF';},true);
  window.addEventListener('input',function(ev){var f=ev.target;if(f.matches&&f.matches('.team-phone .b2-in'))f.setAttribute('value',f.value);},true);
  if(typeof current!=='undefined'&&current>=72&&current<=77)show(current);
+})();
+</script>
+<style id="nora-settings-css">
+/* Settings home, onboarding and Rewards (WF59, 60 home, 78-85). Square corners, large readable text. */
+.storyboard .phone .s3-wrap{display:contents}
+.storyboard .phone .s3-grid{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:minmax(0,1fr);gap:8px;flex:1 1 auto;min-height:0}
+.storyboard .phone .s3-tile{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;padding:8px 10px;border:3px solid #1d8fc4;background:#082b43;color:#fff;text-align:left;cursor:pointer;min-height:84px;min-width:0}
+.storyboard .phone .s3-tile .fb-i,.storyboard .phone .s3-tile svg{width:30px;height:30px;color:#4cddff;flex:none}
+.storyboard .phone .s3-tile b{font-size:18px;font-weight:900;line-height:1.1;letter-spacing:.02em}
+.storyboard .phone .s3-tile small{font-size:14px;font-weight:700;color:#bfe3f2;line-height:1.15}
+.storyboard .phone .s3-ban{flex:none}
+.storyboard .phone .s3-fm{display:flex;gap:6px;align-items:stretch}
+.storyboard .phone .s3-fm .st-fld{flex:1 1 auto}
+.storyboard .phone .s3-fm .st-micsm{flex:none;width:56px;min-height:52px}
+.storyboard .phone .s3-help{display:flex;align-items:center;gap:10px;min-height:46px;padding:4px 10px;border:2px solid #1c5a7e;background:#061d30;color:#cfe7f3;font-size:16px;font-weight:800;text-align:left;cursor:pointer}
+.storyboard .phone .s3-help svg{width:24px;height:24px;color:#4cddff;flex:none}
+.storyboard .phone .s3-pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.storyboard .phone .s3-tabs{display:flex;gap:6px;flex:none}
+.storyboard .phone .s3-tabs button{flex:1 1 0;min-height:44px;border:2px solid #1c5a7e;background:#061d30;color:#cfe7f3;font-size:15px;font-weight:900;cursor:pointer}
+.storyboard .phone .s3-tabs button.on{border-color:#3bf0ae;background:#07543f;color:#fff}
+.storyboard .phone .s3-ex{flex:none;padding:5px 10px;border:2px dashed #f5c542;background:#2b2308;color:#ffe9a6;font-size:14px;font-weight:800;line-height:1.2}
+.storyboard .phone .s3-ex b{color:#ffd54a;margin-right:6px}
+.storyboard .phone .fb-note.s3-pend{border-left-color:#f5c542!important;background:#2b2308!important;color:#ffe9a6!important}
+.storyboard .phone .fb-note.s3-pend b{color:#ffd54a}
+.storyboard .phone .s3-wrap .st-cr:has(>.fb-opt:nth-child(4)){display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.storyboard .phone .s3-wrap .st-cr:has(>.fb-opt:nth-child(4)) .fb-opt{min-height:40px!important}
+</style>
+<script id="nora-settings-main">
+/* Brief (c): Settings home (8 modules), WF59 onboarding redesign, Invitations/Players/Expenses/Rewards workflows WF78-85.
+   Prototype only: nothing is saved to a backend. Depends on NORA_ST / NORA_FB (Settings module) and the studio globals. */
+(function(){
+ 'use strict';
+ var F=window.NORA_FB,K=window.NORA_ST;
+ if(!F||!K||typeof WORKFLOWS==='undefined'||typeof customPhone!=='function')return;
+ var NI=window.NORA_NAV_ICON,note=F.note;
+ var I=function(n){return (F.P[n]||(window.NORA_LU&&window.NORA_LU[n]))?F.I(n):NI(n,'fb-i');};
+ var CFG=K.CFG;
+ var DEF={referral:true,loyalty:true,welcome:true,rakeback:true,rbFreq:'MANUAL',rbPay:'NONE'};
+ CFG.rewards=Object.assign({},DEF,CFG.rewards||{});
+ var R=function(){return CFG.rewards;};
+ var CUR=function(){return CFG.currency||'COP';};
+ var M=function(n){return '<span class="fb-m"><span class="s2-cop">'+CUR()+'</span>'+n+'</span>';};
+ var PROGS=[['referral','Referral Rewards','team'],['loyalty','Loyalty Rewards','star'],['welcome','New Player Welcome Bonus','bolt'],['rakeback','Rakeback','coin']];
+ var onCount=function(){return PROGS.filter(function(p){return R()[p[0]];}).length;};
+ try{var NL=window.NORA_LU;if(NL){if(!NL.more)NL.more='<circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/>';if(!NL.gift)NL.gift='<path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>';}}catch(x){}
+
+ /* ---------- small builders (reuse existing classes) ---------- */
+ var card=function(t,s){return '<div class="st-card"><b class="st-big">'+t+'</b>'+(s?'<small>'+s+'</small>':'')+'</div>';};
+ var pend=function(t){return '<div class="fb-note s3-pend"><b>PENDING OWNER APPROVAL</b> '+t+'</div>';};
+ var fixed=function(ic,n,s,c){return '<div class="st-ar"><div class="st-arm">'+I(ic)+'<div><b>'+n+'</b><small>'+s+'</small></div></div><em class="fb-chip on">'+(c||'ALWAYS')+'</em></div>';};
+ var swr=function(ic,n,s,key,on){return '<div class="st-ar"><div class="st-arm">'+I(ic)+'<div><b>'+n+'</b><small>'+s+'</small></div></div>'+K.tog(on,key)+'</div>';};
+ var lnk=function(ic,n,s,r,chip){return '<button type="button" class="fb-li" data-rn-route="'+r+'">'+I(ic)+'<div><b>'+n+'</b>'+(s?'<small>'+s+'</small>':'')+'</div>'+(chip||'')+'<span class="fb-chev">›</span></button>';};
+ var g2=function(a,b){return '<div class="fb-grid2 st-fg">'+a+(b||'')+'</div>';};
+ var tile=function(ic,n,s,r,cls){return '<button type="button" class="s3-tile'+(cls?' '+cls:'')+'" data-rn-route="'+r+'">'+I(ic)+'<b>'+n+'</b><small>'+s+'</small></button>';};
+ var ex=function(){return '<div class="s3-ex"><b>EXAMPLE</b> Illustrative figures, not recorded data</div>';};
+ var back=function(r){return K.foot(['BACK',r]);};
+ var rwTog=function(k){return swr(PROGS.filter(function(p){return p[0]===k;})[0][2],'Program enabled','OFF hides it from players and expenses','rewards.'+k,R()[k]);};
+
+ /* ---------- Settings home: 8 modules ---------- */
+ function banner(started){
+  if(!started)return '<button type="button" class="st-hero s3-ban" data-rn-route="2:0">'+I('bolt')+'<div><b>START YOUR FIRST SESSION</b><small>Checklist appears after it</small></div></button>';
+  if(CFG.dismissed)return '';
+  var v=K.ITEMS.filter(function(x){return !x.mod||CFG.modules[x.mod];}),d=0;v.forEach(function(x){if(CFG.done[x.id]&&!CFG.skip[x.id])d++;});
+  return '<button type="button" class="st-fin s3-ban" data-rn-route="60:1"><span class="st-ring">'+d+'/'+v.length+'</span><div><b>FINISH SETTING UP</b><small>'+d+' of '+v.length+' completed</small></div><span class="fb-chev">›</span></button>';}
+ function home(started){
+  return banner(started)+'<div class="s3-grid">'
+   +tile('game','GAME','Type · blinds · rake','60:4')
+   +tile('mail','INVITATIONS','Message · RSVP · seats','78:0')
+   +tile('Players','PLAYERS','Profile · tags','79:0')
+   +tile('Team','TEAM','Game owners · roles','63:0')
+   +tile('card','ACCOUNTS','Cash · Nequi · Bancolombia','61:0')
+   +tile('receipt','EXPENSES','Categories · payment','80:0')
+   +tile('box','INVENTORY','Simple or advanced','64:1')
+   +tile('gift','REWARDS',onCount()+' of 4 programs on','81:0')
+   +'</div>';}
+ function more(){return card('MORE SETTINGS','Expenses, inventory and rewards')+'<div class="fb-list">'
+   +lnk('receipt','EXPENSES','Categories · pay from account','80:0')
+   +lnk('box','INVENTORY','Simple or advanced tracking','64:1')
+   +lnk('gift','REWARDS',onCount()+' of 4 programs on','81:0')+'</div>'+note('Food, beverage and menu pricing are inside INVENTORY.')+K.foot(['SETTINGS HOME','60:0']);}
+
+ /* ---------- WF59 onboarding: voice + touch, five fields, ready to play ---------- */
+ var SETUP=[['Game name','My Poker Game'],['Game type','Hold’em'],['Blinds','5,000 / 10,000'],['Seats per table','10'],['Rake','5% per pot']];
+ var OB=[
+  function(){return '<div class="st-meet">'+K.nora()+'<b class="st-big">MEET NORA</b><small>Your AI Cash Game Manager</small></div><p class="st-p">Five answers and you are ready. Speak or touch, whichever is faster.</p>'
+   +'<button type="button" class="st-hero" data-rn-route="59:3">'+I('mic')+'<div><b>TELL NORA</b><small>Tap to speak your game</small></div></button>'
+   +'<button type="button" class="st-hero alt" data-rn-route="59:1">'+I('sliders')+'<div><b>USE TOUCH</b><small>Five quick fields</small></div></button>';},
+  function(){var f=function(l,v,m){return '<div class="s3-fm"><button type="button" class="st-fld" data-st-edit="1"><small>'+l+'</small><b>'+v+'</b></button><button type="button" class="st-micsm" data-rn-route="59:3" aria-label="Say '+l+'">'+I('mic')+'</button></div>';};
+   return card('YOUR GAME','5 fields · tap a field, or tap its mic and say it')+SETUP.map(function(x){return f(x[0],x[1]);}).join('')
+    +'<button type="button" class="s3-help" data-rn-route="59:5">'+I('help')+'<span>Not sure about rake? Ask Nora</span></button>'+K.foot(['BACK','59:0'],['CONTINUE','59:2']);},
+  function(){return '<div class="fb-ok">'+I('check')+'<b>READY TO PLAY</b><small>Nora has your game · change anything later in Settings</small></div><div class="fb-rows">'+SETUP.map(function(x){return '<div class="fb-row"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>';}).join('')+'</div>'
+   +note('Tables are chosen when you start a session. Nothing is posted and no players are seated.')+K.stack(['START FIRST SESSION','2:1'],['GO TO SETTINGS','60:0']);},
+  function(){return '<div class="st-listen">'+K.micBtn('','59:4','rec')+'<b>LISTENING…</b><small>Say all five, or one at a time</small></div><div class="st-say">“Nora, my game is Hold’em, blinds 5,000 and 10,000, ten seats, 5% rake.”</div><button type="button" class="fb-li" data-rn-route="59:5">'+I('sun')+'<div><b>I don’t know what rake to use</b><small>Ask Nora to explain</small></div><span class="fb-chev">›</span></button>'+K.foot(['TOUCH INSTEAD','59:1'],['STOP','59:4']);},
+  function(){return '<div class="st-nrow">'+K.nora()+'<div><b>HERE IS WHAT I HEARD</b><small>Nothing is saved until you confirm</small></div></div><div class="fb-rows">'+SETUP.map(function(x){return '<div class="fb-row"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>';}).join('')+'</div>'+note('Wrong or missing something? Tap CHANGE and say it again.','def')+K.foot(['CHANGE','59:3'],['CONFIRM','59:2']);}
+ ];
+ var OBH=['Welcome','Your Game','Ready to Play','Nora Setup','Confirm Setup'];
+
+ /* ---------- WF78 Invitations settings ---------- */
+ var INV={
+  steps:['Invitations settings','Delivery channel','Reminders and seat hold'],heads:['Invitations','Delivery','Reminders'],
+  screens:[
+   function(){return card('INVITATIONS','Applies to every new invitation')+'<div class="fb-list">'
+     +lnk('chat','Message & RSVP','Personal note · arrival time · seats','60:7')
+     +lnk('send','Delivery channel','WhatsApp · SMS · share link','78:1')
+     +lnk('clock','Reminders & seat hold','Reminder timing · hold minutes','78:2')+'</div>'+note('Preview settings. Sending by WhatsApp or SMS needs the delivery backend.','def')+K.foot(['SETTINGS HOME','60:0']);},
+   function(){var p='WHATSAPP';try{p=localStorage.getItem('nora.wf48.delivery.preference')||'WHATSAPP';}catch(x){}
+    var o=['WHATSAPP','SMS','BOTH','LINK'],l=['WHATSAPP + LINK','SMS + LINK','WHATSAPP + SMS','LINK ONLY'];
+    return card('DELIVERY CHANNEL','How invitations reach players')+'<div class="s3-pick">'+o.map(function(k,n){return '<button type="button" class="fb-opt'+(k===p?' sel':'')+'" data-fb-group="s3dl"><b>'+l[n]+'</b></button>';}).join('')+'</div>'+note('A share link always works, even when messaging is not connected.')+K.foot(['BACK','78:0'],['SAVE','78:0']);},
+   function(){var V=CFG.invites||{};
+    return card('REMINDERS & SEAT HOLD','Defaults for new invitations')+K.chips('Reminder',['2 H BEFORE','1 H BEFORE','AT START'],Math.max(0,['2 H BEFORE','1 H BEFORE','AT START'].indexOf(V.reminder)),'s3rm','invites.reminder',['2 H BEFORE','1 H BEFORE','AT START'])
+     +K.chips('Hold a reserved seat for',['15 MIN','30 MIN','60 MIN'],Math.max(0,[15,30,60].indexOf(Number(V.grace))),'s3gr','invites.grace',[15,30,60])+K.foot(['BACK','78:0'],['SAVE','78:0']);}
+  ]};
+
+ /* ---------- WF79 Players settings ---------- */
+ var PLY={
+  steps:['Players settings','Player profile fields'],heads:['Players','Profile Fields'],
+  screens:[
+   function(){return card('PLAYERS','Defaults for the player list and profiles')+'<div class="fb-list">'
+     +lnk('user','Player profile fields','Photo · phone · notes','79:1')
+     +lnk('pen','Sign & Settle','Credit for trusted players','62:0')
+     +(R().referral?lnk('team','Referral codes','One unique code per player','81:1'):'')
+     +'</div>'+note('Player tags and privileges are managed on each player profile.')+K.foot(['SETTINGS HOME','60:0']);},
+   function(){return card('PROFILE FIELDS','Choose what each player profile shows')+swr('cam','Photo','Shown on seat tiles','players.photo',true)+swr('mail','Phone','For invitations','players.phone',true)+swr('chat','Notes','Owner-only notes','players.notes',true)
+     +pend('The complete list of profile fields has not been specified.')+K.foot(['BACK','79:0'],['SAVE','79:0']);}
+  ]};
+
+ /* ---------- WF80 Expenses settings ---------- */
+ var EXP={
+  steps:['Expense categories','Pay expenses from'],heads:['Expenses','Pay From'],
+  screens:[
+   function(){var on=PROGS.filter(function(p){return R()[p[0]];}),subs=on.map(function(p){return ({referral:'REFERRAL',loyalty:'LOYALTY',welcome:'WELCOME',rakeback:'RAKEBACK'})[p[0]];}).join(' · ');
+    return card('EXPENSE CATEGORIES','Used when recording an expense')+'<div class="fb-list">'
+     +lnk('box','Operating','Rent · venue · supplies','80:1')+lnk('burger','Food','Expensed when bought','64:0')+lnk('beer','Beverages','Added to inventory','64:1')
+     +'<div class="fb-li na" aria-disabled="true">'+I('Team')+'<div><b>Team Compensation</b><small>Separate from REWARDS</small></div></div>'
+     +(on.length?lnk('gift','REWARDS',subs,'81:0'):'')+'</div>'
+     +(on.length?note('REWARDS appears here only while a rewards program is on. Rakeback accrued and settled are separate; nothing is counted twice.'):note('REWARDS is hidden because every rewards program is off.'))+K.foot(['SETTINGS HOME','60:0']);},
+   function(){return card('PAY EXPENSES FROM','Choose from your enabled Account Balances')+'<div class="fb-list">'+lnk('cash','Cash','Cashbox','61:0','<em class="fb-chip on">ON</em>')+lnk('phone','Nequi','Transfer','61:0','<em class="fb-chip on">ON</em>')+lnk('bank','Bancolombia','Transfer','61:0','<em class="fb-chip on">ON</em>')+'</div>'+note('Every payment is recorded against an Account Balance with operator and time. Promo-chip rewards are recorded once, as Promo Chips in Chip Flow Reconciliation.')+K.foot(['BACK','80:0'],['SAVE','80:0']);}
+  ]};
+
+ /* ---------- WF81 Rewards settings ---------- */
+ var pr=function(k,sub,r){var p=PROGS.filter(function(x){return x[0]===k;})[0];return '<div class="st-ar"><button type="button" class="st-arm" data-rn-route="'+r+'">'+I(p[2])+'<div><b>'+p[1]+'</b><small>'+sub+'</small></div></button>'+K.tog(R()[k],'rewards.'+k)+'</div>';};
+ var RW={
+  steps:['Rewards programs','Referral Rewards','Loyalty Rewards','New Player Welcome Bonus','Rakeback'],heads:['Rewards','Referral','Loyalty','Welcome Bonus','Rakeback'],
+  screens:[
+   function(){return card('REWARDS',onCount()+' of 4 programs on')+pr('referral','Reward for bringing players','81:1')+pr('loyalty','Reward for hours played','81:2')+pr('welcome','Bonus for a new player','81:3')+pr('rakeback','Fixed amount per hour','81:4')
+     +note('Each program is on or off by itself. Only programs that are on are shown to players and in Expenses. Amounts use the game currency ('+CUR()+').')+K.foot(['SETTINGS HOME','60:0']);},
+   function(){return card('REFERRAL REWARDS','A player earns when a referred player completes the required hours')+rwTog('referral')
+     +g2(K.fld('Hours required','Not set'),K.fld('Reward · '+CUR(),'Not set'))
+     +fixed('team','Unique code or link','One per player')+fixed('x','Duplicate and self-referrals','Blocked')+fixed('list','Tracked','Referred · hours · pending · earned · redeemed')
+     +pend('How the reward is paid, and any limit per referrer.')+K.foot(['BACK','81:0'],['SAVE','81:0']);},
+   function(){return card('LOYALTY REWARDS','Hours accumulate toward a reward')+rwTog('loyalty')
+     +g2(K.fld('Hours needed','Not set'),K.fld('Reward · '+CUR(),'Not set'))
+     +fixed('clock','Cycles','Reset after each reward')+fixed('seat','Redeem','On a subsequent visit')+fixed('list','Tracked','Accumulated · remaining · earned · redeemed · available')
+     +pend('Which hours qualify, and whether the reward is cash or promo chips.')+K.foot(['BACK','81:0'],['SAVE','81:0']);},
+   function(){return card('NEW PLAYER WELCOME BONUS','Granted once, with a valid referral code')+rwTog('welcome')
+     +g2(K.fld('Bonus · '+CUR(),'Not set'),K.fld('Minimum initial buy-in · '+CUR(),'Not set'))
+     +fixed('team','Valid referral code','Required')+fixed('check','Granted once','Duplicates blocked')
+     +pend('How the bonus is paid (cash or promo chips).')+K.foot(['BACK','81:0'],['SAVE','81:0']);},
+   function(){var fr=['AFTER EACH SESSION','WEEKLY','MONTHLY','MANUAL'],pm=['NONE','CASH','NEQUI','BANCOLOMBIA'];
+    return card('RAKEBACK','Fixed amount per hour, not a percentage of rake')+rwTog('rakeback')
+     +g2(K.fld('Rate per hour · '+CUR(),'Not set'),K.fld('Earned','Hours × rate'))
+     +K.chips('Settlement',fr,Math.max(0,fr.indexOf(R().rbFreq)),'s3fr','rewards.rbFreq',fr)
+     +K.chips('Default payment method (optional)',pm,Math.max(0,pm.indexOf(R().rbPay)),'s3pm','rewards.rbPay',pm)
+     +note('Uses recorded playing time with no rounding up. Payment methods come from your enabled Account Balances.')+K.foot(['BACK','81:0'],['SAVE','81:0']);}
+  ]};
+
+ /* ---------- WF82 Player profile · REWARDS subtab ---------- */
+ var tabs=function(act){return '<div class="s3-tabs"><button type="button" data-rn-route="54:1">PROFILE</button><button type="button" data-rn-route="54:2">HISTORY</button>'+(onCount()?'<button type="button" class="'+(act?'on':'')+'" data-rn-route="82:0">REWARDS</button>':'')+'</div>';};
+ var prow=function(ic,n,s,r){return lnk(ic,n,s,r);};
+ var PR={
+  steps:['Player rewards','Referral Rewards','Loyalty Rewards','Rakeback'],heads:['Player · Rewards','Referral','Loyalty','Rakeback'],
+  screens:[
+   function(){if(!onCount())return tabs(0)+card('REWARDS HIDDEN','Every rewards program is off')+note('The REWARDS tab appears on player profiles when a program is turned on.')+K.foot(['REWARDS SETTINGS','81:0']);
+    return tabs(1)+'<div class="fb-list">'+(R().referral?prow('team','Referral Rewards','Referred · hours · earned','82:1'):'')+(R().loyalty?prow('star','Loyalty Rewards','Hours toward next reward','82:2'):'')+(R().welcome?prow('bolt','Welcome Bonus','Not granted · once per player','82:0'):'')+(R().rakeback?prow('coin','Rakeback','Hours × rate · outstanding','82:3'):'')+'</div>'+note('Only programs that are on are shown. Figures appear after recorded play.');},
+   function(){return tabs(1)+card('REFERRAL REWARDS','Code is generated per player')+'<div class="fb-rows"><div class="fb-row"><span>Referred players</span><b>0</b></div><div class="fb-row"><span>Qualifying hours</span><b>0h 00m</b></div><div class="fb-row"><span>Pending</span><b>0</b></div><div class="fb-row"><span>Earned</span><b>0</b></div><div class="fb-row"><span>Redeemed</span><b>0</b></div></div>'+K.foot(['BACK','82:0'],['SHARE CODE','82:1']);},
+   function(){return tabs(1)+card('LOYALTY REWARDS','Cycle resets after each reward')+'<div class="fb-rows"><div class="fb-row"><span>Hours accumulated</span><b>0h 00m</b></div><div class="fb-row"><span>Hours remaining</span><b>Set by owner</b></div><div class="fb-row"><span>Earned</span><b>0</b></div><div class="fb-row"><span>Redeemed</span><b>0</b></div><div class="fb-row"><span>Available</span><b>0</b></div></div>'+K.foot(['BACK','82:0']);},
+   function(){return tabs(1)+card('RAKEBACK','Qualifying hours × rate per hour')+'<div class="fb-rows"><div class="fb-row"><span>Rate per hour</span><b>'+M('—')+'</b></div><div class="fb-row"><span>Qualifying hours</span><b>0h 00m</b></div><div class="fb-row"><span>Earned</span><b>'+M('0')+'</b></div><div class="fb-row"><span>Previously settled</span><b>'+M('0')+'</b></div><div class="fb-row"><span>Outstanding</span><b>'+M('0')+'</b></div><div class="fb-row"><span>Last / next settlement</span><b>— / —</b></div></div>'+K.foot(['BACK','82:0'],['SETTLE','83:0']);}
+  ]};
+
+ /* ---------- WF83 Rakeback settlement (example figures, clearly labelled) ---------- */
+ var STL={
+  steps:['Rakeback outstanding','Amount and payment','Review settlement','Settlement recorded'],heads:['Rakeback','Settle','Review','Recorded'],
+  screens:[
+   function(){return ex()+card('PLAYER · RAKEBACK','Example Player')+'<div class="fb-rows"><div class="fb-row"><span>Qualifying hours</span><b>10h 30m</b></div><div class="fb-row"><span>Rate per hour</span><b>'+M('5,000')+'</b></div><div class="fb-row"><span>Earned</span><b>'+M('52,500')+'</b></div><div class="fb-row"><span>Previously settled</span><b>'+M('20,000')+'</b></div><div class="fb-row"><span>Outstanding</span><b>'+M('32,500')+'</b></div></div>'+K.foot(['BACK','82:3'],['SETTLE','83:1']);},
+   function(){return ex()+card('SETTLE RAKEBACK','Partial amounts are allowed')+g2(K.fld('Amount · '+CUR(),'20,000'),K.fld('Remaining · '+CUR(),'12,500'))+K.chips('Pay from Account Balance',['CASH','NEQUI','BANCOLOMBIA'],1,'s3sp')+K.fld('Transaction reference','Required')+K.foot(['BACK','83:0'],['REVIEW','83:2']);},
+   function(){return ex()+'<div class="fb-rows"><div class="fb-row"><span>Player</span><b>Example Player</b></div><div class="fb-row"><span>Paying</span><b>'+M('20,000')+'</b></div><div class="fb-row"><span>From</span><b>Nequi</b></div><div class="fb-row"><span>Operator</span><b>Mike · Owner</b></div><div class="fb-row"><span>Time</span><b>Added on save</b></div></div>'+note('Nora does not send money. Record the payment you made.','def')+K.foot(['BACK','83:1'],['CONFIRM','83:3']);},
+   function(){return ex()+'<div class="fb-ok">'+I('check')+'<b>SETTLEMENT RECORDED</b><small>Operator and time saved with the reference</small></div><div class="fb-rows"><div class="fb-row"><span>Accrued</span><b>'+M('52,500')+'</b></div><div class="fb-row"><span>Settled</span><b>'+M('40,000')+'</b></div><div class="fb-row"><span>Outstanding</span><b>'+M('12,500')+'</b></div></div>'+note('Posted once as REWARDS · RAKEBACK, paid from the Account Balance. In Net Profit/Loss, Snapshot, Daily Close and Reports. Not Team Compensation.')+K.foot(['DONE','82:3']);}
+  ]};
+
+ /* ---------- WF84 My Account & Subscription (avatar) ---------- */
+ var ACC={
+  steps:['My Account','Subscription'],heads:['My Account','Subscription'],
+  screens:[
+   function(){return card('MY ACCOUNT','Mike · Primary Game Owner')+'<div class="fb-list">'+lnk('user','Profile & preferences','Name · language','65:0')+lnk('coin','Subscription','Plan · billing','84:1')+'<div class="fb-li na" aria-disabled="true">'+I('lock')+'<div><b>Security</b><small>Not in this prototype</small></div></div></div>';},
+   function(){return card('SUBSCRIPTION','Plan and billing')+pend('Plans, prices and billing details have not been specified.')+K.foot(['BACK','84:0']);}
+  ]};
+ var MORE={steps:['More settings'],heads:['More'],screens:[more]};
+
+ /* ---------- register workflows ---------- */
+ var NEW={78:['Invitations Settings',INV],79:['Players Settings',PLY],80:['Expenses Settings',EXP],81:['Rewards Settings',RW],82:['Player Rewards',PR],83:['Rakeback Settlement',STL],84:['My Account & Subscription',ACC],85:['Settings More Menu',MORE]};
+ var SECOF={82:'Players'};
+ Object.keys(NEW).forEach(function(k){k=+k;if(WORKFLOWS.some(function(w){return w.id===k;}))return;var d=NEW[k][1];
+  WORKFLOWS.push({id:k,main:k===82?'Players':'Settings',sub:k===82?'CRM':'Profile & Configuration',title:NEW[k][0],steps:d.steps.slice(),status:'draft'});});
+ Object.keys(NEW).forEach(function(k){var d=NEW[k][1],t=d.steps.map(function(_,i){return 'nora-set-'+k+'-'+i;});
+  if(!SCREEN_SPECS[k])SCREEN_SPECS[k]={types:t,focus:'Settings',values:'',cta:''};else SCREEN_SPECS[k].types=t;});
+
+ var prev=customPhone;
+ customPhone=function(w,step,i){
+  var d=NEW[w.id]&&NEW[w.id][1],sec=(w.id===82)?'PLAYERS':'SETTINGS',body=null,title=null,nav=(w.id===82)?'Players':'Settings';
+  try{
+   if(d&&d.screens[i]){body=d.screens[i]();title=d.heads[i];}
+   else if(w.id===59&&i<5){body=OB[i]();title=OBH[i];}
+   else if(w.id===60&&(i===0||i===3)){body=home(i===0);title='Settings';}
+  }catch(e){console.error(e);body=null;}
+  if(body==null)return prev(w,step,i);
+  return K.stage(w,step,i,sec,title,'<div class="s3-wrap" data-s3="'+w.id+':'+i+'">'+body+'</div>',step,nav);
+ };
+
+ /* program toggles refresh every screen that depends on them */
+ window.addEventListener('click',function(ev){
+  var t=ev.target.closest&&ev.target.closest('.st-phone [data-cfg^="rewards."].st-tog');if(!t)return;
+  var st=t.closest('.stage'),id=st&&st.dataset.rnWorkflow,sp=st&&st.dataset.rnStep;
+  setTimeout(function(){try{show(current);if(id!=null)rnGo(id+':'+(sp||0));}catch(x){console.error(x);}},0);
+ },true);
+ try{show(current);}catch(x){console.error(x);}
 })();
 </script>
 </body></html>
