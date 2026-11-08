@@ -4067,7 +4067,7 @@ function miniTable(updated=false){let data=demoPeople.map(([name,initial,amount,
 const noraInput=()=>`<div class="ux-composer"><span>Ask Nora or give a command…</span><b>🎙</b><b>➤</b></div>`;
 function actionButtons(items){return `<div class="ux-actions">${items.map((x,j)=>`<div class="ux-action tone-${j%6}">${esc(x)}</div>`).join('')}</div>`}
 function inputPanel(title,fields,button='CONFIRM'){return `<div class="ux-section">${esc(title)}</div>${fields.map(([k,v])=>`<div class="ux-field"><span>${esc(k)}</span><strong>${esc(v)}</strong></div>`).join('')}<div class="ux-cta">${esc(button)}</div>`}
-function listPanel(kind){let items=kind==='Team'?[['Anna','Dealer','ON SHIFT'],['Costa','Host','ON SHIFT'],['Alex','Cashier','ON SHIFT']]:kind==='Expenses'?[['Venue rental','Cash','1,000,000'],['Drinks','Cash','150,000'],['Food','Cash','85,000']]:[['Diego Restrepo','Seat 7','450,000'],['Rafa','Seat 1','450,000'],['Moshe','Seat 2','1,200,000']];return `<div class="ux-section">${esc(kind.toUpperCase())} · LIVE</div><div class="ux-list">${items.map(([n,s,v],i)=>`<div class="ux-listrow tone-${i%6}">${portrait(n,n[0],i!==1)}<div><b>${esc(n)}</b><small>${esc(s)}</small></div><strong>${esc(v)}</strong></div>`).join('')}</div><div class="ux-cta">＋ ADD ${kind==='Team'?'TEAM MEMBER':kind==='Expenses'?'EXPENSE':'PLAYER'}</div>`}
+function listPanel(kind){let items=kind==='Team'?[['Anna','Dealer','ON SHIFT'],['Costa','Host','ON SHIFT'],['Alex','Cashier','ON SHIFT']]:kind==='Expenses'?[['Rent payment','Cash','1,000,000'],['Drinks','Cash','150,000'],['Food','Cash','85,000']]:[['Diego Restrepo','Seat 7','450,000'],['Rafa','Seat 1','450,000'],['Moshe','Seat 2','1,200,000']];return `<div class="ux-section">${esc(kind.toUpperCase())} · LIVE</div><div class="ux-list">${items.map(([n,s,v],i)=>`<div class="ux-listrow tone-${i%6}">${portrait(n,n[0],i!==1)}<div><b>${esc(n)}</b><small>${esc(s)}</small></div><strong>${esc(v)}</strong></div>`).join('')}</div><div class="ux-cta">＋ ADD ${kind==='Team'?'TEAM MEMBER':kind==='Expenses'?'EXPENSE':'PLAYER'}</div>`}
 function metricPanel(kind){let entries=kind==='Snapshot'?[['TOTAL BUY-INS','COP 5,500,000'],['CASH-OUTS','COP 0'],['DROP / RAKE','COP 780,000'],['CHIPS IN PLAY','COP 5,500,000'],['TIPS','COP 0'],['NET BALANCE','COP 780,000'],['GROSS REVENUE','COP 780,000'],['PLAYERS','8'],['EXPENSES','COP 0'],['TABLE','Hold’em'],['RUNTIME','5d 6h 32m'],['RAKE STRUCTURE','5% per pot']]:kind==='Close'?[['TOTAL BUY-INS','5,500,000'],['TOTAL CASH-OUTS','0'],['TIPS IN CHIPS','0'],['CHIP VARIANCE','REVIEW'],['S&S OUTSTANDING','0'],['CASHBOX','5,500,000']]:[['TOTAL RAKE','780,000'],['HOURS','5.5'],['PLAYERS','8'],['AVG / HR','141,818'],['TABLES','1'],['GAME','Hold’em']];return `<div class="ux-metrics ${kind==='Snapshot'?'ux-snapshot':''}">${entries.map(([a,b],i)=>`<div class="ux-metric tone-${i%3===1?1:i%3===2?2:0}"><b>${b}</b><small>${a}</small></div>`).join('')}</div>`}
 function viewForStep(w,step,i){let lower=step.toLowerCase(),last=i===w.steps.length-1,active=w.main==='Live Session'?(w.sub==='Nora AI'?'Table':w.sub):w.main==='Players'?'Players':'Table';if(!['Table','Players','Team','Expenses','Snapshot','Close'].includes(active))active='Table';
 if(w.id===5){if(i===0)return {active:'Table',body:miniTable()};if(i===1)return {active:'Table',body:`<div class="ux-profile">${portrait('Diego R.','D',true)}<div><b>DIEGO RESTREPO</b><small>SEAT 7 · TOTAL BUY-INS 450,000</small></div></div>${actionButtons(['REBUY','CASH OUT','MOVE','PLAYER DETAILS','BUST OUT','CANCEL'])}`};if(i===2)return {active:'Table',body:`<div class="ux-profile">${portrait('Diego','D',true)}<div><b>DIEGO RESTREPO</b><small>SEAT 7</small></div></div>${inputPanel('REBUY',['AMOUNT','PAYMENT METHOD'].map((x,j)=>[x,j?'Cashbox':'COP 1,000,000']),'CONFIRM REBUY')}`};return {active:'Table',body:miniTable(true)}}
@@ -4076,7 +4076,7 @@ if(w.main==='Live Session'&&w.sub==='Table'&&i===0)return {active:'Table',body:m
 if(w.sub==='Nora AI')return {active:'Table',body:lower.includes('confirm')||lower.includes('review')?inputPanel('NORA UNDERSTOOD',[['PLAYER','Diego Restrepo'],['ACTION','Rebuy'],['AMOUNT','COP 1,000,000']],'CONFIRM ACTION'):lower.includes('record')||lower.includes('voice')?`<div class="ux-voice"><span>🎙</span><b>RECORDING</b><small>Speak your game instruction</small><div class="ux-wave">▂▅▃▇▄▆▃▅▂▇▅▃</div></div>`:miniTable()};
 if(/seat|player tile|table view|table status|switch between tables|table tabs/.test(lower)&&w.main==='Live Session'&&w.sub==='Table')return {active:'Table',body:miniTable()};
 if(/choose|select|tap|quick action/.test(lower)&&w.sub==='Table')return {active:'Table',body:lower.includes('seat')?miniTable():`<div class="ux-profile">${portrait('Diego','D',true)}<div><b>DIEGO RESTREPO</b><small>SEAT 7 · TOTAL BUY-INS 450,000</small></div></div>${actionButtons(['BUY-IN','REBUY','CASH OUT','MOVE','BUST OUT','DETAILS'])}`};
-if(/enter|record|set |configure|choose payment|select payment|assign|adjust|correct|edit|issue|collect|add |create |invite|check.in|check.out/.test(lower)&&!last){let title=w.title.toUpperCase().replace(/[^A-Z0-9 /&-]/g,'').slice(0,31);let fields=w.sub==='Expenses'?[['ITEM','Venue rental'],['AMOUNT','COP 1,000,000'],['PAYMENT','Cashbox']]:w.sub==='Team'?[['TEAM MEMBER','Anna'],['ROLE','Dealer'],['SHIFT','7:00 PM']]:w.sub==='Table'?[['PLAYER','Diego Restrepo'],['AMOUNT','COP 500,000'],['PAYMENT','Cashbox']]:w.sub==='Close'?[['RECONCILIATION','Review required'],['CASHBOX','COP 4,850,000']]:[['GAME','Sunday Poker'],['VALUE','Select'],['STATUS','Ready']];return {active,body:inputPanel(title,fields,'CONFIRM')};}
+if(/enter|record|set |configure|choose payment|select payment|assign|adjust|correct|edit|issue|collect|add |create |invite|check.in|check.out/.test(lower)&&!last){let title=w.title.toUpperCase().replace(/[^A-Z0-9 /&-]/g,'').slice(0,31);let fields=w.sub==='Expenses'?[['ITEM','Rent payment'],['AMOUNT','COP 1,000,000'],['PAYMENT','Cashbox']]:w.sub==='Team'?[['TEAM MEMBER','Anna'],['ROLE','Dealer'],['SHIFT','7:00 PM']]:w.sub==='Table'?[['PLAYER','Diego Restrepo'],['AMOUNT','COP 500,000'],['PAYMENT','Cashbox']]:w.sub==='Close'?[['RECONCILIATION','Review required'],['CASHBOX','COP 4,850,000']]:[['GAME','Sunday Poker'],['VALUE','Select'],['STATUS','Ready']];return {active,body:inputPanel(title,fields,'CONFIRM')};}
 if(w.sub==='Snapshot'||w.sub==='Close'||w.main==='Reporting'||/report|balance|reconcil|summary|snapshot|review warning|performance|financial/.test(lower))return {active:active==='Table'?'Snapshot':active,body:metricPanel(w.sub==='Close'?'Close':w.main==='Reporting'?'Reporting':'Snapshot')};
 if(w.sub==='Team'||w.main==='Team')return {active:'Team',body:listPanel('Team')};
 if(w.sub==='Expenses')return {active:'Expenses',body:listPanel('Expenses')};
@@ -4089,7 +4089,7 @@ function phone(w,step,i){const v=viewForStep(w,step,i);return `<div class="stage
 
 
 // Screen-specific, individually authored workflow compositions.
-const SCREEN_SPECS={"1": {"types": ["launch", "restore", "table"], "focus": "Active game", "values": "8 seated · Sunday Hold’em", "cta": "Auto-resume · No extra tap"}, "2": {"types": ["schedule", "setup", "table"], "focus": "Start Sunday Hold’em", "values": "Hold’em · 5M / 10M · 500K buy-in", "cta": "Review game rules · START SESSION"}, "3": {"types": ["table", "roster", "seat-entry", "seat-review", "table-seated"], "focus": "Seat player · Seat 9", "values": "Rafa · COP 500,000 · Cashbox", "cta": "Choose player · Confirm seating"}, "4": {"types": ["table", "roster", "new-player", "seat-review"], "focus": "New player · Seat 9", "values": "Sofia Alvarez · +57 300 123 4567 · COP 500,000", "cta": "Create & seat"}, "5": {"types": ["table", "quick-actions", "rebuy-entry", "rebuy-review", "table-rebuy"], "focus": "Diego Restrepo · Seat 7", "values": "COP 450,000 → COP 1,450,000", "cta": "Rebuy COP 1,000,000 · Cashbox"}, "6": {"types": ["table", "quick-actions", "cashout-entry", "cashout-confirmation"], "focus": "Cash out · Diego", "values": "Total buy-ins 450,000 · Chips returned 720,000", "cta": "Pay COP 720,000 · Record cash-out"}, "7": {"types": ["table", "move-choice", "move-entry", "move-multitable", "move-swap-same", "move-swap-cross", "swap-confirmed", "table-moved"], "focus": "Move Diego Restrepo", "values": "Seat 7 → Seat 9 · Table selection shown only with multiple tables", "cta": "Select available seat → Confirm move"}, "8": {"types": ["table", "waitlist", "waitlist-assign", "table"], "focus": "Waitlist · 1 waiting", "values": "Uri · In venue · Seat 9 available", "cta": "Seat Uri · Buy-in COP 500,000"}, "9": {"types": ["table", "player-transactions"], "focus": "Diego Restrepo", "values": "Seat 7 · Total buy-ins COP 1,450,000", "cta": "History · Buy-ins · Cash-outs"}, "10": {"types": ["table", "rake-game-details", "rake-entry"], "focus": "Record rake", "values": "Table · COP 50,000 · Cashbox", "cta": "Confirm rake entry"}, "11": {"types": ["table", "table-controls", "table-paused", "table-closed"], "focus": "Table controls", "values": "Hold’em · Table open · 8 seated", "cta": "Pause · Resume · Close table"}, "12": {"types": ["table", "multi-tables", "table-two", "table-two"], "focus": "Switch tables", "values": "Table A · Table B · Up to four", "cta": "Tap Table B · No ledger change"}, "13": {"types": ["table", "voice-record", "voice-review", "table-rebuy", "table-rebuy"], "focus": "Nora voice note", "values": "“Diego rebuy one million cash”", "cta": "Review · Confirm"}, "14": {"types": ["table", "text-command", "voice-review", "table-rebuy", "table-rebuy"], "focus": "Nora text command", "values": "Diego rebuy 1,000,000 cash", "cta": "Review · Confirm"}, "15": {"types": ["voice-review", "correction", "voice-review", "table-rebuy"], "focus": "Correct Nora", "values": "Diego · 500,000 → 1,000,000", "cta": "Edit amount · Confirm"}, "16": {"types": ["table", "voice-record", "multi-review", "table-rebuy"], "focus": "Multiple actions", "values": "Diego rebuy 1M · Rafa rebuy 500K", "cta": "Review both · Confirm"}, "17": {"types": ["table", "ask-nora", "answer-nora"], "focus": "Ask Nora", "values": "“How much is in buy-ins?”", "cta": "COP 5,500,000 · 8 players"}, "18": {"types": ["voice-review", "error", "correction", "voice-review"], "focus": "Transaction recovery", "values": "Player not found · No ledger entry", "cta": "Correct player · Retry"}, "19": {"types": ["team-list", "team-select", "team-assign", "team-list"], "focus": "Assign team member", "values": "Anna · Dealer · Table A", "cta": "Assign to session"}, "20": {"types": ["team-list", "team-profile", "team-checkin", "team-list"], "focus": "Team check-in", "values": "Anna · Dealer · 7:00 PM", "cta": "Start shift"}, "21": {"types": ["team-list", "team-profile", "team-tip", "team-summary"], "focus": "Record team tips", "values": "Anna · COP 30,000 · Chips", "cta": "Confirm chip tip"}, "22": {"types": ["team-list", "team-profile", "team-payment", "team-summary"], "focus": "Team payment", "values": "Costa · COP 100,000 · Cashbox", "cta": "Confirm advance"}, "23": {"types": ["team-list", "team-profile", "team-checkout", "team-summary"], "focus": "Team checkout", "values": "Anna · 7:00 PM–12:30 AM", "cta": "Confirm shift end"}, "24": {"types": ["team-list", "team-profile", "team-summary"], "focus": "Team earnings", "values": "Anna · 5h 30m · COP 120,000", "cta": "Review tips & payments"}, "25": {"types": ["expense-list", "expense-entry", "expense-review", "expense-list"], "focus": "Record expense", "values": "Venue rental · COP 1,000,000 · Cashbox", "cta": "Confirm expense"}, "26": {"types": ["expense-list", "expense-detail", "expense-entry", "expense-list"], "focus": "Correct expense", "values": "Venue rental · COP 1,000,000 → 900,000", "cta": "Save correction · Audit"}, "27": {"types": ["service-menu", "service-item", "service-payment", "service-confirm"], "focus": "Beverage sale", "values": "Aguila · COP 10,000 · Diego", "cta": "Chips or cash · Record sale"}, "28": {"types": ["service-menu", "service-item", "service-comp", "service-confirm"], "focus": "Complimentary item", "values": "Water · Diego · COP 0", "cta": "Record complimentary"}, "29": {"types": ["service-menu", "service-item", "service-payment", "service-confirm"], "focus": "Sale payment", "values": "Aguila · COP 10,000", "cta": "Chips / Cash · Confirm"}, "30": {"types": ["inventory-list", "inventory-start", "inventory-end", "inventory-summary"], "focus": "Inventory count", "values": "Aguila · 24 start · 17 end", "cta": "Save counted units"}, "31": {"types": ["inventory-list", "inventory-summary", "inventory-variance", "inventory-variance"], "focus": "Inventory variance", "values": "24 start · 5 sold · 17 end · 2 variance", "cta": "Flag discrepancy"}, "32": {"types": ["snapshot", "snapshot-detail", "snapshot-detail"], "focus": "Live Snapshot", "values": "Buy-ins 5,500,000 · Rake 780,000", "cta": "Read-only overview"}, "33": {"types": ["snapshot", "player-detail", "player-transactions"], "focus": "Player finances", "values": "Diego · 450,000 total buy-ins", "cta": "View transaction history"}, "34": {"types": ["snapshot", "transactions", "transaction-detail", "correction"], "focus": "Correct transaction", "values": "Diego rebuy · COP 500,000", "cta": "Authorized adjustment · Audit"}, "35": {"types": ["balances", "account-detail", "account-detail"], "focus": "Account balances", "values": "Cashbox · Nequi · Bancolombia · S&S", "cta": "Read balances"}, "36": {"types": ["snapshot", "ss-player", "ss-credit"], "focus": "Issue Sign & Settle", "values": "Diego · COP 500,000 credit", "cta": "PIN verification · Confirm"}, "37": {"types": ["snapshot", "ss-player", "ss-collect", "ss-summary"], "focus": "Collect Sign & Settle", "values": "Diego owes COP 500,000", "cta": "Chips first · Remaining by payment"}, "38": {"types": ["snapshot", "chip-reconcile", "variance-alert"], "focus": "Chip reconciliation", "values": "Buy-ins + Promo = Cash-outs + Chip tips", "cta": "Review variance · Close with warning"}, "39": {"types": ["snapshot", "table-performance", "table-performance"], "focus": "Table performance", "values": "Table A · Rake/hour · Average stack", "cta": "Per-table financial view"}, "40": {"types": ["snapshot", "close-start", "close-checklist"], "focus": "Begin Daily Close", "values": "8 seated · 3 checks pending", "cta": "Start close review"}, "41": {"types": ["close-checklist", "close-players", "close-checklist"], "focus": "Outstanding players", "values": "8 players · 2 not cashed out", "cta": "Complete cash-outs"}, "42": {"types": ["close-checklist", "close-team", "close-checklist"], "focus": "Team settlements", "values": "Anna · Costa · Alex", "cta": "Review team balances"}, "43": {"types": ["close-checklist", "close-expenses", "close-inventory"], "focus": "Expenses & inventory", "values": "Venue 1M · Drinks 150K", "cta": "Review outstanding items"}, "44": {"types": ["close-checklist", "close-accounts", "chip-reconcile"], "focus": "Reconcile accounts", "values": "Cashbox · Nequi · Chips", "cta": "Review totals & variance"}, "45": {"types": ["close-checklist", "close-warnings", "close-checklist"], "focus": "Close warnings", "values": "Variance COP 50,000 · Review required", "cta": "Acknowledge warning"}, "46": {"types": ["close-checklist", "close-final", "close-locked"], "focus": "Permanent close", "values": "Final confirmation · Cannot reopen", "cta": "CONFIRM PERMANENT CLOSE"}, "47": {"types": ["close-locked", "close-report", "close-report"], "focus": "Final Daily Close report", "values": "Rake · Expenses · Net · Chip variance", "cta": "View locked report"}, "48": {"types": ["schedule", "schedule-form", "schedule-review", "schedule"], "focus": "Schedule game", "values": "Sunday · 7:00 PM · Provenza", "cta": "Save scheduled game"}, "49": {"types": ["schedule", "invite-list", "invite-compose", "invite-sent"], "focus": "Invite players", "values": "Rafa · Moshe · Sam · WhatsApp", "cta": "Send invitations"}, "50": {"types": ["player-game", "player-rsvp", "guest-list"], "focus": "Player RSVP", "values": "Sunday · 7:00 PM · Provenza", "cta": "Going / Decline"}, "51": {"types": ["schedule", "guest-list", "guest-detail"], "focus": "Confirmed players", "values": "8 confirmed · 3 pending", "cta": "View RSVP status"}, "52": {"types": ["player-game", "eta-entry", "waitlist"], "focus": "On My Way", "values": "Uri · ETA 20 minutes", "cta": "Update arrival status"}, "53": {"types": ["schedule", "schedule-review", "setup", "table"], "focus": "Scheduled → Live", "values": "Sunday · Hold’em · 7:00 PM", "cta": "Start live session"}, "54": {"types": ["crm-list", "crm54-profile", "crm54-sessions", "crm54-transactions"], "focus": "Find player", "values": "Diego Restrepo · +57 300 123 4567", "cta": "Open profile"}, "55": {"types": ["crm-list", "crm-new", "crm-profile", "crm-profile"], "focus": "Add player", "values": "Sofia Alvarez · +57 300 123 4567", "cta": "Save player"}, "56": {"types": ["crm-profile", "crm-edit", "crm-profile", "crm-profile"], "focus": "Edit player", "values": "Diego · Phone / Name", "cta": "Save changes"}, "57": {"types": ["crm-profile", "crm-privileges", "crm-profile", "crm-profile"], "focus": "Player privileges", "values": "Diego · Sign privilege", "cta": "Enable permitted feature"}, "58": {"types": ["crm-profile", "crm-history", "crm-history"], "focus": "Player history", "values": "Diego · 14 sessions · 62 hours", "cta": "Win/loss · Buy-ins"}, "59": {"types": ["onboarding", "onboard-game", "onboard-payment", "onboard-done"], "focus": "First-time setup", "values": "Game name · Currency COP · Hold’em", "cta": "Finish onboarding"}, "60": {"types": ["settings-home", "settings-game", "settings-rake", "settings-home"], "focus": "Game configuration", "values": "Hold’em · 5M/10M · 5% rake", "cta": "Save configuration"}, "61": {"types": ["settings-home", "payment-methods", "payment-account", "payment-methods"], "focus": "Payment accounts", "values": "Nequi · Account details", "cta": "Enable inside account"}, "62": {"types": ["settings-home", "settings-ss", "settings-pin", "settings-home"], "focus": "Sign & Settle verification", "values": "Choose PIN or supported alternative", "cta": "One method only"}, "63": {"types": ["settings-home", "settings-roles", "settings-permissions", "settings-home"], "focus": "Team permissions", "values": "Dealer · Cashier · Host", "cta": "Save role permissions"}, "64": {"types": ["settings-home", "settings-menu", "settings-inventory", "settings-home"], "focus": "Food & beverage settings", "values": "Aguila COP 10,000 · Water free", "cta": "Enable menu & stock"}, "65": {"types": ["profile-menu", "settings-preferences", "settings-language", "profile-menu"], "focus": "Profile & language", "values": "English · Español · Português", "cta": "Save preference"}, "66": {"types": ["settings-home", "team-invite", "invite-compose", "invite-sent"], "focus": "Invite team member", "values": "Anna · Dealer · WhatsApp", "cta": "Send invitation"}, "67": {"types": ["reports-home", "reports-filter", "reports-session"], "focus": "Find past session", "values": "Oct 25 · Sunday Hold’em", "cta": "Open session report"}, "68": {"types": ["reports-home", "reports-player", "reports-player-detail"], "focus": "Player win/loss", "values": "Diego · 14 sessions", "cta": "Net results · Hours"}, "69": {"types": ["reports-home", "reports-rake", "reports-table"], "focus": "Rake & table reports", "values": "Rake COP 780,000 · 2 tables", "cta": "Per-table performance"}, "70": {"types": ["reports-home", "reports-team", "reports-expense"], "focus": "Team & expense reports", "values": "Anna · Venue · Drinks", "cta": "Compare costs"}, "71": {"types": ["reports-home", "reports-export", "reports-ready", "reports-ready"], "focus": "Export report", "values": "Session summary · PDF / CSV", "cta": "Download / Share"}};
+const SCREEN_SPECS={"1": {"types": ["launch", "restore", "table"], "focus": "Active game", "values": "8 seated · Sunday Hold’em", "cta": "Auto-resume · No extra tap"}, "2": {"types": ["schedule", "setup", "table"], "focus": "Start Sunday Hold’em", "values": "Hold’em · 5M / 10M · 500K buy-in", "cta": "Review game rules · START SESSION"}, "3": {"types": ["table", "roster", "seat-entry", "seat-review", "table-seated"], "focus": "Seat player · Seat 9", "values": "Rafa · COP 500,000 · Cashbox", "cta": "Choose player · Confirm seating"}, "4": {"types": ["table", "roster", "new-player", "seat-review"], "focus": "New player · Seat 9", "values": "Sofia Alvarez · +57 300 123 4567 · COP 500,000", "cta": "Create & seat"}, "5": {"types": ["table", "quick-actions", "rebuy-entry", "rebuy-review", "table-rebuy"], "focus": "Diego Restrepo · Seat 7", "values": "COP 450,000 → COP 1,450,000", "cta": "Rebuy COP 1,000,000 · Cashbox"}, "6": {"types": ["table", "quick-actions", "cashout-entry", "cashout-confirmation"], "focus": "Cash out · Diego", "values": "Total buy-ins 450,000 · Chips returned 720,000", "cta": "Pay COP 720,000 · Record cash-out"}, "7": {"types": ["table", "move-choice", "move-entry", "move-multitable", "move-swap-same", "move-swap-cross", "swap-confirmed", "table-moved"], "focus": "Move Diego Restrepo", "values": "Seat 7 → Seat 9 · Table selection shown only with multiple tables", "cta": "Select available seat → Confirm move"}, "8": {"types": ["table", "waitlist", "waitlist-assign", "table"], "focus": "Waitlist · 1 waiting", "values": "Uri · In venue · Seat 9 available", "cta": "Seat Uri · Buy-in COP 500,000"}, "9": {"types": ["table", "player-transactions"], "focus": "Diego Restrepo", "values": "Seat 7 · Total buy-ins COP 1,450,000", "cta": "History · Buy-ins · Cash-outs"}, "10": {"types": ["table", "rake-game-details", "rake-entry"], "focus": "Record rake", "values": "Table · COP 50,000 · Cashbox", "cta": "Confirm rake entry"}, "11": {"types": ["table", "table-controls", "table-paused", "table-closed"], "focus": "Table controls", "values": "Hold’em · Table open · 8 seated", "cta": "Pause · Resume · Close table"}, "12": {"types": ["table", "multi-tables", "table-two", "table-two"], "focus": "Switch tables", "values": "Table A · Table B · Up to four", "cta": "Tap Table B · No ledger change"}, "13": {"types": ["table", "voice-record", "voice-review", "table-rebuy", "table-rebuy"], "focus": "Nora voice note", "values": "“Diego rebuy one million cash”", "cta": "Review · Confirm"}, "14": {"types": ["table", "text-command", "voice-review", "table-rebuy", "table-rebuy"], "focus": "Nora text command", "values": "Diego rebuy 1,000,000 cash", "cta": "Review · Confirm"}, "15": {"types": ["voice-review", "correction", "voice-review", "table-rebuy"], "focus": "Correct Nora", "values": "Diego · 500,000 → 1,000,000", "cta": "Edit amount · Confirm"}, "16": {"types": ["table", "voice-record", "multi-review", "table-rebuy"], "focus": "Multiple actions", "values": "Diego rebuy 1M · Rafa rebuy 500K", "cta": "Review both · Confirm"}, "17": {"types": ["table", "ask-nora", "answer-nora"], "focus": "Ask Nora", "values": "“How much is in buy-ins?”", "cta": "COP 5,500,000 · 8 players"}, "18": {"types": ["voice-review", "error", "correction", "voice-review"], "focus": "Transaction recovery", "values": "Player not found · No ledger entry", "cta": "Correct player · Retry"}, "19": {"types": ["team-list", "team-select", "team-assign", "team-list"], "focus": "Assign team member", "values": "Anna · Dealer · Table A", "cta": "Assign to session"}, "20": {"types": ["team-list", "team-profile", "team-checkin", "team-list"], "focus": "Team check-in", "values": "Anna · Dealer · 7:00 PM", "cta": "Start shift"}, "21": {"types": ["team-list", "team-profile", "team-tip", "team-summary"], "focus": "Record team tips", "values": "Anna · COP 30,000 · Chips", "cta": "Confirm chip tip"}, "22": {"types": ["team-list", "team-profile", "team-payment", "team-summary"], "focus": "Team payment", "values": "Costa · COP 100,000 · Cashbox", "cta": "Confirm advance"}, "23": {"types": ["team-list", "team-profile", "team-checkout", "team-summary"], "focus": "Team checkout", "values": "Anna · 7:00 PM–12:30 AM", "cta": "Confirm shift end"}, "24": {"types": ["team-list", "team-profile", "team-summary"], "focus": "Team earnings", "values": "Anna · 5h 30m · COP 120,000", "cta": "Review tips & payments"}, "25": {"types": ["expense-list", "expense-entry", "expense-review", "expense-list"], "focus": "Record expense", "values": "Rent payment · COP 1,000,000 · Cashbox", "cta": "Confirm expense"}, "26": {"types": ["expense-list", "expense-detail", "expense-entry", "expense-list"], "focus": "Correct expense", "values": "Rent payment · COP 1,000,000 → 900,000", "cta": "Save correction · Audit"}, "27": {"types": ["service-menu", "service-item", "service-payment", "service-confirm"], "focus": "Beverage sale", "values": "Aguila · COP 10,000 · Diego", "cta": "Chips or cash · Record sale"}, "28": {"types": ["service-menu", "service-item", "service-comp", "service-confirm"], "focus": "Complimentary item", "values": "Water · Diego · COP 0", "cta": "Record complimentary"}, "29": {"types": ["service-menu", "service-item", "service-payment", "service-confirm"], "focus": "Sale payment", "values": "Aguila · COP 10,000", "cta": "Chips / Cash · Confirm"}, "30": {"types": ["inventory-list", "inventory-start", "inventory-end", "inventory-summary"], "focus": "Inventory count", "values": "Aguila · 24 start · 17 end", "cta": "Save counted units"}, "31": {"types": ["inventory-list", "inventory-summary", "inventory-variance", "inventory-variance"], "focus": "Inventory variance", "values": "24 start · 5 sold · 17 end · 2 variance", "cta": "Flag discrepancy"}, "32": {"types": ["snapshot", "snapshot-detail", "snapshot-detail"], "focus": "Live Snapshot", "values": "Buy-ins 5,500,000 · Rake 780,000", "cta": "Read-only overview"}, "33": {"types": ["snapshot", "player-detail", "player-transactions"], "focus": "Player finances", "values": "Diego · 450,000 total buy-ins", "cta": "View transaction history"}, "34": {"types": ["snapshot", "transactions", "transaction-detail", "correction"], "focus": "Correct transaction", "values": "Diego rebuy · COP 500,000", "cta": "Authorized adjustment · Audit"}, "35": {"types": ["balances", "account-detail", "account-detail"], "focus": "Account balances", "values": "Cashbox · Nequi · Bancolombia · S&S", "cta": "Read balances"}, "36": {"types": ["snapshot", "ss-player", "ss-credit"], "focus": "Issue Sign & Settle", "values": "Diego · COP 500,000 credit", "cta": "PIN verification · Confirm"}, "37": {"types": ["snapshot", "ss-player", "ss-collect", "ss-summary"], "focus": "Collect Sign & Settle", "values": "Diego owes COP 500,000", "cta": "Chips first · Remaining by payment"}, "38": {"types": ["snapshot", "chip-reconcile", "variance-alert"], "focus": "Chip reconciliation", "values": "Buy-ins + Promo = Cash-outs + Chip tips", "cta": "Review variance · Close with warning"}, "39": {"types": ["snapshot", "table-performance", "table-performance"], "focus": "Table performance", "values": "Table A · Rake/hour · Average stack", "cta": "Per-table financial view"}, "40": {"types": ["snapshot", "close-start", "close-checklist"], "focus": "Begin Daily Close", "values": "8 seated · 3 checks pending", "cta": "Start close review"}, "41": {"types": ["close-checklist", "close-players", "close-checklist"], "focus": "Outstanding players", "values": "8 players · 2 not cashed out", "cta": "Complete cash-outs"}, "42": {"types": ["close-checklist", "close-team", "close-checklist"], "focus": "Team settlements", "values": "Anna · Costa · Alex", "cta": "Review team balances"}, "43": {"types": ["close-checklist", "close-expenses", "close-inventory"], "focus": "Expenses & inventory", "values": "Venue 1M · Drinks 150K", "cta": "Review outstanding items"}, "44": {"types": ["close-checklist", "close-accounts", "chip-reconcile"], "focus": "Reconcile accounts", "values": "Cashbox · Nequi · Chips", "cta": "Review totals & variance"}, "45": {"types": ["close-checklist", "close-warnings", "close-checklist"], "focus": "Close warnings", "values": "Variance COP 50,000 · Review required", "cta": "Acknowledge warning"}, "46": {"types": ["close-checklist", "close-final", "close-locked"], "focus": "Permanent close", "values": "Final confirmation · Cannot reopen", "cta": "CONFIRM PERMANENT CLOSE"}, "47": {"types": ["close-locked", "close-report", "close-report"], "focus": "Final Daily Close report", "values": "Rake · Expenses · Net · Chip variance", "cta": "View locked report"}, "48": {"types": ["schedule", "schedule-form", "schedule-review", "schedule"], "focus": "Schedule game", "values": "Sunday · 7:00 PM · Provenza", "cta": "Save scheduled game"}, "49": {"types": ["schedule", "invite-list", "invite-compose", "invite-sent"], "focus": "Invite players", "values": "Rafa · Moshe · Sam · WhatsApp", "cta": "Send invitations"}, "50": {"types": ["player-game", "player-rsvp", "guest-list"], "focus": "Player RSVP", "values": "Sunday · 7:00 PM · Provenza", "cta": "Going / Decline"}, "51": {"types": ["schedule", "guest-list", "guest-detail"], "focus": "Confirmed players", "values": "8 confirmed · 3 pending", "cta": "View RSVP status"}, "52": {"types": ["player-game", "eta-entry", "waitlist"], "focus": "On My Way", "values": "Uri · ETA 20 minutes", "cta": "Update arrival status"}, "53": {"types": ["schedule", "schedule-review", "setup", "table"], "focus": "Scheduled → Live", "values": "Sunday · Hold’em · 7:00 PM", "cta": "Start live session"}, "54": {"types": ["crm-list", "crm54-profile", "crm54-sessions", "crm54-transactions"], "focus": "Find player", "values": "Diego Restrepo · +57 300 123 4567", "cta": "Open profile"}, "55": {"types": ["crm-list", "crm-new", "crm-profile", "crm-profile"], "focus": "Add player", "values": "Sofia Alvarez · +57 300 123 4567", "cta": "Save player"}, "56": {"types": ["crm-profile", "crm-edit", "crm-profile", "crm-profile"], "focus": "Edit player", "values": "Diego · Phone / Name", "cta": "Save changes"}, "57": {"types": ["crm-profile", "crm-privileges", "crm-profile", "crm-profile"], "focus": "Player privileges", "values": "Diego · Sign privilege", "cta": "Enable permitted feature"}, "58": {"types": ["crm-profile", "crm-history", "crm-history"], "focus": "Player history", "values": "Diego · 14 sessions · 62 hours", "cta": "Win/loss · Buy-ins"}, "59": {"types": ["onboarding", "onboard-game", "onboard-payment", "onboard-done"], "focus": "First-time setup", "values": "Game name · Currency COP · Hold’em", "cta": "Finish onboarding"}, "60": {"types": ["settings-home", "settings-game", "settings-rake", "settings-home"], "focus": "Game configuration", "values": "Hold’em · 5M/10M · 5% rake", "cta": "Save configuration"}, "61": {"types": ["settings-home", "payment-methods", "payment-account", "payment-methods"], "focus": "Payment accounts", "values": "Nequi · Account details", "cta": "Enable inside account"}, "62": {"types": ["settings-home", "settings-ss", "settings-pin", "settings-home"], "focus": "Sign & Settle verification", "values": "Choose PIN or supported alternative", "cta": "One method only"}, "63": {"types": ["settings-home", "settings-roles", "settings-permissions", "settings-home"], "focus": "Team permissions", "values": "Dealer · Cashier · Host", "cta": "Save role permissions"}, "64": {"types": ["settings-home", "settings-menu", "settings-inventory", "settings-home"], "focus": "Food & beverage settings", "values": "Aguila COP 10,000 · Water free", "cta": "Enable menu & stock"}, "65": {"types": ["profile-menu", "settings-preferences", "settings-language", "profile-menu"], "focus": "Profile & language", "values": "English · Español · Português", "cta": "Save preference"}, "66": {"types": ["settings-home", "team-invite", "invite-compose", "invite-sent"], "focus": "Invite team member", "values": "Anna · Dealer · WhatsApp", "cta": "Send invitation"}, "67": {"types": ["reports-home", "reports-filter", "reports-session"], "focus": "Find past session", "values": "Oct 25 · Sunday Hold’em", "cta": "Open session report"}, "68": {"types": ["reports-home", "reports-player", "reports-player-detail"], "focus": "Player win/loss", "values": "Diego · 14 sessions", "cta": "Net results · Hours"}, "69": {"types": ["reports-home", "reports-rake", "reports-table"], "focus": "Rake & table reports", "values": "Rake COP 780,000 · 2 tables", "cta": "Per-table performance"}, "70": {"types": ["reports-home", "reports-team", "reports-expense"], "focus": "Team & expense reports", "values": "Anna · Venue · Drinks", "cta": "Compare costs"}, "71": {"types": ["reports-home", "reports-export", "reports-ready", "reports-ready"], "focus": "Export report", "values": "Session summary · PDF / CSV", "cta": "Download / Share"}};
 const SCREEN_PHOTOS=[['Luka D.','L',500000,true],['Macaulay C.','M',480000,true],['Miguel B.','M',520000,true],['Nora A.','N',500000,false],['Paul Smith','P',610000,true],['Joe Shmoe','J',475000,false],['Diego R.','D',450000,true],['Mikey B.','M',525000,true]];
 const euro=n=>new Intl.NumberFormat('en-US').format(n);
 function screenCard(title,content,tone='cyan'){return `<div class="screen-card ${tone}"><div class="screen-card-title">${esc(title)}</div><div class="screen-card-content">${content}</div></div>`}
@@ -4112,7 +4112,7 @@ function authoredContent(w,step,i){
  const table=(type!=='table-two'&&['table','table-rebuy','table-cashout','table-moved','table-seated'].includes(type)?miniTable(type==='table-rebuy').replaceAll('<strong>⊕</strong><b>Open Seat</b>','<strong class="seat-meaning-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 23V12a12 12 0 0 1 24 0v11M12 23h24v9H12zM12 32l-3 9M36 32l3 9M8 23v9M40 23v9"/></svg></strong><b>SEAT OPEN</b>').replaceAll('<strong>♙</strong><b>WAIT LIST</b>','<strong class="wait-meaning-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 11h23M19 24h23M19 37h23"/><text x="3" y="15">1</text><text x="3" y="28">2</text><text x="3" y="41">3</text></svg></strong><b>WAIT LIST</b>'):miniTable(type==='table-rebuy'));
  const people=screenList([['Diego Restrepo','Seat 7 · 450,000','›'],['Rafa','Seat 1 · 450,000','›'],['Moshe','Seat 2 · 1,200,000','›']]);
  const team=screenList([['Anna','Dealer · 7:00 PM','ON SHIFT'],['Costa','Host · 7:10 PM','ON SHIFT'],['Alex','Cashier · 7:00 PM','ON SHIFT']]);
- const entries=[['Venue rental','Cashbox','1,000,000'],['Drinks','Cashbox','150,000'],['Food','Cashbox','85,000']];
+ const entries=[['Rent payment','Cashbox','1,000,000'],['Drinks','Cashbox','150,000'],['Food','Cashbox','85,000']];
  const amountRows=[['PLAYER','Diego Restrepo'],['SEAT','7'],['AMOUNT','COP 1,000,000'],['PAYMENT METHOD','Cashbox']];
  const tableInfo=screenTop('SUNDAY HOLD’EM','8 seated · 1 open · 1 waiting');
  switch(type){
@@ -4164,9 +4164,9 @@ function authoredContent(w,step,i){
  case 'team-checkout':return photo+screenForm('END SHIFT',[['START','7:00 PM'],['END','12:30 AM'],['DURATION','5h 30m'],['TIPS','COP 30,000']],'CONFIRM CHECKOUT');
  case 'team-summary':return photo+screenTiles([['HOURS','5h 30m'],['EARNINGS','COP 120,000'],['TIPS','COP 30,000'],['PAID','COP 100,000']]);
  case 'expense-list':return screenTop('EXPENSES · LIVE','Recorded today')+screenList(entries)+screenBtn('＋ RECORD EXPENSE','blue');
- case 'expense-entry':return screenForm('VENUE EXPENSE',[['DESCRIPTION','Venue rental'],['AMOUNT','COP 1,000,000'],['ACCOUNT','Cashbox']],'CONFIRM EXPENSE');
- case 'expense-detail':return screenForm('EXPENSE DETAILS',[['DESCRIPTION','Venue rental'],['AMOUNT','COP 1,000,000'],['CREATED BY','Cashier']],'EDIT EXPENSE');
- case 'expense-review':return screenForm('REVIEW EXPENSE',[['DESCRIPTION','Venue rental'],['AMOUNT','COP 1,000,000'],['ACCOUNT','Cashbox']],'SAVE EXPENSE');
+ case 'expense-entry':return screenForm('RENT EXPENSE',[['DESCRIPTION','Rent payment'],['AMOUNT','COP 1,000,000'],['ACCOUNT','Cashbox']],'CONFIRM EXPENSE');
+ case 'expense-detail':return screenForm('EXPENSE DETAILS',[['DESCRIPTION','Rent payment'],['AMOUNT','COP 1,000,000'],['CREATED BY','Cashier']],'EDIT EXPENSE');
+ case 'expense-review':return screenForm('REVIEW EXPENSE',[['DESCRIPTION','Rent payment'],['AMOUNT','COP 1,000,000'],['ACCOUNT','Cashbox']],'SAVE EXPENSE');
  case 'service-menu':return screenTop('FOOD & BEVERAGE','Select an item')+screenTiles([['AGUILA','COP 10,000'],['RED BULL','COP 10,000'],['MINI BURGER','COP 15,000'],['WATER','FREE']]);
  case 'service-item':return screenForm('SALE ITEM',[['ITEM','Aguila beer'],['QUANTITY','1'],['PLAYER','Diego Restrepo'],['TOTAL','COP 10,000']],'CHOOSE PAYMENT');
  case 'service-payment':return screenForm('SALE PAYMENT',[['ITEM','Aguila beer'],['TOTAL','COP 10,000'],['PAYMENT METHOD','Chips  /  Cash']],'CONFIRM SALE');
@@ -4202,12 +4202,12 @@ function authoredContent(w,step,i){
  case 'close-locked':return screenCard('SESSION PERMANENTLY CLOSED',screenField('STATUS','Locked · Read only')+screenField('REPORT','Available'),'green')+screenBtn('VIEW FINAL REPORT','blue');
  case 'close-report':return screenTiles([['BUY-INS','5,500,000'],['RAKE','780,000'],['EXPENSES','1,235,000'],['CHIP VARIANCE','50,000']]);
  case 'schedule':return screenTop('SCHEDULE','Upcoming games')+screenCard('SUNDAY HOLD’EM',screenField('DATE','Sunday, Nov 1')+screenField('TIME','7:00 PM')+screenField('LOCATION','Provenza')+screenField('RSVP','By 6:00 PM'))+screenBtn('＋ SCHEDULE GAME','blue');
- case 'schedule-form':return screenForm('CREATE GAME',[['DAY','Sunday, Nov 1'],['START','7:00 PM'],['GAME','Hold’em'],['VENUE','Provenza']],'SAVE GAME');
+ case 'schedule-form':return screenForm('CREATE GAME',[['DAY','Sunday, Nov 1'],['START','7:00 PM'],['GAME','Hold’em'],['LOCATION','Provenza']],'SAVE GAME');
  case 'schedule-review':return screenCard('SUNDAY HOLD’EM',screenField('START','7:00 PM')+screenField('GAME','Hold’em')+screenField('RSVP','6:00 PM'))+screenBtn('START SESSION');
  case 'invite-list':return screenTop('INVITE PLAYERS','Choose recipients')+people;
  case 'invite-compose':return screenForm('SEND INVITATION',[['TO','Rafa · Moshe · Sam'],['CHANNEL','WhatsApp'],['GAME','Sunday · 7:00 PM']],'SEND INVITES');
  case 'invite-sent':return screenCard('INVITATIONS SENT',screenField('CHANNEL','WhatsApp')+screenField('RECIPIENTS','3 players'),'green');
- case 'player-game':return screenCard('SUNDAY POKER',screenField('TIME','7:00 PM')+screenField('VENUE','Provenza')+screenField('RSVP BY','6:00 PM'))+screenBtn('VIEW RSVP','blue');
+ case 'player-game':return screenCard('SUNDAY POKER',screenField('TIME','7:00 PM')+screenField('LOCATION','Provenza')+screenField('RSVP BY','6:00 PM'))+screenBtn('VIEW RSVP','blue');
  case 'player-rsvp':return screenTop('YOUR RSVP','Sunday · 7:00 PM')+`<div class="screen-action-grid">${screenBtn('GOING')}${screenBtn('DECLINE','red')}</div>`;
  case 'guest-list':return screenTop('GUEST LIST','8 confirmed · 3 pending')+screenList([['Rafa','Confirmed','GOING'],['Moshe','Confirmed','GOING'],['Uri','Awaiting reply','PENDING']]);
  case 'guest-detail':return screenProfile('Uri','RSVP PENDING',false)+screenBtn('SEND REMINDER','blue');
@@ -4346,7 +4346,7 @@ return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-nu
 /* Illustrative session model shared by every Live Snapshot state.
    Daily Close verifies/finalizes this session record; it must not recalculate it.
    Report permissions and module flags come from Settings in the production app. */
-const SNAPSHOT_SESSION={id:'SUN-1025',currency:'COP',buyIns:5500000,promoChips:0,cashOuts:5420000,chipTips:30000,rake:780000,expenses:1235000,teamPay:360000,teamDue:120000,ssDue:200000,duration:'5h 30m',tableHours:'10h 30m',players:8,tables:2,modules:{signSettle:true,inventory:true,rewards:false,otherRevenue:false},accounts:[['Cashbox',4500000],['Nequi',500000],['Bancolombia',300000]],chipsHeld:5500000};
+const SNAPSHOT_SESSION={id:'SUN-1025',currency:'COP',buyIns:5500000,promoChips:0,cashOuts:4390000,chipTips:30000,rake:780000,fbChips:300000,expenses:1235000,teamPay:360000,teamDue:120000,ssDue:200000,duration:'5h 30m',tableHours:'10h 30m',players:8,tables:2,modules:{signSettle:true,inventory:true,rewards:false,otherRevenue:false},accounts:[['Cashbox',4500000],['Nequi',500000],['Bancolombia',300000]],chipsHeld:5500000};
 
 /* Snapshot navigation uses the same illustrative session record throughout.
    Each detail represents a view of an existing report, not another ledger. */
@@ -4368,7 +4368,7 @@ if(view==='player')return detail('PLAYER LEDGER',sharedLedgerBody(1));
 if(view==='player-legacy')return detail('PLAYER LEDGER · DIEGO',row('Initial buy-in','COP 450,000')+row('Rebuy','COP 200,000')+row('Rebuy','COP 1,000,000')+row('Cash-out','COP 720,000')+'<div class="snap-note">Player detail and transaction history · example entries.</div>'+tile('▤','Return to session ledger','ledger'));
 if(view==='tables')return detail('RAKE & TABLE PERFORMANCE',row('Total rake',money(d.rake))+row('Table 1 rake','COP 450,000')+row('Table 2 rake','COP 330,000')+row('Session duration',d.duration)+row('Accumulated table hours',d.tableHours)+'<div class="snap-note">Table hours add the running time of each table.</div>');
 if(view==='team')return detail('TEAM REPORT',row('Staff / hours','3 · 16h 30m')+row('Compensation',money(d.teamPay))+row('Outstanding settlements',money(d.teamDue))+row('Chip tips',money(d.chipTips))+'<div class="snap-note">Open the existing Team report for each shift, tips, advances and settlement.</div>'+tile('♟','Team workflow','workflow24'));
-if(view==='expenses')return detail('EXPENSES',row('Total expenses',money(d.expenses))+row('Venue','COP 1,000,000')+row('Drinks','COP 150,000')+row('Other','COP 85,000')+'<div class="snap-note">Existing expense records and permitted corrections.</div>'+tile('▤','Expense workflow','workflow25'));
+if(view==='expenses')return detail('EXPENSES',row('Total expenses',money(d.expenses))+row('Rent','COP 1,000,000')+row('Drinks','COP 150,000')+row('Other','COP 85,000')+'<div class="snap-note">Existing expense records and permitted corrections.</div>'+tile('▤','Expense workflow','workflow25'));
 if(view==='accounts')return detail('ACCOUNT BALANCES · COP',d.accounts.map(a=>row(a[0],a[1].toLocaleString('en-US'))).join('')+row('Chips held · face value',d.chipsHeld.toLocaleString('en-US'))+'<div class="snap-note">Only enabled accounts appear. Account movements are in the session ledger.</div>'+tile('▤','View ledger','ledger'));
 if(view==='chips')return detail('CHIP RECONCILIATION · COP',row('Buy-ins',d.buyIns.toLocaleString('en-US'))+row('+ Promotional chips',d.promoChips.toLocaleString('en-US'))+row('Cash-outs',d.cashOuts.toLocaleString('en-US'))+row('+ Chip tips',d.chipTips.toLocaleString('en-US'))+'<div class="snap-alert"><b>Difference '+money(variance)+'</b><br>Buy-ins + promo chips − cash-outs − chip tips</div><div class="snap-note">Review the difference with the session activity before Daily Close.</div>');
 if(view==='ss')return detail('SIGN & SETTLE',row('Outstanding',money(d.ssDue))+row('Diego · balance due',money(d.ssDue))+'<div class="snap-note">Review outstanding player balances and use the authorized collection workflow.</div>'+tile('✍','Collection workflow','workflow37'));
@@ -4529,7 +4529,7 @@ SCREEN_SPECS[19].types=['tm-overview','tm-select','tm-assign','tm-assigned'];SCR
 SCREEN_SPECS[13].types=['table','voice-record','voice-review','rebuy-review','table-rebuy'];
 SCREEN_SPECS[14].types=['table','text-command','voice-review','rebuy-review','table-rebuy'];
 
-function sharedAccountLedger(){const h=document.createElement('div');h.innerHTML=sharedLedgerBody(1,true);h.querySelector('.shared-session-identity b').textContent='CASHBOX MOVEMENTS';h.querySelector('.wf9-ledger-heading').innerHTML='<b>ACCOUNT LEDGER</b><strong>3 ENTRIES</strong>';h.querySelector('.wf9-ledger').innerHTML=[['Rafa · Buy-in','8:04 PM','+450,000'],['Venue rental · Expense','7:30 PM','−1,000,000'],['Anna · Advance','7:15 PM','−100,000']].map(([a,b,c])=>'<div class="wf9-entry"><div><b>'+a+'</b><small>'+b+'</small></div><strong>COP '+c+'</strong></div>').join('');h.querySelector('.wf9-pages').remove();h.querySelector('.shared-action').outerHTML='<div class="wf9-total"><span>ACCOUNT BALANCE</span><strong>COP 4,500,000</strong></div>';return h.innerHTML;}
+function sharedAccountLedger(){const h=document.createElement('div');h.innerHTML=sharedLedgerBody(1,true);h.querySelector('.shared-session-identity b').textContent='CASHBOX MOVEMENTS';h.querySelector('.wf9-ledger-heading').innerHTML='<b>ACCOUNT LEDGER</b><strong>3 ENTRIES</strong>';h.querySelector('.wf9-ledger').innerHTML=[['Rafa · Buy-in','8:04 PM','+450,000'],['Rent payment · Expense','7:30 PM','−1,000,000'],['Anna · Advance','7:15 PM','−100,000']].map(([a,b,c])=>'<div class="wf9-entry"><div><b>'+a+'</b><small>'+b+'</small></div><strong>COP '+c+'</strong></div>').join('');h.querySelector('.wf9-pages').remove();h.querySelector('.shared-action').outerHTML='<div class="wf9-total"><span>ACCOUNT BALANCE</span><strong>COP 4,500,000</strong></div>';return h.innerHTML;}
 const SHARED_HEADERS={'rebuy-review':'Rebuy Confirmed',waitlist:'Wait List','waitlist-assign':'Seat from Wait List',
  'table':'Table View','table-rebuy':'Table View','table-cashout':'Table View','table-two':'Table 2','multi-tables':'Select Table',
  'voice-record':'Nora · Voice Note','voice-review':'Nora · Review Action','text-command':'Nora · Text Command','correction':'Correct Action','multi-review':'Nora · Review Actions','ask-nora':'Ask Nora','answer-nora':'Nora · Answer','error':'Nora · Action Not Recorded',
@@ -5379,7 +5379,7 @@ function rnHandle(e,s,r){
  if(r.startsWith('page:')){const body=s.querySelector('.ux-content'),session=!!body.querySelector('.shared-session-identity'),p=Number(r.slice(5));const footer=body.querySelector('.snap-footer')?.outerHTML||'';body.innerHTML=sharedLedgerBody(p,session)+footer;rnDecorate();return;}
  if(r==='cashout'){const value=Number(s.querySelector('.co6-input-row input').value.replace(/[^0-9]/g,''));rnGo(value===0?'6:4':'6:3',s);return;}
  if(r.startsWith('amount:')){const t=r.slice(7);const field=s.querySelector('.np4-buyin .np4-field strong,.screen-field strong');if(t==='CUSTOM'){rnPane(s,'Custom Amount',screenForm('CUSTOM AMOUNT',[['Amount','Enter COP amount']],'REVIEW AMOUNT'));s.querySelector('.screen-field strong').innerHTML='<input aria-label="Custom amount" inputmode="numeric" class="shared-setup-input" type="text">';rnMark(s.querySelector('.screen-button'),'receipt:CUSTOM AMOUNT PREVIEW');}else if(field){s.dataset.rnAmount=({'500K':500000,'1M':1000000,'2M':2000000}[t]);field.innerHTML='<span class="money-cop-65">COP</span> '+({'500K':'500,000','1M':'1,000,000','2M':'2,000,000'}[t]);}return;}
- if(r==='export'){const csv='"NORA REVIEW SAMPLE","Not production data"\r\n"Session","Sunday Oct 25"\r\n"Buy-ins COP",5500000\r\n"Cash-outs COP",5420000\r\n"Rake COP",780000\r\n"Expenses COP",1235000';const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='nora-sample-session-report.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);rnReceipt(s,'SAMPLE CSV GENERATED',[['File','nora-sample-session-report.csv'],['Sharing','Download only · no recipients contacted']]);return;}
+ if(r==='export'){const csv='"NORA REVIEW SAMPLE","Not production data"\r\n"Session","Sunday Oct 25"\r\n"Buy-ins COP",5500000\r\n"Cash-outs COP",4390000\r\n"Rake COP",780000\r\n"Expenses COP",1235000';const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='nora-sample-session-report.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);rnReceipt(s,'SAMPLE CSV GENERATED',[['File','nora-sample-session-report.csv'],['Sharing','Download only · no recipients contacted']]);return;}
  throw Error('Unmapped review action '+r);
 }
 document.addEventListener('click',e=>{const el=e.target.closest('[data-rn-route]'),s=el?.closest('.stage');if(!s)return;e.preventDefault();e.stopImmediatePropagation();rnHandle(el,s,el.dataset.rnRoute);},true);
@@ -5394,7 +5394,7 @@ const REVIEW_LEDGER_EVENTS=[
  ['Rebuys','Diego · Rebuy','9:12 PM','+1,000,000'],
  ['Rake','Table 1 · Rake','8:45 PM','+50,000'],
  ['Buy-ins','Rafa · Buy-in','8:04 PM','+450,000'],
- ['Expenses','Venue rental','7:30 PM','−1,000,000'],
+ ['Expenses','Rent payment','7:30 PM','−1,000,000'],
  ['Team','Anna · Team advance','7:15 PM','−100,000'],
  ['Rebuys','Diego · Rebuy','7:45 PM','+200,000'],
  ['Buy-ins','Moshe · Buy-in','7:10 PM','+1,200,000'],
@@ -5422,10 +5422,10 @@ const EXP={
  stepper:(v,u)=>'<div class="ex-stepper"><button type="button">−</button><div><b>'+v+'</b><span>'+u+'</span></div><button type="button">+</button></div>',
  done:(k,ico,title,sub,name,tag,rows,cta)=>'<div class="ex-done"><div class="ex-brand"><strong>NORA</strong><span>YOUR CASH GAME MANAGER</span></div><div class="ex-banner '+k+'"><div class="ex-check">'+ico+'</div><strong>'+title+'</strong><span>'+sub+'</span></div><div class="ex-det"><div class="ex-det-head"><b>'+name+'</b><span>'+tag+'</span></div>'+rows.map(r=>'<div class="ex-det-row"><span>'+r[0]+'</span><b class="'+(r[2]||'')+'">'+r[1]+'</b></div>').join('')+'</div>'+EXP.cta(cta||'CONTINUE <span>→</span>','blue')+'</div>',
  // expenses
- list(){const it=(k,ic,n,acc,v)=>'<div class="ex-item"><i class="ex-ico '+k+'">'+ic+'</i><div><b>'+n+'</b><span>'+acc+'</span></div><strong>'+EXP.c(v)+'</strong></div>';return '<div class="ex">'+EXP.hero('red','EXPENSES TODAY',EXP.c('1,235,000'),'3 RECORDED · SUNDAY OCT 25')+'<div class="ex-list">'+it('purple','🏠','Venue rental','CASHBOX','1,000,000')+it('teal','🍺','Drinks','CASHBOX','150,000')+it('amber','🍔','Food','CASHBOX','85,000')+'</div>'+EXP.cta('＋ RECORD EXPENSE','blue')+'</div>';},
- entry(){return '<div class="ex">'+EXP.card(EXP.lbl('CATEGORY')+EXP.chips(['VENUE','DRINKS','FOOD','SUPPLIES','TRANSPORT','OTHER'],0,3)+EXP.input('DESCRIPTION','Venue rental')+EXP.input('AMOUNT','1,000,000','COP')+EXP.lbl('PAID FROM')+EXP.chips(['CASHBOX','NEQUI','BANK'],0),'grow')+EXP.cta('CONFIRM EXPENSE <span>→</span>')+'</div>';},
- review(){return '<div class="ex">'+EXP.hero('purple','VENUE EXPENSE',EXP.c('1,000,000'),'REVIEW BEFORE SAVING')+EXP.card(EXP.row('DESCRIPTION','Venue rental')+EXP.row('CATEGORY','VENUE')+EXP.row('PAID FROM','CASHBOX')+EXP.row('RECORDED BY','CASHIER'),'grow')+EXP.cta('SAVE EXPENSE')+'</div>';},
- detail(){return '<div class="ex">'+EXP.hero('purple','VENUE RENTAL',EXP.c('1,000,000'),'SUNDAY OCT 25 · 7:05 PM')+EXP.card(EXP.row('CATEGORY','VENUE')+EXP.row('PAID FROM','CASHBOX')+EXP.row('RECORDED BY','CASHIER')+EXP.row('STATUS','RECORDED','pos'),'grow')+EXP.cta('EDIT EXPENSE <span>→</span>')+'</div>';},
+ list(){const it=(k,ic,n,acc,v)=>'<div class="ex-item"><i class="ex-ico '+k+'">'+ic+'</i><div><b>'+n+'</b><span>'+acc+'</span></div><strong>'+EXP.c(v)+'</strong></div>';return '<div class="ex">'+EXP.hero('red','EXPENSES TODAY',EXP.c('1,235,000'),'3 RECORDED · SUNDAY OCT 25')+'<div class="ex-list">'+it('purple','🏠','Rent payment','CASHBOX','1,000,000')+it('teal','🍺','Drinks','CASHBOX','150,000')+it('amber','🍔','Food','CASHBOX','85,000')+'</div>'+EXP.cta('＋ RECORD EXPENSE','blue')+'</div>';},
+ entry(){return '<div class="ex">'+EXP.card(EXP.lbl('CATEGORY')+EXP.chips(['RENT','DRINKS','FOOD','SUPPLIES','TRANSPORT','OTHER'],0,3)+EXP.input('DESCRIPTION','Rent payment')+EXP.input('AMOUNT','1,000,000','COP')+EXP.lbl('PAID FROM')+EXP.chips(['CASHBOX','NEQUI','BANK'],0),'grow')+EXP.cta('CONFIRM EXPENSE <span>→</span>')+'</div>';},
+ review(){return '<div class="ex">'+EXP.hero('purple','RENT EXPENSE',EXP.c('1,000,000'),'REVIEW BEFORE SAVING')+EXP.card(EXP.row('DESCRIPTION','Rent payment')+EXP.row('CATEGORY','RENT')+EXP.row('PAID FROM','CASHBOX')+EXP.row('RECORDED BY','CASHIER'),'grow')+EXP.cta('SAVE EXPENSE')+'</div>';},
+ detail(){return '<div class="ex">'+EXP.hero('purple','RENT PAYMENT',EXP.c('1,000,000'),'SUNDAY OCT 25 · 7:05 PM')+EXP.card(EXP.row('CATEGORY','RENT')+EXP.row('PAID FROM','CASHBOX')+EXP.row('RECORDED BY','CASHIER')+EXP.row('STATUS','RECORDED','pos'),'grow')+EXP.cta('EDIT EXPENSE <span>→</span>')+'</div>';},
  // food & beverage
  menu(){const t=(k,ic,n,p)=>'<button type="button" class="ex-menu '+k+'" data-next="true"><i>'+ic+'</i><b>'+n+'</b><span>'+p+'</span></button>';return '<div class="ex">'+EXP.lbl('TAP AN ITEM')+'<div class="ex-menu-grid">'+t('amber','🍺','AGUILA',EXP.c('10,000'))+t('blue','🥫','RED BULL',EXP.c('10,000'))+t('red','🍔','MINI BURGER',EXP.c('15,000'))+t('teal','💧','WATER','FREE')+'</div></div>';},
  item(){return '<div class="ex">'+'<div class="ex-prod amber"><i>🍺</i><div><b>AGUILA BEER</b><span>'+EXP.c('10,000')+' EACH</span></div></div>'+EXP.card(EXP.lbl('QUANTITY')+EXP.stepper(1,'UNIT')+EXP.lbl('CHARGE TO PLAYER')+'<div class="ex-player">'+portrait('Diego R.','D',true)+'<div><b>Diego Restrepo</b><span>SEAT 7</span></div></div>','grow')+'<div class="ex-total">'+'<span>TOTAL</span><b>'+EXP.c('10,000')+'</b></div>'+EXP.cta('CHOOSE PAYMENT <span>→</span>')+'</div>';},
@@ -5472,7 +5472,7 @@ const RPT={
   '<div class="rpt-head"><div><b>Sunday Hold’em</b><span>OCT 25, 2026 · 5h 30m</span></div><em>FINAL</em></div>'+
   RPT.hero('red','NET PROFIT',c('−385,000'),'RAKE + SALES − EXPENSES')+
   '<div class="rpt-card rpt-bars">'+RPT.bar('RAKE',c('780,000'),49,'purple')+RPT.bar('F&amp;B SALES',c('430,000'),27,'teal')+RPT.bar('EXPENSES',c('1,595,000'),100,'red')+'</div>'+
-  RPT.row('blue','BUY-INS',c('5,500,000'))+RPT.row('amber','CASH-OUTS',c('5,420,000'))+'</div>';},
+  RPT.row('blue','BUY-INS',c('5,500,000'))+RPT.row('amber','CASH-OUTS',c('4,390,000'))+'</div>';},
  player(){const c=RPT.cop;return '<div class="rpt">'+
   crmTile('Diego Restrepo',true,crmStats(14,62))+
   RPT.hero('green','LIFETIME WIN / LOSS',c('+2,150,000'),'TOTAL BUY-INS '+c('14,500,000'))+
@@ -5493,7 +5493,7 @@ const RPT={
   p('Anna',portrait('Anna','A',true),'5h 30m','15,000','150,000',false)+p('Costa',portrait('Costa','C'),'5h 30m','10,000','120,000',true)+p('Alex',portrait('Alex','M'),'5h 30m','5,000','90,000',false)+'</div>';},
  expense(){const c=RPT.cop;const it=(k,l,v,pct)=>'<div class="rpt-leg"><i class="'+k+'"></i><div><span>'+l+' · '+pct+'%</span><b>'+c(v)+'</b></div></div>';return '<div class="rpt">'+
   RPT.hero('red','TOTAL EXPENSES',c('1,595,000'),'SUNDAY · OCT 25')+
-  '<div class="rpt-card rpt-donut-card"><div class="rpt-donut"></div><div class="rpt-legend">'+it('purple','VENUE','1,000,000',63)+it('amber','TEAM','360,000',23)+it('teal','DRINKS','150,000',9)+it('blue','OTHER','85,000',5)+'</div></div>'+
+  '<div class="rpt-card rpt-donut-card"><div class="rpt-donut"></div><div class="rpt-legend">'+it('purple','RENT','1,000,000',63)+it('amber','TEAM','360,000',23)+it('teal','DRINKS','150,000',9)+it('blue','OTHER','85,000',5)+'</div></div>'+
   RPT.row('dark','OPERATING',c('1,235,000'))+RPT.row('dark','TEAM PAY',c('360,000'))+'</div>';},
  exportForm(){return '<div class="rpt"><div class="rpt-label">CHOOSE REPORT</div><div class="rpt-grid2 rpt-pick">'+[['blue','cal','SESSION',1],['green','user','PLAYER',0],['purple','chip','RAKE &amp; TABLES',0],['amber','team','TEAM &amp; EXPENSES',0]].map(([k,i,t,on])=>'<button type="button" class="rpt-navtile '+k+(on?' sel':'')+'">'+RPT.ico[i]+'<b>'+t+'</b></button>').join('')+'</div>'+
   '<div class="rpt-label">FORMAT</div>'+RPT.chips(['PDF','CSV'],0)+'<div class="rpt-label">SESSION DATE</div>'+RPT.chips(['OCT 25','OCT 22','OCT 18'],0)+RPT.cta('GENERATE REPORT <span>→</span>')+'</div>';},
@@ -5546,7 +5546,7 @@ snapshotMarkup=function(view){
  }
  if(view==='expenses'||view.startsWith('expenses-')){
  const selected=view==='expenses'?'all':view.slice(9);
- const buckets=[['venue','Venue',1000000],['drinks','Drinks',150000],['other','Other',85000]];
+ const buckets=[['venue','Rent',1000000],['drinks','Drinks',150000],['other','Other',85000]];
  const money=n=>'COP '+n.toLocaleString('en-US');
  const tabs=[['all','All expenses'],...buckets.map(x=>[x[0],x[1]])].map(x=>'<button type="button" class="'+(selected===x[0]?'active':'')+'" onclick="snapNavigate(this,\'expenses-'+x[0]+'\')">'+x[1]+'</button>').join('');
  const rows=buckets.filter(x=>selected==='all'||selected===x[0]).map(x=>'<div class="snap-row"><span>'+x[1]+'</span><strong>'+money(x[2])+'</strong></div>').join('');
@@ -5629,7 +5629,7 @@ snapshotMarkup=function(view){
   '<div class="snap32-financial-detail"><details open><summary>Rake by table</summary>'+
   row('Table 1','COP 450,000')+row('Table 2','COP 330,000')+'</details>'+
   '<details><summary>Expenses by category</summary>'+
-  row('Venue','COP 1,000,000')+row('Drinks','COP 150,000')+row('Other','COP 85,000')+'</details></div>'+
+  row('Rent','COP 1,000,000')+row('Drinks','COP 150,000')+row('Other','COP 85,000')+'</details></div>'+
   '<div class="snap32-drill-note">Current session totals; final amounts are confirmed at Daily Close.</div>');
  }
  return snap32BeforeV3(view);
@@ -5657,7 +5657,7 @@ snapshotMarkup=function(view){
   '<button type="button" class="snap-link" onclick="snapNavigate(this,\'workflow24\')">♟ Team workflow</button>');
  if(view==='expenses'||view.startsWith('expenses-')){
   const selected=view==='expenses'?'all':view.slice(9);
-  const buckets=[['venue','Venue',1000000],['drinks','Drinks',150000],['other','Other',85000]];
+  const buckets=[['venue','Rent',1000000],['drinks','Drinks',150000],['other','Other',85000]];
   const tabs=[['all','All'],...buckets.map(x=>[x[0],x[1]])].map(x=>'<button type="button" class="'+(selected===x[0]?'active':'')+'" onclick="snapNavigate(this,\'expenses-'+x[0]+'\')">'+x[1]+'</button>').join('');
   const entries=buckets.filter(x=>selected==='all'||selected===x[0]).map(x=>row(x[1],money(x[2]))).join('');
   return detail('SESSION EXPENSES','<div class="snap32-expense-total"><span>TOTAL EXPENSES</span><strong>'+money(d.expenses)+'</strong></div>'+
@@ -5746,7 +5746,7 @@ snapshotMarkup=function(view){
   action('♟ Open Team details','workflow24'));
  if(view==='expenses'||view.startsWith('expenses-'))return page(
   '<div class="snap32-expense-total"><span>TOTAL EXPENSES</span><strong>'+money(d.expenses)+'</strong></div>'+
-  details('Venue',money(1000000),row('Venue rental',money(1000000)))+
+  details('Rent',money(1000000),row('Rent payment',money(1000000)))+
   details('Drinks',money(150000),'<div>Itemized transactions available in the expense ledger.</div>')+
   details('Other',money(85000),'<div>Itemized transactions available in the expense ledger.</div>')+
   action('▤ Expense transactions','workflow25'));
@@ -5781,7 +5781,7 @@ snapshotMarkup=function(view){
  const events=cat=>REVIEW_LEDGER_EVENTS.filter(x=>x[0]===cat).map(x=>row(x[1]+' · '+x[2],'COP '+x[3])).join('');
  if(view==='tables')return page(details('TOTAL RAKE',money(d.rake),row('Table 1',money(450000))+row('Table 2',money(330000)))+details('TABLE 1',money(450000),note('Table runtime, average rake/hour and average stack require recorded table data; unavailable in this sample.'))+details('TABLE 2',money(330000),note('Table runtime, average rake/hour and average stack require recorded table data; unavailable in this sample.'))+details('SESSION RUNTIME',d.duration,row('Combined table hours',d.tableHours))+action('▤ Rake transactions','ledger-Rake'));
  if(view==='team')return page(details('TEAM ON SHIFT','3',row('Total hours','16h 30m')+note('Individual shift hours not in sample.'))+details('COMPENSATION',money(d.teamPay),note('Individual staff earnings require team records.'))+details('OUTSTANDING',money(d.teamDue),note('Staff settlement details require team records.'))+details('CHIP TIPS',money(d.chipTips),note('Chip-paid tips only.'))+details('RECORDED TRANSACTIONS','View',events('Team'))+action('♟ Team workflow','workflow24'));
- if(view==='expenses'||view.startsWith('expenses-'))return page('<div class="snap32-expense-total"><span>TOTAL EXPENSES</span><strong>'+money(d.expenses)+'</strong></div>'+details('VENUE',money(1000000),row('Venue rental',money(1000000)))+details('DRINKS',money(150000),note('Individual purchase records unavailable in sample.'))+details('OTHER',money(85000),note('Individual expense records unavailable in sample.'))+details('RECORDED TRANSACTIONS','View',events('Expenses')+note('Partial sample ledger; not a complete expense breakdown.'))+action('▤ Expense workflow','workflow25'));
+ if(view==='expenses'||view.startsWith('expenses-'))return page('<div class="snap32-expense-total"><span>TOTAL EXPENSES</span><strong>'+money(d.expenses)+'</strong></div>'+details('RENT',money(1000000),row('Rent payment',money(1000000)))+details('DRINKS',money(150000),note('Individual purchase records unavailable in sample.'))+details('OTHER',money(85000),note('Individual expense records unavailable in sample.'))+details('RECORDED TRANSACTIONS','View',events('Expenses')+note('Partial sample ledger; not a complete expense breakdown.'))+action('▤ Expense workflow','workflow25'));
  if(view==='ss')return page('<div class="snap32-expense-total"><span>OUTSTANDING</span><strong>'+money(d.ssDue)+'</strong></div>'+details('DIEGO · UNSETTLED',money(d.ssDue),row('Status','Unpaid')+note('Illustrative balance; verify signed debt and settlement records.'))+details('RECORDED EVENTS','View',events('Sign & Settle')+note('Sample event does not constitute full debt history.'))+action('✍ Collection workflow','workflow37'));
  if(view==='inventory')return page(details('AGUILA · UNITS','2 variance',row('Beginning','24')+row('Sold','5')+row('Expected ending','19')+row('Counted ending','17')+row('Shortage','2 units'))+note('Unit costs and itemized sales not provided in sample.')+action('▦ Inventory workflow','workflow30'));
  if(view==='closed'){let h=wf32PriorQA(view);return h.replace('<div class="snap32-v6-alert">Chip variance','<div class="snap32-v6-alert">Recorded chip variance').replace('<div class="snap32-v6-actions">',note('Final player win/loss, hours and seat history require completed player records; not supplied in this sample.')+'<div class="snap32-v6-actions">');}
@@ -5834,7 +5834,7 @@ const WF32_DEMO={
  {name:'Sofia',table:1,seat:9,status:'Playing',hours:null,winLoss:null}
  ],
  tables:[{name:'Table 1',rake:450000,hours:null,avgStack:null},{name:'Table 2',rake:330000,hours:null,avgStack:null}],
- expenses:[{name:'Venue',total:1000000,items:[['Venue rental',1000000]]},{name:'Drinks',total:150000,items:[]},{name:'Other',total:85000,items:[]}],
+ expenses:[{name:'Rent',total:1000000,items:[['Rent payment',1000000]]},{name:'Drinks',total:150000,items:[]},{name:'Other',total:85000,items:[]}],
  inventory:[{name:'Aguila',category:'Beverages',beginning:24,sold:5,ending:17}],
  ss:[{name:'Diego',due:200000,status:'Unpaid'}]
 };
@@ -5936,18 +5936,18 @@ snapshotMarkup=function(view){
    Never treated as real player, accounting or production data. */
 const WF32_DATA={
  players:[
- ['Rafa',1,1,'Cashed out',600000,780000,'4h 50m'],
+ ['Rafa',1,1,'Cashed out',600000,640000,'4h 50m'],
  ['Diego',1,7,'Cashed out',1650000,720000,'5h 10m'],
- ['Moshe',2,2,'Cashed out',1200000,1500000,'4h 20m'],
- ['Sofia',1,3,'Cashed out',400000,450000,'3h 15m'],
- ['Costa',2,4,'Cashed out',500000,650000,'5h 00m'],
- ['Sam',2,5,'Cashed out',350000,390000,'2h 45m'],
- ['Pikachu',1,6,'Cashed out',450000,430000,'3h 50m'],
- ['Uri',2,8,'Cashed out',350000,500000,'3h 05m']
+ ['Moshe',2,2,'Cashed out',1200000,1230000,'4h 20m'],
+ ['Sofia',1,3,'Cashed out',400000,380000,'3h 15m'],
+ ['Costa',2,4,'Cashed out',500000,520000,'5h 00m'],
+ ['Sam',2,5,'Cashed out',350000,320000,'2h 45m'],
+ ['Pikachu',1,6,'Cashed out',450000,400000,'3h 50m'],
+ ['Uri',2,8,'Cashed out',350000,180000,'3h 05m']
  ],
  tables:[{name:'Table 1',rake:450000,minutes:330,stack:625000},{name:'Table 2',rake:330000,minutes:300,stack:535000}],
  staff:[{name:'Anna',hours:'5h 30m',earn:150000,advance:100000,settled:50000,due:0,tips:15000},{name:'Costa',hours:'5h 30m',earn:120000,advance:0,settled:0,due:120000,tips:10000},{name:'Alex',hours:'5h 30m',earn:90000,advance:0,settled:90000,due:0,tips:5000}],
- expenses:[{name:'Venue',items:[['Venue rental',1000000]]},{name:'Drinks',items:[['Beer purchases',90000],['Mixers',60000]]},{name:'Other',items:[['Supplies',50000],['Transport',35000]]}],
+ expenses:[{name:'Rent',items:[['Rent payment',1000000]]},{name:'Drinks',items:[['Beer purchases',90000],['Mixers',60000]]},{name:'Other',items:[['Supplies',50000],['Transport',35000]]}],
  accounts:[['Cashbox',4500000],['Nequi',500000],['Bancolombia',300000]],
  debtors:[{name:'Diego',balance:150000,status:'Unpaid'},{name:'Uri',balance:50000,status:'Unpaid'}],
  inventory:[
@@ -5993,7 +5993,7 @@ snapshotMarkup=function(view){
  const totalExpenses=sum(demo.expenses.flatMap(c=>c.items.map(x=>x[1])));
  const totalBuy=sum(demo.players.map(p=>p[4])),totalCash=sum(demo.players.map(p=>p[5]));
  const chipTips=sum(demo.staff.map(p=>p.tips));
- const variance=totalBuy-totalCash-chipTips;
+ const variance=totalBuy-totalCash-chipTips-780000-SNAPSHOT_SESSION.fbChips;
  const profit=sum(demo.tables.map(t=>t.rake))-totalExpenses;
  const isFinal=view==='closed';
  const isOverview=view==='overview'||isFinal;
@@ -6189,7 +6189,7 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
  const buyIn=()=>total(d.players.map(p=>p[4]));
  const cashOut=()=>total(d.players.map(p=>p[5]));
  const tips=()=>total(d.staff.map(s=>s.tips));
- const chipVariance=()=>buyIn()+session.promoChips-cashOut()-tips();
+ const chipVariance=()=>buyIn()+session.promoChips-cashOut()-tips()-780000-session.fbChips;
  const totalDebt=()=>total(d.debtors.map(x=>x.balance));
  const events=[];
  const add=(cat,description,amount,time,detail)=>events.push({id:'DEMO-'+String(events.length+1).padStart(3,'0'),cat,description,amount,time,detail});
@@ -6366,7 +6366,7 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
   test('All Snapshot screens rendered',()=>phones.length===snapshotVisibleViews().length&&phones.every(p=>p.querySelector('.snap-body')));
   test('Eight players',()=>d.players.length===8);
   test('Buy-ins reconcile',()=>sum(d.players.map(p=>p[4]))===5500000);
-  test('Cash-outs reconcile',()=>sum(d.players.map(p=>p[5]))===5420000);
+  test('Cash-outs reconcile',()=>sum(d.players.map(p=>p[5]))===4390000);
   test('Rake reconciles',()=>sum(d.tables.map(t=>t.rake))===780000);
   test('Expenses reconcile',()=>sum(d.expenses.flatMap(c=>c.items.map(i=>i[1])))===1235000);
   test('Chip tips reconcile',()=>sum(d.staff.map(p=>p.tips))===30000);
@@ -6375,7 +6375,7 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
   test('Sign & Settle reconciles',()=>sum(d.debtors.map(p=>p.balance))===200000);
   test('All inventory groups present',()=>['Beverages','Food','Bar'].every(c=>d.inventory.some(p=>p.category===c)));
   test('All detail screens render',()=>['ledger','tables','team','expenses','accounts','chips','ss','inventory','closed','wf32-close','session-players'].every(v=>typeof snapshotMarkup(v)==='string'&&snapshotMarkup(v).length>100));
-  test('Ledger category filtering',()=>snapshotMarkup('ledger-Chip%20tips').includes('Chip tips')&&snapshotMarkup('ledger-Expenses').includes('Venue'));
+  test('Ledger category filtering',()=>snapshotMarkup('ledger-Chip%20tips').includes('Chip tips')&&snapshotMarkup('ledger-Expenses').includes('Rent'));
   test('Historical mode labeled',()=>phones[phones.length-1].querySelector('.ux-headtitle b')?.textContent==='FINAL SESSION');
   test('Historical navigation context',()=>phones[phones.length-1].querySelector('.snap-body')?.dataset.wf32Root==='closed');
   test('No horizontal storyboard overflow',()=>{const b=phones[0].closest('.storyboard');return b.scrollWidth<=b.clientWidth+2});
@@ -6391,7 +6391,7 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
   test('Read-only view contains no editable input',()=>!snapshotMarkup('closed').includes('<input')&&!snapshotMarkup('wf32-close').includes('<input'));
   test('Unified financial totals reconcile',()=>window.WF32_39_AUDIT?.verified===true&&window.WF32_39_AUDIT.totals.profit===-385000&&window.WF32_39_AUDIT.totals.totalExpenses===1595000);
   test('Rebuys are separate ledger entries',()=>window.WF32_39_AUDIT?.ledgers.rebuys===1500000&&window.WF32_39_AUDIT.ledgers.rakeEvents===16);
-  test('Read-only overview exposes chip variance',()=>snapshotMarkup('overview').includes('COP 50,000'));
+  test('Read-only overview exposes chip variance',()=>snapshotMarkup('overview').includes('Chip'));
   test('No fictional account balance transactions',()=>!snapshotMarkup('ledger').includes('Cashbox · Balance'));
   test('Historical summary matches live profit',()=>snapshotMarkup('wf32-close').includes('COP 385,000')&&snapshotMarkup('session-profit').includes('COP 385,000'));
 
@@ -6447,7 +6447,7 @@ const buy=sum(d.players.map(p=>p[4])),cash=sum(d.players.map(p=>p[5]));
 const rake=sum(d.tables.map(t=>t.rake)),tip=sum(d.staff.map(t=>t.tips));
 const wages=sum(d.staff.map(t=>t.earn)),operating=sum(d.expenses.flatMap(c=>c.items.map(i=>i[1])));
 const sales=ss.modules.inventory?sum(d.inventory.map(p=>p.sold*p.unit)):0;
-const expenses=wages+operating,net=rake+sales-expenses,variance=buy+ss.promoChips-cash-tip;
+const expenses=wages+operating,net=rake+sales-expenses,variance=buy+ss.promoChips-cash-tip-rake-ss.fbChips;
 const due=sum(d.debtors.map(p=>p.balance)),teamDue=sum(d.staff.map(p=>p.due));
 const row=(a,b)=>'<div class="dc-line"><span>'+a+'</span><b>'+b+'</b></div>';
 const title=a=>'<div class="dc-title">'+a+'</div>';
@@ -6484,7 +6484,7 @@ const closeViews={
 ()=>page(warn('Outstanding staff pay: '+money(teamDue))+note('Unpaid amounts stay recorded as payables. Do not change them to “paid” without a recorded transaction.')+row('Team chip tips',money(tip)))
 ],
 43:[
-()=>page(title('EXPENSE REVIEW')+row('Venue / drinks / other',money(operating))+row('Team compensation',money(wages))+row('Total expenses',money(expenses)),'REVIEW DETAILS'),
+()=>page(title('EXPENSE REVIEW')+row('Rent / drinks / other',money(operating))+row('Team compensation',money(wages))+row('Total expenses',money(expenses)),'REVIEW DETAILS'),
 ()=>page(title('EXPENSE CATEGORIES')+d.expenses.map(c=>panel(c.name,c.items.map(i=>row(i[0],money(i[1]))).join(''))).join('')+panel('Team pay',row('Earned',money(wages)))),
 ()=>page(title('INVENTORY REVIEW')+row('Recorded sales',money(sales))+row('Products',String(d.inventory.length))+row('Items with variance',String(inventoryVariance.length))+d.inventory.map(p=>row(p.name,'Expected '+(p.start-p.sold-p.comp)+' · Counted '+p.end)).join('')+warn('Discrepancies must remain visible in close records.'))
 ],
@@ -7055,14 +7055,14 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  const demo='<div class="sch-note">UX preview — invitations, RSVP changes and live sessions are not actually created or sent.</div>';
  const views={
  48:[
- page('Scheduled games',row('Sunday Hold’em','Nov 8 · 7:00 PM')+row('Venue','Provenza')+row('RSVP deadline','6:00 PM')+'<div class="sch-grid">'+tile('＋ Create Game','Schedule a new game','48:1')+tile('♧ Attendance','Confirmed and waitlist','51:0')+tile('✉ Invite Players','WhatsApp / SMS / email','49:0')+tile('▶ Start Session','When ready','53:0')+'</div>'),
+ page('Scheduled games',row('Sunday Hold’em','Nov 8 · 7:00 PM')+row('Location','Provenza')+row('RSVP deadline','6:00 PM')+'<div class="sch-grid">'+tile('＋ Create Game','Schedule a new game','48:1')+tile('♧ Attendance','Confirmed and waitlist','51:0')+tile('✉ Invite Players','WhatsApp / SMS / email','49:0')+tile('▶ Start Session','When ready','53:0')+'</div>'),
  page('Create game',input('Game name','Sunday Hold’em')+input('Date','2026-11-08','date')+input('Start time','19:00','time')+select('Game type',['Hold’em','Pot Limit Omaha','Mixed'])+select('Tables',['1','2','3','4'])+input('Venue','Provenza')+input('RSVP deadline','18:00','time'),go('48:0','CANCEL')+go('48:2','REVIEW')),
  page('Review schedule',row('Game','Sunday Hold’em')+row('Date','Nov 8, 2026')+row('Starts','7:00 PM')+row('RSVP deadline','6:00 PM')+row('Tables','2')+demo,go('48:1','EDIT')+go('49:0','SAVE PREVIEW · INVITE'))
  ],
  49:[
  page('Invite players',row('Scheduled game','Sunday Hold’em')+'<div class="sch-grid">'+tile('☑ Rafa','Selected','49:1')+tile('☑ Diego','Selected','49:1')+tile('□ Moshe','Not selected','49:1')+tile('□ Sofia','Not selected','49:1')+'</div>'+input('Search players',''),go('51:0','ATTENDANCE')+go('49:1','CHANNELS')),
  page('Invitation channels',select('Delivery',['WhatsApp','SMS','Email'])+row('Selected recipients','2')+row('Game','Sunday Hold’em')+row('RSVP deadline','6:00 PM')+demo,go('49:0','BACK')+go('49:2','REVIEW')),
- page('Review invitations',row('Game','Sunday · Nov 8 · 7 PM')+row('Recipients','2 selected (demo)')+row('Channel','WhatsApp')+row('Venue','Provenza')+demo,go('49:1','EDIT')+go('50:0','SEND · DEMO'))
+ page('Review invitations',row('Game','Sunday · Nov 8 · 7 PM')+row('Recipients','2 selected (demo)')+row('Channel','WhatsApp')+row('Location','Provenza')+demo,go('49:1','EDIT')+go('50:0','SEND · DEMO'))
  ],
  50:[
  page('Sunday poker invitation',row('When','Nov 8 · 7:00 PM')+row('Where','Provenza')+row('Reply by','6:00 PM')+demo,go('50:1','RSVP')),
@@ -7075,7 +7075,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  page('Player attendance actions','<div class="sch-grid">'+tile('✓ Confirm','Mark attending','51:1')+tile('◷ Waitlist','Move to waitlist','51:1')+tile('✕ Cancel','Remove RSVP','51:1')+tile('✉ Reminder','Send follow-up','49:1')+'</div>'+demo,go('51:1','ROSTER'))
  ],
  52:[
- page('Game-day arrival',row('Game','Sunday · 7:00 PM')+row('My RSVP','Going')+'<div class="sch-grid">'+tile('➜ On My Way','Notify the host','52:1')+tile('⌚ Set ETA','Expected arrival','52:1')+tile('✓ I Am Here','At the venue','52:2')+tile('✕ Not Coming','Change RSVP','50:1')+'</div>'),
+ page('Game-day arrival',row('Game','Sunday · 7:00 PM')+row('My RSVP','Going')+'<div class="sch-grid">'+tile('➜ On My Way','Notify the host','52:1')+tile('⌚ Set ETA','Expected arrival','52:1')+tile('✓ I Am Here','At the game','52:2')+tile('✕ Not Coming','Change RSVP','50:1')+'</div>'),
  page('Set estimated arrival',select('Arrival time',['7:00 PM','7:15 PM','7:30 PM','7:45 PM','8:00 PM'])+row('Game starts','7:00 PM')+demo,go('52:0','BACK')+go('52:2','UPDATE STATUS')),
  page('Arrival status preview','<div class="sch-good">Host can see ETA and arrival status in the production roster.</div>'+row('Status','On My Way / Here')+demo,go('52:0','CHANGE')+go('51:0','HOST ROSTER'))
  ],
@@ -7299,7 +7299,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  /* ===== WF25 · Record expense / purchase ===== */
  S[25]={heads:['Expenses','Add expense','Receipt review','Recorded'],title:'Record expense or purchase receipt',steps:['Expenses today','Add expense · choose capture','Review products Nora found','Purchase recorded'],sec:'LIVE GAME',screens:[
   function(){return '<div class="fb-hero red"><small>PURCHASES &amp; EXPENSES TODAY</small><strong>'+cop(1235000)+'</strong><span>3 recorded · Sunday Oct 25</span></div>'+
-   '<div class="fb-exp">'+I('box','fb-eico purple')+'<div><b>Venue rental</b><small>Operating · Cashbox</small></div>'+cop(1000000)+'</div>'+
+   '<div class="fb-exp">'+I('box','fb-eico purple')+'<div><b>Rent payment</b><small>Operating · Cashbox</small></div>'+cop(1000000)+'</div>'+
    '<div class="fb-exp"><span class="fb-thumbs">'+art('beer')+art('can')+art('water')+'</span><div><b>Beverage receipt</b><small>Beverages · added to inventory</small></div>'+cop(150000)+'</div>'+
    '<div class="fb-exp"><span class="fb-thumbs">'+art('burger')+art('fries')+'</span><div><b>Food purchase</b><small>Food · expensed now</small></div>'+cop(85000)+'</div>'+
    foot(['ADD EXPENSE · SCAN RECEIPT','25:1']);},
@@ -8037,7 +8037,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  /* ================= WF52 · Player arrival (mobile web) ================= */
  S[52]={player:1,steps:['My status (player)','Set arrival time','On my way · host notified','Seat reminder before release'],heads:['My reservation','Arrival time','On my way','Reminder'],
   screens:[
-  function(){return '<div class="fb-rows">'+row('Game','Fri Nov 6 · '+fmt(START))+row('My answer','I’m in')+row('Seat','Table 1 · Seat 4')+row('Expected',inMin(15))+'</div><div class="fb-grid2"><button type="button" class="fb-tile sel" data-rn-route="52:2">'+I('walk')+'<b>ON MY WAY</b><small>Tell the host</small></button><button type="button" class="fb-tile" data-rn-route="52:1">'+I('clock')+'<b>SET ETA</b><small>Change time</small></button><button type="button" class="fb-tile" data-rn-route="52:2">'+I('check')+'<b>I’M HERE</b><small>At the venue</small></button><button type="button" class="fb-tile" data-rn-route="50:6">'+I('x')+'<b>CAN’T COME</b><small>Release seat</small></button></div>';},
+  function(){return '<div class="fb-rows">'+row('Game','Fri Nov 6 · '+fmt(START))+row('My answer','I’m in')+row('Seat','Table 1 · Seat 4')+row('Expected',inMin(15))+'</div><div class="fb-grid2"><button type="button" class="fb-tile sel" data-rn-route="52:2">'+I('walk')+'<b>ON MY WAY</b><small>Tell the host</small></button><button type="button" class="fb-tile" data-rn-route="52:1">'+I('clock')+'<b>SET ETA</b><small>Change time</small></button><button type="button" class="fb-tile" data-rn-route="52:2">'+I('check')+'<b>I’M HERE</b><small>At the game</small></button><button type="button" class="fb-tile" data-rn-route="50:6">'+I('x')+'<b>CAN’T COME</b><small>Release seat</small></button></div>';},
   function(){return '<div class="iv-hi"><b>When will you arrive?</b><small>Seat 4 · Table 1</small></div><div class="iv-eta big">'+['AT START','15 MIN','30 MIN','CUSTOM'].map(function(x,k){return '<button type="button" class="fb-opt'+(k===1?' sel':'')+'" data-fb-group="eta"><b>'+x+'</b></button>';}).join('')+'</div><div class="fb-rows">'+row('Expected arrival',inMin(15))+row('Seat held until',EXPIRE)+'</div><div class="fb-foot"><button type="button" class="fb-btn primary" data-rn-route="52:2">CONFIRM</button></div>';},
   function(){return '<div class="fb-ok">'+I('walk')+'<b>HOST NOTIFIED</b><small>Expected '+inMin(15)+'</small></div><div class="fb-rows">'+row('Status','On the way')+row('Seat','Table 1 · Seat 4')+row('Held until',EXPIRE)+'</div><small class="iv-fine">Tell NORA when you arrive. The host seats you with your buy-in.</small>'+'<div class="fb-foot"><button type="button" class="fb-btn" data-rn-route="52:0">BACK</button></div>';},
   function(){return '<div class="iv-chat">'+bub('Friendly reminder: Seat 4 is held until '+EXPIRE+'. Reply OMW with your arrival time, or CANCEL to release it.',1,fmt(START+GRACE-10))+bub('OMW 10',0,fmt(START+GRACE-9))+bub('Perfect. Your host has been notified. Expected arrival: '+fmt(START+GRACE-9+10)+'.',1,fmt(START+GRACE-9))+'</div>'+sim('SIMULATED reminder before automatic release');}
@@ -8162,13 +8162,13 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   {key:'Schedule',icon:'cal',label:'Schedule',home:'48:0',items:[
    ['Scheduled Games','cal','48:0'],['Invitations','mail','49:0'],['Attendance','list','51:0'],['Arrivals · ETA','clock','52:0']]},
   {key:'Reports',icon:'Reporting',label:'Reports',home:'67:0',items:[
-   ['Reports Home','chart','67:0'],['Player Reports','user','68:0'],['Rake & Revenue','coin','69:0'],['Team & Expenses','receipt','70:0'],['Export','down','71:0']]},
+   ['Overview','chart','67:0'],['Session History','list','67:2'],['Players','user','68:0'],['Financials','coin','69:0'],['Team','Team','70:0'],['Inventory','box','70:3'],['Export','down','71:0']]},
   {key:'Settings',icon:'Settings',label:'Settings',home:'60:3',items:[
    ['Quick Setup','plus','59:0'],['Business Profile & Preferences','user','65:0'],['Game Rules & Tables','game','60:0'],['Account Balances','card','61:0'],['Team Members & Invitations','mail','66:0'],['Team Roles & Permissions','lock','63:0'],['Sign & Settle','pen','62:0'],['Expenses & Inventory','box','64:1'],['Food, Beverage & Menu Pricing','glass','64:0'],['Invitations, RSVP & WhatsApp','cal','48:2'],['Nora AI Preferences','mic','65:1']]}
  ];
  var BARS={
   live:[['Table','Tables','1:2'],['Players','Players','3:1'],['Team','Team','19:0'],['Expenses','receipt','25:0'],['Snapshot','chart','32:0'],['Close','check','40:0']],
-  reporting:[['Revenue','coin','69:0'],['Analytics','chart','68:0'],['Sessions','list','67:0'],['Accounts','card',null],['Inventory','box',null]],
+  reporting:[['Overview','chart','67:0'],['Players','Players','68:0'],['Financials','coin','69:0'],['Team','Team','70:0'],['Inventory','box','70:3']],
   settings:[['Core','Settings','60:3'],['Payments','card','61:0'],['Team','Team','63:0'],['Expenses','receipt','64:1'],['Hospitality','glass','64:0'],['Players','Players',null]]};
  /* which hamburger section a screen belongs to */
  function sectionOf(id,step){if(id===53&&step===3)return 'Tables';if(id>=1&&id<=47)return 'Tables';if(id>=48&&id<=53)return 'Schedule';if(id>=54&&id<=58)return 'Players';if(id>=59&&id<=66)return 'Settings';if(id>=67&&id<=71)return 'Reports';return 'Tables';}
@@ -8177,7 +8177,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   if(id===53&&step===3)return {bar:'live',tab:'Table'};
   if(id>=1&&id<=47){t=(id>=3&&id<=9)?'Players':(id>=19&&id<=24)?'Team':(id>=25&&id<=31)?'Expenses':(id>=32&&id<=39)?'Snapshot':(id>=40&&id<=47)?'Close':'Table';return {bar:'live',tab:t};}
   if(id>=59&&id<=66){t=(id===61||id===62)?'Payments':(id===63||id===66)?'Team':(id===64)?(step===1?'Expenses':'Hospitality'):'Core';return {bar:'settings',tab:t};}
-  if(id>=67&&id<=71){t=id===67||id===71?'Sessions':(id===68||id===70)?'Analytics':'Revenue';return {bar:'reporting',tab:t};}
+  if(id>=67&&id<=71){t=(id===67||id===71)?'Overview':id===68?'Players':id===69?'Financials':(step<=2?'Team':'Inventory');return {bar:'reporting',tab:t};}
   return null;}
  window.NORA_NAV=function(){return NAV.map(function(s){return {key:s.key,icon:s.icon,label:s.label,home:s.home,items:s.items.filter(function(it){return valid(it[2]);})};});};
  window.NORA_NAV_ICON=ic;window.NORA_NAV_SECTION=sectionOf;window.NORA_NAV_CTX=ctx;
@@ -8746,6 +8746,564 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
  new MutationObserver(sched).observe(document.body,{childList:true,subtree:true});
  pass();
  window.NORA_BATCH1={pass:pass};
+})();
+</script>
+<style id="nora-reports-css">
+/* ===== Reports redesign + chip accounting (nora-reports-20261107). Scoped to the report/chip screens. ===== */
+.storyboard .phone .fb-body.rp-body{overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:none;gap:8px!important;padding-bottom:0}
+.storyboard .phone .fb-body.rp-body::-webkit-scrollbar{display:none}
+.storyboard .phone .rp-body .fb-foot{position:sticky;bottom:0;background:#001426;padding:8px 0 2px!important;margin-top:auto!important;flex:0 0 auto}
+.storyboard .phone .rp-body>*{flex:0 0 auto}
+.storyboard .phone .rp-m{display:inline-flex;align-items:baseline;gap:.25em;white-space:nowrap;font-weight:900}
+.storyboard .phone .rp-m i{font-style:normal;font-size:.65em;font-weight:900;letter-spacing:.2px}
+.storyboard .phone .rp-h{font-size:22px;font-weight:900;color:#b5eafa;line-height:1.1;margin:2px 0 0}
+.storyboard .phone .rp-h small{display:block;font-size:15px;font-weight:700;color:#9fdcf3;margin-top:3px}
+.storyboard .phone .rp-sel{display:flex;flex-direction:column;gap:3px;border:3px solid #1ebcf2;background:#082b43;padding:6px 10px;border-radius:0}
+.storyboard .phone .rp-sel small{font-size:14px;font-weight:900;letter-spacing:.3px;color:#9fdcf3}
+.storyboard .phone .rp-sel select{background:#082b43;color:#fff;border:0;border-radius:0;font-size:19px;font-weight:900;padding:2px 0;min-height:30px;width:100%}
+.storyboard .phone .rp-sel>em{font-style:normal;font-size:14px;font-weight:700;color:#cfe7f3}
+.storyboard .phone .rp-f2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.storyboard .phone .rp-search input{width:100%;box-sizing:border-box;border:3px solid #1ebcf2;border-radius:0;background:#082b43;color:#fff;font-size:18px;font-weight:700;padding:10px 12px;min-height:48px}
+.storyboard .phone .rp-g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.storyboard .phone .rp-t{display:flex;flex-direction:column;gap:4px;align-items:flex-start;justify-content:center;border:3px solid #1ebcf2;background:#0a3048;color:#fff;border-radius:0;padding:8px 10px;min-height:72px;cursor:pointer;text-align:left}
+.storyboard .phone .rp-t small{font-size:14px;font-weight:900;letter-spacing:.2px;color:#9fdcf3;line-height:1.1}
+.storyboard .phone .rp-t b{font-size:22px;font-weight:900;line-height:1.05}
+.storyboard .phone .rp-t.rp-wide{width:100%;box-sizing:border-box}
+.storyboard .phone .rp-t.neg b{color:#ff9a9a}.storyboard .phone .rp-t.pos b{color:#7dffd0}
+.storyboard .phone .rp-net{display:flex;flex-direction:column;gap:3px;border:3px solid #3bf0ae;background:#07382f;color:#fff;border-radius:0;padding:10px 12px;text-align:left;cursor:pointer;width:100%;box-sizing:border-box}
+.storyboard .phone .rp-net.neg{border-color:#ff7c7c;background:#3a1620}
+.storyboard .phone .rp-net small{font-size:16px;font-weight:900;letter-spacing:.3px;color:#bfeee0}
+.storyboard .phone .rp-net.neg small{color:#ffc3c3}
+.storyboard .phone .rp-net b{font-size:34px;font-weight:900;line-height:1.05;color:#7dffd0}.storyboard .phone .rp-net.neg b{color:#ffadad}
+.storyboard .phone .rp-net>i{font-style:normal;font-size:14px;font-weight:700;color:#cfe7f3}
+.storyboard .phone .rp-card{display:flex;flex-direction:column;gap:3px;border:3px solid #1ebcf2;background:#082b43;padding:10px 12px}
+.storyboard .phone .rp-big{font-size:22px;font-weight:900}.storyboard .phone .rp-ct{font-size:17px;font-weight:900;color:#6adfff;letter-spacing:.2px}
+.storyboard .phone .rp-card small{font-size:15px;font-weight:700;color:#cfe7f3;line-height:1.25}
+.storyboard .phone .rp-badge{font-size:15px;font-weight:900;letter-spacing:.3px;color:#bfeee0;border:2px solid #3bf0ae;background:#07382f;padding:6px 8px}
+.storyboard .phone .rp-hint{font-size:14px;font-weight:700;color:#9fdcf3;padding:0 2px}
+.storyboard .phone .rp-note{font-size:15px;font-weight:700;line-height:1.3;color:#e8f6ff;border:2px solid #35566b;background:#0a1d30;padding:8px 10px}
+.storyboard .phone .rp-note small{font-size:14px;font-weight:700;color:#cfe7f3}
+.storyboard .phone .rp-note.ok{border-color:#3bf0ae;background:#07382f}.storyboard .phone .rp-note.warn{border-color:#ffb347;background:#3a2a0a}.storyboard .phone .rp-note.pend{border-color:#8fb4ff;background:#10244d}
+.storyboard .phone .rp-meta{font-size:14px;font-weight:700;color:#9fdcf3;padding:2px 2px}
+.storyboard .phone .rp-empty{font-size:17px;font-weight:700;color:#cfe7f3;padding:18px 6px;text-align:center}
+.storyboard .phone .rp-cnt{font-size:15px;font-weight:900;letter-spacing:.3px;color:#9fdcf3;padding:2px 2px}
+.storyboard .phone .rp-sep{height:6px}
+/* status pills */
+.storyboard .phone .rp-pill{display:inline-block;font-style:normal;font-size:14px;font-weight:900;letter-spacing:.2px;padding:3px 8px;border:2px solid;border-radius:0;white-space:nowrap}
+.storyboard .phone .rp-pill.rp-ok{border-color:#3bf0ae;background:#07543f;color:#b8ffe6}
+.storyboard .phone .rp-pill.rp-warn{border-color:#ffb347;background:#5a3a07;color:#ffe2b0}
+.storyboard .phone .rp-pill.rp-pend{border-color:#8fb4ff;background:#1c3478;color:#d6e2ff}
+/* calculation lines with explicit operators */
+.storyboard .phone .rp-calc{display:flex;flex-direction:column;border:3px solid #1ebcf2;background:#082b43;padding:2px 10px}
+.storyboard .phone .rp-cl{display:grid;grid-template-columns:26px 1fr auto;align-items:center;gap:6px;min-height:40px;border-top:2px solid #134a6c}
+.storyboard .phone .rp-cl:first-child{border-top:0}
+.storyboard .phone .rp-cl u{text-decoration:none;font-size:24px;font-weight:900;color:#6adfff;text-align:center;line-height:1}
+.storyboard .phone .rp-cl>span{font-size:16px;font-weight:800;color:#e8f6ff;line-height:1.15}
+.storyboard .phone .rp-cl strong{font-size:18px;font-weight:900;text-align:right}
+.storyboard .phone .rp-cl.rp-sub>span{color:#cfe7f3}
+.storyboard .phone .rp-cl.rp-eq{border-top:3px solid #6adfff;min-height:46px}.storyboard .phone .rp-cl.rp-eq>span{font-size:17px;font-weight:900}.storyboard .phone .rp-cl.rp-eq strong{font-size:20px}
+.storyboard .phone .rp-cl.rp-zero strong{color:#7dffd0}.storyboard .phone .rp-cl.rp-bad strong{color:#ffb0a9}
+.storyboard .phone .rp-cl.rp-formula{grid-template-columns:1fr}.storyboard .phone .rp-cl.rp-formula>span{font-size:17px;font-weight:900;color:#b5eafa;text-align:center}
+.storyboard .phone .rp-q{font-size:15px;font-weight:700;color:#cfe7f3;line-height:1.25}
+.storyboard .phone .rp-chiphead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.storyboard .phone .rp-chiphead b{font-size:19px;font-weight:900;color:#b5eafa;line-height:1.1}
+.storyboard .phone .rp-math{display:flex;flex-direction:column;gap:3px;font-size:14px;font-weight:700;color:#9fdcf3;line-height:1.25}
+/* chip inventory table */
+.storyboard .phone .rp-it{display:flex;flex-direction:column;border:3px solid #1ebcf2;background:#082b43}
+.storyboard .phone .rp-ith,.storyboard .phone .rp-itr{display:grid;grid-template-columns:64px 62px 62px 56px 1fr;gap:4px;align-items:center;padding:6px 8px;font-size:15px}
+.storyboard .phone .rp-ith{font-size:14px;font-weight:900;color:#9fdcf3;border-bottom:2px solid #134a6c}
+.storyboard .phone .rp-ith.rp-ith3,.storyboard .phone .rp-itr.rp-itr3{grid-template-columns:90px 70px 1fr}
+.storyboard .phone .rp-itr{border-top:2px solid #134a6c;font-weight:800;min-height:44px}
+.storyboard .phone .rp-itr b{font-size:16px}
+.storyboard .phone .rp-itr>span:last-child{text-align:right}
+.storyboard .phone .rp-itr em{display:block;font-style:normal;font-size:12px;font-weight:900}
+.storyboard .phone .rp-itr.rp-short{background:#3a1620}.storyboard .phone .rp-itr.rp-short em,.storyboard .phone .rp-itr.rp-short span:nth-child(4),.storyboard .phone .rp-itr.rp-short span:last-child{color:#ffadad}
+.storyboard .phone .rp-itr.rp-over{background:#3a2a0a}.storyboard .phone .rp-itr.rp-over em,.storyboard .phone .rp-itr.rp-over span:nth-child(4),.storyboard .phone .rp-itr.rp-over span:last-child{color:#ffd18a}
+/* expandable sections */
+.storyboard .phone .rp-d{border:3px solid #1ebcf2;background:#082b43;border-radius:0}
+.storyboard .phone .rp-d>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:50px;padding:6px 12px;font-size:17px;font-weight:900;cursor:pointer;list-style:none}
+.storyboard .phone .rp-d>summary::-webkit-details-marker{display:none}
+.storyboard .phone .rp-d>summary::after{content:'+';font-size:26px;font-weight:900;color:#6adfff;margin-left:6px}
+.storyboard .phone .rp-d[open]>summary::after{content:'−'}
+.storyboard .phone .rp-d>summary b{margin-left:auto;font-size:17px;font-weight:900;text-align:right}
+.storyboard .phone .rp-di{display:flex;flex-direction:column;gap:6px;padding:4px 10px 10px;border-top:2px solid #134a6c}
+.storyboard .phone .rp-r{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:40px;border-bottom:2px solid #134a6c;font-size:16px}
+.storyboard .phone .rp-r>span{font-weight:700;color:#e8f6ff}.storyboard .phone .rp-r b{font-size:17px;font-weight:900;text-align:right}
+.storyboard .phone .rp-r small,.storyboard .phone .rp-d small{font-size:14px;font-weight:700;color:#9fdcf3}
+.storyboard .phone .rp-body>.fb-row,.storyboard .phone .rp-body>.rp-r{border:0;border-bottom:2px solid #134a6c}
+/* session cards, list rows, rankings */
+.storyboard .phone .rp-sc{display:flex;flex-direction:column;gap:6px;border:3px solid #1ebcf2;background:#0a3048;color:#fff;border-radius:0;padding:10px 12px;text-align:left;cursor:pointer;width:100%;box-sizing:border-box}
+.storyboard .phone .rp-sct{display:flex;justify-content:space-between;align-items:center;gap:8px}.storyboard .phone .rp-sct b{font-size:19px;font-weight:900}
+.storyboard .phone .rp-sct small,.storyboard .phone .rp-sc>small{font-size:15px;font-weight:700;color:#cfe7f3}
+.storyboard .phone .rp-st{font-style:normal;font-size:14px;font-weight:900;color:#b8ffe6;border:2px solid #3bf0ae;padding:2px 8px}
+.storyboard .phone .rp-scg{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}
+.storyboard .phone .rp-scg>span{display:flex;flex-direction:column;font-size:14px;font-weight:900;color:#9fdcf3}.storyboard .phone .rp-scg b{font-size:18px;color:#fff}
+.storyboard .phone .rp-scg b.neg,.storyboard .phone .rp-le .neg{color:#ffadad}.storyboard .phone .rp-scg b.pos,.storyboard .phone .rp-le .pos{color:#7dffd0}
+.storyboard .phone .rp-scc{display:flex;gap:8px;justify-content:space-between;font-size:14px;font-weight:900;color:#9fdcf3}
+.storyboard .phone .rp-scc>span{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+.storyboard .phone .rp-sc2{min-height:0}
+.storyboard .phone .rp-le{display:flex;justify-content:space-between;align-items:center;gap:10px;border:0;border-bottom:2px solid #134a6c;background:transparent;color:#fff;padding:7px 2px;min-height:56px;text-align:left;width:100%;box-sizing:border-box}
+.storyboard .phone .rp-le b{display:block;font-size:17px;font-weight:900;line-height:1.15}.storyboard .phone .rp-le small{display:block;font-size:14px;font-weight:700;color:#9fdcf3;margin-top:2px}
+.storyboard .phone .rp-le strong{font-size:17px;font-weight:900;text-align:right;white-space:nowrap}
+.storyboard .phone .rp-lb{cursor:pointer}
+.storyboard .phone .rp-seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px}
+.storyboard .phone .rp-seg button{height:48px;border:3px solid #1ebcf2;border-radius:0;background:#0a3048;color:#cfe7f3;font-size:16px;font-weight:900;cursor:pointer;padding:0 2px;line-height:1.05}
+.storyboard .phone .rp-seg button.on{border-color:#3bf0ae;background:#07543f;color:#fff}
+.storyboard .phone .rp-pod{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px}
+.storyboard .phone .rp-pt{position:relative;display:block;height:132px;min-height:132px;border:3px solid #1ebcf2;border-radius:0;background:#17395a;color:#fff;padding:0;overflow:hidden;cursor:pointer}
+.storyboard .phone .rp-pt .rp-ph{position:absolute;inset:0}
+.storyboard .phone .rp-pt>i{position:absolute;top:4px;left:4px;font-style:normal;font-size:16px;font-weight:900;background:#0b6f9c;border:2px solid #fff;min-width:24px;height:24px;line-height:20px;text-align:center}
+.storyboard .phone .rp-pt>b{position:absolute;left:6px;right:6px;bottom:26px;font-size:18px;font-weight:900;text-shadow:0 0 5px #000,0 1px 3px #000;text-align:left}
+.storyboard .phone .rp-pt>em{position:absolute;left:6px;right:6px;bottom:5px;font-style:normal;font-size:15px;font-weight:900;text-shadow:0 0 5px #000,0 1px 3px #000;text-align:left}
+.storyboard .phone .rp-pt em .rp-m{font-size:15px}
+.storyboard .phone .rp-ph{display:block;position:relative;overflow:hidden;background:#17395a}
+.storyboard .phone .rp-ph .person-face{display:block!important;position:absolute;inset:0;width:100%!important;height:100%!important;border:0!important;border-radius:0!important;font-size:44px;font-weight:900;color:#cfeeff;line-height:126px;text-align:center}
+.storyboard .phone .rp-ph .person-face img{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover;object-position:50% 12%;border-radius:0!important}
+.storyboard .phone .rp-rr{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;border:0;border-bottom:2px solid #134a6c;background:transparent;color:#fff;padding:6px 2px;min-height:50px;cursor:pointer;text-align:left;width:100%;box-sizing:border-box}
+.storyboard .phone .rp-rr>u{text-decoration:none;font-size:19px;font-weight:900;color:#6adfff}.storyboard .phone .rp-rr b{font-size:18px;font-weight:900}.storyboard .phone .rp-rr strong{font-size:17px;font-weight:900}
+.storyboard .phone .rp-pid{display:flex;gap:12px;align-items:center;border:3px solid #1ebcf2;background:#082b43;padding:8px}
+.storyboard .phone .rp-pid .rp-ph.big{flex:0 0 100px;height:124px;border:3px solid #1ebcf2}
+.storyboard .phone .rp-pid b{display:block;font-size:26px;font-weight:900;line-height:1.05}.storyboard .phone .rp-pid small{display:block;font-size:16px;font-weight:700;color:#cfe7f3;margin-top:3px}
+.storyboard .phone .rp-lnk{margin-top:8px;border:2px solid #3bf0ae;background:#07543f;color:#fff;font-size:15px;font-weight:900;padding:6px 8px;cursor:pointer;border-radius:0}
+.storyboard .phone .rp-chart{width:100%;height:auto;display:block}
+/* chip control cards (Snapshot / Close / Summary) */
+.storyboard .phone .rp-cchips{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.storyboard .phone .rp-cc{display:flex;flex-direction:column;gap:6px;align-items:flex-start;border:3px solid #1ebcf2;background:#0a3048;color:#fff;border-radius:0;padding:8px 10px;text-align:left;cursor:pointer;min-height:104px}
+.storyboard .phone .rp-cc b{font-size:15px;font-weight:900;line-height:1.1;letter-spacing:.1px}
+.storyboard .phone .rp-cc>span{font-size:15px;font-weight:800;color:#e8f6ff;line-height:1.15}
+.storyboard .phone .rp-cc-ok{border-color:#3bf0ae}.storyboard .phone .rp-cc-warn{border-color:#ffb347}.storyboard .phone .rp-cc-pend{border-color:#8fb4ff}
+.storyboard .phone .rp-snapchips{margin:6px 0}
+.storyboard .phone .rp-wrap{display:flex;flex-direction:column;gap:8px}
+/* checklist rows */
+.storyboard .phone .rp-ck{display:flex;justify-content:space-between;align-items:center;gap:8px;border:3px solid #1ebcf2;background:#0a3048;color:#fff;border-radius:0;padding:6px 10px;min-height:56px;cursor:pointer;text-align:left;width:100%;box-sizing:border-box}
+.storyboard .phone .rp-ck b{display:block;font-size:16px;font-weight:900;line-height:1.1}.storyboard .phone .rp-ck small{display:block;font-size:14px;font-weight:700;color:#cfe7f3;margin-top:2px}
+.storyboard .phone .rp-ta{display:flex;flex-direction:column;gap:4px}
+.storyboard .phone .rp-ta small{font-size:15px;font-weight:900;color:#9fdcf3}
+.storyboard .phone .rp-ta textarea{width:100%;box-sizing:border-box;border:3px solid #1ebcf2;border-radius:0;background:#082b43;color:#fff;font-size:17px;font-weight:700;padding:8px;font-family:inherit}
+.storyboard .phone .fb-btn[disabled]{opacity:.45!important;cursor:not-allowed!important;filter:grayscale(.6)}
+.rp-preview{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0;padding:10px 12px;border:2px dashed #35566b;background:#0a1524;color:#b9d7e9;font-size:14px}
+.rp-preview b{color:#fff}.rp-preview button{padding:7px 12px;border:2px solid #35566b;background:#0d2236;color:#cfe7f3;font-weight:800;cursor:pointer;border-radius:0}.rp-preview button.on{border-color:#3bf0ae;color:#7dffd0}
+
+.storyboard .phone .rp-per{padding:4px 10px 6px;gap:0}.storyboard .phone .rp-per select{font-size:20px;min-height:34px}.storyboard .phone .rp-per>em{margin-top:-2px}
+.storyboard .phone .rp-seg button{font-size:14px;letter-spacing:0}
+.storyboard .phone .rp-t{min-height:64px;padding:6px 10px}.storyboard .phone .rp-t b{font-size:20px}
+.storyboard .phone .rp-net{padding:6px 12px}.storyboard .phone .rp-net>b{font-size:30px}
+.storyboard .phone .rp-ph .person-face{display:flex!important;align-items:center;justify-content:center;line-height:1!important}
+.storyboard .phone .rp-rr{min-height:46px}
+.storyboard .phone .rp-badge{font-size:14px;padding:4px 8px}
+
+/* podium: photo fills the tile, white name directly over the photo, value below */
+.storyboard .phone .rp-pt{height:auto!important;min-height:0!important;display:flex!important;flex-direction:column;gap:4px;background:transparent!important;border:0!important;overflow:visible!important;padding:0!important}
+.storyboard .phone .rp-pf{position:relative;display:block;width:100%;height:124px;border:3px solid #1ebcf2;overflow:hidden;box-sizing:border-box}
+.storyboard .phone .rp-pf .rp-ph{position:absolute;inset:0}
+.storyboard .phone .rp-pf>i{position:absolute;top:4px;left:4px;font-style:normal;font-size:16px;font-weight:900;background:#0b6f9c;border:2px solid #fff;min-width:24px;height:24px;line-height:20px;text-align:center;z-index:2}
+.storyboard .phone .rp-pf>b{position:absolute;left:6px;right:6px;bottom:6px;font-size:19px;font-weight:900;color:#fff;text-shadow:0 0 5px #000,0 1px 3px #000;text-align:left;z-index:2}
+.storyboard .phone .rp-pt>em{position:static!important;font-style:normal;font-size:15px!important;font-weight:900;text-align:left;text-shadow:none!important;line-height:1.2;white-space:normal}
+.storyboard .phone .rp-pt>em .rp-m{font-size:15px}
+.storyboard .phone .rp-ph .person-face img{transform:scale(1.4);transform-origin:84% 3%}
+.storyboard .phone .rp-ph .person-face{font-size:56px!important}
+.storyboard .phone .rp-pid .rp-ph.big{flex:0 0 98px;height:121px}
+/* sizes that the shared .fb-body small rule would otherwise inflate */
+.storyboard .phone .rp-t small,.storyboard .phone .rp-sel>em{font-size:14px!important;line-height:1.1!important;white-space:nowrap}
+.storyboard .phone .rp-net small{font-size:15px!important}
+.storyboard .phone .rp-sct small,.storyboard .phone .rp-sc>small,.storyboard .phone .rp-le small,.storyboard .phone .rp-ck small,.storyboard .phone .rp-card small,.storyboard .phone .rp-r small,.storyboard .phone .rp-d small,.storyboard .phone .rp-meta,.storyboard .phone .rp-hint,.storyboard .phone .rp-note small,.storyboard .phone .rp-math,.storyboard .phone .rp-pid small,.storyboard .phone .rp-pill{font-size:14px!important}
+.storyboard .phone .rp-pid small{font-size:16px!important}
+.storyboard .phone .rp-net>i{display:none}
+
+.storyboard .phone .rp-cl.rp-noop{grid-template-columns:1fr auto}
+.storyboard .phone .rp-chiphead{flex-wrap:wrap}.storyboard .phone .rp-chiphead>b{flex:1 1 150px;min-width:0}.storyboard .phone .rp-chiphead .rp-pill{flex:0 0 auto}
+.storyboard .phone .rp-ith,.storyboard .phone .rp-itr{grid-template-columns:70px 72px 72px 1fr!important}
+.storyboard .phone .rp-ith.rp-ith3,.storyboard .phone .rp-itr.rp-itr3{grid-template-columns:90px 70px 1fr!important}
+.storyboard .phone .rp-itr>span:last-child{display:flex;flex-direction:column;align-items:flex-end;gap:1px;text-align:right}
+.storyboard .phone .rp-itr>span:last-child b{font-size:15px;font-weight:900}
+.storyboard .phone .rp-pod{grid-template-columns:repeat(3,1fr)!important;grid-auto-flow:row!important}
+
+.storyboard .phone .rp-ith,.storyboard .phone .rp-itr{grid-template-columns:58px 66px 68px 1fr!important}
+.storyboard .phone .rp-ith.rp-ith3,.storyboard .phone .rp-itr.rp-itr3{grid-template-columns:90px 70px 1fr!important}
+.storyboard .phone .rp-itr>span:last-child .rp-m{font-size:15px}
+.storyboard .phone .rp-ck>span{flex:1 1 0;min-width:0}.storyboard .phone .rp-ck .rp-pill{flex:0 0 auto}
+.storyboard .phone .rp-snapchips .rp-cchips,.storyboard .phone .rp-wrap .rp-cchips{grid-template-columns:1fr}
+.storyboard .phone .rp-snapchips .rp-cc,.storyboard .phone .rp-wrap .rp-cc{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 8px;min-height:0;padding:8px 10px;width:100%;box-sizing:border-box}
+.storyboard .phone .rp-snapchips .rp-cc>span,.storyboard .phone .rp-wrap .rp-cc>span{grid-column:1 / -1;font-size:16px!important}
+.storyboard .phone .rp-snapchips .rp-cc b,.storyboard .phone .rp-wrap .rp-cc b{font-size:16px!important;line-height:1.1;text-align:left}
+.storyboard .phone .rp-snapchips{margin:6px 0}
+
+.storyboard .phone .rp-m>*{flex:0 0 auto}
+.storyboard .phone .rp-le>div{min-width:0;flex:1 1 auto}.storyboard .phone .rp-le>strong{flex:0 0 auto}
+.storyboard .phone .rp-itr{display:flex!important;flex-direction:column;gap:4px;padding:8px 10px!important;grid-template-columns:none!important}
+.storyboard .phone .rp-it1{display:flex;justify-content:space-between;align-items:center;gap:8px}.storyboard .phone .rp-it1>b{font-size:19px;font-weight:900}
+.storyboard .phone .rp-it2{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:15px;font-weight:700;color:#cfe7f3}
+.storyboard .phone .rp-it2 b{font-size:17px;font-weight:900;color:#fff}.storyboard .phone .rp-it2 .rp-it3{margin-left:auto;font-size:17px}
+.storyboard .phone .rp-itr.rp-short .rp-it3,.storyboard .phone .rp-itr.rp-short .rp-it2 b{color:#ffadad}.storyboard .phone .rp-itr.rp-over .rp-it3{color:#ffd18a}
+.storyboard .phone .rp-pill.rp-over-pill{border-color:#ffd18a;background:#5a4207;color:#ffe9b8}
+.storyboard .phone .rp-itr.rp-short .rp-pill{border-color:#ff7c7c;background:#5a1d28;color:#ffd0d0}
+/* Daily Close checklist: compact so the whole checklist is one screen */
+.storyboard .phone .rp-ck{min-height:46px;padding:3px 10px;gap:6px}
+.storyboard .phone .rp-ck b{font-size:16px}
+.storyboard .phone .rp-ck small{font-size:14px;margin-top:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.storyboard .phone .rp-body>.rp-h:first-child{font-size:20px}
+.storyboard .phone .rp-body>.rp-h:first-child small{font-size:14px;margin-top:1px}
+.storyboard .phone .rp-pf{height:130px}
+.storyboard .phone .rp-pid .rp-ph.big{flex:0 0 104px!important;height:130px!important;box-sizing:border-box}
+.storyboard .phone .rp-it1,.storyboard .phone .rp-it2{text-align:left}
+.storyboard .phone .rp-it2{flex-wrap:wrap}
+.storyboard .phone .rp-itr.rp-short .rp-it3,.storyboard .phone .rp-itr.rp-over .rp-it3{flex:1 0 100%;text-align:right;margin-left:0}
+.storyboard .phone .rp-it2>span{display:inline!important;flex-direction:row!important}
+</style>
+<script id="nora-reports-js">
+/* ===== Reports redesign + chip accounting (nora-reports-20261107). Late, scoped, reversible: remove the nora-reports style and script blocks and revert the BARS/ctx/NAV edit to roll back. ===== */
+(function(){
+'use strict';
+var D=WF32_DATA,SS=SNAPSHOT_SESSION,CUR=SS.currency||'COP'; /* the game's configured currency: every amount in these reports uses it */
+function sum(a){return a.reduce(function(s,v){return s+v;},0);}
+function N(x){return Math.abs(Math.round(x)).toLocaleString('en-US');}
+function M(x,plus){var sg=x<0?'−':(plus&&x>0?'+':'');return '<span class="rp-m">'+sg+'<i>'+CUR+'</i>'+N(x)+'</span>';}
+function E(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+function hm(min){return Math.floor(min/60)+'h '+(min%60<10?'0':'')+(min%60)+'m';}
+function hh(min){return (Math.round(min/6)/10).toFixed(1)+'h';}
+
+/* ------------------------------------------------------------------ sample data (one set of records shared by every report) */
+var DEN=[['1,000',1000,200],['5,000',5000,160],['10,000',10000,150],['25,000',25000,60],['100,000',100000,15]]; /* expected quantities; total COP 5,500,000 */
+function teamSum(n){return sum(D.staff.filter(function(s){return true;}).map(function(s){return s[n];}));}
+var S=[
+ {id:'SUN-1025',d:'Oct 25',date:'Sunday, Oct 25, 2026',game:'Hold’em',bl:'5,000 / 10,000',run:330,
+  tables:[['Table 1',D.tables[0].rake,D.tables[0].minutes],['Table 2',D.tables[1].rake,D.tables[1].minutes]],
+  fb:sum(D.inventory.map(function(p){return p.sold*p.unit;})),rent:1000000,team:sum(D.staff.map(function(s){return s.earn;})),fbc:150000,oth:85000,
+  buy:sum(D.players.map(function(p){return p[4];})),promo:0,cash:sum(D.players.map(function(p){return p[5];})),tips:sum(D.staff.map(function(s){return s.tips;})),fbChips:300000,
+  act:{5000:158,10000:152},
+  invNote:'Counted twice. Two 5,000 chips were missing and two extra 10,000 chips were found, most likely mixed up when racking. Accepted by the owner.',invBy:'Alex',invAt:'11:52 PM',invOk:'Mike · 12:08 AM',
+  flowBy:'Alex',flowAt:'11:58 PM',closedBy:'Mike',closedAt:'12:10 AM'},
+ {id:'SUN-1018',d:'Oct 18',date:'Sunday, Oct 18, 2026',game:'Hold’em',bl:'5,000 / 10,000',run:360,
+  tables:[['Table 1',800000,330],['Table 2',550000,330]],fb:380000,rent:1000000,team:340000,fbc:120000,oth:60000,
+  buy:6200000,promo:100000,cash:4660000,tips:40000,fbChips:250000,act:{},flowBy:'Alex',flowAt:'11:49 PM',invBy:'Alex',invAt:'11:41 PM',closedBy:'Mike',closedAt:'12:02 AM'},
+ {id:'SUN-1011',d:'Oct 11',date:'Sunday, Oct 11, 2026',game:'Pot-Limit Omaha',bl:'2,000 / 5,000',run:360,
+  tables:[['Table 1',910000,360]],fb:260000,rent:800000,team:180000,fbc:90000,oth:40000,
+  buy:3400000,promo:0,cash:2305000,tips:25000,fbChips:180000,act:{},
+  flowNote:'A rebuy of '+CUR+' 20,000 was recorded without matching chips issued to Costa. Cash-out sheet re-checked; no further difference found. Accepted by the owner.',flowBy:'Alex',flowAt:'11:55 PM',flowOk:'Mike · 12:14 AM',invBy:'Alex',invAt:'11:46 PM',closedBy:'Mike',closedAt:'12:16 AM'},
+ {id:'SUN-1004',d:'Oct 4',date:'Sunday, Oct 4, 2026',game:'Hold’em',bl:'5,000 / 10,000',run:360,
+  tables:[['Table 1',900000,360],['Table 2',720000,360]],fb:520000,rent:1000000,team:350000,fbc:130000,oth:70000,
+  buy:7900000,promo:0,cash:5820000,tips:60000,fbChips:400000,act:{},flowBy:'Alex',flowAt:'11:58 PM',invBy:'Alex',invAt:'11:50 PM',closedBy:'Mike',closedAt:'12:11 AM'}
+];
+S.forEach(function(s){s.rake=sum(s.tables.map(function(t){return t[1];}));s.tmin=sum(s.tables.map(function(t){return t[2];}));});
+function rev(s){return s.rake+s.fb;}
+function exp(s){return s.rent+s.team+s.fbc+s.oth;}
+function net(s){return rev(s)-exp(s);}
+function flowVar(s){return s.buy+s.promo-s.cash-s.tips-s.rake-s.fbChips;}
+function invRows(s){return DEN.map(function(c){var a=(s.act&&s.act[c[1]]!=null)?s.act[c[1]]:c[2];return {lab:c[0],v:c[1],exp:c[2],act:a,dq:a-c[2],dc:(a-c[2])*c[1]};});}
+function invVar(s){return sum(invRows(s).map(function(r){return r.dc;}));}
+function stat(v){return v===0?'BALANCED':'VARIANCE';}
+function pill(s){var c=s==='BALANCED'?'ok':s==='VARIANCE'?'warn':'pend';var g=s==='BALANCED'?'✓ ':s==='VARIANCE'?'⚠ ':'◷ ';return '<em class="rp-pill rp-'+c+'">'+g+s+'</em>';}
+/* players: net per session (last listed absorbs the remainder so every session reconciles to its own totals) */
+var PN=['Rafa','Diego','Moshe','Sofia','Costa','Sam','Pikachu','Uri'];
+var P={};PN.forEach(function(n){P[n]=[];});
+D.players.forEach(function(p){var m=p[6].match(/(\d+)h (\d+)m/);P[p[0]][0]={buy:p[4],cash:p[5],net:p[5]-p[4],min:(+m[1])*60+(+m[2])};});
+function build(si,rows){var s=S[si],tb=0,tn=0;rows.forEach(function(r,i){if(i<rows.length-1){tb+=r[1];tn+=r[2];}});
+ rows.forEach(function(r,i){var buy=i<rows.length-1?r[1]:s.buy-tb,nt=i<rows.length-1?r[2]:(s.cash-s.buy)-tn;P[r[0]][si]={buy:buy,cash:buy+nt,net:nt,min:r[3]};});}
+build(1,[['Rafa',700000,300000,290],['Diego',900000,100000,310],['Moshe',1000000,-250000,260],['Sofia',600000,100000,195],['Costa',800000,-400000,300],['Sam',700000,-350000,165],['Pikachu',700000,-300000,230],['Uri',0,0,185]]);
+build(2,[['Rafa',600000,50000,240],['Diego',700000,-300000,270],['Moshe',600000,100000,230],['Costa',500000,-250000,285],['Sam',450000,-200000,150],['Pikachu',0,0,200]]);
+build(3,[['Rafa',700000,200000,320],['Diego',1300000,-500000,330],['Moshe',1100000,300000,300],['Sofia',600000,150000,210],['Costa',900000,-400000,310],['Sam',700000,-350000,180],['Pikachu',800000,-300000,240],['Uri',0,0,190]]);
+function inPeriod(si){return ST.period==='7'?si===0:true;}
+function life(n){var a=P[n],o={ses:0,min:0,buy:0,cash:0,net:0,rows:[]};a.forEach(function(r,i){if(r&&inPeriod(i)){o.ses++;o.min+=r.min;o.buy+=r.buy;o.cash+=r.cash;o.net+=r.net;o.rows.push(i);}});return o;}
+/* team */
+var TMB=[{n:'Anna',role:'Dealer',r:[[330,150000,15000,100000,50000,'Cashbox'],[360,150000,20000,0,150000,'Cashbox'],[300,100000,15000,0,100000,'Cashbox'],[360,150000,30000,0,150000,'Cashbox']]},
+ {n:'Costa',role:'Host',r:[[330,120000,10000,0,0,'—'],[360,110000,12000,0,110000,'Nequi'],null,[360,120000,18000,0,120000,'Nequi']]},
+ {n:'Alex',role:'Cashier',r:[[330,90000,5000,0,90000,'Cashbox'],[360,80000,8000,0,80000,'Cashbox'],[300,80000,10000,0,80000,'Cashbox'],[330,80000,12000,0,80000,'Cashbox']]}];
+function tmLife(m){var o={min:0,sh:0,base:0,tips:0,adv:0,paid:0};m.r.forEach(function(r,i){if(r&&inPeriod(i)){o.min+=r[0];o.sh++;o.base+=r[1];o.tips+=r[2];o.adv+=r[3];o.paid+=r[4];}});o.total=o.base+o.tips;o.bal=o.base-o.adv-o.paid;return o;}
+/* state */
+var ST={period:'30',gt:'All',sort:'new',sess:0,player:'Diego',psess:0,rank:'win',tm:'Anna',trank:'hours',led:'All',q:'',chipsess:0,inv:'chips',fbview:'chips'};
+function pv(){var o={count:'counted'};try{o=JSON.parse(localStorage.getItem('nora.preview.close')||'{}')||o;}catch(e){}return {count:o.count==='pending'?'pending':'counted'};}
+function explGet(){try{return sessionStorage.getItem('nora.close.expl')||'';}catch(e){return '';}}
+function explSet(v){try{sessionStorage.setItem('nora.close.expl',v);}catch(e){}}
+function explOk(){return explGet().trim().length>=10;}
+var PL={'7':'Oct 19 – Oct 25, 2026','30':'Sep 26 – Oct 25, 2026 · last 30 days','life':'Lifetime · Oct 4 – Oct 25, 2026','custom':'Custom range · Oct 4 – Oct 25, 2026'};
+function psess(){return ST.period==='7'?[S[0]]:S;}
+function periodSel(){return '<label class="rp-sel rp-per"><select data-rp-period aria-label="Reporting period">'+[['7','Last 7 days'],['30','Last 30 days'],['life','Lifetime'],['custom','Custom range']].map(function(o){return '<option value="'+o[0]+'"'+(ST.period===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select><em>'+PL[ST.period]+'</em></label>';}
+function foot(a,b){var x=function(o,p){return '<button type="button" class="fb-btn'+(p?' primary':'')+'" data-rn-route="'+o[1]+'"'+(o[2]||'')+'>'+o[0]+'</button>';};return '<div class="fb-foot s2-foot">'+(b?x(a,0)+x(b,1):x(a,1))+'</div>';}
+function det(l,v,inside,open){return '<details class="rp-d"'+(open?' open':'')+'><summary><span>'+l+'</span><b>'+(v||'')+'</b></summary><div class="rp-di">'+inside+'</div></details>';}
+function row(l,v){return '<div class="rp-r"><span>'+l+'</span><b>'+v+'</b></div>';}
+function cl(op,l,v,cls){return '<div class="rp-cl '+(op?'':'rp-noop ')+(cls||'')+'">'+(op?'<u>'+op+'</u>':'')+'<span>'+l+'</span><strong>'+v+'</strong></div>';}
+function note(t,c){return '<div class="rp-note '+(c||'')+'">'+t+'</div>';}
+function tile(l,v,route,sel,cls){return '<button type="button" class="rp-t '+(cls||'')+'" data-rn-route="'+route+'"'+(sel?' data-rp-sel="'+sel+'"':'')+'><small>'+l+'</small><b>'+v+'</b></button>';}
+function head(t,s){return '<div class="rp-h">'+t+(s?'<small>'+s+'</small>':'')+'</div>';}
+function opts(id,list,cur){return '<select data-rp-'+id+'>'+list.map(function(o){return '<option value="'+o[0]+'"'+(cur===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select>';}
+function seg(id,list,cur){return '<div class="rp-seg" role="tablist">'+list.map(function(o){return '<button type="button" role="tab" aria-selected="'+(cur===o[0])+'" class="'+(cur===o[0]?'on':'')+'" data-rp-seg="'+id+':'+o[0]+'">'+o[1]+'</button>';}).join('')+'</div>';}
+var PMAP={Diego:'Diego R.'};
+function photo(n,cls){var k=PMAP[n]||n;return '<span class="rp-ph '+(cls||'')+'">'+portrait(k,n[0],true)+'</span>';}
+
+/* ------------------------------------------------------------------ the two permanent chip reports (single implementation, used everywhere) */
+function flowBlock(s,mode){
+ var v=flowVar(s),status=mode==='live'?'PENDING':stat(v);
+ var h='<div class="rp-chiphead"><b>CHIP FLOW RECONCILIATION</b>'+pill(status)+'</div><div class="rp-q">Do the recorded chip transactions balance?</div>';
+ h+='<div class="rp-calc">'+cl('+','Buy-ins / Rebuys',M(s.buy))+cl('+','Promo Chips',M(s.promo))+cl('−','Cash-outs',M(s.cash))+cl('−','Chip Tips',M(s.tips))+cl('−','Chips removed as rake',M(s.rake),'rp-sub')+cl('−','Chips used to pay for F&amp;B',M(s.fbChips),'rp-sub')+cl('=','Chip Flow Variance',M(v,true),'rp-eq '+(v===0?'rp-zero':'rp-bad'))+'</div>';
+ if(mode==='live')h+=note('<b>PENDING.</b> The game is not closed. Provisional variance '+M(v,true)+'. Chips still on tables or in players’ possession are not a discrepancy; the final statement is confirmed at Daily Close.','pend');
+ else if(v===0)h+=note('<b>BALANCED.</b> Every chip issued is accounted for. Rake and F&amp;B chips come from the Rake and F&amp;B ledgers and are counted once.','ok');
+ else h+=note('<b>VARIANCE '+M(v,true)+'.</b> Recorded explanation (required): '+E(s.flowNote||'')+'<br><small>Recorded by '+s.flowBy+' · '+s.flowAt+(s.flowOk?' · approved '+s.flowOk:'')+'</small>','warn');
+ if(mode!=='live'&&v===0)h+='<div class="rp-meta">Confirmed by '+s.flowBy+' · '+s.flowAt+'</div>';
+ return h;}
+function invTable(s,counted){
+ var h='<div class="rp-it">';
+ invRows(s).forEach(function(r){var c=r.dq===0?'':(r.dq<0?' rp-short':' rp-over');
+  h+='<div class="rp-itr'+c+'"><div class="rp-it1"><b>'+r.lab+' chip</b>'+(counted?(r.dq?'<em class="rp-pill '+(r.dq<0?'rp-warn':'rp-over-pill')+'">'+(r.dq>0?'+':'−')+Math.abs(r.dq)+' '+(r.dq<0?'SHORT':'OVER')+'</em>':'<em class="rp-pill rp-ok">✓ MATCH</em>'):'<em class="rp-pill rp-pend">NOT COUNTED</em>')+'</div><div class="rp-it2"><span>Expected <b>'+r.exp+'</b></span><span>Counted <b>'+(counted?r.act:'—')+'</b></span><span class="rp-it3">'+(counted?M(r.dc,true):'—')+'</span></div></div>';});
+ return h+'</div>';}
+function invBlock(s,mode,cur){
+ var v=invVar(s),status=mode==='live'||(cur&&cur.pending)?'PENDING':stat(v),counted=status!=='PENDING';
+ var expV=sum(invRows(s).map(function(r){return r.exp*r.v;})),actV=sum(invRows(s).map(function(r){return r.act*r.v;}));
+ var h='<div class="rp-chiphead"><b>CHIP INVENTORY VARIANCE</b>'+pill(status)+'</div><div class="rp-q">Do the actual physical chips match the expected inventory?</div>';
+ h+=invTable(s,counted);
+ h+='<div class="rp-math"><span>Actual Count − Expected Count = Quantity Variance</span><span>Quantity Variance × Chip Value = '+CUR+' Variance</span></div>';
+ h+='<div class="rp-calc">'+cl('','Total Expected Chip Value',M(expV))+cl('','Total Actual Chip Value',counted?M(actV):'—')+cl('=','Total Inventory Variance',counted?M(v,true):'Not counted','rp-eq '+(!counted?'':v===0?'rp-zero':'rp-bad'))+'</div>';
+ if(!counted)h+=note('<b>PENDING.</b> No confirmed physical count yet. A missing count is never treated as balanced.','pend');
+ else if(v===0)h+=note('<b>BALANCED.</b> The confirmed count matches the expected inventory in every denomination.<br><small>Counted by '+s.invBy+' · '+s.invAt+'</small>','ok');
+ else h+=note('<b>VARIANCE '+M(v,true)+'.</b> Shortages and overages stay separate above. Explanation (required): '+E((s===S[0]&&explGet().trim().length>=10)?explGet():(s.invNote||''))+'<br><small>Counted by '+s.invBy+' · '+s.invAt+(s.invOk?' · approved '+s.invOk:'')+'</small>','warn');
+ return h;}
+function chipCards(s,mode,links){
+ var fv=flowVar(s),iv=invVar(s),fs=mode==='live'?'PENDING':stat(fv),is=mode==='live'?'PENDING':stat(iv);
+ function card(t,st,val,r){return '<button type="button" class="rp-cc rp-cc-'+(st==='BALANCED'?'ok':st==='VARIANCE'?'warn':'pend')+'" '+r+'><b>'+t+'</b>'+pill(st)+'<span>'+val+'</span></button>';}
+ return '<div class="rp-cchips">'+card('CHIP FLOW RECONCILIATION',fs,mode==='live'?'Provisional '+M(fv,true):'Variance '+M(fv,true),links[0])+card('CHIP INVENTORY VARIANCE',is,mode==='live'?'Count not confirmed':'Variance '+M(iv,true),links[1])+'</div>';}
+
+/* ------------------------------------------------------------------ final session summary (permanent read-only record, shared by Overview, Daily Close and Chip Reports) */
+function summary(s,opt){
+ opt=opt||{};var i=S.indexOf(s),v=net(s);
+ var h='<div class="rp-badge">FINAL SESSION SUMMARY · READ ONLY</div>';
+ h+='<div class="rp-card"><b class="rp-big">'+s.date+'</b><small>'+s.game+' · '+s.bl+' · '+s.tables.length+' table'+(s.tables.length>1?'s':'')+' · '+hm(s.run)+' · CLOSED</small></div>';
+ h+='<div class="rp-net '+(v<0?'neg':'pos')+'"><small>NET PROFIT / LOSS</small><b>'+M(v,false)+'</b></div>';
+ h+=chipCards(s,'final',['data-rp-open="flow"','data-rp-open="inv"']);
+ h+='<div class="rp-g2">'+tile('RAKE',M(s.rake),'69:0')+tile('F&amp;B REVENUE',M(s.fb),'69:1')+tile('TOTAL REVENUE',M(rev(s)),'69:1')+tile('TOTAL EXPENSES',M(exp(s)),'69:1')+'</div>';
+ h+='<div class="rp-hint">Tap a section to expand. Sections are collapsed by default.</div>';
+ h+=det('Revenue &amp; expenses',M(v),cl('+','Rake',M(s.rake))+cl('+','F&amp;B revenue',M(s.fb))+cl('+','Other revenue','None recorded')+cl('=','Total revenue',M(rev(s)),'rp-eq')+cl('−','RENT',M(s.rent))+cl('−','TEAM compensation',M(s.team))+cl('−','F&amp;B purchases (BASIC)',M(s.fbc))+cl('−','Other expenses',M(s.oth))+cl('=','Net profit / loss',M(v),'rp-eq'));
+ var pl=PN.filter(function(n){return P[n][i];});
+ h+=det('Players',pl.length+' players',pl.map(function(n){var r=P[n][i];return row(n+' · '+hm(r.min),M(r.net,true));}).join('')+row('Buy-ins / rebuys',M(s.buy))+row('Cash-outs',M(s.cash)));
+ var tm=TMB.filter(function(m){return m.r[i];});
+ h+=det('Team',M(sum(tm.map(function(m){return m.r[i][1];}))),tm.map(function(m){var r=m.r[i];return row(m.n+' · '+hm(r[0]),M(r[1])+' + tips '+M(r[2]));}).join('')+note('Chip tips are paid in chips and are not an expense.'));
+ if(i===0)h+=det('Account balances','3 accounts',[['Cashbox',4500000],['Nequi',500000],['Bancolombia',300000]].map(function(a){return row(a[0],M(a[1]));}).join('')+row('Chips Box (recorded)',M(SS.chipsHeld))+row('Sign &amp; Settle outstanding',M(sum(D.debtors.map(function(x){return x.balance;})))));
+ h+=det('CHIP FLOW RECONCILIATION',pill(stat(flowVar(s))),flowBlock(s,'final'));
+ h+=det('CHIP INVENTORY VARIANCE',pill(stat(invVar(s))),invBlock(s,'final'));
+ h+=det('Audit trail','',row('Closed by',s.closedBy+' · '+s.closedAt)+row('Chip flow confirmed by',s.flowBy+' · '+s.flowAt)+row('Physical count by',s.invBy+' · '+s.invAt)+note('Permanently preserved. Corrections require an authorized correction entry; the original values are never overwritten.'));
+ return h;}
+
+/* ------------------------------------------------------------------ ledgers */
+var OP={'Buy-ins':'Alex','Rebuys':'Alex','Cash-outs':'Alex','Rake':'Alex','Expenses':'Mike','Team':'Alex','Chip tips':'Alex','F&B sales':'Alex'};
+var MOVE=[['Cashbox',4185000,[['+','Buy-ins (cash)',4600000],['+','F&B sales (cash)',130000],['−','Cash-outs paid',3940000],['−','Team payments',240000],['−','Expenses (drinks, supplies, transport)',235000]]],
+ ['Nequi',450000,[['+','Buy-ins',500000],['−','Cash-outs paid',450000]]],
+ ['Bancolombia',1100000,[['+','Buy-ins',200000],['−','RENT payment',1000000]]]];
+var CATS=[['All','All entries'],['bi','Buy-ins / Rebuys'],['co','Cash-outs'],['rk','Rake'],['tp','Team Payments'],['ex','Expenses'],['fb','F&B Sales'],['am','Account Movements'],['ss','Sign & Settle'],['cr','Corrections / Adjustments']];
+function ledgerRows(){
+ var r=[];(D.events||[]).forEach(function(e){var c={'Buy-ins':'bi','Rebuys':'bi','Cash-outs':'co','Rake':'rk','Team':'tp','Chip tips':'tp','Expenses':'ex','F&B sales':'fb'}[e.cat];if(!c)return;r.push({c:c,d:e.description,a:e.amount,t:e.time,by:OP[e.cat]||'Alex',cat:e.cat});});
+ MOVE.forEach(function(m){m[2].forEach(function(x){r.push({c:'am',d:m[0]+' · '+x[1],a:(x[0]==='−'?-1:1)*x[2],t:'11:59 PM',by:'Alex',cat:'Account Movement'});});});
+ D.debtors.forEach(function(x){r.push({c:'ss',d:x.name+' · Sign &amp; Settle credit',a:x.balance,t:'11:50 PM',by:'Mike',cat:'Sign & Settle'});});
+ return r;}
+function ledgerList(){
+ var q=ST.q.trim().toLowerCase(),rows=ledgerRows().filter(function(x){return (ST.led==='All'||x.c===ST.led)&&(!q||(x.d+' '+x.by+' '+x.t).toLowerCase().indexOf(q)>-1);});
+ if(!rows.length)return '<div class="rp-empty">'+(ST.led==='cr'?'No corrections or adjustments have been recorded for this period.':'No entries match this filter.')+'</div>';
+ return '<div class="rp-cnt">'+rows.length+' entr'+(rows.length===1?'y':'ies')+' · Oct 25, 2026'+(rows.length>40?' · showing the first 40':'')+'</div>'+rows.slice(0,40).map(function(x){return '<div class="rp-le"><div><b>'+x.d+'</b><small>Oct 25, 2026 · '+x.t+' · Posted by '+x.by+'</small></div><strong class="'+(x.a<0?'neg':'pos')+'">'+M(x.a,true)+'</strong></div>';}).join('');}
+
+/* ------------------------------------------------------------------ screens */
+var B={};
+B['67:0']=function(){var L=psess(),rk=sum(L.map(function(s){return s.rake;})),fb=sum(L.map(function(s){return s.fb;})),ex=sum(L.map(exp)),tm=sum(L.map(function(s){return s.tmin;})),nt=rk+fb-ex;
+ return periodSel()+'<button type="button" class="rp-net '+(nt<0?'neg':'pos')+'" data-rn-route="67:1"><small>NET PROFIT / LOSS</small><b>'+M(nt)+'</b><i>'+(nt<0?'LOSS':'PROFIT')+' · tap for breakdown</i></button>'
+  +'<div class="rp-g2">'+tile('TOTAL REVENUE',M(rk+fb),'67:1')+tile('TOTAL EXPENSES',M(ex),'67:1')+tile('TOTAL RAKE',M(rk),'69:0')+tile('F&amp;B REVENUE',M(fb),'69:1')+tile('SESSIONS PLAYED','<span class="rp-m">'+L.length+'</span>','67:2')+tile('TABLE HOURS','<span class="rp-m">'+hh(tm)+'</span>','69:0')+'</div>'
+  +tile('AVERAGE RAKE PER TABLE HOUR',M(Math.round(rk/(tm/60))),'69:0','','rp-wide')+foot(['SESSION HISTORY','67:2'],['BREAKDOWN','67:1']);};
+B['67:1']=function(){var L=psess(),rk=sum(L.map(function(s){return s.rake;})),fb=sum(L.map(function(s){return s.fb;})),ex=sum(L.map(exp)),f=function(k){return sum(L.map(function(s){return s[k];}));};
+ return head('Revenue &amp; expense breakdown',PL[ST.period])
+  +'<div class="rp-calc">'+cl('','Total Revenue = Rake + F&amp;B + Other','','rp-formula')+'</div>'
+  +det('Income',M(rk+fb),cl('+','Rake',M(rk))+cl('+','F&amp;B revenue',M(fb))+cl('+','Other recorded revenue','None')+cl('=','Total revenue',M(rk+fb),'rp-eq'),true)
+  +det('Expenses',M(ex),cl('−','RENT',M(f('rent')))+cl('−','TEAM compensation',M(f('team')))+cl('−','F&amp;B purchases (BASIC)',M(f('fbc')))+cl('−','Other expenses',M(f('oth')))+cl('=','Total expenses',M(ex),'rp-eq'),true)
+  +'<div class="rp-calc">'+cl('=','Net profit / loss',M(rk+fb-ex),'rp-eq '+(rk+fb-ex<0?'rp-bad':'rp-zero'))+'</div>'
+  +note('Not revenue: buy-ins, cash-outs, promo chips, chip tips, account transfers and Sign &amp; Settle balances. F&amp;B purchases are expensed once in BASIC mode; in ADVANCED mode consumption replaces purchases, never both.')
+  +foot(['OVERVIEW','67:0'],['SESSIONS','67:2']);};
+B['67:2']=function(){var L=psess().filter(function(s){return ST.gt==='All'||s.game===ST.gt;});
+ L=L.slice().sort(function(a,b){return ST.sort==='old'?S.indexOf(b)-S.indexOf(a):ST.sort==='best'?net(b)-net(a):ST.sort==='worst'?net(a)-net(b):S.indexOf(a)-S.indexOf(b);});
+ return periodSel()+'<div class="rp-f2"><label class="rp-sel"><small>GAME</small>'+opts('gt',[['All','All games'],['Hold’em','Hold’em'],['Pot-Limit Omaha','PLO']],ST.gt)+'</label><label class="rp-sel"><small>SORT</small>'+opts('sort',[['new','Newest'],['old','Oldest'],['best','Best result'],['worst','Worst result']],ST.sort)+'</label></div>'
+  +(L.length?L.map(function(s){var v=net(s);return '<button type="button" class="rp-sc" data-rn-route="67:3" data-rp-sel="sess:'+S.indexOf(s)+'"><div class="rp-sct"><b>'+s.date+'</b><em class="rp-st">CLOSED</em></div><small>'+s.game+' · '+s.bl+' · '+s.tables.length+' table'+(s.tables.length>1?'s':'')+'</small><div class="rp-scg"><span>Rake<b>'+M(s.rake)+'</b></span><span>F&amp;B<b>'+M(s.fb)+'</b></span><span>Expenses<b>'+M(exp(s))+'</b></span><span>Net<b class="'+(v<0?'neg':'pos')+'">'+M(v)+'</b></span></div><div class="rp-scc"><span>FLOW '+pill(stat(flowVar(s)))+'</span><span>INVENTORY '+pill(stat(invVar(s)))+'</span></div></button>';}).join(''):'<div class="rp-empty">No sessions match.</div>')
+  +foot(['OVERVIEW','67:0'],['EXPORT','71:0']);};
+B['67:3']=function(){return summary(S[ST.sess])+foot(['LEDGERS','69:3'],['EXPORT','71:0']);};
+/* players */
+function rankList(){var a=PN.map(function(n){var l=life(n);return {n:n,l:l};}).filter(function(x){return x.l.ses>0&&(ST.rank==='win'?x.l.net>0:ST.rank==='lose'?x.l.net<0:true);});
+ var key={win:function(x){return -x.l.net;},lose:function(x){return x.l.net;},hrs:function(x){return -x.l.min;},ses:function(x){return -x.l.ses;}}[ST.rank];
+ a.sort(function(p,q){return key(p)-key(q)||q.l.min-p.l.min;});return a;}
+function rankVal(x){return ST.rank==='hrs'?hm(x.l.min):ST.rank==='ses'?'<span class="rp-m">'+x.l.ses+' sessions</span>':M(x.l.net,true);}
+B['68:0']=function(){var a=rankList();
+ return periodSel()+seg('rank',[['win','WINNERS'],['lose','LOSERS'],['hrs','HOURS'],['ses','SESSIONS']],ST.rank)+'<div class="rp-cnt">'+({win:'BIGGEST LIFETIME WINNERS',lose:'BIGGEST LIFETIME LOSERS',hrs:'MOST HOURS PLAYED',ses:'MOST SESSIONS ATTENDED'})[ST.rank]+'</div>'
+  +'<div class="rp-pod">'+a.slice(0,3).map(function(x,i){return '<button type="button" class="rp-pt" data-rn-route="68:1" data-rp-sel="player:'+x.n+'"><span class="rp-pf">'+photo(x.n)+'<i>'+(i+1)+'</i><b>'+x.n+'</b></span><em>'+rankVal(x)+'</em></button>';}).join('')+'</div>'
+  +a.slice(3).map(function(x,i){return '<button type="button" class="rp-rr" data-rn-route="68:1" data-rp-sel="player:'+x.n+'"><u>'+(i+4)+'</u><b>'+x.n+'</b><strong>'+rankVal(x)+'</strong></button>';}).join('')
+  +foot(['OVERVIEW','67:0'],['ATTENDANCE','68:3']);};
+function chart(n){var l=life(n),pts=l.rows.slice().reverse().map(function(si){return {d:S[si].d,v:P[n][si].net};}),mx=Math.max.apply(null,pts.map(function(p){return Math.abs(p.v);}).concat([1])),W=300,H=120,mid=60,bw=Math.min(44,Math.floor(W/pts.length)-14);
+ var s='<svg class="rp-chart" viewBox="0 0 '+W+' '+(H+22)+'" role="img" aria-label="Win or loss by session">'+'<line x1="0" y1="'+mid+'" x2="'+W+'" y2="'+mid+'" stroke="#4d7a96" stroke-width="1"/>';
+ pts.forEach(function(p,i){var x=(W/pts.length)*i+(W/pts.length-bw)/2,h=Math.max(3,Math.abs(p.v)/mx*52),y=p.v>=0?mid-h:mid;s+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+h+'" fill="'+(p.v>=0?'#3bf0ae':'#ff7c7c')+'"/><text x="'+(x+bw/2)+'" y="'+(H+14)+'" text-anchor="middle" fill="#cfe7f3" font-size="14" font-weight="700">'+p.d+'</text>';});
+ return s+'</svg>';}
+B['68:1']=function(){var n=ST.player,l=life(n),avg=l.ses?Math.round(l.net/l.ses):0;
+ return '<div class="rp-pid">'+photo(n,'big')+'<div><b>'+n+'</b><small>'+l.ses+' sessions · '+hm(l.min)+'</small><button type="button" class="rp-lnk" data-rn-route="54:2">PLAYER PROFILE ›</button></div></div>'
+  +periodSel()+'<div class="rp-g2">'+tile('TOTAL SESSIONS','<span class="rp-m">'+l.ses+'</span>','68:1')+tile('TOTAL HOURS','<span class="rp-m">'+hh(l.min)+'</span>','68:1')+tile('BUY-INS / REBUYS',M(l.buy),'68:1')+tile('CASH-OUTS',M(l.cash),'68:1')+tile('NET WIN / LOSS',M(l.net,true),'68:1','',l.net<0?'neg':'pos')+tile('AVG PER SESSION',M(avg,true),'68:1')+'</div>'
+  +'<div class="rp-card"><b class="rp-ct">WIN / LOSS BY SESSION</b>'+chart(n)+'<small>From actual buy-ins, rebuys and cash-outs.</small></div>'
+  +'<div class="rp-cnt">SESSION-BY-SESSION</div>'+l.rows.map(function(si){var r=P[n][si];return '<button type="button" class="rp-le rp-lb" data-rn-route="68:2" data-rp-sel="psess:'+si+'"><div><b>'+S[si].date+'</b><small>'+hm(r.min)+' · '+S[si].game+'</small></div><strong class="'+(r.net<0?'neg':'pos')+'">'+M(r.net,true)+'</strong></button>';}).join('')
+  +foot(['RANKINGS','68:0'],['EXPORT','71:0']);};
+B['68:2']=function(){var n=ST.player,si=P[n][ST.psess]?ST.psess:life(n).rows[0],r=P[n][si],s=S[si];
+ return head(n+' · '+s.d+', 2026',s.game+' · '+s.bl)+'<div class="rp-pid">'+photo(n,'big')+'<div><b>'+n+'</b><small>'+hm(r.min)+' played</small></div></div>'
+  +'<div class="rp-calc">'+cl('+','Buy-ins / rebuys',M(r.buy))+cl('−','Cash-out',M(r.cash))+cl('=','Net win / loss',M(r.net,true),'rp-eq '+(r.net<0?'rp-bad':'rp-zero'))+'</div>'
+  +row('Hours played',hm(r.min))+row('Session result','Closed · permanent record')+note('Win / loss is calculated only from recorded buy-ins, rebuys and cash-outs.')
+  +foot(['PLAYER REPORT','68:1'],['SESSION SUMMARY','67:3',' data-rp-sel="sess:'+si+'"']);};
+/* financials */
+B['69:0']=function(){var L=psess(),rk=sum(L.map(function(s){return s.rake;})),tm=sum(L.map(function(s){return s.tmin;})),el=sum(L.map(function(s){return s.run;})),tb={};
+ L.forEach(function(s){s.tables.forEach(function(t,i){var k='Table '+(i+1);tb[k]=tb[k]||{r:0,m:0};tb[k].r+=t[1];tb[k].m+=t[2];});});
+ var gt={};L.forEach(function(s){var k=s.game+' · '+s.bl;gt[k]=gt[k]||{r:0,m:0};gt[k].r+=s.rake;gt[k].m+=s.tmin;});
+ return periodSel()+'<div class="rp-g2">'+tile('TOTAL RAKE',M(rk),'69:0')+tile('TABLE HOURS','<span class="rp-m">'+hh(tm)+'</span>','69:0')+'</div>'
+  +'<div class="rp-calc">'+cl('','Rake per table hour',M(Math.round(rk/(tm/60))))+cl('','Rake per session hour (elapsed)',M(Math.round(rk/(el/60))))+'</div>'
+  +det('Rake by session','',L.map(function(s){return row(s.d+' · '+s.game,M(s.rake));}).join(''))
+  +det('Rake by game type / blinds','',Object.keys(gt).map(function(k){return row(k+'<br><small>'+hh(gt[k].m)+' table hours</small>',M(gt[k].r)+'<br><small>'+M(Math.round(gt[k].r/(gt[k].m/60)))+' / hr</small>');}).join(''))
+  +det('Rake by table','',Object.keys(tb).map(function(k){return row(k+'<br><small>'+hh(tb[k].m)+' table hours</small>',M(tb[k].r)+'<br><small>'+M(Math.round(tb[k].r/(tb[k].m/60)))+' / hr</small>');}).join(''))
+  +det('Average stack by table','Oct 25 only',D.tables.map(function(t){return row(t.name,M(t.stack));}).join('')+note('Shown only where stack samples were recorded.'))
+  +foot(['REVENUE &amp; EXPENSES','69:1'],['EXPORT','71:0']);};
+B['69:1']=function(){var L=psess(),f=function(k){return sum(L.map(function(s){return s[k];}));},rk=f('rake'),fb=f('fb'),ex=sum(L.map(exp));
+ return periodSel()+'<div class="rp-calc">'+cl('+','Rake revenue',M(rk))+cl('+','F&amp;B revenue',M(fb))+cl('+','Other revenue','None recorded')+cl('=','Total revenue',M(rk+fb),'rp-eq')+'</div>'
+  +det('RENT',M(f('rent')),L.map(function(s){return row(s.d,M(s.rent));}).join(''))+det('TEAM compensation',M(f('team')),L.map(function(s){return row(s.d,M(s.team));}).join('')+note('Base pay only. Chip tips are paid from player chips and are not an expense.'))
+  +det('F&amp;B purchases (BASIC)',M(f('fbc')),L.map(function(s){return row(s.d,M(s.fbc));}).join('')+note('Expensed when purchased. Not counted again as consumption.'))
+  +det('Other expenses',M(f('oth')),L.map(function(s){return row(s.d,M(s.oth));}).join(''))
+  +'<div class="rp-calc">'+cl('','Total expenses',M(ex),'rp-eq')+cl('=','Net profit / loss',M(rk+fb-ex),'rp-eq '+(rk+fb-ex<0?'rp-bad':'rp-zero'))+'</div>'+foot(['RAKE','69:0'],['ACCOUNTS','69:2']);};
+B['69:2']=function(){return head('Account Balances','Closing balances · Oct 25, 2026')
+  +MOVE.map(function(m){var close=m[1]+sum(m[2].map(function(x){return (x[0]==='−'?-1:1)*x[2];}));return det(m[0],M(close),cl('','Opening balance',M(m[1]))+m[2].map(function(x){return cl(x[0],x[1],M(x[2]));}).join('')+cl('=','Closing balance',M(close),'rp-eq')+'<div class="rp-meta">Movements posted by Alex</div>');}).join('')
+  +det('PayPal / Zelle','Not enabled',note('Enable in Settings → Accounts to track this account.'))
+  +'<div class="rp-calc">'+cl('','Chips Box (recorded)',M(SS.chipsHeld))+cl('','Sign &amp; Settle outstanding',M(sum(D.debtors.map(function(x){return x.balance;}))))+'</div>'+note('Chips and Sign &amp; Settle are separate from cash accounts and are never added to them.')
+  +foot(['FINANCIALS','69:1'],['LEDGERS','69:3']);};
+B['69:3']=function(){return '<div class="rp-search"><input type="search" data-rp-q placeholder="Search entries" value="'+E(ST.q)+'" aria-label="Search ledger"></div><label class="rp-sel"><small>LEDGER</small>'+opts('led',CATS,ST.led)+'</label><div data-rp-ledger>'+ledgerList()+'</div>'+foot(['ACCOUNTS','69:2'],['EXPORT','71:0']);};
+/* team */
+var TR={hours:['Most Hours',function(a){return a.min;},function(l){return hm(l.min);}],games:['Most Games / Shifts',function(a){return a.sh;},function(l){return l.sh+' shifts';}],tips:['Most Tips',function(a){return a.tips;},function(l){return M(l.tips);}],base:['Highest Base Compensation',function(a){return a.base;},function(l){return M(l.base);}],total:['Highest Total Compensation',function(a){return a.total;},function(l){return M(l.total);}]};
+function trank(){var k=TR[ST.trank];return TMB.map(function(m){return {m:m,l:tmLife(m)};}).filter(function(x){return x.l.sh>0;}).sort(function(a,b){return k[1](b.l)-k[1](a.l)||b.l.min-a.l.min;});}
+B['70:0']=function(){var a=trank();
+ return periodSel()+'<label class="rp-sel"><small>RANK BY</small>'+opts('trank',Object.keys(TR).map(function(k){return [k,TR[k][0]];}),ST.trank)+'</label>'
+  +'<div class="rp-pod">'+a.map(function(x,i){return '<button type="button" class="rp-pt" data-rn-route="70:1" data-rp-sel="tm:'+x.m.n+'"><span class="rp-pf">'+photo(x.m.n)+'<i>'+(i+1)+'</i><b>'+x.m.n+'</b></span><em>'+TR[ST.trank][2](x.l)+'</em></button>';}).join('')+'</div>'
+  +a.map(function(x,i){return '<button type="button" class="rp-rr" data-rn-route="70:1" data-rp-sel="tm:'+x.m.n+'"><u>'+(i+1)+'</u><b>'+x.m.n+' · '+x.m.role+'</b><strong>'+TR[ST.trank][2](x.l)+'</strong></button>';}).join('')
+  +note('Base compensation = salary, hourly or fixed-shift pay. Total = base + earned tips. Advances and payments are not earnings.')+foot(['SETTLEMENTS','70:2'],['TEAM REPORT','70:1']);};
+B['70:1']=function(){var m=TMB.filter(function(x){return x.n===ST.tm;})[0]||TMB[0],l=tmLife(m);
+ return '<div class="rp-pid">'+photo(m.n,'big')+'<div><b>'+m.n+'</b><small>'+m.role+'</small></div></div>'+periodSel()
+  +'<div class="rp-g2">'+tile('HOURS WORKED','<span class="rp-m">'+hm(l.min)+'</span>','70:1')+tile('GAMES / SHIFTS','<span class="rp-m">'+l.sh+'</span>','70:1')+tile('BASE EARNED',M(l.base),'70:1')+tile('TIPS EARNED',M(l.tips),'70:1')+'</div>'
+  +'<div class="rp-calc">'+cl('+','Base compensation',M(l.base))+cl('+','Tips earned',M(l.tips))+cl('=','Total compensation earned',M(l.total),'rp-eq')+cl('−','Paid in chips (tips)',M(l.tips))+cl('−','Advances',M(l.adv))+cl('−','Payments received',M(l.paid))+cl('=','Outstanding balance',M(l.bal),'rp-eq '+(l.bal?'rp-bad':'rp-zero'))+'</div>'
+  +'<div class="rp-cnt">SHIFT BY SHIFT</div>'+m.r.map(function(r,i){return r&&inPeriod(i)?'<button type="button" class="rp-le rp-lb" data-rn-route="67:3" data-rp-sel="sess:'+i+'"><div><b>'+S[i].date+'</b><small>'+hm(r[0])+' · base '+M(r[1])+' · tips '+M(r[2])+'</small></div><strong>'+M(r[1]+r[2])+'</strong></button>':'';}).join('')
+  +foot(['RANKINGS','70:0'],['SETTLEMENTS','70:2']);};
+B['70:2']=function(){var rows=[];TMB.forEach(function(m){m.r.forEach(function(r,i){if(r&&inPeriod(i))rows.push([m,r,i]);});});rows.sort(function(a,b){return a[2]-b[2];});
+ return periodSel()+head('Team settlement history','Checkout · compensation · payments')+rows.map(function(x){var m=x[0],r=x[1],bal=r[1]-r[3]-r[4];return det(m.n+' · '+S[x[2]].d,bal?'<em class="rp-pill rp-warn">⚠ OWED</em>':'<em class="rp-pill rp-ok">✓ PAID</em>',row('Checkout date',S[x[2]].date)+row('Hours / shift',hm(r[0]))+row('Compensation',M(r[1]))+row('Tips (paid in chips)',M(r[2]))+row('Prior advances',M(r[3]))+row('Amount paid',M(r[4]))+row('Remaining balance',M(bal))+row('Payment method',r[5])+row('Settlement status',bal?'Outstanding · carried forward':'Settled'));}).join('')
+  +foot(['TEAM REPORT','70:1'],['EXPORT','71:0']);};
+/* inventory */
+B['70:3']=function(){var sel=ST.fbview;
+ return seg('fbview',[['chips','CHIPS'],['fb','FOOD &amp; BEVERAGE']],sel==='fb'?'fb':'chips')+(sel==='fb'
+  ?'<div class="rp-card"><b class="rp-ct">FOOD &amp; BEVERAGE · ADVANCED</b><small>Beverage purchases at BASIC are expensed under Financials. Stock-count reports appear only for ADVANCED categories.</small></div>'+tile('OPEN F&amp;B INVENTORY REPORT','Beginning · purchases · consumption · ending','70:6','','rp-wide')+foot(['FINANCIALS','69:1'],['F&amp;B REPORT','70:6'])
+  :'<div class="rp-calc">'+cl('','Chips held in box (expected)',M(5500000))+cl('','Chips on tables','None · all returned')+cl('','Last physical count',M(sum(invRows(S[0]).map(function(r){return r.act*r.v;}))))+'</div>'
+   
+   +'<div class="rp-cnt">CHIP REPORTS BY SESSION · TAP TO OPEN</div>'+S.map(function(s,i){return '<button type="button" class="rp-sc rp-sc2" data-rn-route="70:4" data-rp-sel="chipsess:'+i+'"><div class="rp-sct"><b>'+s.d+', 2026</b><small>'+s.closedBy+' · '+s.closedAt+'</small></div><div class="rp-scc"><span>FLOW '+pill(stat(flowVar(s)))+'<br><small>'+M(flowVar(s),true)+'</small></span><span>INVENTORY '+pill(stat(invVar(s)))+'<br><small>'+M(invVar(s),true)+'</small></span></div></button>';}).join('')
+   +det('Chip inventory by denomination',M(5500000),'<div class="rp-it"><div class="rp-ith rp-ith3"><span>CHIP</span><span>QTY</span><span>VALUE</span></div>'+DEN.map(function(c){return '<div class="rp-itr rp-itr3"><span><b>'+c[0]+'</b></span><span>'+c[2]+'</span><span>'+M(c[1]*c[2])+'</span></div>';}).join('')+'</div>')+foot(['EXPORT','71:0'],['FLOW REPORT','70:4']));};
+function chipSess(){return S[ST.chipsess];}
+B['70:4']=function(){var s=chipSess();return head(s.date,'Permanent record · same data as the Final Session Summary')+flowBlock(s,'final')+foot(['INVENTORY','70:3'],['INVENTORY VARIANCE','70:5']);};
+B['70:5']=function(){var s=chipSess();return head(s.date,'Permanent record · same data as the Final Session Summary')+invBlock(s,'final')+foot(['CHIP FLOW','70:4'],['FULL SUMMARY','67:3',' data-rp-sel="sess:'+ST.chipsess+'"']);};
+B['70:6']=function(){return head('Food &amp; beverage inventory','Oct 25, 2026 · ADVANCED categories')+D.inventory.map(function(p){var cons=p.sold+p.comp,expEnd=p.start-cons,v=p.end-expEnd;return det(p.name+' · '+p.category,v?'<em class="rp-pill rp-warn">⚠ '+(v>0?'+':'−')+Math.abs(v)+'</em>':'<em class="rp-pill rp-ok">✓</em>',cl('','Beginning inventory',p.start)+cl('+','Purchases',0)+cl('−','Sales',p.sold)+cl('−','Comps',p.comp)+cl('−','Waste',0)+cl('=','Expected ending',expEnd,'rp-eq')+cl('','Counted ending',p.end)+cl('=','Inventory variance',(v>0?'+':v<0?'−':'')+Math.abs(v),'rp-eq '+(v?'rp-bad':'rp-zero'))+row('Sales value',M(p.sold*p.unit)));}).join('')
+  +note('Consumption = sales + comps + waste. Purchases are not expensed again when consumption is the cost.')+foot(['CHIPS','70:3'],['EXPORT','71:0']);};
+/* export */
+B['71:0']=function(){return head('Export a report','Exports start inside each report')+[['Session summary','Final Session Summary · any closed session'],['Players','Rankings and player reports'],['Financials','Rake, revenue, expenses, accounts'],['Team','Rankings and settlement history'],['Chip reports','CHIP FLOW RECONCILIATION · CHIP INVENTORY VARIANCE'],['Transaction ledger','Searchable ledger entries']].map(function(x,i){return '<button type="button" class="rp-sc rp-sc2" data-rn-route="71:1"><div class="rp-sct"><b>'+x[0]+'</b></div><small>'+x[1]+'</small></button>';}).join('')+foot(['OVERVIEW','67:0'],['FORMAT','71:1']);};
+B['71:1']=function(){return periodSel()+'<label class="rp-sel"><small>FORMAT</small><select><option>CSV</option><option>PDF</option></select></label><label class="rp-sel"><small>DESTINATION</small><select><option>Download</option><option>Share (where supported)</option></select></label>'+note('Only records permitted for your role are included.')+foot(['REPORTS','71:0'],['PREVIEW','71:2']);};
+B['71:2']=function(){return head('Export preview','Review prototype · no file is created or sent')+row('Report','Final Session Summary')+row('Session','Oct 25, 2026')+row('Includes','Both chip reports')+row('Status','Preview only')+note('Only the production application can generate a real file.')+foot(['OVERVIEW','67:0'],['REPORTS','71:0']);};
+
+/* ---- Snapshot (WF32 overview + WF38) and Daily Close chip views ---- */
+function liveCards(){return chipCards(S[0],'live',['onclick="snapNavigate(this,\'chipflow\')"','onclick="snapNavigate(this,\'chipinv\')"']);}
+function finalCards(){return chipCards(S[0],'final',['onclick="snapNavigate(this,\'chipflow-final\')"','onclick="snapNavigate(this,\'chipinv-final\')"']);}
+function ro(html){return '<div class="wf32-report"><div class="wf32-scroll rp-wrap">'+html+'</div><button type="button" class="wf32-return" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button></div>';}
+var snapPrev=snapshotMarkup;
+snapshotMarkup=function(view){
+ if(view==='chips')return ro('<div class="wf32-chip-flag">CHIP CONTROLS</div>'+liveCards()+note('Both controls are PENDING while the game is open. Open either for the full calculation.'));
+ if(view==='chipflow')return ro(flowBlock(S[0],'live'));
+ if(view==='chipinv')return ro(invBlock(S[0],'live'));
+ if(view==='chipflow-final')return ro(flowBlock(S[0],'final'));
+ if(view==='chipinv-final')return ro(invBlock(S[0],'final'));
+ var h=snapPrev(view);
+ if(view==='overview'||view==='closed'){
+  h=h.replace(/<button type="button" class="wf32-tap " onclick="snapNavigate\(this,'chips'\)">.*?<\/button>/,'');
+  var cards=(view==='closed'?finalCards():liveCards());
+  h=h.replace(/(<button type="button" class="wf32-profit-card"[^>]*>.*?<\/button>)/,'$1<div class="rp-snapchips">'+cards.replace(/\$/g,'$$$$')+'</div>');
+ }
+ return h;};
+var prevSN=snapNavigate;snapNavigate=function(el,view){var ph=el&&el.closest?el.closest('.phone'):null;prevSN(el,view);var m={chips:'Chip Controls',chipflow:'Chip Flow Reconciliation',chipinv:'Chip Inventory Variance','chipflow-final':'Chip Flow Reconciliation','chipinv-final':'Chip Inventory Variance'};if(m[view]&&ph){var h=ph.querySelector('.ux-headtitle small');if(h)h.textContent=m[view];}};
+Object.assign(SNAPSHOT_LABELS,{chips:'Chip Controls',chipflow:'Chip Flow Reconciliation',chipinv:'Chip Inventory Variance','chipflow-final':'Chip Flow Reconciliation','chipinv-final':'Chip Inventory Variance'});
+
+/* ---- Daily Close ---- */
+function closeInfo(){var c=pv().count,s=S[0],fv=flowVar(s),iv=invVar(s),fS=stat(fv),iS=c==='pending'?'PENDING':stat(iv),need=iS==='VARIANCE'&&!explOk(),ready=iS!=='PENDING'&&!need&&fS!=='PENDING';return {c:c,fv:fv,iv:iv,fS:fS,iS:iS,need:need,ready:ready};}
+function ck(label,sub,r,status,txt){return '<button type="button" class="rp-ck" data-rn-route="'+r+'"><span><b>'+label+'</b><small>'+sub+'</small></span>'+(status?pill(status):'<em class="rp-pill rp-'+(txt==='OK'?'ok':'warn')+'">'+(txt==='OK'?'✓ OK':'⚠ REVIEW')+'</em>')+'</button>';}
+var C={};
+C['40:1']=function(){var c=closeInfo();return head('Close checklist','Sunday, Oct 25, 2026')
+ +ck('Players','All 8 cashed out','41:0','','OK')+ck('Team',CUR+' 120,000 owed','42:0','','WARN')+ck('Expenses &amp; stock','1 stock variance','43:0','','WARN')+ck('Account Balances','3 accounts','44:0','','OK')
+ +ck('CHIP FLOW RECONCILIATION','Variance '+CUR+' '+N(c.fv),'44:1',c.fS)+ck('CHIP INVENTORY VARIANCE',c.iS==='PENDING'?'Physical count required':'Variance '+(c.iv>0?'+':c.iv<0?'−':'')+'COP '+N(c.iv),'44:2',c.iS)
+ +ck('Sign &amp; Settle',CUR+' 200,000 owed','45:0','','WARN')
+ +note(c.ready?'Ready to close. Every chip report is reviewed.':'<b>Not ready.</b> '+(c.iS==='PENDING'?'Complete the physical chip count.':'Explain the chip inventory variance.'),c.ready?'ok':'warn')+foot(['BACK','40:0'],['REQUIREMENTS','40:2']);};
+C['40:2']=function(){var c=closeInfo();return head('Close requirements','What must be true before permanent close')
+ +row('CHIP FLOW RECONCILIATION',pill(c.fS))+row('CHIP INVENTORY VARIANCE',pill(c.iS))
+ +note('<b>BALANCED</b> closes with a confirmation. <b>VARIANCE</b> closes only after a written explanation, with your name and the time recorded; the variance is never changed to zero. <b>PENDING</b> blocks close until the count is complete.')+note('Outstanding team pay and Sign &amp; Settle stay visible as obligations.')+foot(['CHECKLIST','40:1'],['CHIP FLOW','44:1']);};
+C['44:1']=function(){return flowBlock(S[0],'final')+foot(['ACCOUNTS','44:0'],['INVENTORY','44:2']);};
+C['44:2']=function(){var c=closeInfo();return invBlock(S[0],'final',{pending:c.iS==='PENDING'})+foot(['CHIP FLOW','44:1'],['EXCEPTIONS','45:0']);};
+C['45:0']=function(){var c=closeInfo();return head('Close exceptions','Review before the final close')+row('CHIP FLOW RECONCILIATION',pill(c.fS))+row('CHIP INVENTORY VARIANCE',pill(c.iS))+row('Team pay outstanding',M(120000))+row('Sign &amp; Settle outstanding',M(200000))+row('Stock variance','Aguila −2')
+ +note(c.iS==='PENDING'?'<b>Blocked.</b> The physical chip count is not confirmed.':c.need?'<b>Explanation required</b> for the chip inventory variance of '+M(c.iv,true)+'.':'All variances are explained and recorded.',c.iS==='PENDING'||c.need?'warn':'ok')+foot(['CHIP INVENTORY','44:2'],['EXPLAIN','45:1']);};
+C['45:1']=function(){var c=closeInfo();return head('Variance explanation','CHIP INVENTORY VARIANCE '+(c.iv>0?'+':'−')+CUR+' '+N(c.iv))
+ +'<div class="rp-calc">'+cl('','Chip flow variance',M(c.fv,true)+' '+(c.fS==='BALANCED'?'✓':''))+cl('','Chip inventory variance',M(c.iv,true))+'</div>'
+ +'<label class="rp-ta"><small>Required written explanation</small><textarea data-rp-expl rows="4" placeholder="Why do the physical chips differ from the expected inventory?">'+E(explGet())+'</textarea></label><div class="rp-meta" data-rp-gate="expl">'+(explOk()?'Recorded by Mike (Owner) · '+new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' · saved for the final record':'Not recorded yet · at least 10 characters')+'</div>'
+ +note('The variance stays on the permanent record even after it is explained. It is never replaced with zero.')+foot(['EXCEPTIONS','45:0'],['ACKNOWLEDGE','45:2']);};
+C['45:2']=function(){var c=closeInfo();return head('Owner acknowledgements','Each item reviewed')+row('Chip flow',c.fS==='BALANCED'?'<em class="rp-pill rp-ok">✓ Reviewed</em>':pill(c.fS))+row('Chip inventory',c.iS==='PENDING'?pill('PENDING'):c.need?'<em class="rp-pill rp-warn">⚠ Needs explanation</em>':'<em class="rp-pill rp-ok">✓ Explained</em>')+row('Team pay carried forward',M(120000))+row('Sign &amp; Settle carried forward',M(200000))+note('A known variance with a written explanation may be accepted. An unexplained variance never passes as balanced.')+foot(['EXPLANATION','45:1'],['FINAL REVIEW','46:0']);};
+C['46:0']=function(){var s=S[0],c=closeInfo();return head('Final close review','Sunday, Oct 25, 2026')+'<div class="rp-net '+(net(s)<0?'neg':'pos')+'"><small>NET PROFIT / LOSS</small><b>'+M(net(s))+'</b></div><div class="rp-g2">'+tile('RAKE',M(s.rake),'46:0')+tile('TOTAL EXPENSES',M(exp(s)),'46:0')+'</div>'+chipCards(s,'final',['data-rn-route="44:1"','data-rn-route="44:2"']).replace(/class="rp-cc rp-cc-(\w+)"/g,'class="rp-cc rp-cc-$1"')+note('Permanent close cannot be undone. Both chip reports are preserved with their calculations, counts and explanations.')+foot(['CHECKLIST','40:1'],['AUTHORIZE','46:1']);};
+C['46:1']=function(){var c=closeInfo(),why=c.iS==='PENDING'?'<b>Close blocked.</b> CHIP INVENTORY VARIANCE is PENDING. Complete the physical count.':c.need?'<b>Close blocked.</b> Explain the chip inventory variance of '+M(c.iv,true)+' first.':'<b>Ready.</b> The variance of '+M(c.iv,true)+' is explained and will be preserved.';
+ return head('Owner confirmation','Authorized owner action')+row('CHIP FLOW RECONCILIATION',pill(c.fS))+row('CHIP INVENTORY VARIANCE',pill(c.iS))+'<div data-rp-gate="close">'+note(why,c.ready?'ok':'warn')+'</div>'
+  +'<div class="fb-foot s2-foot"><button type="button" class="fb-btn" data-rn-route="40:1">CHECKLIST</button><button type="button" class="fb-btn primary" data-rp-gate="btn" data-rp-route="46:2"'+(c.ready?' data-rn-route="46:2"':' disabled')+'>CONFIRM CLOSE · DEMO</button></div>';};
+C['47:0']=function(){return summary(S[0])+foot(['CHIP REPORTS','47:1'],['AUDIT','47:2']);};
+C['47:1']=function(){return flowBlock(S[0],'final')+'<div class="rp-sep"></div>'+invBlock(S[0],'final')+foot(['SUMMARY','47:0'],['AUDIT','47:2']);};
+C['47:2']=function(){var s=S[0];return head('Permanent record','Read only · audit trail')+row('Closed by',s.closedBy+' · '+s.closedAt)+row('Chip flow confirmed',s.flowBy+' · '+s.flowAt)+row('Physical count',s.invBy+' · '+s.invAt)+row('Status','Permanently locked')+note('Original values are never overwritten; corrections are separate authorized entries.')+foot(['SUMMARY','47:0'],['OVERVIEW','67:0']);};
+var SNAPW={38:[
+ function(){return head('Chip controls','Live game · both reports')+liveCards()+note('PENDING is expected while the game is open. A live game is never shown as balanced.')+foot(['SNAPSHOT','32:0'],['CHIP FLOW','38:1']);},
+ function(){return flowBlock(S[0],'live')+foot(['CONTROLS','38:0'],['INVENTORY','38:2']);},
+ function(){return invBlock(S[0],'live')+foot(['CHIP FLOW','38:1'],['DAILY CLOSE','40:1']);}]};
+
+/* ------------------------------------------------------------------ wiring */
+var REG={67:{heads:['Overview','Breakdown','Session History','Session Summary']},68:{heads:['Players','Player Report','Session Detail']},69:{heads:['Financials','Revenue & Expenses','Account Balances','Ledgers']},70:{heads:['Team','Team Report','Settlements','Inventory','Chip Flow','Chip Inventory','F&B Inventory']},71:{heads:['Export','Format','Preview']}};
+function stage(w,step,i,sec,title,body,nav){return '<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone fb-phone st-phone"><div class="notch"></div>'+fullHead(sec,title)+'<div class="ux-content screen-specific fb-content"><div class="fb-body rp-body" data-rp="'+w.id+':'+i+'">'+body+'</div></div>'+fixedNav(nav||'Reporting')+'</div><p class="steptext">'+esc(step)+'</p></div>';}
+function fn(w,i){var k=w.id+':'+i;if(REG[w.id]&&B[k]&&!(w.id===68&&i===3))return {f:B[k],sec:'REPORTS',t:REG[w.id].heads[i]};if(C[k])return {f:C[k],sec:'LIVE GAME',t:{40:'Daily Close',44:'Daily Close',45:'Daily Close',46:'Daily Close',47:'Daily Close'}[w.id]};if(SNAPW[w.id]&&SNAPW[w.id][i])return {f:SNAPW[w.id][i],sec:'LIVE GAME',t:'Snapshot'};return null;}
+/* pre-existing defect: WF41 s0 and WF44 s0 markup has one stray </div>, which closes .storyboard early so later steps fall outside the swipe row. Remove exactly that stray tag. */
+function fixStray(h){var RX=new RegExp('<'+'/div>','g'),o=(h.match(/<div/g)||[]).length,c=(h.match(RX)||[]).length;if(c<=o)return h;var m,best=null,bl=-1;RX.lastIndex=0;
+ while((m=RX.exec(h))){var t=h.slice(0,m.index)+h.slice(m.index+6),d=document.createElement('div');d.innerHTML=t;if(d.children.length!==1||!d.children[0].classList.contains('stage')||!d.children[0].querySelector('.steptext'))continue;var ph=d.querySelector('.phone');if(!ph)continue;var k=[].slice.call(ph.children).map(function(x){return x.className.split(' ')[0];}).join(',');if(!/ux-head,ux-content,ux-bottom$/.test(k))continue;var L=ph.querySelector('.ux-content').textContent.length;if(L>bl){bl=L;best=t;}}
+ return best||h;}
+var prevCP=customPhone;window.NORA_RAW_CP=prevCP;
+customPhone=function(w,step,i){var d=fn(w,i);if(d)return stage(w,step,i,d.sec,d.t,d.f(),w.id>=67?'Reporting':'Table');var out=prevCP(w,step,i);return (w.id>=40&&w.id<=47)?fixStray(out):out;};
+function setWF(id,title,steps){var w=WORKFLOWS.find(function(x){return x.id===id;});if(!w)return;if(title)w.title=title;w.steps=steps.slice();if(SCREEN_SPECS[id])SCREEN_SPECS[id].types=steps.map(function(_,i){return 'nora-rp-'+id+'-'+i;});}
+setWF(67,'Overview: dashboard, session history and final summary',['Overview dashboard','Revenue & expense breakdown','Session history','Final Session Summary']);
+setWF(68,'Players: rankings, player report and history',['Player rankings','Player report','Player session detail','Attendance, cancellations & no-shows']);
+setWF(69,'Financials: rake, revenue & expenses, accounts and ledgers',['Rake performance','Revenue & expenses','Account Balances','Transaction ledgers']);
+setWF(70,'Team and inventory reports',['Team rankings','Team member report','Team settlement history','Chip inventory','CHIP FLOW RECONCILIATION','CHIP INVENTORY VARIANCE','Food & beverage inventory']);
+setWF(71,'Export and share reports',['Choose report','Format and range','Export preview']);
+setWF(38,'Review chip controls: chip flow and chip inventory',['Chip controls','CHIP FLOW RECONCILIATION','CHIP INVENTORY VARIANCE']);
+(function(){var w=WORKFLOWS.find(function(x){return x.id===40;});if(w){w.steps=['Start close','Close checklist','Close requirements'];}
+ var m={44:['Account Balances','CHIP FLOW RECONCILIATION','CHIP INVENTORY VARIANCE'],45:['Close exceptions','Variance explanation','Owner acknowledgements'],46:['Final close review','Owner confirmation','Locked state preview'],47:['Final Session Summary','Chip reports (final)','Permanent record']};
+ Object.keys(m).forEach(function(k){var x=WORKFLOWS.find(function(y){return y.id===+k;});if(x)x.steps=m[k];});})();
+/* re-render all report bodies from state (keeps selects/search focus by skipping the element being edited) */
+function rerender(skip){document.querySelectorAll('[data-rp]').forEach(function(el){if(el===skip)return;var d=fn({id:+el.dataset.rp.split(':')[0]},+el.dataset.rp.split(':')[1]);if(d)el.innerHTML=d.f();});}
+/* window capture: runs before the studio's document-level route handler, which stops propagation for data-rn-route elements */
+window.addEventListener('click',function(ev){
+ var t=ev.target.closest&&ev.target.closest('[data-rp-sel]');
+ if(t){var p=t.dataset.rpSel.split(':'),k=p[0],v=p[1];if(k==='sess'||k==='psess'||k==='chipsess')v=+v;ST[k]=v;if(k==='sess')ST.chipsess=v;if(k==='chipsess')ST.sess=v;rerender();}
+ var sg=ev.target.closest&&ev.target.closest('[data-rp-seg]');
+ if(sg){var q=sg.dataset.rpSeg.split(':');ST[q[0]]=q[1];rerender();}
+ var op=ev.target.closest&&ev.target.closest('[data-rp-open]');
+ if(op){var d=op.closest('details');var which=op.dataset.rpOpen;var ph=op.closest('.phone');var tgt=[].slice.call(ph.querySelectorAll('details.rp-d')).filter(function(x){return x.querySelector('summary span').textContent.trim()===(which==='flow'?'CHIP FLOW RECONCILIATION':'CHIP INVENTORY VARIANCE');})[0];if(tgt){tgt.open=true;tgt.scrollIntoView({block:'center'});}}
+ var dis=ev.target.closest&&ev.target.closest('[data-rp-gate="btn"][disabled]');if(dis){ev.preventDefault();ev.stopImmediatePropagation();}
+},true);
+document.addEventListener('change',function(ev){var e=ev.target;if(!e.matches)return;
+ if(e.matches('[data-rp-period]')){ST.period=e.value;rerender();}
+ else if(e.matches('[data-rp-gt]')){ST.gt=e.value;rerender();}
+ else if(e.matches('[data-rp-sort]')){ST.sort=e.value;rerender();}
+ else if(e.matches('[data-rp-trank]')){ST.trank=e.value;rerender();}
+ else if(e.matches('[data-rp-led]')){ST.led=e.value;rerender();}
+});
+document.addEventListener('input',function(ev){var e=ev.target;if(!e.matches)return;
+ if(e.matches('[data-rp-q]')){ST.q=e.value;var l=e.closest('.rp-body').querySelector('[data-rp-ledger]');if(l)l.innerHTML=ledgerList();}
+ else if(e.matches('[data-rp-expl]')){explSet(e.value);var g=e.closest('.rp-body').querySelector('[data-rp-gate="expl"]');if(g)g.textContent=explOk()?'Recorded by Mike (Owner) · saved for the final record':'Not recorded yet · at least 10 characters';rerender(e.closest('.rp-body'));}
+});
+/* studio-only switch for the physical chip count state (Daily Close) */
+function bar(){var on=/workflow-(4[0-7]|38)\b/.test(location.hash);var o=document.querySelector('.rp-preview');if(!on){if(o)o.remove();return;}if(o)return;var lab=document.querySelector('.sectionlabel');if(!lab)return;var cur=pv().count;
+ var d=document.createElement('div');d.className='rp-preview';d.innerHTML='<b>Studio preview only · physical chip count:</b><button type="button" data-rp-pv="counted" class="'+(cur==='counted'?'on':'')+'">Count confirmed</button><button type="button" data-rp-pv="pending" class="'+(cur==='pending'?'on':'')+'">Not counted (PENDING)</button>';lab.parentNode.insertBefore(d,lab);
+ d.addEventListener('click',function(ev){var b=ev.target.closest('[data-rp-pv]');if(!b)return;try{localStorage.setItem('nora.preview.close',JSON.stringify({count:b.dataset.rpPv}));}catch(e){}location.reload();});}
+new MutationObserver(function(){bar();}).observe(document.body,{childList:true,subtree:true});bar();
+window.NORA_REPORTS={S:S,flowVar:flowVar,invVar:invVar,net:net,rev:rev,exp:exp,ST:ST,P:P,TMB:TMB,life:life,tmLife:tmLife,closeInfo:closeInfo,M:M};
+try{if(typeof show==='function'&&typeof current!=='undefined'&&[32,38,40,41,42,43,44,45,46,47,67,68,69,70,71].indexOf(current)>-1)show(current);}catch(e){console.error(e);}
 })();
 </script>
 </body></html>
