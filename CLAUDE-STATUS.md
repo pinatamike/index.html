@@ -22,12 +22,12 @@ After **every substantive answer to Mike** (including readiness, test results, i
 
 ### Message template
 
-**Updated (Bogotá time):** 2026-11-08 12:00  
-**Current task:** Brief (c) Settings + onboarding + 4 Rewards programs: DONE on branch nora-settings-20261107 (backup backup-before-settings-20261107 = 07f5063). All three queued briefs complete.  
-**State:** Complete (awaiting Mike review; nothing merged or deployed)  
-**Latest Claude response:** Settings has 8 modules (GAME, INVITATIONS, PLAYERS, TEAM, ACCOUNTS, EXPENSES, INVENTORY, REWARDS) and a 6-icon bar (MORE = Expenses/Inventory/Rewards); GAME OWNERS labels; no table count; avatar opens My Account (WF84); WF59 voice+touch onboarding with 5 fields; new WF78-85 incl. 4 independent Rewards programs and Rakeback settlement. Tests: settings 41/41, team 25/25, reports 48/48, nav 101/101, design 19/19, wf48sweep 32/32. Open: example figures in WF83, rules marked pending owner approval, WF60 step 8 overflow (pre-existing).  
+**Updated (Bogotá time):** 2026-11-08 18:00  
+**Current task:** Final cleanup sweep: DONE on branch nora-cleanup-20261108 (backup backup-before-cleanup-20261108 = 8b3978b). Nothing merged or deployed.  
+**State:** Complete (awaiting Mike review)  
+**Latest Claude response:** WF54 REWARDS tab now links to WF82 (enabled programs only); rewards accounting block on Snapshot/Expenses, Daily Close, Final Summary, Reports (counted once, all 0 = none recorded); WF60 Invitations split into two screens (now 9 steps); required vs optional setup progress; Game Owner / Primary Game Owner wording; WF83 shows NOT SET, one labelled example. All suites pass, 85/85 workflows open.  
 **Changed UI files:** index.html (+ qa suites, HANDOFF.md)  
-**UI commit SHA:** 047f360ee8b61f07dcba511fd5fb1e96198d0df7  
+**UI commit SHA:** 74c4a1a10a6a8bcf20f980bdd70c6c3e8bf317c7  
 **Preview:** https://raw.githack.com/pinatamike/index.html/047f360ee8b61f07dcba511fd5fb1e96198d0df7/index.html#workflow-60 (not reachable from this PC; checked locally)
 
 ## History
