@@ -33,12 +33,12 @@ After **every substantive answer to Mike** (including readiness, test results, i
 
 ## Latest status
 
-**Updated (Bogotá time):** 2026-11-07 14:05  
-**Current task:** Batch 1 follow-up (done) + Batch 2 (done): terminology, WF19-24 team redesign, WF54 profile/rewards, icons, thumbnails. Work is on separate branches; the owner draft is untouched.  
-**State:** Complete, awaiting Mike review. NOT approved. Three new briefs (Reports + chip accounting, TEAM main tab, Settings + onboarding) are queued and NOT started.  
-**Branches:** backup-before-batch1-20261107 (3e84dcf) · nora-batch1-20261107 (UI 09fad90) · backup-before-batch2-20261107 (1798592) · nora-batch2-20261107.  
-**Testing:** PASS: qa/test-batch2 35/35, qa/test-batch1 39/39, navigation 87/87 (300 screens, 289 drawers, all 71 workflows), design 19/19, WF48 suites 32+76+41+28. UNVERIFIED: raw.githack from this PC, real touch devices, rewards program definitions (repo defines none).  
-**Needs Mike:** (1) review previews; (2) define the real rewards programs (the repo has only an on/off module); (3) confirm the three queued briefs should run in the order sent.
+**Updated (Bogotá time):** 2026-11-07 18:00  
+**Current task:** Brief (a) Reports redesign + chip accounting: DONE on branch. Brief (b) TEAM main tab starting next, then (c) Settings + onboarding (with 4 Rewards programs incl. Rakeback, Team quick-fix and Team terminology WORKING/FINISHED).  
+**State:** (a) complete, awaiting Mike review. NOT approved.  
+**Branches:** backup-before-reports-20261107 (6be6947) · nora-reports-20261107 (UI 878929d).  
+**Testing:** PASS test-reports 48/48, batch1 39/39, batch2 35/35, nav 87/87, design 19/19, WF48 suites. UNVERIFIED: raw.githack from this PC, real touch devices.  
+**Needs Mike:** review (a) preview.
 
 ### Part B audit — findings ledger
 **Fixed: items 1-3 (UI `4fa4a5f`), 4-5 and 10 (`47f8e88`), Screen 1 alignment 12 (`a7235bb`), and 6, 7, 8, 9, 11 in the global sweep (UI `bef0258`, branch `nora-global-sweep-20261107`). Nothing from this ledger is open any more.**
