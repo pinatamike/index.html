@@ -39,7 +39,7 @@ await go(67);
 const stages = {}; for (const w of [67, 68, 69, 70, 71, 32, 38, 40, 41, 44, 45, 46, 47]) { await go(w); stages[w] = await ev(`document.querySelectorAll('.storyboard>.stage').length`); }
 check('2. WF67-71 step counts (4, 4, 4, 7, 3) and every screen sits inside the storyboard swipe row (WF41/WF44 stray-tag repair included)', stages[67] === 4 && stages[68] === 4 && stages[69] === 4 && stages[70] === 7 && stages[71] === 3 && stages[41] === 3 && stages[44] === 3 && stages[38] === 3 && stages[40] === 3 && stages[45] === 3 && stages[46] === 3 && stages[47] === 3, JSON.stringify(stages));
 const nav71 = await J(`return {n:WORKFLOWS.length,missing:[...Array(71).keys()].map(i=>i+1).filter(i=>!WORKFLOWS.find(w=>w.id===i))}`);
-check('3. all 71 original workflows still exist and none were renumbered', nav71.n === 71 && nav71.missing.length === 0, JSON.stringify(nav71));
+check('3. all 71 original workflows still exist and none were renumbered (WF72-77 added by the TEAM batch)', nav71.n === 77 && nav71.missing.length === 0, JSON.stringify(nav71));
 
 // ---- 4. Overview accounting ----
 await go(67);
@@ -100,7 +100,7 @@ const pp = await J(`const b=${S(1)}.querySelector('.rp-body');return {t:b.innerT
 check('8d. player report: sessions, hours, buy-ins/rebuys, cash-outs, net, average per session, win/loss chart, session history', /TOTAL SESSIONS/.test(pp.t) && /TOTAL HOURS/.test(pp.t) && /BUY-INS \/ REBUYS/.test(pp.t) && /CASH-OUTS/.test(pp.t) && /NET WIN \/ LOSS/.test(pp.t) && /AVG PER SESSION/.test(pp.t) && pp.svg && pp.n >= 2 && pp.ph[0] >= 98 && pp.ph[1] >= 121, pp.t.slice(0, 120));
 await go(70);
 const tr = await J(`const sel=${S(0)}.querySelector('[data-rp-trank]');return [...sel.options].map(o=>o.text)`);
-check('9a. Team rankings offer the five approved rankings', tr.join('|') === 'Most Hours|Most Games / Shifts|Most Tips|Highest Base Compensation|Highest Total Compensation', tr.join('|'));
+check('9a. Team rankings offer the five approved rankings', tr.join('|') === 'Most Hours|Most Sessions Worked|Most Tips|Highest Base Compensation|Highest Total Compensation', tr.join('|'));
 const trk = await J(`const R=${R};R.ST.period='life';const o={};for(const k of ['hours','games','tips','base','total']){}return R.TMB.map(m=>[m.n,R.tmLife(m)])`);
 const tl = Object.fromEntries(trk.map(x => [x[0], x[1]]));
 check('9b. team ranking maths: total = base + tips; advances and payments are not earnings; Anna 22h30m, base 550,000, tips 80,000, total 630,000', trk.every(x => x[1].total === x[1].base + x[1].tips) && tl.Anna.min === 1350 && tl.Anna.base === 550000 && tl.Anna.tips === 80000 && tl.Anna.total === 630000 && tl.Costa.bal === 120000 && tl.Anna.bal === 0 && tl.Alex.bal === 0, JSON.stringify(tl.Anna));
@@ -109,7 +109,7 @@ const tt = await J(`return [...${S(0)}.querySelectorAll('.rp-rr b')].map(b=>b.te
 check('9c. selecting Most Tips re-sorts the ranking (Anna, Costa, Alex)', tt.join('|') === 'Anna · Dealer|Costa · Host|Alex · Cashier', tt.join('|'));
 await ev(`${S(0)}.querySelectorAll('.rp-pt')[1].click()`); await sleep(500);
 const tm = await txt(1);
-check('9d. individual team report: hours, shifts, base, tips, total, advances, payments, outstanding balance, shift history', /HOURS WORKED/.test(tm) && /GAMES \/ SHIFTS/.test(tm) && /Total compensation earned/.test(tm) && /Advances/.test(tm) && /Payments received/.test(tm) && /Outstanding balance/.test(tm) && /SHIFT BY SHIFT/.test(tm), tm.slice(0, 140));
+check('9d. individual team report: hours, sessions worked, base, tips, total, advances, payments, outstanding balance, session history', /HOURS WORKED/.test(tm) && /SESSIONS WORKED/.test(tm) && /Total compensation earned/.test(tm) && /Advances/.test(tm) && /Payments received/.test(tm) && /Outstanding balance/.test(tm) && /SESSION BY SESSION/.test(tm), tm.slice(0, 140));
 const sh = await J(`return ${S(2)}.querySelector('.rp-body').textContent.replace(/\\s+/g,' ')`);
 check('9e. settlement history rows: checkout date, hours, compensation, tips, advances, paid, balance, method, status; Costa Oct 25 is OWED COP 120,000', /Checkout date/.test(sh) && /Prior advances/.test(sh) && /Remaining balance/.test(sh) && /Payment method/.test(sh) && /Settlement status/.test(sh) && /OWED/.test(sh) && /PAID/.test(sh), sh.slice(0, 120));
 

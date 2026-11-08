@@ -155,3 +155,10 @@ Update "Current state" and "Open / next" only if your work changes them.
 - Terminology: VENUE removed (RENT for expenses, LOCATION / "At the game" elsewhere).
 - Fixed a defect already in the app: WF41 s0 and WF44 s0 markup had a stray closing div that pushed later steps out of the swipe row (fixStray in the block).
 - Rebuild helper lives outside the repo; tests: node qa/test-reports.mjs index.html (48 checks).
+
+### 2026-11-07 · Claude Code · BRIEF (b) TEAM MAIN TAB + TEAM TERMINOLOGY (branch `nora-team-20261107`, backup `backup-before-team-20261107` = fa1b7d7)
+- New TEAM main-tab workflows WF72-77 (main "Team", sub "Team Management"): 72 Team Overview (2 steps), 73 Add Team Member (5), 74 Team Member Profile (2), 75 Edit Team Member (3), 76 Team History / Team Sessions (3), 77 Team Access & Permissions (5; role rows, preset toggles and invitation states mirror the Settings WF63/WF66 wording). Header label TEAM, no bottom bar, hamburger Team section home = 72:0. WF19-24 stay LIVE GAME > Team (not moved, not duplicated); Reports > Team stays WF70. Studio index/counters now 77 workflows.
+- Team terminology: Live Game Team dashboard has only two statuses, WORKING and FINISHED (ASSIGNED / EXPECTED / AVAILABLE labels removed; members not yet checked in show no status). Start Shift -> Check In, End Shift -> Check Out, On Shift -> WORKING, Shift History -> Team Sessions, Hours on Shift -> Hours Worked, Shifts Completed -> Sessions Worked; no "Shift" left in UI. Checkout is not payment: Earned / Paid / Outstanding stay separate. No financial logic or historical figures changed.
+- Quick fix: initials no longer overlap names/status, thumbnails use object-fit cover, same frame height per workflow, 12-tile screens keep photos >= 98x121.
+- Sample data only: WF72-77 reuse the WF24 / Reports team sample (Anna, Costa, Alex, Oct 25/18/11/4). Nico (new member) and phone numbers are placeholders. Pay amounts are not invented; rates reuse the existing COP 150,000 per session sample.
+- QA: node qa/test-team.mjs index.html (25 checks). Older suites updated for the approved wording (test-batch2, test-reports, test-nav count 77).

@@ -3025,21 +3025,21 @@ window.NORA_TEAM2=(function(){
  function n(v){return Number(v).toLocaleString('en-US');}
  function money(v){return '<i class="b1-cop">COP</i>'+n(v);}
  function face(name){var p=H.LP&&H.LP[name];return '<span class="b2-face">'+(p?'<img alt="'+esc(name)+'" src="'+p+'">':'<span class="b2-ini">'+esc(name.charAt(0))+'</span>')+'</span>';}
- var STAT={on:'ON SHIFT',asg:'ASSIGNED',out:'CHECKED OUT',off:'AVAILABLE'};
+ var STAT={on:'WORKING',asg:'',out:'FINISHED',off:''};
  function tile(name,st,time,route){
-  return '<div class="b2-tm '+st+'" role="button" tabindex="0" data-rn-route="'+route+'">'+face(name)+'<span class="b2-st">'+STAT[st]+'</span><span class="b2-nm">'+esc(name)+'</span><span class="b2-rl">'+esc(M[name].role)+'</span>'+(time?'<span class="b2-tt">'+time+'</span>':'')+'</div>';}
+  return '<div class="b2-tm '+st+'" role="button" tabindex="0" data-rn-route="'+route+'">'+face(name)+(STAT[st]?'<span class="b2-st">'+STAT[st]+'</span>':'')+'<span class="b2-nm">'+esc(name)+'</span><span class="b2-rl">'+esc(M[name].role)+'</span>'+(time?'<span class="b2-tt">'+time+'</span>':'')+'</div>';}
  function overview(id,state){ // state: pre | assigned | checkedin | closed
   var s={Costa:['on','7:10 PM'],Alex:['on','7:00 PM'],Anna:['off',''],Maya:['off',''],Luis:['off',''],Sofia:['off','']};
-  if(state==='assigned')s.Anna=['asg','7:00 PM'];
+  if(state==='assigned')s.Anna=['off',''];
   if(state==='checkedin')s.Anna=['on','7:00 PM'];
   if(state==='closed')s.Anna=['out','12:30 AM'];
   var on=0,asg=0,out=0;Object.keys(s).forEach(function(k){if(s[k][0]==='on')on++;if(s[k][0]==='asg')asg++;if(s[k][0]==='out')out++;});
   var order=['Anna','Costa','Alex','Maya','Luis','Sofia'];
-  return '<div class="b2-wrap"><div class="b2-stats"><div class="b2-stat on"><b>'+on+'</b><span>ON SHIFT</span></div><div class="b2-stat asg"><b>'+asg+'</b><span>ASSIGNED</span></div><div class="b2-stat out"><b>'+out+'</b><span>FINISHED</span></div></div>'
+  return '<div class="b2-wrap"><div class="b2-stats"><div class="b2-stat on"><b>'+on+'</b><span>WORKING</span></div><div class="b2-stat out"><b>'+out+'</b><span>FINISHED</span></div></div>'
    +'<div class="b2-grid">'+order.map(function(k){return tile(k,s[k][0],s[k][1],id+':1');}).join('')+'</div>'
-   +'<div class="screen-button blue b2-btn" role="button" tabindex="0" data-rn-route="19:1">'+H.ic('userplus')+'ASSIGN TEAM</div></div>';}
+   +'<div class="screen-button blue b2-btn" role="button" tabindex="0" data-rn-route="19:1">'+H.ic('userplus')+'ADD TO GAME</div></div>';}
  function idCard(name,o){
-  var m=M[name];return '<div class="b2-id"><div class="b2-photo">'+face(name)+'</div><div class="b2-idt"><b class="b2-n">'+esc(name)+'</b><span class="b2-r">'+esc(o.line||m.role+' · '+m.table)+'</span><em class="b2-chip '+o.cls+'">'+esc(o.status)+'</em>'+(o.k?'<small>'+o.k+'</small><strong>'+o.v+'</strong>':'')+'</div></div>';}
+  var m=M[name];return '<div class="b2-id"><div class="b2-photo">'+face(name)+'</div><div class="b2-idt"><b class="b2-n">'+esc(name)+'</b><span class="b2-r">'+esc(o.line||m.role+' · '+m.table)+'</span>'+(o.status?'<em class="b2-chip '+o.cls+'">'+esc(o.status)+'</em>':'')+(o.k?'<small>'+o.k+'</small><strong>'+o.v+'</strong>':'')+'</div></div>';}
  function row(k,v,cls){return '<div class="b2-row '+(cls||'')+'"><span>'+k+'</span><b>'+v+'</b></div>';}
  function sel(label,opts,cur,rate){
   var o=JSON.stringify(opts.map(function(x){return typeof x==='string'?{l:x}:x;}));
@@ -3061,76 +3061,131 @@ window.NORA_TEAM2=(function(){
   if(id===19){
    if(i===0)return overview(19,'pre');
    if(i===1)return select12();
-   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{status:'NOT ASSIGNED YET',cls:'off',line:'Dealer',k:'TONIGHT',v:'Sunday Hold’em'})
+   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{line:'Dealer',k:'TONIGHT',v:'Sunday Hold’em'})
     +'<div class="b2-two">'+sel('ROLE',['Dealer','Host','Cashier','Waitress','Chef'],0)+sel('TABLE',['Table 1','Table 2','Cash desk','All tables'],0)+'</div>'
-    +sel('PAY ARRANGEMENT',[{l:'Fixed shift pay',s:'From staff profile',r:'COP 150,000 per shift'},{l:'Hourly pay',s:'Owner sets rate',r:'Hourly rate set by owner'},{l:'Custom shift pay',s:'Owner sets amount',r:'Amount set by owner per shift'}],0,'#b2rate')
-    +'<div class="b2-note"><b id="b2rate">COP 150,000 per shift</b><span>Assigning does not check in or pay anyone.</span></div>'
-    +btn('ASSIGN ANNA','19:3')+'</div>';
-   return '<div class="b2-wrap b2-conf">'+hero('ANNA ASSIGNED','Successfully posted by Nora')+idCard('Anna',{status:'ASSIGNED · NOT CHECKED IN',cls:'asg'})
-    +'<div class="b2-rows">'+row('PAY ARRANGEMENT','Fixed shift pay · '+money(A.earn),'stack')+row('TEAM TONIGHT','2 on shift · 1 assigned','stack')+'</div>'
+    +sel('PAY ARRANGEMENT',[{l:'Fixed pay per session',s:'From staff profile',r:'COP 150,000 per session'},{l:'Hourly pay',s:'Owner sets rate',r:'Hourly rate set by owner'},{l:'Custom pay per session',s:'Owner sets amount',r:'Amount set by owner per session'}],0,'#b2rate')
+    +'<div class="b2-note"><b id="b2rate">COP 150,000 per session</b><span>Adding to the game does not check in or pay anyone.</span></div>'
+    +btn('ADD ANNA TO GAME','19:3')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('ANNA ADDED','Successfully posted by Nora')+idCard('Anna',{})
+    +'<div class="b2-rows">'+row('PAY ARRANGEMENT','Fixed pay per session','stack')+row('TEAM TONIGHT','2 working','stack')+'</div>'
     +btn('BACK TO TEAM','20:0','blue')+'</div>';
   }
   /* ---------- WF20 Check-in / start shift ---------- */
   if(id===20){
    if(i===0)return overview(20,'assigned');
-   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'ASSIGNED · NOT CHECKED IN',cls:'asg',k:'SCHEDULED START',v:'7:00 PM'})
-    +'<div class="b2-rows">'+row('PAY TYPE','Fixed shift pay')+row('PAY PER SHIFT',money(A.earn))+row('HOURS TODAY','0h 00m')+row('EARNED SO FAR',money(0))+'</div>'+btn('CHECK IN','20:2')+'</div>';
-   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{status:'ASSIGNED · NOT CHECKED IN',cls:'asg'})
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{k:'SCHEDULED CHECK-IN',v:'7:00 PM'})
+    +'<div class="b2-rows">'+row('PAY TYPE','Fixed pay per session')+row('PAY PER SESSION',money(A.earn))+row('HOURS TODAY','0h 00m')+row('EARNED SO FAR',money(0))+'</div>'+btn('CHECK IN','20:2')+'</div>';
+   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{})
     +'<div class="b2-two">'+sel('ROLE',['Dealer','Host','Cashier','Waitress','Chef'],0)+sel('TABLE',['Table 1','Table 2','Cash desk'],0)+'</div>'
     +sel('START TIME',['7:00 PM','Now','7:15 PM','7:30 PM'],0)
-    +'<div class="b2-note"><b>Check-in starts the shift clock</b><span>Anna counts as ON SHIFT and earns from this time. Nothing is paid by checking in.</span></div>'
+    +'<div class="b2-note"><b>Check-in starts the hours clock</b><span>Anna counts as WORKING and earns from this time. Nothing is paid by checking in.</span></div>'
     +btn('CHECK IN ANNA','20:3')+'</div>';
-   return '<div class="b2-wrap b2-conf">'+hero('ANNA CHECKED IN','Successfully posted by Nora')+idCard('Anna',{status:'ON SHIFT',cls:'on',k:'SHIFT STARTED',v:'7:00 PM'})
-    +'<div class="b2-rows">'+row('TEAM TONIGHT','3 on shift · 0 assigned')+row('POSTED BY','Alex · 7:00 PM')+'</div>'+btn('BACK TO TEAM','21:0','blue')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('ANNA CHECKED IN','Successfully posted by Nora')+idCard('Anna',{status:'WORKING',cls:'on',k:'CHECKED IN AT',v:'7:00 PM'})
+    +'<div class="b2-rows">'+row('TEAM TONIGHT','3 working')+row('POSTED BY','Alex · 7:00 PM')+'</div>'+btn('BACK TO TEAM','21:0','blue')+'</div>';
   }
   /* ---------- WF21 Chip tips ---------- */
   if(id===21){
    if(i===0)return overview(21,'checkedin');
-   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'ON SHIFT',cls:'on',k:'SHIFT START',v:'7:00 PM'})
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'WORKING',cls:'on',k:'CHECK-IN TIME',v:'7:00 PM'})
     +'<div class="b2-rows">'+row('HOURS TONIGHT','5h 30m')+row('COMPENSATION EARNED',money(A.earn))+row('CHIP TIPS TONIGHT',money(0))+'</div>'+btn('RECORD CHIP TIP','21:2')+'</div>';
-   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{status:'ON SHIFT',cls:'on'})+amount('TIP AMOUNT',A.tips)+sel('SOURCE',['Table tips · Chips','Cashbox tip jar'],0)
+   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{status:'WORKING',cls:'on'})+amount('TIP AMOUNT',A.tips)+sel('SOURCE',['Table tips · Chips','Cashbox tip jar'],0)
     +'<div class="b2-note"><b>Chip tips</b><span>Posted to Anna’s record and tracked separately from her compensation.</span></div>'+btn('POST CHIP TIP','21:3')+'</div>';
-   return '<div class="b2-wrap b2-conf">'+hero('CHIP TIP POSTED','Successfully posted by Nora')+idCard('Anna',{status:'ON SHIFT',cls:'on'})
+   return '<div class="b2-wrap b2-conf">'+hero('CHIP TIP POSTED','Successfully posted by Nora')+idCard('Anna',{status:'WORKING',cls:'on'})
     +'<div class="b2-rows">'+row('TIP POSTED',money(A.tips)+' · Chips')+row('ANNA’S TIPS TONIGHT',money(A.tips))+row('POSTED BY','Alex · 11:10 PM')+'</div>'+btn('BACK TO TEAM','22:0','blue')+'</div>';
   }
   /* ---------- WF22 Payments / advances ---------- */
   if(id===22){
    if(i===0)return overview(22,'checkedin');
-   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'ON SHIFT',cls:'on',k:'EARNED SO FAR',v:money(A.earn)})
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'WORKING',cls:'on',k:'EARNED SO FAR',v:money(A.earn)})
     +'<div class="b2-rows">'+row('COMPENSATION EARNED',money(A.earn))+row('CHIP TIPS',money(A.tips))+row('ADVANCES PAID',money(0))+row('BALANCE',money(A.earn))+'</div>'+btn('RECORD PAYMENT / ADVANCE','22:2')+'</div>';
-   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{status:'ON SHIFT',cls:'on'})+'<div class="b2-two">'+sel('TYPE',['Advance','Payment'],0)+sel('ACCOUNT',['Cashbox','Nequi','Bancolombia'],0)+'</div>'+amount('AMOUNT',A.adv)
-    +'<div class="b2-note"><b>An advance is not a checkout</b><span>It reduces Anna’s balance. The shift stays open.</span></div>'+btn('POST ADVANCE','22:3')+'</div>';
-   return '<div class="b2-wrap b2-conf">'+hero('ADVANCE POSTED','Successfully posted by Nora')+idCard('Anna',{status:'ON SHIFT',cls:'on'})
+   if(i===2)return '<div class="b2-wrap">'+idCard('Anna',{status:'WORKING',cls:'on'})+'<div class="b2-two">'+sel('TYPE',['Advance','Payment'],0)+sel('ACCOUNT',['Cashbox','Nequi','Bancolombia'],0)+'</div>'+amount('AMOUNT',A.adv)
+    +'<div class="b2-note"><b>An advance is not a checkout</b><span>It reduces Anna’s balance. Anna stays checked in.</span></div>'+btn('POST ADVANCE','22:3')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('ADVANCE POSTED','Successfully posted by Nora')+idCard('Anna',{status:'WORKING',cls:'on'})
     +'<div class="b2-rows">'+row('ADVANCE',money(A.adv)+' · Cashbox')+row('BALANCE AFTER ADVANCE',money(A.earn-A.adv))+row('POSTED BY','Alex · 8:30 PM')+'</div>'+btn('BACK TO TEAM','23:0','blue')+'</div>';
   }
   /* ---------- WF23 Checkout / end shift ---------- */
   if(id===23){
    var total=A.earn+A.tips,paid=A.adv+A.tips,bal=total-paid;
    if(i===0)return overview(23,'checkedin');
-   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'ON SHIFT',cls:'on',k:'HOURS WORKED',v:'5h 30m'})
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'WORKING',cls:'on',k:'HOURS WORKED',v:'5h 30m'})
     +'<div class="b2-rows">'+row('COMPENSATION EARNED',money(A.earn))+row('TIPS EARNED',money(A.tips))+row('ADVANCES PAID',money(A.adv))+row('BALANCE TO PAY',money(bal))+'</div>'+btn('CHECK OUT','23:2')+'</div>';
-   if(i===2)return '<div class="b2-wrap b2-tight">'+idCard('Anna',{status:'ON SHIFT',cls:'on',line:'Dealer · 5h 30m',k:'7:00 PM – 12:30 AM',v:'Fixed shift pay'})
+   if(i===2)return '<div class="b2-wrap b2-tight">'+idCard('Anna',{status:'WORKING',cls:'on',line:'Dealer · 5h 30m',k:'7:00 PM – 12:30 AM',v:'Fixed pay per session'})
     +'<div class="b2-rows b2-math">'+row('COMPENSATION',money(A.earn))+row('TIPS',money(A.tips))+row('TOTAL DUE',money(total),'tot')+row('PAID BEFORE','&minus;'+money(paid))+row('BALANCE TO PAY',money(bal),'tot')+'</div>'
-    +sel('PAY NOW · Cashbox',[{l:'COP '+n(bal),s:'Pay full balance'},{l:'COP 0',s:'Close shift · unpaid stays outstanding'}],0)
+    +sel('PAY NOW · Cashbox',[{l:'COP '+n(bal),s:'Pay full balance'},{l:'COP 0',s:'Check out · unpaid stays outstanding'}],0)
     +btn('CONFIRM CHECKOUT','23:3')+'</div>';
-   return '<div class="b2-wrap b2-conf">'+hero('SHIFT CLOSED','Successfully posted by Nora')+idCard('Anna',{status:'CHECKED OUT 12:30 AM',cls:'out'})
-    +'<div class="b2-rows">'+row('PAID · CASHBOX',money(bal))+row('OUTSTANDING',money(0),'ok')+row('SHIFT · BALANCE','CLOSED · PAID')+'</div>'+btn('BACK TO TEAM','24:0','blue')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('CHECKED OUT','Successfully posted by Nora')+idCard('Anna',{status:'FINISHED · CHECKED OUT 12:30 AM',cls:'out'})
+    +'<div class="b2-rows">'+row('PAID · CASHBOX',money(bal))+row('OUTSTANDING',money(0),'ok')+row('STATUS · BALANCE','FINISHED · PAID')+'</div>'+btn('BACK TO TEAM','24:0','blue')+'</div>';
   }
   /* ---------- WF24 Earnings and balances ---------- */
   if(id===24){
    if(i===0)return overview(24,'closed');
-   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'CHECKED OUT',cls:'out',k:'HOURS WORKED',v:'5h 30m'})
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{status:'FINISHED',cls:'out',k:'HOURS WORKED',v:'5h 30m'})
     +'<div class="b2-rows">'+row('COMPENSATION EARNED',money(A.earn))+row('TIPS EARNED',money(A.tips))+row('PAID (ADVANCE + CHECKOUT)',money(150000))+row('OUTSTANDING',money(0),'ok')+'</div>'+btn('TEAM EARNINGS','24:2')+'</div>';
-   var L=[['Anna','CHECKED OUT',A.earn,A.tips,150000,0],['Costa','ON SHIFT',120000,10000,0,120000],['Alex','ON SHIFT',90000,5000,90000,0]];
+   var L=[['Anna','FINISHED',A.earn,A.tips,150000,0],['Costa','WORKING',120000,10000,0,120000],['Alex','WORKING',90000,5000,90000,0]];
    return '<div class="b2-wrap b2-led">'+L.map(function(r){return '<div class="b2-lc"><div class="b2-lp">'+face(r[0])+'</div><div class="b2-lt"><b class="b2-n">'+r[0]+'</b><span class="b2-r">'+M[r[0]].role+' · 5h 30m</span>'
      +'<div class="b2-lr"><span>EARNED</span><b>'+money(r[2])+'</b></div><div class="b2-lr"><span>PAID</span><b>'+money(r[4])+'</b></div><div class="b2-lr '+(r[5]?'bad':'ok')+'"><span>UNPAID</span><b>'+money(r[5])+'</b></div></div></div>';}).join('')
     +'<div class="b2-tot"><span>TOTAL EARNED</span><b>'+money(360000)+'</b><span>OUTSTANDING</span><b class="bad">'+money(120000)+'</b></div></div>';
   }
   return null;}
- return {render:render,M:M};
+ /* ===== TEAM main tab (WF72-77). Sample data only; nothing here is a live posting. ===== */
+ M.Nico={role:'Dealer',table:'Table 1'};
+ var ROSTER=['Anna','Costa','Alex','Maya','Luis','Sofia','Pablo','Lena','Tomas','Elena','Hugo','Carla'];
+ var TSESS=[['Oct 25',3,'16h 30m',360000,120000],['Oct 18',3,'18h 00m',340000,0],['Oct 11',2,'10h 00m',180000,0],['Oct 4',3,'17h 30m',350000,0]];
+ var AH=[['Oct 25','5h 30m',150000,100000+50000,0],['Oct 18','6h 00m',150000,150000,0],['Oct 11','5h 00m',100000,100000,0],['Oct 4','6h 00m',150000,150000,0]];
+ function mtile(k,route,stat){return '<div class="b2-tm pick m72'+(stat?' hs':'')+'" role="button" tabindex="0" data-rn-route="'+route+'">'+face(k)+(stat?'<span class="b2-st" style="display:block!important">'+stat+'</span>':'')+'<span class="b2-nm">'+esc(k)+'</span><span class="b2-rl">'+esc(M[k].role)+'</span></div>';}
+ function mstats(a,b){return '<div class="b2-stats"><div class="b2-stat"><b>'+a[0]+'</b><span>'+a[1]+'</span></div><div class="b2-stat"><b>'+b[0]+'</b><span>'+b[1]+'</span></div></div>';}
+ function txt(label,v){return '<div class="b2-fld"><span class="b2-k">'+label+'</span><div class="b2-amt b2-txt">'+esc(v)+'</div></div>';}
+ function tog(label,on){return '<div class="b2-tg'+(on?' on':'')+'" role="switch" aria-checked="'+(on?'true':'false')+'" tabindex="0"><span>'+label+'</span><i>'+(on?'ON':'OFF')+'</i></div>';}
+ function two(a,b){return '<div class="b2-two">'+a+b+'</div>';}
+ var ACCESS=['Dealer · Seating · table actions','Cashier · Buy-ins · cash-outs · expenses','Waitress / Bartender · Sales · comps','Chef · Food orders · counts','Partner · Everything · protected'];
+ var PAYS=[{l:'Fixed pay per session',s:'Owner sets amount',r:'COP 150,000 per session'},{l:'Hourly pay',s:'Owner sets rate',r:'Hourly rate set by owner'},{l:'Custom pay per session',s:'Owner sets amount',r:'Amount set by owner per session'}];
+ function main(id,i){
+  var A=M.Anna;
+  /* ---- WF72 Team Overview ---- */
+  if(id===72){
+   if(i===0)return '<div class="b2-wrap"><div class="b2-grid b2-sel12">'+ROSTER.map(function(k){return mtile(k,'74:0');}).join('')+'</div>'+btn(H.ic('userplus')+'ADD TEAM MEMBER','73:0','blue')+'</div>';
+   return '<div class="b2-wrap">'+sel('ROLE',['All roles','Dealer','Host','Cashier','Waitress','Chef'],1)+'<div class="b2-grid b2-few">'+['Anna','Sofia','Pablo','Carla'].map(function(k){return mtile(k,'74:0');}).join('')+'</div>'+btn(H.ic('userplus')+'ADD TEAM MEMBER','73:0','blue')+'</div>';
+  }
+  /* ---- WF73 Add Team Member ---- */
+  if(id===73){
+   if(i===0)return '<div class="b2-wrap">'+txt('NAME','Nico')+sel('ROLE',['Dealer','Host','Cashier','Waitress','Chef'],0)+txt('PHONE (WHATSAPP)','+57 300 000 0000')+'<div class="b2-note"><b>Member details</b><span>Name and role are required. Phone is used only to send an invitation.</span></div><div class="b2-fill"></div>'+btn('CONTINUE','73:1','green')+'</div>';
+   if(i===1)return '<div class="b2-wrap"><div class="b2-bigph">'+face('Nico')+'</div>'+two(btn('TAKE PHOTO','73:2','blue'),btn('UPLOAD','73:2','blue'))+'<div class="b2-note"><b>Photo is optional</b><span>Without a photo the tile shows Nico’s initial. A photo can be added later.</span></div><div class="b2-fill"></div>'+btn('CONTINUE','73:2','green')+'</div>';
+   if(i===2)return '<div class="b2-wrap">'+idCard('Nico',{line:'Dealer'})+sel('PAY ARRANGEMENT',PAYS,0,'#b2rate73')+'<div class="b2-note"><b id="b2rate73">COP 150,000 per session</b><span>Adding a member does not check in or pay anyone.</span></div><div class="b2-fill"></div>'+btn('CONTINUE','73:3','green')+'</div>';
+   if(i===3)return '<div class="b2-wrap">'+idCard('Nico',{line:'Dealer'})+sel('ACCESS LEVEL',ACCESS,0)+sel('INVITATION',['Send WhatsApp invitation','Add without invitation'],0)+'<div class="b2-note"><b>Access follows the role</b><span>Permissions are set by role in Team Access &amp; Permissions.</span></div><div class="b2-fill"></div>'+btn('ADD NICO','73:4','green')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('NICO ADDED','Successfully posted by Nora')+idCard('Nico',{line:'Dealer',status:'ACTIVE',cls:'on'})+'<div class="b2-rows">'+row('PAY ARRANGEMENT','Fixed pay per session')+row('ACCESS','Dealer')+row('INVITATION','Invitation sent')+row('POSTED BY','Mike · 7:00 PM')+'</div>'+btn('BACK TO TEAM','72:0','blue')+'</div>';
+  }
+  /* ---- WF74 Team Member Profile ---- */
+  if(id===74){
+   if(i===0)return '<div class="b2-wrap">'+idCard('Anna',{line:'Dealer',status:'ACTIVE',cls:'on'})+'<div class="b2-rows">'+row('SESSIONS WORKED','4')+row('HOURS WORKED','22h 30m')+row('COMPENSATION EARNED',money(550000))+row('TIPS EARNED',money(80000))+row('OUTSTANDING',money(0),'ok')+'</div>'+two(btn('TEAM HISTORY','76:0','blue'),btn('EDIT MEMBER','75:0','blue'))+'</div>';
+   return '<div class="b2-wrap">'+idCard('Anna',{line:'Dealer',status:'ACTIVE',cls:'on'})+'<div class="b2-rows">'+row('ROLE','Dealer')+row('PAY ARRANGEMENT','Fixed pay per session')+row('RATE',money(A.earn)+' / session')+row('ACCESS','Dealer')+row('INVITATION','Joined')+'</div>'+two(btn('EDIT MEMBER','75:0','blue'),btn('ACCESS','77:0','blue'))+'</div>';
+  }
+  /* ---- WF75 Edit Team Member ---- */
+  if(id===75){
+   if(i===0)return '<div class="b2-wrap">'+idCard('Anna',{line:'Dealer'})+txt('NAME','Anna')+sel('ROLE',['Dealer','Host','Cashier','Waitress','Chef'],0)+txt('PHONE (WHATSAPP)','+57 300 000 0001')+'<div class="b2-fill"></div>'+btn('CONTINUE','75:1','green')+'</div>';
+   if(i===1)return '<div class="b2-wrap">'+idCard('Anna',{line:'Dealer'})+sel('PAY ARRANGEMENT',PAYS,0,'#b2rate75')+'<div class="b2-note"><b id="b2rate75">COP 150,000 per session</b><span>Changes apply to future sessions. Past sessions keep the pay already recorded.</span></div>'+sel('ACCESS LEVEL',ACCESS,0)+'<div class="b2-fill"></div>'+btn('SAVE CHANGES','75:2','green')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('CHANGES SAVED','Successfully posted by Nora')+idCard('Anna',{line:'Dealer',status:'ACTIVE',cls:'on'})+'<div class="b2-rows">'+row('PAY ARRANGEMENT','Fixed pay per session')+row('ACCESS','Dealer')+row('PAST SESSIONS','Not changed','ok')+row('POSTED BY','Mike · 7:05 PM')+'</div>'+btn('BACK TO PROFILE','74:0','blue')+'</div>';
+  }
+  /* ---- WF76 Team History (Team Sessions) ---- */
+  if(id===76){
+   if(i===0)return '<div class="b2-wrap b2-hist"><div class="b2-k">TEAM SESSIONS</div>'+TSESS.map(function(r){return '<div class="b2-hs" role="button" tabindex="0" data-rn-route="76:'+(r[0]==='Oct 25'?1:0)+'"><b>'+r[0]+'</b><span>'+r[1]+' members · '+r[2]+'</span><div class="b2-lr"><span>EARNED</span><b>'+money(r[3])+'</b></div><div class="b2-lr '+(r[4]?'bad':'ok')+'"><span>OUTSTANDING</span><b>'+money(r[4])+'</b></div></div>';}).join('')+'</div>';
+   if(i===1){var L=[['Anna',150000,150000,0],['Costa',120000,0,120000],['Alex',90000,90000,0]];
+    return '<div class="b2-wrap b2-led"><div class="b2-k">TEAM SESSION · OCT 25 · 16h 30m</div>'+L.map(function(r){return '<div class="b2-lc" role="button" tabindex="0" data-rn-route="76:2"><div class="b2-lp">'+face(r[0])+'</div><div class="b2-lt"><b class="b2-n">'+r[0]+'</b><span class="b2-r">'+M[r[0]].role+' · 5h 30m</span><div class="b2-lr"><span>EARNED</span><b>'+money(r[1])+'</b></div><div class="b2-lr"><span>PAID</span><b>'+money(r[2])+'</b></div><div class="b2-lr '+(r[3]?'bad':'ok')+'"><span>OUTSTANDING</span><b>'+money(r[3])+'</b></div></div></div>';}).join('')+'<div class="b2-tot"><span>TOTAL EARNED</span><b>'+money(360000)+'</b><span>OUTSTANDING</span><b class="bad">'+money(120000)+'</b></div></div>';}
+   return '<div class="b2-wrap b2-hist">'+idCard('Anna',{line:'Dealer',k:'SESSIONS WORKED · HOURS WORKED',v:'4 · 22h 30m'})+AH.map(function(r){return '<div class="b2-hs"><b>'+r[0]+'</b><span>'+r[1]+' worked</span><div class="b2-lr"><span>EARNED</span><b>'+money(r[2])+'</b></div><div class="b2-lr"><span>PAID</span><b>'+money(r[3])+'</b></div></div>';}).join('')+'</div>';
+  }
+  /* ---- WF77 Team Access & Permissions (same rows/toggles as Settings roles + team invitations) ---- */
+  if(id===77){
+   if(i===0)return '<div class="b2-wrap"><div class="b2-rows b2-roles">'+row('Owner','Everything · protected','stack')+row('Partner','Everything · protected','stack')+row('Cashier','Buy-ins · cash-outs · expenses','stack')+row('Dealer','Seating · table actions','stack')+row('Waitress / Bartender','Sales · comps','stack')+row('Chef','Food orders · counts','stack')+'</div><div class="b2-note"><span>Roles can be combined, such as Dealer + Waitress. Only the owner can close a session permanently.</span></div><div class="b2-fill"></div>'+two(btn('PERMISSIONS','77:1','blue'),btn('INVITATIONS','77:2','blue'))+'</div>';
+   if(i===1)return '<div class="b2-wrap b2-perm">'+sel('ROLE PRESET',['Waitress / Bartender','Cashier','Dealer','Chef'],0)+'<div class="b2-tgrid">'+tog('Seating & tables',false)+tog('Buy-ins · cash-outs',false)+tog('Rake',false)+tog('Sales & comps',true)+tog('Price override',false)+tog('Inventory count',true)+tog('Expenses',false)+tog('Reports',false)+tog('Sign & Settle',false)+tog('Daily Close',false)+'</div><div class="b2-note"><span>Service access never grants reports.</span></div><div class="b2-fill"></div>'+btn('BACK TO ACCESS','77:0','blue')+'</div>';
+   if(i===2){var inv={Anna:'JOINED',Costa:'JOINED',Alex:'JOINED',Maya:'INVITED',Luis:'NO INVITE',Sofia:'NO INVITE',Pablo:'NO INVITE',Lena:'NO INVITE',Tomas:'NO INVITE',Elena:'NO INVITE',Hugo:'NO INVITE',Carla:'NO INVITE'};
+    return '<div class="b2-wrap"><div class="b2-grid b2-sel12">'+ROSTER.map(function(k){return mtile(k,'77:3',inv[k]);}).join('')+'</div>'+btn('INVITE TEAM MEMBER','77:3','blue')+'</div>';}
+   if(i===3)return '<div class="b2-wrap">'+idCard('Luis',{line:'Chef'})+sel('ACCESS LEVEL',ACCESS,3)+sel('SEND VIA',['WhatsApp','Copy invitation link'],0)+'<div class="b2-note"><b>Demonstration</b><span>This storyboard does not deliver a WhatsApp message.</span></div><div class="b2-fill"></div>'+btn('SEND INVITATION','77:4','green')+'</div>';
+   return '<div class="b2-wrap b2-conf">'+hero('INVITATION SENT','Successfully posted by Nora')+idCard('Luis',{line:'Chef',status:'INVITED',cls:'asg'})+'<div class="b2-rows">'+row('ACCESS','Food orders · counts')+row('SENT VIA','WhatsApp')+row('POSTED BY','Mike · 7:10 PM')+'</div>'+btn('BACK TO ACCESS','77:0','blue')+'</div>';
+  }
+  return null;}
+ return {render:render,M:M,main:main};
 })();
 </script>
-</head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 71</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 71 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Game</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 71</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
+</head><body><div class="shell"><aside class="sidebar" id="sidebar"><div class="brand">NORA<span> / UX</span></div><div class="eyebrow">Workflow review studio</div><p class="tagline">Design → Review → Approve → Handoff</p><div class="progress"><div class="eyebrow">Approved workflows</div><strong id="progressText">0 / 77</strong><div class="bar"><div id="progressBar"></div></div></div><input class="search" id="search" placeholder="Search 77 workflows…" aria-label="Search workflows"><nav id="nav"></nav></aside><main class="main"><div class="topline"><div><button class="toolbtn mobilemenu" id="menubtn">☰ Workflows</button> <span class="pill" id="breadcrumb">NORA / Live Game</span></div><div class="tools"><button class="toolbtn" id="allbtn">All 77</button><button class="toolbtn" id="exportbtn">Export reviews ↓</button><button class="toolbtn" id="importbtn">Import reviews ↑</button><input type="file" id="importfile" accept=".json" hidden></div></div><div id="content"></div></main></div><script src="workflows/workflow-10.js"></script><script>const WORKFLOWS=[
   {
     "id": 1,
     "main": "Live Session",
@@ -3376,7 +3431,7 @@ window.NORA_TEAM2=(function(){
     "id": 19,
     "main": "Live Session",
     "sub": "Team",
-    "title": "Add or assign team member",
+    "title": "Add team member to the game",
     "steps": [
       "Team overview",
       "Select team member",
@@ -3389,7 +3444,7 @@ window.NORA_TEAM2=(function(){
     "id": 20,
     "main": "Live Session",
     "sub": "Team",
-    "title": "Team check-in / start shift",
+    "title": "Team check-in",
     "steps": [
       "Team overview",
       "Team member",
@@ -3428,12 +3483,12 @@ window.NORA_TEAM2=(function(){
     "id": 23,
     "main": "Live Session",
     "sub": "Team",
-    "title": "Team checkout / end shift",
+    "title": "Team checkout",
     "steps": [
       "Team overview",
       "Team member",
       "Review checkout",
-      "Shift closed"
+      "Checked out"
     ],
     "status": "draft"
   },
@@ -4044,6 +4099,80 @@ window.NORA_TEAM2=(function(){
       "Generate report"
     ],
     "status": "draft"
+  },
+  {
+    "id": 72,
+    "main": "Team",
+    "sub": "Team Management",
+    "title": "Team Overview",
+    "steps": [
+      "Team overview",
+      "Filter team by role"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 73,
+    "main": "Team",
+    "sub": "Team Management",
+    "title": "Add Team Member",
+    "steps": [
+      "Member details",
+      "Photo",
+      "Pay arrangement",
+      "Access and invitation",
+      "Team member added"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 74,
+    "main": "Team",
+    "sub": "Team Management",
+    "title": "Team Member Profile",
+    "steps": [
+      "Profile summary",
+      "Pay and access"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 75,
+    "main": "Team",
+    "sub": "Team Management",
+    "title": "Edit Team Member",
+    "steps": [
+      "Edit details",
+      "Edit pay and access",
+      "Changes saved"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 76,
+    "main": "Team",
+    "sub": "Team Management",
+    "title": "Team History",
+    "steps": [
+      "Team Sessions",
+      "Team session detail",
+      "Member history"
+    ],
+    "status": "draft"
+  },
+  {
+    "id": 77,
+    "main": "Team",
+    "sub": "Team Management",
+    "title": "Team Access & Permissions",
+    "steps": [
+      "Access overview",
+      "Role permissions",
+      "Invitations",
+      "Invite team member",
+      "Invitation sent"
+    ],
+    "status": "draft"
   }
 ];
 const displayId=id=>id;
@@ -4067,7 +4196,7 @@ function miniTable(updated=false){let data=demoPeople.map(([name,initial,amount,
 const noraInput=()=>`<div class="ux-composer"><span>Ask Nora or give a command…</span><b>🎙</b><b>➤</b></div>`;
 function actionButtons(items){return `<div class="ux-actions">${items.map((x,j)=>`<div class="ux-action tone-${j%6}">${esc(x)}</div>`).join('')}</div>`}
 function inputPanel(title,fields,button='CONFIRM'){return `<div class="ux-section">${esc(title)}</div>${fields.map(([k,v])=>`<div class="ux-field"><span>${esc(k)}</span><strong>${esc(v)}</strong></div>`).join('')}<div class="ux-cta">${esc(button)}</div>`}
-function listPanel(kind){let items=kind==='Team'?[['Anna','Dealer','ON SHIFT'],['Costa','Host','ON SHIFT'],['Alex','Cashier','ON SHIFT']]:kind==='Expenses'?[['Rent payment','Cash','1,000,000'],['Drinks','Cash','150,000'],['Food','Cash','85,000']]:[['Diego Restrepo','Seat 7','450,000'],['Rafa','Seat 1','450,000'],['Moshe','Seat 2','1,200,000']];return `<div class="ux-section">${esc(kind.toUpperCase())} · LIVE</div><div class="ux-list">${items.map(([n,s,v],i)=>`<div class="ux-listrow tone-${i%6}">${portrait(n,n[0],i!==1)}<div><b>${esc(n)}</b><small>${esc(s)}</small></div><strong>${esc(v)}</strong></div>`).join('')}</div><div class="ux-cta">＋ ADD ${kind==='Team'?'TEAM MEMBER':kind==='Expenses'?'EXPENSE':'PLAYER'}</div>`}
+function listPanel(kind){let items=kind==='Team'?[['Anna','Dealer','WORKING'],['Costa','Host','WORKING'],['Alex','Cashier','WORKING']]:kind==='Expenses'?[['Rent payment','Cash','1,000,000'],['Drinks','Cash','150,000'],['Food','Cash','85,000']]:[['Diego Restrepo','Seat 7','450,000'],['Rafa','Seat 1','450,000'],['Moshe','Seat 2','1,200,000']];return `<div class="ux-section">${esc(kind.toUpperCase())} · LIVE</div><div class="ux-list">${items.map(([n,s,v],i)=>`<div class="ux-listrow tone-${i%6}">${portrait(n,n[0],i!==1)}<div><b>${esc(n)}</b><small>${esc(s)}</small></div><strong>${esc(v)}</strong></div>`).join('')}</div><div class="ux-cta">＋ ADD ${kind==='Team'?'TEAM MEMBER':kind==='Expenses'?'EXPENSE':'PLAYER'}</div>`}
 function metricPanel(kind){let entries=kind==='Snapshot'?[['TOTAL BUY-INS','COP 5,500,000'],['CASH-OUTS','COP 0'],['DROP / RAKE','COP 780,000'],['CHIPS IN PLAY','COP 5,500,000'],['TIPS','COP 0'],['NET BALANCE','COP 780,000'],['GROSS REVENUE','COP 780,000'],['PLAYERS','8'],['EXPENSES','COP 0'],['TABLE','Hold’em'],['RUNTIME','5d 6h 32m'],['RAKE STRUCTURE','5% per pot']]:kind==='Close'?[['TOTAL BUY-INS','5,500,000'],['TOTAL CASH-OUTS','0'],['TIPS IN CHIPS','0'],['CHIP VARIANCE','REVIEW'],['S&S OUTSTANDING','0'],['CASHBOX','5,500,000']]:[['TOTAL RAKE','780,000'],['HOURS','5.5'],['PLAYERS','8'],['AVG / HR','141,818'],['TABLES','1'],['GAME','Hold’em']];return `<div class="ux-metrics ${kind==='Snapshot'?'ux-snapshot':''}">${entries.map(([a,b],i)=>`<div class="ux-metric tone-${i%3===1?1:i%3===2?2:0}"><b>${b}</b><small>${a}</small></div>`).join('')}</div>`}
 function viewForStep(w,step,i){let lower=step.toLowerCase(),last=i===w.steps.length-1,active=w.main==='Live Session'?(w.sub==='Nora AI'?'Table':w.sub):w.main==='Players'?'Players':'Table';if(!['Table','Players','Team','Expenses','Snapshot','Close'].includes(active))active='Table';
 if(w.id===5){if(i===0)return {active:'Table',body:miniTable()};if(i===1)return {active:'Table',body:`<div class="ux-profile">${portrait('Diego R.','D',true)}<div><b>DIEGO RESTREPO</b><small>SEAT 7 · TOTAL BUY-INS 450,000</small></div></div>${actionButtons(['REBUY','CASH OUT','MOVE','PLAYER DETAILS','BUST OUT','CANCEL'])}`};if(i===2)return {active:'Table',body:`<div class="ux-profile">${portrait('Diego','D',true)}<div><b>DIEGO RESTREPO</b><small>SEAT 7</small></div></div>${inputPanel('REBUY',['AMOUNT','PAYMENT METHOD'].map((x,j)=>[x,j?'Cashbox':'COP 1,000,000']),'CONFIRM REBUY')}`};return {active:'Table',body:miniTable(true)}}
@@ -4076,7 +4205,7 @@ if(w.main==='Live Session'&&w.sub==='Table'&&i===0)return {active:'Table',body:m
 if(w.sub==='Nora AI')return {active:'Table',body:lower.includes('confirm')||lower.includes('review')?inputPanel('NORA UNDERSTOOD',[['PLAYER','Diego Restrepo'],['ACTION','Rebuy'],['AMOUNT','COP 1,000,000']],'CONFIRM ACTION'):lower.includes('record')||lower.includes('voice')?`<div class="ux-voice"><span>🎙</span><b>RECORDING</b><small>Speak your game instruction</small><div class="ux-wave">▂▅▃▇▄▆▃▅▂▇▅▃</div></div>`:miniTable()};
 if(/seat|player tile|table view|table status|switch between tables|table tabs/.test(lower)&&w.main==='Live Session'&&w.sub==='Table')return {active:'Table',body:miniTable()};
 if(/choose|select|tap|quick action/.test(lower)&&w.sub==='Table')return {active:'Table',body:lower.includes('seat')?miniTable():`<div class="ux-profile">${portrait('Diego','D',true)}<div><b>DIEGO RESTREPO</b><small>SEAT 7 · TOTAL BUY-INS 450,000</small></div></div>${actionButtons(['BUY-IN','REBUY','CASH OUT','MOVE','BUST OUT','DETAILS'])}`};
-if(/enter|record|set |configure|choose payment|select payment|assign|adjust|correct|edit|issue|collect|add |create |invite|check.in|check.out/.test(lower)&&!last){let title=w.title.toUpperCase().replace(/[^A-Z0-9 /&-]/g,'').slice(0,31);let fields=w.sub==='Expenses'?[['ITEM','Rent payment'],['AMOUNT','COP 1,000,000'],['PAYMENT','Cashbox']]:w.sub==='Team'?[['TEAM MEMBER','Anna'],['ROLE','Dealer'],['SHIFT','7:00 PM']]:w.sub==='Table'?[['PLAYER','Diego Restrepo'],['AMOUNT','COP 500,000'],['PAYMENT','Cashbox']]:w.sub==='Close'?[['RECONCILIATION','Review required'],['CASHBOX','COP 4,850,000']]:[['GAME','Sunday Poker'],['VALUE','Select'],['STATUS','Ready']];return {active,body:inputPanel(title,fields,'CONFIRM')};}
+if(/enter|record|set |configure|choose payment|select payment|assign|adjust|correct|edit|issue|collect|add |create |invite|check.in|check.out/.test(lower)&&!last){let title=w.title.toUpperCase().replace(/[^A-Z0-9 /&-]/g,'').slice(0,31);let fields=w.sub==='Expenses'?[['ITEM','Rent payment'],['AMOUNT','COP 1,000,000'],['PAYMENT','Cashbox']]:w.sub==='Team'?[['TEAM MEMBER','Anna'],['ROLE','Dealer'],['CHECKED IN','7:00 PM']]:w.sub==='Table'?[['PLAYER','Diego Restrepo'],['AMOUNT','COP 500,000'],['PAYMENT','Cashbox']]:w.sub==='Close'?[['RECONCILIATION','Review required'],['CASHBOX','COP 4,850,000']]:[['GAME','Sunday Poker'],['VALUE','Select'],['STATUS','Ready']];return {active,body:inputPanel(title,fields,'CONFIRM')};}
 if(w.sub==='Snapshot'||w.sub==='Close'||w.main==='Reporting'||/report|balance|reconcil|summary|snapshot|review warning|performance|financial/.test(lower))return {active:active==='Table'?'Snapshot':active,body:metricPanel(w.sub==='Close'?'Close':w.main==='Reporting'?'Reporting':'Snapshot')};
 if(w.sub==='Team'||w.main==='Team')return {active:'Team',body:listPanel('Team')};
 if(w.sub==='Expenses')return {active:'Expenses',body:listPanel('Expenses')};
@@ -4089,7 +4218,7 @@ function phone(w,step,i){const v=viewForStep(w,step,i);return `<div class="stage
 
 
 // Screen-specific, individually authored workflow compositions.
-const SCREEN_SPECS={"1": {"types": ["launch", "restore", "table"], "focus": "Active game", "values": "8 seated · Sunday Hold’em", "cta": "Auto-resume · No extra tap"}, "2": {"types": ["schedule", "setup", "table"], "focus": "Start Sunday Hold’em", "values": "Hold’em · 5M / 10M · 500K buy-in", "cta": "Review game rules · START SESSION"}, "3": {"types": ["table", "roster", "seat-entry", "seat-review", "table-seated"], "focus": "Seat player · Seat 9", "values": "Rafa · COP 500,000 · Cashbox", "cta": "Choose player · Confirm seating"}, "4": {"types": ["table", "roster", "new-player", "seat-review"], "focus": "New player · Seat 9", "values": "Sofia Alvarez · +57 300 123 4567 · COP 500,000", "cta": "Create & seat"}, "5": {"types": ["table", "quick-actions", "rebuy-entry", "rebuy-review", "table-rebuy"], "focus": "Diego Restrepo · Seat 7", "values": "COP 450,000 → COP 1,450,000", "cta": "Rebuy COP 1,000,000 · Cashbox"}, "6": {"types": ["table", "quick-actions", "cashout-entry", "cashout-confirmation"], "focus": "Cash out · Diego", "values": "Total buy-ins 450,000 · Chips returned 720,000", "cta": "Pay COP 720,000 · Record cash-out"}, "7": {"types": ["table", "move-choice", "move-entry", "move-multitable", "move-swap-same", "move-swap-cross", "swap-confirmed", "table-moved"], "focus": "Move Diego Restrepo", "values": "Seat 7 → Seat 9 · Table selection shown only with multiple tables", "cta": "Select available seat → Confirm move"}, "8": {"types": ["table", "waitlist", "waitlist-assign", "table"], "focus": "Waitlist · 1 waiting", "values": "Uri · In venue · Seat 9 available", "cta": "Seat Uri · Buy-in COP 500,000"}, "9": {"types": ["table", "player-transactions"], "focus": "Diego Restrepo", "values": "Seat 7 · Total buy-ins COP 1,450,000", "cta": "History · Buy-ins · Cash-outs"}, "10": {"types": ["table", "rake-game-details", "rake-entry"], "focus": "Record rake", "values": "Table · COP 50,000 · Cashbox", "cta": "Confirm rake entry"}, "11": {"types": ["table", "table-controls", "table-paused", "table-closed"], "focus": "Table controls", "values": "Hold’em · Table open · 8 seated", "cta": "Pause · Resume · Close table"}, "12": {"types": ["table", "multi-tables", "table-two", "table-two"], "focus": "Switch tables", "values": "Table A · Table B · Up to four", "cta": "Tap Table B · No ledger change"}, "13": {"types": ["table", "voice-record", "voice-review", "table-rebuy", "table-rebuy"], "focus": "Nora voice note", "values": "“Diego rebuy one million cash”", "cta": "Review · Confirm"}, "14": {"types": ["table", "text-command", "voice-review", "table-rebuy", "table-rebuy"], "focus": "Nora text command", "values": "Diego rebuy 1,000,000 cash", "cta": "Review · Confirm"}, "15": {"types": ["voice-review", "correction", "voice-review", "table-rebuy"], "focus": "Correct Nora", "values": "Diego · 500,000 → 1,000,000", "cta": "Edit amount · Confirm"}, "16": {"types": ["table", "voice-record", "multi-review", "table-rebuy"], "focus": "Multiple actions", "values": "Diego rebuy 1M · Rafa rebuy 500K", "cta": "Review both · Confirm"}, "17": {"types": ["table", "ask-nora", "answer-nora"], "focus": "Ask Nora", "values": "“How much is in buy-ins?”", "cta": "COP 5,500,000 · 8 players"}, "18": {"types": ["voice-review", "error", "correction", "voice-review"], "focus": "Transaction recovery", "values": "Player not found · No ledger entry", "cta": "Correct player · Retry"}, "19": {"types": ["team-list", "team-select", "team-assign", "team-list"], "focus": "Assign team member", "values": "Anna · Dealer · Table A", "cta": "Assign to session"}, "20": {"types": ["team-list", "team-profile", "team-checkin", "team-list"], "focus": "Team check-in", "values": "Anna · Dealer · 7:00 PM", "cta": "Start shift"}, "21": {"types": ["team-list", "team-profile", "team-tip", "team-summary"], "focus": "Record team tips", "values": "Anna · COP 30,000 · Chips", "cta": "Confirm chip tip"}, "22": {"types": ["team-list", "team-profile", "team-payment", "team-summary"], "focus": "Team payment", "values": "Costa · COP 100,000 · Cashbox", "cta": "Confirm advance"}, "23": {"types": ["team-list", "team-profile", "team-checkout", "team-summary"], "focus": "Team checkout", "values": "Anna · 7:00 PM–12:30 AM", "cta": "Confirm shift end"}, "24": {"types": ["team-list", "team-profile", "team-summary"], "focus": "Team earnings", "values": "Anna · 5h 30m · COP 120,000", "cta": "Review tips & payments"}, "25": {"types": ["expense-list", "expense-entry", "expense-review", "expense-list"], "focus": "Record expense", "values": "Rent payment · COP 1,000,000 · Cashbox", "cta": "Confirm expense"}, "26": {"types": ["expense-list", "expense-detail", "expense-entry", "expense-list"], "focus": "Correct expense", "values": "Rent payment · COP 1,000,000 → 900,000", "cta": "Save correction · Audit"}, "27": {"types": ["service-menu", "service-item", "service-payment", "service-confirm"], "focus": "Beverage sale", "values": "Aguila · COP 10,000 · Diego", "cta": "Chips or cash · Record sale"}, "28": {"types": ["service-menu", "service-item", "service-comp", "service-confirm"], "focus": "Complimentary item", "values": "Water · Diego · COP 0", "cta": "Record complimentary"}, "29": {"types": ["service-menu", "service-item", "service-payment", "service-confirm"], "focus": "Sale payment", "values": "Aguila · COP 10,000", "cta": "Chips / Cash · Confirm"}, "30": {"types": ["inventory-list", "inventory-start", "inventory-end", "inventory-summary"], "focus": "Inventory count", "values": "Aguila · 24 start · 17 end", "cta": "Save counted units"}, "31": {"types": ["inventory-list", "inventory-summary", "inventory-variance", "inventory-variance"], "focus": "Inventory variance", "values": "24 start · 5 sold · 17 end · 2 variance", "cta": "Flag discrepancy"}, "32": {"types": ["snapshot", "snapshot-detail", "snapshot-detail"], "focus": "Live Snapshot", "values": "Buy-ins 5,500,000 · Rake 780,000", "cta": "Read-only overview"}, "33": {"types": ["snapshot", "player-detail", "player-transactions"], "focus": "Player finances", "values": "Diego · 450,000 total buy-ins", "cta": "View transaction history"}, "34": {"types": ["snapshot", "transactions", "transaction-detail", "correction"], "focus": "Correct transaction", "values": "Diego rebuy · COP 500,000", "cta": "Authorized adjustment · Audit"}, "35": {"types": ["balances", "account-detail", "account-detail"], "focus": "Account balances", "values": "Cashbox · Nequi · Bancolombia · S&S", "cta": "Read balances"}, "36": {"types": ["snapshot", "ss-player", "ss-credit"], "focus": "Issue Sign & Settle", "values": "Diego · COP 500,000 credit", "cta": "PIN verification · Confirm"}, "37": {"types": ["snapshot", "ss-player", "ss-collect", "ss-summary"], "focus": "Collect Sign & Settle", "values": "Diego owes COP 500,000", "cta": "Chips first · Remaining by payment"}, "38": {"types": ["snapshot", "chip-reconcile", "variance-alert"], "focus": "Chip reconciliation", "values": "Buy-ins + Promo = Cash-outs + Chip tips", "cta": "Review variance · Close with warning"}, "39": {"types": ["snapshot", "table-performance", "table-performance"], "focus": "Table performance", "values": "Table A · Rake/hour · Average stack", "cta": "Per-table financial view"}, "40": {"types": ["snapshot", "close-start", "close-checklist"], "focus": "Begin Daily Close", "values": "8 seated · 3 checks pending", "cta": "Start close review"}, "41": {"types": ["close-checklist", "close-players", "close-checklist"], "focus": "Outstanding players", "values": "8 players · 2 not cashed out", "cta": "Complete cash-outs"}, "42": {"types": ["close-checklist", "close-team", "close-checklist"], "focus": "Team settlements", "values": "Anna · Costa · Alex", "cta": "Review team balances"}, "43": {"types": ["close-checklist", "close-expenses", "close-inventory"], "focus": "Expenses & inventory", "values": "Venue 1M · Drinks 150K", "cta": "Review outstanding items"}, "44": {"types": ["close-checklist", "close-accounts", "chip-reconcile"], "focus": "Reconcile accounts", "values": "Cashbox · Nequi · Chips", "cta": "Review totals & variance"}, "45": {"types": ["close-checklist", "close-warnings", "close-checklist"], "focus": "Close warnings", "values": "Variance COP 50,000 · Review required", "cta": "Acknowledge warning"}, "46": {"types": ["close-checklist", "close-final", "close-locked"], "focus": "Permanent close", "values": "Final confirmation · Cannot reopen", "cta": "CONFIRM PERMANENT CLOSE"}, "47": {"types": ["close-locked", "close-report", "close-report"], "focus": "Final Daily Close report", "values": "Rake · Expenses · Net · Chip variance", "cta": "View locked report"}, "48": {"types": ["schedule", "schedule-form", "schedule-review", "schedule"], "focus": "Schedule game", "values": "Sunday · 7:00 PM · Provenza", "cta": "Save scheduled game"}, "49": {"types": ["schedule", "invite-list", "invite-compose", "invite-sent"], "focus": "Invite players", "values": "Rafa · Moshe · Sam · WhatsApp", "cta": "Send invitations"}, "50": {"types": ["player-game", "player-rsvp", "guest-list"], "focus": "Player RSVP", "values": "Sunday · 7:00 PM · Provenza", "cta": "Going / Decline"}, "51": {"types": ["schedule", "guest-list", "guest-detail"], "focus": "Confirmed players", "values": "8 confirmed · 3 pending", "cta": "View RSVP status"}, "52": {"types": ["player-game", "eta-entry", "waitlist"], "focus": "On My Way", "values": "Uri · ETA 20 minutes", "cta": "Update arrival status"}, "53": {"types": ["schedule", "schedule-review", "setup", "table"], "focus": "Scheduled → Live", "values": "Sunday · Hold’em · 7:00 PM", "cta": "Start live session"}, "54": {"types": ["crm-list", "crm54-profile", "crm54-sessions", "crm54-transactions"], "focus": "Find player", "values": "Diego Restrepo · +57 300 123 4567", "cta": "Open profile"}, "55": {"types": ["crm-list", "crm-new", "crm-profile", "crm-profile"], "focus": "Add player", "values": "Sofia Alvarez · +57 300 123 4567", "cta": "Save player"}, "56": {"types": ["crm-profile", "crm-edit", "crm-profile", "crm-profile"], "focus": "Edit player", "values": "Diego · Phone / Name", "cta": "Save changes"}, "57": {"types": ["crm-profile", "crm-privileges", "crm-profile", "crm-profile"], "focus": "Player privileges", "values": "Diego · Sign privilege", "cta": "Enable permitted feature"}, "58": {"types": ["crm-profile", "crm-history", "crm-history"], "focus": "Player history", "values": "Diego · 14 sessions · 62 hours", "cta": "Win/loss · Buy-ins"}, "59": {"types": ["onboarding", "onboard-game", "onboard-payment", "onboard-done"], "focus": "First-time setup", "values": "Game name · Currency COP · Hold’em", "cta": "Finish onboarding"}, "60": {"types": ["settings-home", "settings-game", "settings-rake", "settings-home"], "focus": "Game configuration", "values": "Hold’em · 5M/10M · 5% rake", "cta": "Save configuration"}, "61": {"types": ["settings-home", "payment-methods", "payment-account", "payment-methods"], "focus": "Payment accounts", "values": "Nequi · Account details", "cta": "Enable inside account"}, "62": {"types": ["settings-home", "settings-ss", "settings-pin", "settings-home"], "focus": "Sign & Settle verification", "values": "Choose PIN or supported alternative", "cta": "One method only"}, "63": {"types": ["settings-home", "settings-roles", "settings-permissions", "settings-home"], "focus": "Team permissions", "values": "Dealer · Cashier · Host", "cta": "Save role permissions"}, "64": {"types": ["settings-home", "settings-menu", "settings-inventory", "settings-home"], "focus": "Food & beverage settings", "values": "Aguila COP 10,000 · Water free", "cta": "Enable menu & stock"}, "65": {"types": ["profile-menu", "settings-preferences", "settings-language", "profile-menu"], "focus": "Profile & language", "values": "English · Español · Português", "cta": "Save preference"}, "66": {"types": ["settings-home", "team-invite", "invite-compose", "invite-sent"], "focus": "Invite team member", "values": "Anna · Dealer · WhatsApp", "cta": "Send invitation"}, "67": {"types": ["reports-home", "reports-filter", "reports-session"], "focus": "Find past session", "values": "Oct 25 · Sunday Hold’em", "cta": "Open session report"}, "68": {"types": ["reports-home", "reports-player", "reports-player-detail"], "focus": "Player win/loss", "values": "Diego · 14 sessions", "cta": "Net results · Hours"}, "69": {"types": ["reports-home", "reports-rake", "reports-table"], "focus": "Rake & table reports", "values": "Rake COP 780,000 · 2 tables", "cta": "Per-table performance"}, "70": {"types": ["reports-home", "reports-team", "reports-expense"], "focus": "Team & expense reports", "values": "Anna · Venue · Drinks", "cta": "Compare costs"}, "71": {"types": ["reports-home", "reports-export", "reports-ready", "reports-ready"], "focus": "Export report", "values": "Session summary · PDF / CSV", "cta": "Download / Share"}};
+const SCREEN_SPECS={"1": {"types": ["launch", "restore", "table"], "focus": "Active game", "values": "8 seated · Sunday Hold’em", "cta": "Auto-resume · No extra tap"}, "2": {"types": ["schedule", "setup", "table"], "focus": "Start Sunday Hold’em", "values": "Hold’em · 5M / 10M · 500K buy-in", "cta": "Review game rules · START SESSION"}, "3": {"types": ["table", "roster", "seat-entry", "seat-review", "table-seated"], "focus": "Seat player · Seat 9", "values": "Rafa · COP 500,000 · Cashbox", "cta": "Choose player · Confirm seating"}, "4": {"types": ["table", "roster", "new-player", "seat-review"], "focus": "New player · Seat 9", "values": "Sofia Alvarez · +57 300 123 4567 · COP 500,000", "cta": "Create & seat"}, "5": {"types": ["table", "quick-actions", "rebuy-entry", "rebuy-review", "table-rebuy"], "focus": "Diego Restrepo · Seat 7", "values": "COP 450,000 → COP 1,450,000", "cta": "Rebuy COP 1,000,000 · Cashbox"}, "6": {"types": ["table", "quick-actions", "cashout-entry", "cashout-confirmation"], "focus": "Cash out · Diego", "values": "Total buy-ins 450,000 · Chips returned 720,000", "cta": "Pay COP 720,000 · Record cash-out"}, "7": {"types": ["table", "move-choice", "move-entry", "move-multitable", "move-swap-same", "move-swap-cross", "swap-confirmed", "table-moved"], "focus": "Move Diego Restrepo", "values": "Seat 7 → Seat 9 · Table selection shown only with multiple tables", "cta": "Select available seat → Confirm move"}, "8": {"types": ["table", "waitlist", "waitlist-assign", "table"], "focus": "Waitlist · 1 waiting", "values": "Uri · In venue · Seat 9 available", "cta": "Seat Uri · Buy-in COP 500,000"}, "9": {"types": ["table", "player-transactions"], "focus": "Diego Restrepo", "values": "Seat 7 · Total buy-ins COP 1,450,000", "cta": "History · Buy-ins · Cash-outs"}, "10": {"types": ["table", "rake-game-details", "rake-entry"], "focus": "Record rake", "values": "Table · COP 50,000 · Cashbox", "cta": "Confirm rake entry"}, "11": {"types": ["table", "table-controls", "table-paused", "table-closed"], "focus": "Table controls", "values": "Hold’em · Table open · 8 seated", "cta": "Pause · Resume · Close table"}, "12": {"types": ["table", "multi-tables", "table-two", "table-two"], "focus": "Switch tables", "values": "Table A · Table B · Up to four", "cta": "Tap Table B · No ledger change"}, "13": {"types": ["table", "voice-record", "voice-review", "table-rebuy", "table-rebuy"], "focus": "Nora voice note", "values": "“Diego rebuy one million cash”", "cta": "Review · Confirm"}, "14": {"types": ["table", "text-command", "voice-review", "table-rebuy", "table-rebuy"], "focus": "Nora text command", "values": "Diego rebuy 1,000,000 cash", "cta": "Review · Confirm"}, "15": {"types": ["voice-review", "correction", "voice-review", "table-rebuy"], "focus": "Correct Nora", "values": "Diego · 500,000 → 1,000,000", "cta": "Edit amount · Confirm"}, "16": {"types": ["table", "voice-record", "multi-review", "table-rebuy"], "focus": "Multiple actions", "values": "Diego rebuy 1M · Rafa rebuy 500K", "cta": "Review both · Confirm"}, "17": {"types": ["table", "ask-nora", "answer-nora"], "focus": "Ask Nora", "values": "“How much is in buy-ins?”", "cta": "COP 5,500,000 · 8 players"}, "18": {"types": ["voice-review", "error", "correction", "voice-review"], "focus": "Transaction recovery", "values": "Player not found · No ledger entry", "cta": "Correct player · Retry"}, "19": {"types": ["team-list", "team-select", "team-assign", "team-list"], "focus": "Assign team member", "values": "Anna · Dealer · Table A", "cta": "Assign to session"}, "20": {"types": ["team-list", "team-profile", "team-checkin", "team-list"], "focus": "Team check-in", "values": "Anna · Dealer · 7:00 PM", "cta": "Check in"}, "21": {"types": ["team-list", "team-profile", "team-tip", "team-summary"], "focus": "Record team tips", "values": "Anna · COP 30,000 · Chips", "cta": "Confirm chip tip"}, "22": {"types": ["team-list", "team-profile", "team-payment", "team-summary"], "focus": "Team payment", "values": "Costa · COP 100,000 · Cashbox", "cta": "Confirm advance"}, "23": {"types": ["team-list", "team-profile", "team-checkout", "team-summary"], "focus": "Team checkout", "values": "Anna · 7:00 PM–12:30 AM", "cta": "Confirm check out"}, "24": {"types": ["team-list", "team-profile", "team-summary"], "focus": "Team earnings", "values": "Anna · 5h 30m · COP 120,000", "cta": "Review tips & payments"}, "25": {"types": ["expense-list", "expense-entry", "expense-review", "expense-list"], "focus": "Record expense", "values": "Rent payment · COP 1,000,000 · Cashbox", "cta": "Confirm expense"}, "26": {"types": ["expense-list", "expense-detail", "expense-entry", "expense-list"], "focus": "Correct expense", "values": "Rent payment · COP 1,000,000 → 900,000", "cta": "Save correction · Audit"}, "27": {"types": ["service-menu", "service-item", "service-payment", "service-confirm"], "focus": "Beverage sale", "values": "Aguila · COP 10,000 · Diego", "cta": "Chips or cash · Record sale"}, "28": {"types": ["service-menu", "service-item", "service-comp", "service-confirm"], "focus": "Complimentary item", "values": "Water · Diego · COP 0", "cta": "Record complimentary"}, "29": {"types": ["service-menu", "service-item", "service-payment", "service-confirm"], "focus": "Sale payment", "values": "Aguila · COP 10,000", "cta": "Chips / Cash · Confirm"}, "30": {"types": ["inventory-list", "inventory-start", "inventory-end", "inventory-summary"], "focus": "Inventory count", "values": "Aguila · 24 start · 17 end", "cta": "Save counted units"}, "31": {"types": ["inventory-list", "inventory-summary", "inventory-variance", "inventory-variance"], "focus": "Inventory variance", "values": "24 start · 5 sold · 17 end · 2 variance", "cta": "Flag discrepancy"}, "32": {"types": ["snapshot", "snapshot-detail", "snapshot-detail"], "focus": "Live Snapshot", "values": "Buy-ins 5,500,000 · Rake 780,000", "cta": "Read-only overview"}, "33": {"types": ["snapshot", "player-detail", "player-transactions"], "focus": "Player finances", "values": "Diego · 450,000 total buy-ins", "cta": "View transaction history"}, "34": {"types": ["snapshot", "transactions", "transaction-detail", "correction"], "focus": "Correct transaction", "values": "Diego rebuy · COP 500,000", "cta": "Authorized adjustment · Audit"}, "35": {"types": ["balances", "account-detail", "account-detail"], "focus": "Account balances", "values": "Cashbox · Nequi · Bancolombia · S&S", "cta": "Read balances"}, "36": {"types": ["snapshot", "ss-player", "ss-credit"], "focus": "Issue Sign & Settle", "values": "Diego · COP 500,000 credit", "cta": "PIN verification · Confirm"}, "37": {"types": ["snapshot", "ss-player", "ss-collect", "ss-summary"], "focus": "Collect Sign & Settle", "values": "Diego owes COP 500,000", "cta": "Chips first · Remaining by payment"}, "38": {"types": ["snapshot", "chip-reconcile", "variance-alert"], "focus": "Chip reconciliation", "values": "Buy-ins + Promo = Cash-outs + Chip tips", "cta": "Review variance · Close with warning"}, "39": {"types": ["snapshot", "table-performance", "table-performance"], "focus": "Table performance", "values": "Table A · Rake/hour · Average stack", "cta": "Per-table financial view"}, "40": {"types": ["snapshot", "close-start", "close-checklist"], "focus": "Begin Daily Close", "values": "8 seated · 3 checks pending", "cta": "Start close review"}, "41": {"types": ["close-checklist", "close-players", "close-checklist"], "focus": "Outstanding players", "values": "8 players · 2 not cashed out", "cta": "Complete cash-outs"}, "42": {"types": ["close-checklist", "close-team", "close-checklist"], "focus": "Team settlements", "values": "Anna · Costa · Alex", "cta": "Review team balances"}, "43": {"types": ["close-checklist", "close-expenses", "close-inventory"], "focus": "Expenses & inventory", "values": "Venue 1M · Drinks 150K", "cta": "Review outstanding items"}, "44": {"types": ["close-checklist", "close-accounts", "chip-reconcile"], "focus": "Reconcile accounts", "values": "Cashbox · Nequi · Chips", "cta": "Review totals & variance"}, "45": {"types": ["close-checklist", "close-warnings", "close-checklist"], "focus": "Close warnings", "values": "Variance COP 50,000 · Review required", "cta": "Acknowledge warning"}, "46": {"types": ["close-checklist", "close-final", "close-locked"], "focus": "Permanent close", "values": "Final confirmation · Cannot reopen", "cta": "CONFIRM PERMANENT CLOSE"}, "47": {"types": ["close-locked", "close-report", "close-report"], "focus": "Final Daily Close report", "values": "Rake · Expenses · Net · Chip variance", "cta": "View locked report"}, "48": {"types": ["schedule", "schedule-form", "schedule-review", "schedule"], "focus": "Schedule game", "values": "Sunday · 7:00 PM · Provenza", "cta": "Save scheduled game"}, "49": {"types": ["schedule", "invite-list", "invite-compose", "invite-sent"], "focus": "Invite players", "values": "Rafa · Moshe · Sam · WhatsApp", "cta": "Send invitations"}, "50": {"types": ["player-game", "player-rsvp", "guest-list"], "focus": "Player RSVP", "values": "Sunday · 7:00 PM · Provenza", "cta": "Going / Decline"}, "51": {"types": ["schedule", "guest-list", "guest-detail"], "focus": "Confirmed players", "values": "8 confirmed · 3 pending", "cta": "View RSVP status"}, "52": {"types": ["player-game", "eta-entry", "waitlist"], "focus": "On My Way", "values": "Uri · ETA 20 minutes", "cta": "Update arrival status"}, "53": {"types": ["schedule", "schedule-review", "setup", "table"], "focus": "Scheduled → Live", "values": "Sunday · Hold’em · 7:00 PM", "cta": "Start live session"}, "54": {"types": ["crm-list", "crm54-profile", "crm54-sessions", "crm54-transactions"], "focus": "Find player", "values": "Diego Restrepo · +57 300 123 4567", "cta": "Open profile"}, "55": {"types": ["crm-list", "crm-new", "crm-profile", "crm-profile"], "focus": "Add player", "values": "Sofia Alvarez · +57 300 123 4567", "cta": "Save player"}, "56": {"types": ["crm-profile", "crm-edit", "crm-profile", "crm-profile"], "focus": "Edit player", "values": "Diego · Phone / Name", "cta": "Save changes"}, "57": {"types": ["crm-profile", "crm-privileges", "crm-profile", "crm-profile"], "focus": "Player privileges", "values": "Diego · Sign privilege", "cta": "Enable permitted feature"}, "58": {"types": ["crm-profile", "crm-history", "crm-history"], "focus": "Player history", "values": "Diego · 14 sessions · 62 hours", "cta": "Win/loss · Buy-ins"}, "59": {"types": ["onboarding", "onboard-game", "onboard-payment", "onboard-done"], "focus": "First-time setup", "values": "Game name · Currency COP · Hold’em", "cta": "Finish onboarding"}, "60": {"types": ["settings-home", "settings-game", "settings-rake", "settings-home"], "focus": "Game configuration", "values": "Hold’em · 5M/10M · 5% rake", "cta": "Save configuration"}, "61": {"types": ["settings-home", "payment-methods", "payment-account", "payment-methods"], "focus": "Payment accounts", "values": "Nequi · Account details", "cta": "Enable inside account"}, "62": {"types": ["settings-home", "settings-ss", "settings-pin", "settings-home"], "focus": "Sign & Settle verification", "values": "Choose PIN or supported alternative", "cta": "One method only"}, "63": {"types": ["settings-home", "settings-roles", "settings-permissions", "settings-home"], "focus": "Team permissions", "values": "Dealer · Cashier · Host", "cta": "Save role permissions"}, "64": {"types": ["settings-home", "settings-menu", "settings-inventory", "settings-home"], "focus": "Food & beverage settings", "values": "Aguila COP 10,000 · Water free", "cta": "Enable menu & stock"}, "65": {"types": ["profile-menu", "settings-preferences", "settings-language", "profile-menu"], "focus": "Profile & language", "values": "English · Español · Português", "cta": "Save preference"}, "66": {"types": ["settings-home", "team-invite", "invite-compose", "invite-sent"], "focus": "Invite team member", "values": "Anna · Dealer · WhatsApp", "cta": "Send invitation"}, "67": {"types": ["reports-home", "reports-filter", "reports-session"], "focus": "Find past session", "values": "Oct 25 · Sunday Hold’em", "cta": "Open session report"}, "68": {"types": ["reports-home", "reports-player", "reports-player-detail"], "focus": "Player win/loss", "values": "Diego · 14 sessions", "cta": "Net results · Hours"}, "69": {"types": ["reports-home", "reports-rake", "reports-table"], "focus": "Rake & table reports", "values": "Rake COP 780,000 · 2 tables", "cta": "Per-table performance"}, "70": {"types": ["reports-home", "reports-team", "reports-expense"], "focus": "Team & expense reports", "values": "Anna · Venue · Drinks", "cta": "Compare costs"}, "71": {"types": ["reports-home", "reports-export", "reports-ready", "reports-ready"], "focus": "Export report", "values": "Session summary · PDF / CSV", "cta": "Download / Share"}};
 const SCREEN_PHOTOS=[['Luka D.','L',500000,true],['Macaulay C.','M',480000,true],['Miguel B.','M',520000,true],['Nora A.','N',500000,false],['Paul Smith','P',610000,true],['Joe Shmoe','J',475000,false],['Diego R.','D',450000,true],['Mikey B.','M',525000,true]];
 const euro=n=>new Intl.NumberFormat('en-US').format(n);
 function screenCard(title,content,tone='cyan'){return `<div class="screen-card ${tone}"><div class="screen-card-title">${esc(title)}</div><div class="screen-card-content">${content}</div></div>`}
@@ -4108,10 +4237,10 @@ function authoredContent(w,step,i){
 
  const spec=SCREEN_SPECS[w.id],type=spec.types[Math.min(i,spec.types.length-1)],last=i===w.steps.length-1;
  const focus=spec.focus, values=spec.values,cta=spec.cta;
- const profile=screenProfile(), photo=screenProfile('Anna','DEALER · ON SHIFT',true);
+ const profile=screenProfile(), photo=screenProfile('Anna','DEALER · WORKING',true);
  const table=(type!=='table-two'&&['table','table-rebuy','table-cashout','table-moved','table-seated'].includes(type)?miniTable(type==='table-rebuy').replaceAll('<strong>⊕</strong><b>Open Seat</b>','<strong class="seat-meaning-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 23V12a12 12 0 0 1 24 0v11M12 23h24v9H12zM12 32l-3 9M36 32l3 9M8 23v9M40 23v9"/></svg></strong><b>SEAT OPEN</b>').replaceAll('<strong>♙</strong><b>WAIT LIST</b>','<strong class="wait-meaning-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 11h23M19 24h23M19 37h23"/><text x="3" y="15">1</text><text x="3" y="28">2</text><text x="3" y="41">3</text></svg></strong><b>WAIT LIST</b>'):miniTable(type==='table-rebuy'));
  const people=screenList([['Diego Restrepo','Seat 7 · 450,000','›'],['Rafa','Seat 1 · 450,000','›'],['Moshe','Seat 2 · 1,200,000','›']]);
- const team=screenList([['Anna','Dealer · 7:00 PM','ON SHIFT'],['Costa','Host · 7:10 PM','ON SHIFT'],['Alex','Cashier · 7:00 PM','ON SHIFT']]);
+ const team=screenList([['Anna','Dealer · 7:00 PM','WORKING'],['Costa','Host · 7:10 PM','WORKING'],['Alex','Cashier · 7:00 PM','WORKING']]);
  const entries=[['Rent payment','Cashbox','1,000,000'],['Drinks','Cashbox','150,000'],['Food','Cashbox','85,000']];
  const amountRows=[['PLAYER','Diego Restrepo'],['SEAT','7'],['AMOUNT','COP 1,000,000'],['PAYMENT METHOD','Cashbox']];
  const tableInfo=screenTop('SUNDAY HOLD’EM','8 seated · 1 open · 1 waiting');
@@ -4154,14 +4283,14 @@ function authoredContent(w,step,i){
  case 'ask-nora':return screenForm('ASK NORA',[['QUESTION','How much is in buy-ins?']],'ASK NORA');
  case 'answer-nora':return screenCard('NORA ANSWER',screenTiles([['TOTAL BUY-INS','COP 5,500,000'],['PLAYERS','8']]))+screenBtn('BACK TO TABLE','blue');
  case 'error':return screenCard('ACTION NOT RECORDED',screenField('ISSUE','Player not found')+screenField('LEDGER','No changes made'),'red')+screenBtn('CORRECT & RETRY','yellow');
- case 'team-list':return screenTop('TEAM · LIVE GAME','3 members on shift')+team+screenBtn('＋ ASSIGN TEAM','blue');
- case 'team-select':return screenTop('ASSIGN TEAM MEMBER','Choose from directory')+team;
+ case 'team-list':return screenTop('TEAM · LIVE GAME','3 members working')+team+screenBtn('＋ ADD TO GAME','blue');
+ case 'team-select':return screenTop('ADD TO GAME MEMBER','Choose from directory')+team;
  case 'team-assign':return photo+screenForm('ASSIGN TO SESSION',[['ROLE','Dealer'],['TABLE','Main table'],['STATUS','Not checked in']],'ASSIGN ANNA');
- case 'team-profile':return photo+screenTiles([['SHIFT','7:00 PM'],['ROLE','DEALER'],['TIPS','COP 30,000'],['PAYMENTS','COP 0']])+screenBtn('VIEW SHIFT DETAILS','blue');
- case 'team-checkin':return photo+screenForm('START SHIFT',[['ROLE','Dealer'],['START','7:00 PM'],['TABLE','Main table']],'CONFIRM CHECK-IN');
+ case 'team-profile':return photo+screenTiles([['CHECKED IN','7:00 PM'],['ROLE','DEALER'],['TIPS','COP 30,000'],['PAYMENTS','COP 0']])+screenBtn('VIEW SESSION DETAILS','blue');
+ case 'team-checkin':return photo+screenForm('CHECK IN',[['ROLE','Dealer'],['START','7:00 PM'],['TABLE','Main table']],'CONFIRM CHECK-IN');
  case 'team-tip':return photo+screenForm('RECORD TIP',[['AMOUNT','COP 30,000'],['PAYMENT','Chips'],['SOURCE','Table tips']],'CONFIRM TIP');
- case 'team-payment':return screenProfile('Costa','HOST · ON SHIFT',false)+screenForm('TEAM ADVANCE',[['AMOUNT','COP 100,000'],['ACCOUNT','Cashbox']],'CONFIRM PAYMENT');
- case 'team-checkout':return photo+screenForm('END SHIFT',[['START','7:00 PM'],['END','12:30 AM'],['DURATION','5h 30m'],['TIPS','COP 30,000']],'CONFIRM CHECKOUT');
+ case 'team-payment':return screenProfile('Costa','HOST · WORKING',false)+screenForm('TEAM ADVANCE',[['AMOUNT','COP 100,000'],['ACCOUNT','Cashbox']],'CONFIRM PAYMENT');
+ case 'team-checkout':return photo+screenForm('CHECK OUT',[['START','7:00 PM'],['END','12:30 AM'],['DURATION','5h 30m'],['TIPS','COP 30,000']],'CONFIRM CHECKOUT');
  case 'team-summary':return photo+screenTiles([['HOURS','5h 30m'],['EARNINGS','COP 120,000'],['TIPS','COP 30,000'],['PAID','COP 100,000']]);
  case 'expense-list':return screenTop('EXPENSES · LIVE','Recorded today')+screenList(entries)+screenBtn('＋ RECORD EXPENSE','blue');
  case 'expense-entry':return screenForm('RENT EXPENSE',[['DESCRIPTION','Rent payment'],['AMOUNT','COP 1,000,000'],['ACCOUNT','Cashbox']],'CONFIRM EXPENSE');
@@ -4191,9 +4320,9 @@ function authoredContent(w,step,i){
  case 'variance-alert':return screenCard('VARIANCE WARNING',screenField('DIFFERENCE','COP 50,000')+screenField('CLOSE RULE','Can close with warning'),'red')+screenBtn('ACKNOWLEDGE','yellow');
  case 'table-performance':return screenTiles([['TABLE A RAKE / HR','COP 145,000'],['TABLE A AVG STACK','COP 620,000'],['TABLE B RAKE / HR','COP 125,000'],['TABLE B AVG STACK','COP 540,000']]);
  case 'close-start':return screenTop('DAILY CLOSE','End-of-session review')+screenTiles([['PLAYERS','8'],['TEAM','3'],['EXPENSES','3'],['CHIPS','CHECK']])+screenBtn('BEGIN DAILY CLOSE');
- case 'close-checklist':return screenTop('DAILY CLOSE CHECKLIST','Review before permanent close')+screenList([['Players','Cash-outs and balances','CHECK'],['Team','Shifts and payments','CHECK'],['Expenses','Inventory and costs','CHECK'],['Reconciliation','Cash / chips / accounts','CHECK']]);
+ case 'close-checklist':return screenTop('DAILY CLOSE CHECKLIST','Review before permanent close')+screenList([['Players','Cash-outs and balances','CHECK'],['Team','Hours and payments','CHECK'],['Expenses','Inventory and costs','CHECK'],['Reconciliation','Cash / chips / accounts','CHECK']]);
  case 'close-players':return screenTop('PLAYER CASH-OUTS','2 outstanding')+screenList([['Diego','Not cashed out','PENDING'],['Rafa','Not cashed out','PENDING'],['Moshe','Fully settled','DONE']]);
- case 'close-team':return screenTop('TEAM SETTLEMENTS','Review each shift')+team;
+ case 'close-team':return screenTop('TEAM SETTLEMENTS','Review each team member')+team;
  case 'close-expenses':return screenTop('CLOSE · EXPENSES','Confirm recorded costs')+screenList(entries);
  case 'close-inventory':return screenTop('CLOSE · INVENTORY','Check ending counts')+screenTiles([['AGUILA','17'],['RED BULL','9'],['WATER','28']]);
  case 'close-accounts':return screenTop('PAYMENT ACCOUNTS','Reconcile cash and digital')+screenTiles([['CASHBOX','4,500,000'],['NEQUI','500,000'],['BANCOLOMBIA','300,000']]);
@@ -4241,7 +4370,7 @@ function authoredContent(w,step,i){
  case 'reports-player-detail':return screenProfile('Diego Restrepo','14 SESSIONS · 62 HOURS',true)+screenTiles([['WIN / LOSS','+850,000'],['SESSIONS','14'],['HOURS','62'],['BUY-INS','7,500,000']]);
  case 'reports-rake':return screenTiles([['TOTAL RAKE','780,000'],['RAKE / HOUR','145,000'],['TABLE HOURS','10.5'],['TABLES','2']]);
  case 'reports-table':return screenTiles([['TABLE A','COP 450,000'],['TABLE B','COP 330,000'],['TABLE A / HR','COP 145,000'],['TABLE B / HR','COP 125,000']]);
- case 'reports-team':return screenTop('TEAM REPORT','Shift totals')+team;
+ case 'reports-team':return screenTop('TEAM REPORT','Hours and totals')+team;
  case 'reports-expense':return screenTop('EXPENSE REPORT','Session costs')+screenList(entries);
  case 'reports-export':return screenForm('EXPORT REPORT',[['REPORT','Session summary'],['FORMAT','PDF / CSV'],['DATE','Oct 25']],'GENERATE EXPORT');
  case 'reports-ready':return screenCard('REPORT READY',screenField('FORMAT','PDF')+screenField('REPORT','Session summary'),'green')+screenBtn('DOWNLOAD / SHARE');
@@ -4359,7 +4488,7 @@ const data=(a,b)=>'<div class="snap-data"><b>'+b+'</b><small>'+a+'</small></div>
 const session='<div class="snap-session"><b>Sunday · Oct 25 · '+d.id+'</b><br>Hold’em · 2 tables · Rake 5% per pot<br>Duration <b>'+d.duration+'</b> · Table hours <b>'+d.tableHours+'</b></div>';
 const variance=d.buyIns+d.promoChips-d.cashOuts-d.chipTips;
 const nav='<div class="snap-links">'+tile('▤','Ledger','ledger')+tile('▥','Rake & tables','tables')+tile('♟','Team','team')+tile('▤','Expenses','expenses')+tile('▣','Accounts','accounts')+tile('⚖','Chip check','chips')+(d.modules.signSettle?tile('✍','Sign & Settle','ss'):'')+(d.modules.inventory?tile('▦','Inventory','inventory'):'')+(d.modules.otherRevenue?tile('◈','Other revenue','revenue'):'')+(d.modules.rewards?tile('☆','Rewards','rewards'):'')+'</div>';
-if(view==='overview')return '<div class="snap-badge">● LIVE · SESSION SUMMARY</div>'+session+'<div class="snap-label">FINANCIAL TOTALS · COP</div><div class="snap-grid">'+data('Buy-ins','5.50M')+data('Cash-outs','5.42M')+data('Rake','780K')+'</div><div class="snap-label">OPERATIONS</div><div class="snap-grid">'+data('Players','8')+data('Tables','2')+data('Team on shift','3')+'</div>'+nav;
+if(view==='overview')return '<div class="snap-badge">● LIVE · SESSION SUMMARY</div>'+session+'<div class="snap-label">FINANCIAL TOTALS · COP</div><div class="snap-grid">'+data('Buy-ins','5.50M')+data('Cash-outs','5.42M')+data('Rake','780K')+'</div><div class="snap-label">OPERATIONS</div><div class="snap-grid">'+data('Players','8')+data('Tables','2')+data('Team working','3')+'</div>'+nav;
 if(view==='ledger')return detail('SESSION LEDGER',sharedLedgerBody(1,true));
 if(view==='ledger-legacy')return detail('SESSION LEDGER · COP','<div class="snap-note">All session transactions · most recent first</div>'+row('10:20 PM · Diego cash-out','−720,000')+row('9:12 PM · Diego rebuy','+1,000,000')+row('8:45 PM · Table A rake','+50,000')+row('8:04 PM · Rafa buy-in','+450,000')+'<div class="snap-pager"><button onclick="snapNavigate(this,\'ledger2\')">NEXT PAGE ›</button><span>1 / 2</span></div>'+tile('♟','Open player ledger','player'));
 if(view==='ledger2')return detail('SESSION LEDGER',sharedLedgerBody(2,true));
@@ -4367,7 +4496,7 @@ if(view==='ledger2-legacy')return detail('SESSION LEDGER · COP','<div class="sn
 if(view==='player')return detail('PLAYER LEDGER',sharedLedgerBody(1));
 if(view==='player-legacy')return detail('PLAYER LEDGER · DIEGO',row('Initial buy-in','COP 450,000')+row('Rebuy','COP 200,000')+row('Rebuy','COP 1,000,000')+row('Cash-out','COP 720,000')+'<div class="snap-note">Player detail and transaction history · example entries.</div>'+tile('▤','Return to session ledger','ledger'));
 if(view==='tables')return detail('RAKE & TABLE PERFORMANCE',row('Total rake',money(d.rake))+row('Table 1 rake','COP 450,000')+row('Table 2 rake','COP 330,000')+row('Session duration',d.duration)+row('Accumulated table hours',d.tableHours)+'<div class="snap-note">Table hours add the running time of each table.</div>');
-if(view==='team')return detail('TEAM REPORT',row('Staff / hours','3 · 16h 30m')+row('Compensation',money(d.teamPay))+row('Outstanding settlements',money(d.teamDue))+row('Chip tips',money(d.chipTips))+'<div class="snap-note">Open the existing Team report for each shift, tips, advances and settlement.</div>'+tile('♟','Team workflow','workflow24'));
+if(view==='team')return detail('TEAM REPORT',row('Staff / hours','3 · 16h 30m')+row('Compensation',money(d.teamPay))+row('Outstanding settlements',money(d.teamDue))+row('Chip tips',money(d.chipTips))+'<div class="snap-note">Open the existing Team report for each team member: hours worked, tips, advances and settlement.</div>'+tile('♟','Team workflow','workflow24'));
 if(view==='expenses')return detail('EXPENSES',row('Total expenses',money(d.expenses))+row('Rent','COP 1,000,000')+row('Drinks','COP 150,000')+row('Other','COP 85,000')+'<div class="snap-note">Existing expense records and permitted corrections.</div>'+tile('▤','Expense workflow','workflow25'));
 if(view==='accounts')return detail('ACCOUNT BALANCES · COP',d.accounts.map(a=>row(a[0],a[1].toLocaleString('en-US'))).join('')+row('Chips held · face value',d.chipsHeld.toLocaleString('en-US'))+'<div class="snap-note">Only enabled accounts appear. Account movements are in the session ledger.</div>'+tile('▤','View ledger','ledger'));
 if(view==='chips')return detail('CHIP RECONCILIATION · COP',row('Buy-ins',d.buyIns.toLocaleString('en-US'))+row('+ Promotional chips',d.promoChips.toLocaleString('en-US'))+row('Cash-outs',d.cashOuts.toLocaleString('en-US'))+row('+ Chip tips',d.chipTips.toLocaleString('en-US'))+'<div class="snap-alert"><b>Difference '+money(variance)+'</b><br>Buy-ins + promo chips − cash-outs − chip tips</div><div class="snap-note">Review the difference with the session activity before Daily Close.</div>');
@@ -4494,13 +4623,13 @@ if(type==='crm-profile')return w.id===54?crmProfileTight():sharedCRMProfile(w.id
  if(type==='table-performance'&&i===2||type==='reports-table')return screenTop('TABLE 1 · PERFORMANCE','Sunday · Oct 25')+sharedData([['Rake','COP 450,000'],['Table hours','5h 30m'],['Rake / table hour','COP 81,818'],['Average stack','COP 620,000']]);
  if(type==='table-performance'||type==='reports-rake')return snapshotMarkup('tables');
  if(type==='quick-actions')return authoredContent(WORKFLOWS.find(x=>x.id===5),step,1);
- if(type==='team-profile')return sharedProfile('Anna','DEALER · ON SHIFT','5h 30m','HOURS WORKED')+sharedData([['Compensation','COP 120,000'],['Chip tips','COP 30,000'],['Paid','COP 100,000'],['Outstanding','COP 50,000']])+sharedAction('Shift details','next','▤');
+ if(type==='team-profile')return sharedProfile('Anna','DEALER · WORKING','5h 30m','HOURS WORKED')+sharedData([['Compensation','COP 120,000'],['Chip tips','COP 30,000'],['Paid','COP 100,000'],['Outstanding','COP 50,000']])+sharedAction('Shift details','next','▤');
  if(type==='team-summary')return sharedProfile('Anna','DEALER','5h 30m','HOURS WORKED')+sharedData([['Compensation','COP 120,000'],['Chip tips','COP 30,000'],['Paid / advances','COP 100,000'],['Outstanding','COP 50,000']]);
  if(type==='team-select'){const h=document.createElement('div');h.innerHTML=sharedRoster('SELECT TEAM MEMBER');h.querySelector('.seat-roster-grid').innerHTML=['Anna','Costa','Alex'].map(n=>'<div class="seat-roster-card" role="button" tabindex="0" data-next="true"><div class="seat-roster-photo">'+portrait(n,n[0],true)+'</div><strong>'+n+'</strong></div>').join('');h.querySelector('.seat-roster-add-toggle').dataset.view='workflow66';return h.innerHTML;}
  if(type==='team-tip')return sharedProfile('Anna','DEALER','COP 30,000','CHIP TIPS')+screenForm('RECORD CHIP TIP',[['AMOUNT','COP 30,000'],['SOURCE','Table tips · Chips']],'CONFIRM CHIP TIP');
  if(type==='team-payment')return sharedProfile('Costa','HOST','COP 100,000','ADVANCE')+screenForm('TEAM ADVANCE',[['AMOUNT','COP 100,000'],['ACCOUNT','Cashbox']],'CONFIRM PAYMENT');
- if(type==='team-checkin')return sharedProfile('Anna','DEALER','7:00 PM','SHIFT START')+screenForm('START SHIFT',[['ROLE','Dealer'],['START TIME','7:00 PM'],['TABLE','Table 1']],'CONFIRM CHECK-IN');
- if(type==='team-checkout')return sharedProfile('Anna','DEALER','5h 30m','SHIFT DURATION')+screenForm('END SHIFT',[['START / END','7:00 PM / 12:30 AM'],['CHIP TIPS','COP 30,000']],'CONFIRM CHECKOUT');
+ if(type==='team-checkin')return sharedProfile('Anna','DEALER','7:00 PM','CHECK-IN TIME')+screenForm('CHECK IN',[['ROLE','Dealer'],['START TIME','7:00 PM'],['TABLE','Table 1']],'CONFIRM CHECK-IN');
+ if(type==='team-checkout')return sharedProfile('Anna','DEALER','5h 30m','HOURS WORKED')+screenForm('CHECK OUT',[['START / END','7:00 PM / 12:30 AM'],['CHIP TIPS','COP 30,000']],'CONFIRM CHECKOUT');
  if(type==='multi-tables')return screenTop('SELECT TABLE','2 tables running')+'<div class="shared-tile-grid table-pick12"><button type="button" class="snap-link shared-action" data-view="next"><span aria-hidden="true">♣</span><div><b>TABLE 1</b><small>8 PLAYERS SEATED</small></div></button><button type="button" class="snap-link shared-action" data-view="next"><span aria-hidden="true">♣</span><div><b>TABLE 2</b><small>6 PLAYERS SEATED</small></div></button></div>';
  if(type==='ss-player')return sharedProfile()+sharedData([['Sign & Settle owed','COP 500,000']])+screenBtn(w.id===36?'ISSUE CREDIT':'COLLECT PAYMENT');
  if(type==='ss-collect')return screenForm('SETTLE SIGN & SETTLE',[['AMOUNT OWED','COP 500,000'],['CHIPS COLLECTED','COP 300,000'],['REMAINING PAYMENT','COP 200,000'],['PAYMENT ACCOUNT','Cashbox']],'CONFIRM COLLECTION');
@@ -4525,6 +4654,7 @@ if(type==='crm-profile')return w.id===54?crmProfileTight():sharedCRMProfile(w.id
 WORKFLOWS.find(w=>w.id===59).steps=['Game basics','Game rules','Rake structure','Payment accounts','Optional modules','Team access','Review and finish'];
 SCREEN_SPECS[59].types=['onboarding','onboard-game','onboard-rake','onboard-payment','onboard-modules','onboard-team','onboard-done'];
 SCREEN_SPECS[54].types=['crm-list','crm-search','crm-profile','player-transactions'];
+[[72,2],[73,5],[74,2],[75,3],[76,3],[77,5]].forEach(function(p){SCREEN_SPECS[p[0]]={types:Array.from({length:p[1]},function(_,k){return 'nora-team-'+p[0]+'-'+k}),focus:'Team',values:'',cta:''};});
 SCREEN_SPECS[19].types=['tm-overview','tm-select','tm-assign','tm-assigned'];SCREEN_SPECS[20].types=['tm-overview','tm-profile','tm-checkin','tm-checkedin'];SCREEN_SPECS[21].types=['tm-overview','tm-profile','tm-tip','tm-tipposted'];SCREEN_SPECS[22].types=['tm-overview','tm-profile','tm-pay','tm-paid'];SCREEN_SPECS[23].types=['tm-overview','tm-profile','tm-checkout','tm-closed'];SCREEN_SPECS[24].types=['tm-overview','tm-profile','tm-earnings'];
 SCREEN_SPECS[13].types=['table','voice-record','voice-review','rebuy-review','table-rebuy'];
 SCREEN_SPECS[14].types=['table','text-command','voice-review','rebuy-review','table-rebuy'];
@@ -4533,7 +4663,7 @@ function sharedAccountLedger(){const h=document.createElement('div');h.innerHTML
 const SHARED_HEADERS={'rebuy-review':'Rebuy Confirmed',waitlist:'Wait List','waitlist-assign':'Seat from Wait List',
  'table':'Table View','table-rebuy':'Table View','table-cashout':'Table View','table-two':'Table 2','multi-tables':'Select Table',
  'voice-record':'Nora · Voice Note','voice-review':'Nora · Review Action','text-command':'Nora · Text Command','correction':'Correct Action','multi-review':'Nora · Review Actions','ask-nora':'Ask Nora','answer-nora':'Nora · Answer','error':'Nora · Action Not Recorded',
- 'tm-overview':'Team','tm-select':'Select Team Member','tm-assign':'Assign Team','tm-assigned':'Assignment Posted','tm-profile':'Team Member','tm-checkin':'Check-in','tm-checkedin':'Checked In','tm-tip':'Chip Tips','tm-tipposted':'Tip Posted','tm-pay':'Team Advance','tm-paid':'Advance Posted','tm-checkout':'Checkout','tm-closed':'Shift Closed','tm-earnings':'Team Earnings','team-list':'Team','team-select':'Select Team Member','team-assign':'Assign Team','team-profile':'Team Member','team-checkin':'Check-in','team-tip':'Chip Tips','team-payment':'Team Advance','team-checkout':'Checkout','team-summary':'Team Earnings',
+ 'tm-overview':'Team','tm-select':'Select Team Member','tm-assign':'Add to Game','tm-assigned':'Added to Game','tm-profile':'Team Member','tm-checkin':'Check In','tm-checkedin':'Checked In','tm-tip':'Chip Tips','tm-tipposted':'Tip Posted','tm-pay':'Team Advance','tm-paid':'Advance Posted','tm-checkout':'Checkout','tm-closed':'Checked Out','tm-earnings':'Team Earnings','team-list':'Team','team-select':'Select Team Member','team-assign':'Assign Team','team-profile':'Team Member','team-checkin':'Check-in','team-tip':'Chip Tips','team-payment':'Team Advance','team-checkout':'Checkout','team-summary':'Team Earnings',
  'expense-list':'Expenses','expense-entry':'Record Expense','expense-detail':'Expense Details','expense-review':'Review Expense',
  'service-menu':'Food & Beverage','service-item':'Sale Item','service-payment':'Sale Payment','service-comp':'Complimentary Item','service-confirm':'Item Recorded',
  'inventory-list':'Inventory','inventory-start':'Beginning Count','inventory-end':'Ending Count','inventory-summary':'Inventory Summary','inventory-variance':'Inventory Variance',
@@ -4602,7 +4732,7 @@ const SNAPSHOT_LABELS={overview:'Snapshot',ledger:'Session Ledger',tables:'Rake 
 function snapshotVisibleViews(){const m=SNAPSHOT_SESSION.modules;return ['overview','ledger','tables','team','expenses','accounts','chips',...(m.signSettle?['ss']:[]),...(m.inventory?['inventory']:[]),...(m.otherRevenue?['revenue']:[]),...(m.rewards?['rewards']:[]),'closed'];}
 function customPhone(w,step,i){if(w.id===54)return crm54Screen(w,step,i);if(w.id>=12&&w.id!==32)return harmonizedPhone(w,step,i);if(w.id===32)return snapshotStage(w,step,i);if(w.id===54)return crm56Screen(w,step,i);if(w.id===11&&i===1)return wf10Phone(w,step,1);if(w.id===10&&i>0)return wf10Phone(w,step,i);if(w.id===9&&i>0)return wf9Ledger(w,step,i);const sp=SCREEN_SPECS[w.id];const t=sp.types[Math.min(i,sp.types.length-1)];let active=w.main==='Live Session'?({Team:'Team',Expenses:'Expenses',Snapshot:'Snapshot',Close:'Close'}[w.sub]||'Table'):w.main==='Players'?'Players':w.main==='Team'?'Team':w.main==='Reporting'?'Snapshot':'Table';let title=w.main==='Live Session'?'LIVE GAME':w.main.toUpperCase();let subtitle=w.main==='Live Session'?(w.sub==='Table'?(['table','table-rebuy','table-cashout','table-moved'].includes(t)?'Table View':t==='quick-actions'?'Player Actions':t.includes('rebuy')?'Rebuy':t==='seat-entry'||t==='seat-review'?'Initial Buy-in':t.includes('cashout')?'Cash-out':'Table View'):w.sub==='Nora AI'?'Nora AI':w.sub==='Close'?'Daily Close':w.sub):w.main==='Settings'?'Settings':w.sub;return `<div class="stage hi-stage"><div class="stage-head"><div class="stage-number">${i+1}</div><div class="stage-title">${esc(step)}</div></div><div class="phone hi-phone"><div class="notch"></div>${fullHead(title,subtitle)}<div class="ux-content screen-specific">${screenContent(w,step,i)}</div>${fixedNav(w.main==='Reporting'?'Overview':w.main==='Settings'?'Profile':active,w.main==='Reporting'?'Reporting':w.main==='Settings'?'Settings':'Live Session')}</div><p class="steptext">${esc(sp.focus)} · ${esc(sp.values)}</p></div>`}
 
-function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;if(w.id===32)w.steps=snapshotVisibleViews().map(v=>SNAPSHOT_LABELS[v]);location.hash='workflow-'+id;let r=review(id);$('breadcrumb').textContent=`NORA / ${MAINLBL(w.main)} / ${w.sub}`;$('content').innerHTML=`<h1>${String(id).padStart(2,'0')}. ${esc(w.title)}</h1><p class="intro">Review the intended interaction in the same order a person would use it inside NORA. Swipe horizontally to see every step.</p><div class="meta"><span>${esc(MAINLBL(w.main))}</span><span>${esc(w.sub)}</span><span>${w.steps.length} steps</span><span>Workflow ${id} of ${WORKFLOWS.length}</span></div><div class="sectionlabel">Step-by-step mobile storyboard →</div><div class="storyboard">${w.steps.map((s,i)=>customPhone(w,s,i)).join('')}</div><div class="notice"><b>Review rule:</b> These are proposed NORA screens, not production screenshots or an interactive NORA app. Some screens require further business-rule and layout verification. Screen layouts and financial actions require your approval. The sequence and UI details require your approval. The existing live NORA app is not affected.${id===1?' <b>Workflow #1:</b> This is a screen-specific design proposal using illustrative player names and avatars, not production player photos. It requires your approval before developer handoff.':''}${id===5?' <b>Rebuy rule:</b> Show cumulative total buy-ins, never a supposed current physical chip stack.':''}</div><div class="review"><div class="panel"><h2>Decision</h2><div class="statusbuttons"><button data-status="pending" class="${r.status==='pending'?'selected pending':''}">Not reviewed</button><button data-status="approved" class="${r.status==='approved'?'selected approved':''}">✓ Approve</button><button data-status="changes" class="${r.status==='changes'?'selected changes':''}">✎ Needs changes</button></div><div class="saveinfo">Your decision is saved automatically on this device.</div></div><div class="panel"><h2>Comments / corrections</h2><label for="comments">What should change in this workflow?</label><textarea id="comments" placeholder="Example: Remove step 3. Make the amount larger. Keep the existing Table View.">${esc(r.comment)}</textarea><div class="saveinfo">Comments save as you type. Export to share them with the developer.</div></div></div><div class="footeractions"><button class="secondary" id="prev" ${id===1?'disabled':''}>← Previous</button><button class="primary" id="next" ${id===71?'disabled':''}>Next workflow →</button></div><p class="disclaimer">Prototype for review only. No connection to NORA’s production ledger, accounts, or player data.</p>`;document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{reviews[id]={...review(id),status:b.dataset.status};save();show(id)});$('comments').oninput=e=>{reviews[id]={...review(id),comment:e.target.value};save()};$('prev').onclick=()=>show(Math.max(1,id-1));$('next').onclick=()=>show(Math.min(71,id+1));renderNav();$('sidebar').classList.remove('open');window.scrollTo(0,0)}function showAll(){current=0;$('breadcrumb').textContent='NORA / All workflows';$('content').innerHTML=`<h1>All 71 workflows</h1><p>Grouped by NORA's main navigation, with Live Game ordered Table → Nora AI → Team → Expenses → Snapshot → Close. Choose any workflow to review.</p><div class="allindex">${WORKFLOWS.map(w=>`<button class="indexcard" data-id="${w.id}"><small>${esc(MAINLBL(w.main))} / ${esc(w.sub)}</small><strong>${w.id}. ${esc(w.title)}</strong><small>${esc(review(w.id).status)}</small></button>`).join('')}</div>`;document.querySelectorAll('.indexcard').forEach(b=>b.onclick=()=>show(+b.dataset.id));renderNav();$('sidebar').classList.remove('open')}function download(name,content){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'application/json'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}$('exportbtn').onclick=()=>download('nora-ux-review-decisions.json',JSON.stringify({app:'NORA UX Review',version:1,exported:new Date().toISOString(),reviews},null,2));$('importbtn').onclick=()=>$('importfile').click();$('importfile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let data=JSON.parse(await f.text());if(!data.reviews||typeof data.reviews!=='object')throw Error('Invalid review file');if(!confirm('Import reviews from this file? This replaces reviews saved on this device.'))return;reviews=data.reviews;save();current?show(current):showAll();alert('Reviews imported successfully.')}catch(err){alert('Could not import: '+err.message)}e.target.value=''};$('allbtn').onclick=showAll;$('menubtn').onclick=()=>$('sidebar').classList.toggle('open');$('search').oninput=renderNav;updateProgress();let match=location.hash.match(/workflow-(\d+)/);show(match?Math.max(1,Math.min(WORKFLOWS.length,+match[1])):1);window.addEventListener('hashchange',function(){var m=location.hash.match(/workflow-(\d+)/);if(!m)return;var n=Math.max(1,Math.min(WORKFLOWS.length,+m[1]));if(n!==current)show(n);});/* browser Back/Forward and pasted #workflow-N links now switch workflows in an open tab (show() only writes the hash, so there is no loop) */</script><script>
+function show(id){current=id;let w=WORKFLOWS.find(w=>w.id===id);if(!w)return;if(w.id===32)w.steps=snapshotVisibleViews().map(v=>SNAPSHOT_LABELS[v]);location.hash='workflow-'+id;let r=review(id);$('breadcrumb').textContent=`NORA / ${MAINLBL(w.main)} / ${w.sub}`;$('content').innerHTML=`<h1>${String(id).padStart(2,'0')}. ${esc(w.title)}</h1><p class="intro">Review the intended interaction in the same order a person would use it inside NORA. Swipe horizontally to see every step.</p><div class="meta"><span>${esc(MAINLBL(w.main))}</span><span>${esc(w.sub)}</span><span>${w.steps.length} steps</span><span>Workflow ${id} of ${WORKFLOWS.length}</span></div><div class="sectionlabel">Step-by-step mobile storyboard →</div><div class="storyboard">${w.steps.map((s,i)=>customPhone(w,s,i)).join('')}</div><div class="notice"><b>Review rule:</b> These are proposed NORA screens, not production screenshots or an interactive NORA app. Some screens require further business-rule and layout verification. Screen layouts and financial actions require your approval. The sequence and UI details require your approval. The existing live NORA app is not affected.${id===1?' <b>Workflow #1:</b> This is a screen-specific design proposal using illustrative player names and avatars, not production player photos. It requires your approval before developer handoff.':''}${id===5?' <b>Rebuy rule:</b> Show cumulative total buy-ins, never a supposed current physical chip stack.':''}</div><div class="review"><div class="panel"><h2>Decision</h2><div class="statusbuttons"><button data-status="pending" class="${r.status==='pending'?'selected pending':''}">Not reviewed</button><button data-status="approved" class="${r.status==='approved'?'selected approved':''}">✓ Approve</button><button data-status="changes" class="${r.status==='changes'?'selected changes':''}">✎ Needs changes</button></div><div class="saveinfo">Your decision is saved automatically on this device.</div></div><div class="panel"><h2>Comments / corrections</h2><label for="comments">What should change in this workflow?</label><textarea id="comments" placeholder="Example: Remove step 3. Make the amount larger. Keep the existing Table View.">${esc(r.comment)}</textarea><div class="saveinfo">Comments save as you type. Export to share them with the developer.</div></div></div><div class="footeractions"><button class="secondary" id="prev" ${id===1?'disabled':''}>← Previous</button><button class="primary" id="next" ${id===WORKFLOWS.length?'disabled':''}>Next workflow →</button></div><p class="disclaimer">Prototype for review only. No connection to NORA’s production ledger, accounts, or player data.</p>`;document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{reviews[id]={...review(id),status:b.dataset.status};save();show(id)});$('comments').oninput=e=>{reviews[id]={...review(id),comment:e.target.value};save()};$('prev').onclick=()=>show(Math.max(1,id-1));$('next').onclick=()=>show(Math.min(WORKFLOWS.length,id+1));renderNav();$('sidebar').classList.remove('open');window.scrollTo(0,0)}function showAll(){current=0;$('breadcrumb').textContent='NORA / All workflows';$('content').innerHTML=`<h1>All 77 workflows</h1><p>Grouped by NORA's main navigation, with Live Game ordered Table → Nora AI → Team → Expenses → Snapshot → Close. Choose any workflow to review.</p><div class="allindex">${WORKFLOWS.map(w=>`<button class="indexcard" data-id="${w.id}"><small>${esc(MAINLBL(w.main))} / ${esc(w.sub)}</small><strong>${w.id}. ${esc(w.title)}</strong><small>${esc(review(w.id).status)}</small></button>`).join('')}</div>`;document.querySelectorAll('.indexcard').forEach(b=>b.onclick=()=>show(+b.dataset.id));renderNav();$('sidebar').classList.remove('open')}function download(name,content){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'application/json'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}$('exportbtn').onclick=()=>download('nora-ux-review-decisions.json',JSON.stringify({app:'NORA UX Review',version:1,exported:new Date().toISOString(),reviews},null,2));$('importbtn').onclick=()=>$('importfile').click();$('importfile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let data=JSON.parse(await f.text());if(!data.reviews||typeof data.reviews!=='object')throw Error('Invalid review file');if(!confirm('Import reviews from this file? This replaces reviews saved on this device.'))return;reviews=data.reviews;save();current?show(current):showAll();alert('Reviews imported successfully.')}catch(err){alert('Could not import: '+err.message)}e.target.value=''};$('allbtn').onclick=showAll;$('menubtn').onclick=()=>$('sidebar').classList.toggle('open');$('search').oninput=renderNav;updateProgress();let match=location.hash.match(/workflow-(\d+)/);show(match?Math.max(1,Math.min(WORKFLOWS.length,+match[1])):1);window.addEventListener('hashchange',function(){var m=location.hash.match(/workflow-(\d+)/);if(!m)return;var n=Math.max(1,Math.min(WORKFLOWS.length,+m[1]));if(n!==current)show(n);});/* browser Back/Forward and pasted #workflow-N links now switch workflows in an open tab (show() only writes the hash, so there is no loop) */</script><script>
 (function(){
  const done=new Map();
  function clean(){
@@ -5459,7 +5589,7 @@ const RPT={
  chips:(items,sel)=>'<div class="rpt-chips" style="grid-template-columns:repeat('+items.length+',1fr)">'+items.map((x,k)=>'<span class="'+(k===sel?'sel':'')+'">'+x+'</span>').join('')+'</div>',
  cta:(label,cls)=>'<button type="button" class="rpt-cta '+(cls||'')+'" data-next="true">'+label+'</button>',
  home(){const c=RPT.cop;return '<div class="rpt">'+
-  '<div class="rpt-grid2">'+RPT.kpi('blue','SESSIONS','14')+RPT.kpi('green','PLAYERS','62')+RPT.kpi('purple','RAKE',c('780,000'),'LAST SESSION')+RPT.kpi('amber','TEAM','3','ON SHIFT')+'</div>'+
+  '<div class="rpt-grid2">'+RPT.kpi('blue','SESSIONS','14')+RPT.kpi('green','PLAYERS','62')+RPT.kpi('purple','RAKE',c('780,000'),'LAST SESSION')+RPT.kpi('amber','TEAM','3','WORKING')+'</div>'+
   '<div class="rpt-label">OPEN A REPORT</div>'+
   '<div class="rpt-grid2 rpt-nav">'+[['blue','cal','SESSIONS'],['green','user','PLAYERS'],['purple','chip','RAKE &amp; TABLES'],['amber','team','TEAM &amp; EXPENSES']].map(([k,i,t])=>'<button type="button" class="rpt-navtile '+k+'" data-next="true">'+RPT.ico[i]+'<b>'+t+'</b></button>').join('')+'</div>'+
   RPT.cta(RPT.ico.down+'EXPORT REPORT','blue')+'</div>';},
@@ -5488,7 +5618,7 @@ const RPT={
   '<div class="rpt-grid2">'+RPT.kpi('dark','AVG STACK',c('625,000'))+RPT.kpi('dark','SHARE OF RAKE','58%')+'</div>'+
   '<div class="rpt-card"><div class="rpt-label">TABLE 1 VS TABLE 2</div><div class="rpt-stack"><i class="blue" style="width:58%">58%</i><i class="green" style="width:42%">42%</i></div><div class="rpt-legend2"><span>TABLE 1 '+c('450,000')+'</span><span>TABLE 2 '+c('330,000')+'</span></div></div></div>';},
  team(){const c=RPT.cop;const p=(n,face,h,tip,pay,owed)=>'<div class="rpt-person">'+face+'<div><b>'+n+'</b><span>'+h+'</span></div><div class="rpt-pay"><b>'+c(pay)+'</b><em class="'+(owed?'neg':'pos')+'">'+(owed?'OWED':'PAID')+'</em></div></div>';return '<div class="rpt">'+
-  RPT.hero('amber','TEAM PAY',c('360,000'),'3 ON SHIFT · 16h 30m · TIPS '+c('30,000'))+
+  RPT.hero('amber','TEAM PAY',c('360,000'),'3 WORKING · 16h 30m · TIPS '+c('30,000'))+
   '<div class="rpt-card"><div class="rpt-stack"><i class="green" style="width:67%">67%</i><i class="red" style="width:33%">33%</i></div><div class="rpt-legend2"><span class="pos">PAID '+c('240,000')+'</span><span class="neg">OWED '+c('120,000')+'</span></div></div>'+
   p('Anna',portrait('Anna','A',true),'5h 30m','15,000','150,000',false)+p('Costa',portrait('Costa','C'),'5h 30m','10,000','120,000',true)+p('Alex',portrait('Alex','M'),'5h 30m','5,000','90,000',false)+'</div>';},
  expense(){const c=RPT.cop;const it=(k,l,v,pct)=>'<div class="rpt-leg"><i class="'+k+'"></i><div><span>'+l+' · '+pct+'%</span><b>'+c(v)+'</b></div></div>';return '<div class="rpt">'+
@@ -5650,10 +5780,10 @@ snapshotMarkup=function(view){
   row('SESSION RUNTIME',d.duration)+row('TOTAL TABLE HOURS',d.tableHours)+
   '<div class="snap-note">Table hours combine the running time of both tables.</div>');
  if(view==='team')return detail('TEAM REPORT',
-  row('TEAM ON SHIFT','3')+row('TOTAL TEAM HOURS','16h 30m')+
+  row('TEAM WORKING','3')+row('TOTAL TEAM HOURS','16h 30m')+
   row('COMPENSATION',money(d.teamPay))+row('OUTSTANDING',money(d.teamDue))+
   row('CHIP TIPS',money(d.chipTips))+
-  '<div class="snap-note">Shift, tips, advances and settlement details remain in the Team workflow.</div>'+
+  '<div class="snap-note">Hours, tips, advances and settlement details remain in the Team workflow.</div>'+
   '<button type="button" class="snap-link" onclick="snapNavigate(this,\'workflow24\')">♟ Team workflow</button>');
  if(view==='expenses'||view.startsWith('expenses-')){
   const selected=view==='expenses'?'all':view.slice(9);
@@ -5739,7 +5869,7 @@ snapshotMarkup=function(view){
   details('Table 2',money(330000),row('Rake',money(330000))+row('Table hours','Not recorded in sample')+row('Average rake/hr','Not recorded')+row('Average stack','Not recorded'))+
   row('Session runtime',d.duration)+row('Total table hours',d.tableHours));
  if(view==='team')return page(
-  row('Team on shift','3')+row('Total team hours','16h 30m')+
+  row('Team working','3')+row('Total team hours','16h 30m')+
   details('Compensation',money(d.teamPay),'<div>Team earnings breakdown available in Team workflow.</div>')+
   details('Outstanding',money(d.teamDue),'<div>Unpaid team balances and advances.</div>')+
   details('Chip tips',money(d.chipTips),'<div>Chip-paid tips only.</div>')+
@@ -5780,7 +5910,7 @@ snapshotMarkup=function(view){
  const page=x=>'<div class="snap32-v6">'+x+'<button type="button" class="snap-back snap-footer" onclick="snapBack(this)">‹ BACK TO SNAPSHOT</button></div>';
  const events=cat=>REVIEW_LEDGER_EVENTS.filter(x=>x[0]===cat).map(x=>row(x[1]+' · '+x[2],'COP '+x[3])).join('');
  if(view==='tables')return page(details('TOTAL RAKE',money(d.rake),row('Table 1',money(450000))+row('Table 2',money(330000)))+details('TABLE 1',money(450000),note('Table runtime, average rake/hour and average stack require recorded table data; unavailable in this sample.'))+details('TABLE 2',money(330000),note('Table runtime, average rake/hour and average stack require recorded table data; unavailable in this sample.'))+details('SESSION RUNTIME',d.duration,row('Combined table hours',d.tableHours))+action('▤ Rake transactions','ledger-Rake'));
- if(view==='team')return page(details('TEAM ON SHIFT','3',row('Total hours','16h 30m')+note('Individual shift hours not in sample.'))+details('COMPENSATION',money(d.teamPay),note('Individual staff earnings require team records.'))+details('OUTSTANDING',money(d.teamDue),note('Staff settlement details require team records.'))+details('CHIP TIPS',money(d.chipTips),note('Chip-paid tips only.'))+details('RECORDED TRANSACTIONS','View',events('Team'))+action('♟ Team workflow','workflow24'));
+ if(view==='team')return page(details('TEAM WORKING','3',row('Total hours','16h 30m')+note('Individual hours worked not in sample.'))+details('COMPENSATION',money(d.teamPay),note('Individual staff earnings require team records.'))+details('OUTSTANDING',money(d.teamDue),note('Staff settlement details require team records.'))+details('CHIP TIPS',money(d.chipTips),note('Chip-paid tips only.'))+details('RECORDED TRANSACTIONS','View',events('Team'))+action('♟ Team workflow','workflow24'));
  if(view==='expenses'||view.startsWith('expenses-'))return page('<div class="snap32-expense-total"><span>TOTAL EXPENSES</span><strong>'+money(d.expenses)+'</strong></div>'+details('RENT',money(1000000),row('Rent payment',money(1000000)))+details('DRINKS',money(150000),note('Individual purchase records unavailable in sample.'))+details('OTHER',money(85000),note('Individual expense records unavailable in sample.'))+details('RECORDED TRANSACTIONS','View',events('Expenses')+note('Partial sample ledger; not a complete expense breakdown.'))+action('▤ Expense workflow','workflow25'));
  if(view==='ss')return page('<div class="snap32-expense-total"><span>OUTSTANDING</span><strong>'+money(d.ssDue)+'</strong></div>'+details('DIEGO · UNSETTLED',money(d.ssDue),row('Status','Unpaid')+note('Illustrative balance; verify signed debt and settlement records.'))+details('RECORDED EVENTS','View',events('Sign & Settle')+note('Sample event does not constitute full debt history.'))+action('✍ Collection workflow','workflow37'));
  if(view==='inventory')return page(details('AGUILA · UNITS','2 variance',row('Beginning','24')+row('Sold','5')+row('Expected ending','19')+row('Counted ending','17')+row('Shortage','2 units'))+note('Unit costs and itemized sales not provided in sample.')+action('▦ Inventory workflow','workflow30'));
@@ -5863,7 +5993,7 @@ snapshotMarkup=function(view){
  }
  if(view==='session-runtime')return page(row('Session runtime',d.duration)+row('Combined table hours',d.tableHours)+scroll(WF32_DEMO.tables.map(t=>details(t.name,'Details',note('Table start/stop timestamps and individual table hours not supplied in sample.'))).join('')));
  if(view==='tables'||view==='session-tables')return page(row('Total rake',money(d.rake))+scroll(WF32_DEMO.tables.map(t=>details(t.name,money(t.rake),row('Rake',money(t.rake))+row('Table hours','Not recorded')+row('Average rake/hour','Not recorded')+row('Average stack','Not recorded'))).join('')+note('Actual per-table metrics require table-level session records.'))+action('Rake ledger','ledger-Rake'));
- if(view==='team')return page(row('Team on shift','3')+row('Total team hours','16h 30m')+scroll(details('Compensation',money(d.teamPay),missing)+details('Outstanding',money(d.teamDue),missing)+details('Chip tips',money(d.chipTips),note('Tips paid in chips only.'))+details('Team transactions','View',records.filter(x=>x[0]==='Team').map(transaction).join('')+missing))+action('Team workflow','workflow24'));
+ if(view==='team')return page(row('Team working','3')+row('Total team hours','16h 30m')+scroll(details('Compensation',money(d.teamPay),missing)+details('Outstanding',money(d.teamDue),missing)+details('Chip tips',money(d.chipTips),note('Tips paid in chips only.'))+details('Team transactions','View',records.filter(x=>x[0]==='Team').map(transaction).join('')+missing))+action('Team workflow','workflow24'));
  if(view==='expenses'||view.startsWith('expenses-'))return page('<div class="v8-section">TOTAL EXPENSES <span class="v8-money">'+money(d.expenses)+'</span></div>'+scroll(WF32_DEMO.expenses.map(c=>details(c.name,money(c.total),c.items.length?c.items.map(x=>row(x[0],money(x[1]))).join(''):note('No itemized sample transactions for this category.'))).join('')+details('Recorded expense transactions','View',records.filter(x=>x[0]==='Expenses').map(transaction).join('')+missing))+action('Expense workflow','workflow25'));
  if(view==='accounts')return page(scroll(d.accounts.map(x=>row(x[0],money(x[1]))).join('')+'<div class="v8-section">Other balances</div>'+row('Chips held',money(d.chipsHeld))+row('Sign & Settle due',money(d.ssDue)))+action('Account ledger','ledger-Accounts'));
  if(view==='chips')return page(row('Buy-ins',money(d.buyIns))+row('Promo chips',money(d.promoChips))+row('Cash-outs','− '+money(d.cashOuts))+row('Chip tips','− '+money(d.chipTips))+'<div class="v8-alert">'+(variance?'⚠ VARIANCE ':'✓ BALANCED ')+money(variance)+'</div>'+scroll(details('Contributing transactions','View',action('Buy-ins','ledger-Buy-ins')+action('Rebuys','ledger-Rebuys')+action('Cash-outs','ledger-Cash-outs')+action('Chip tips','ledger-Chip tips'))+note('Variance must be recorded at Daily Close; this is a static preview.')));
@@ -6021,7 +6151,7 @@ snapshotMarkup=function(view){
   const opts=cats.map(c=>'<option value="'+c+'"'+(c===selected?' selected':'')+'>'+c+'</option>').join('');
   return page('<select aria-label="Ledger category" onchange="snapNavigate(this,\'ledger-\'+encodeURIComponent(this.value))">'+opts+'</select>'+note(filtered.length+' demonstration records · tap an entry for details')+filtered.map(transaction).join('')+(filtered.length?'':note('No recorded transactions in this category.')));
  }
- if(view==='team')return page(row('Team on shift','3')+row('Total team hours','16h 30m')+row('Total compensation',money(360000))+row('Outstanding',money(120000))+row('Chip tips',money(chipTips))+demo.staff.map(p=>detail(p.name,p.hours,row('Compensation',money(p.earn))+row('Advance',money(p.advance))+row('Settled',money(p.settled))+row('Outstanding',money(p.due))+row('Chip tips',money(p.tips)))).join('')+action('Team workflow','workflow24'));
+ if(view==='team')return page(row('Team working','3')+row('Total team hours','16h 30m')+row('Total compensation',money(360000))+row('Outstanding',money(120000))+row('Chip tips',money(chipTips))+demo.staff.map(p=>detail(p.name,p.hours,row('Compensation',money(p.earn))+row('Advance',money(p.advance))+row('Settled',money(p.settled))+row('Outstanding',money(p.due))+row('Chip tips',money(p.tips)))).join('')+action('Team workflow','workflow24'));
  if(view==='expenses')return page('<div class="wf32-total">TOTAL EXPENSES · '+money(totalExpenses)+'</div>'+demo.expenses.map(expense).join('')+action('Expense ledger','ledger-Expenses'));
  if(view==='accounts')return page(demo.accounts.filter(a=>a[2]!==false).map(a=>row(a[0],money(a[1]))).join('')+detail('Chips held',money(d.chipsHeld),note('Chip-box face value; not a cash payment account.'))+detail('Sign & Settle due',money(sum(demo.debtors.map(p=>p.balance))),demo.debtors.map(p=>row(p.name,money(p.balance))).join(''))+action('Account ledger','ledger-Accounts'));
  if(view==='chips')return page(row('Total buy-ins',money(totalBuy))+row('Promo chips',money(0))+row('Total cash-outs','− '+money(totalCash))+row('Chip tips','− '+money(chipTips))+'<div class="wf32-alert">⚠ VARIANCE · '+money(variance)+'</div>'+action('Buy-in ledger','ledger-Buy-ins')+action('Cash-out ledger','ledger-Cash-outs')+action('Chip tips ledger','ledger-Chip tips')+note('Variance is recorded in this demonstration Daily Close and Final Summary.'));
@@ -6267,7 +6397,7 @@ body:has(.snap-phone) *::-webkit-scrollbar{display:none!important;width:0!import
    const select='<label class="wf32-section" for="wf32-ledger-filter">Filter by transaction type</label><select id="wf32-ledger-filter" class="wf32-select" aria-label="Transaction type" onchange="snapNavigate(this,\'ledger-\'+encodeURIComponent(this.value))">'+cats.map(cat=>'<option value="'+cat+'"'+(cat===current?' selected':'')+'>'+cat+'</option>').join('')+'</select>';
    return readonly(select+note(matching.length+' demo entries · category '+current+' · tap for transaction details')+matching.slice().reverse().map(eventCard).join('')+(matching.length?'':note('No recorded '+current+' events in this demonstration; no balances are fabricated as transactions.')));
   }
-  if(view==='team')return readonly(line('Team members on shift',String(d.staff.length))+line('Total hours','16h 30m')+amount('TOTAL COMPENSATION',salary)+line('Already paid',money(total(d.staff.map(s=>s.advance+s.settled))))+line('Outstanding to staff',money(total(d.staff.map(s=>s.due))))+line('Chip tips',money(tips()))+title('Individual staff')+d.staff.map(s=>group(s.name,s.hours,line('Compensation',money(s.earn))+line('Advance',money(s.advance))+line('Final payment',money(s.settled))+line('Outstanding',money(s.due))+line('Chip tips',money(s.tips)))).join('')+link('Team payment ledger','ledger-Team'));
+  if(view==='team')return readonly(line('Team members working',String(d.staff.length))+line('Total hours','16h 30m')+amount('TOTAL COMPENSATION',salary)+line('Already paid',money(total(d.staff.map(s=>s.advance+s.settled))))+line('Outstanding to staff',money(total(d.staff.map(s=>s.due))))+line('Chip tips',money(tips()))+title('Individual staff')+d.staff.map(s=>group(s.name,s.hours,line('Compensation',money(s.earn))+line('Advance',money(s.advance))+line('Final payment',money(s.settled))+line('Outstanding',money(s.due))+line('Chip tips',money(s.tips)))).join('')+link('Team payment ledger','ledger-Team'));
   if(view==='accounts')return readonly(title('Enabled account balances · not transaction totals')+d.accounts.filter(a=>a[2]!==false).map(a=>line(a[0],money(a[1]))).join('')+line('PayPal / Zelle','Not enabled / no demo balance')+title('Separate balances')+line('Chips Box (recorded)',money(session.chipsHeld))+line('Sign & Settle receivable',money(totalDebt()))+note('Do not add chips or outstanding credit to cash balances. The source does not provide individual account movements.'));
   if(view==='ss')return readonly(amount('OUTSTANDING SIGN & SETTLE',totalDebt())+d.debtors.map(p=>group(p.name,money(p.balance),line('Collection status',p.status)+line('Outstanding',money(p.balance)))).join('')+note('This is a read-only outstanding balance report, not the credit-issuance or collection form.')+link('View recorded S&S transactions','ledger-Sign%20%26%20Settle'));
   if(view==='inventory')return readonly(title('Inventory · all enabled categories')+line('Recorded sale value (demo)',money(inventorySales()))+['Beverages','Food','Bar'].map(cat=>group(cat,d.inventory.filter(p=>p.category===cat).length+' products',d.inventory.filter(p=>p.category===cat).map(inventoryRow).join(''))).join('')+note('Expected ending = beginning − sold − complimentary. Discrepancies are shown per item, not silently ignored.'));
@@ -8157,8 +8287,8 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
    ['Snapshot','chart','32:0'],['Account Balances','card','35:0'],['Sign & Settle','pen','36:0'],['Daily Close','check','40:0'],['Ask Nora','mic','13:0']]},
   {key:'Players',icon:'Players',label:'Players',home:'54:0',items:[
    ['Find Player','search','54:0'],['Add Player','plus','55:1']]},
-  {key:'Team',icon:'Team',label:'Team',home:'19:0',items:[
-   ['Team on Shift','Team','19:0'],['Check-in','clock','20:2'],['Chip Tips','coin','21:2'],['Payments & Advances','card','22:2'],['Checkout','check','23:2'],['Earnings & Balances','chart','24:2']]},
+  {key:'Team',icon:'Team',label:'Team',home:'72:0',items:[
+   ['Team Overview','Team','72:0'],['Add Team Member','plus','73:0'],['Team Member Profile','user','74:0'],['Edit Team Member','pen','75:0'],['Team History','list','76:0'],['Access & Permissions','lock','77:0']]},
   {key:'Schedule',icon:'cal',label:'Schedule',home:'48:0',items:[
    ['Scheduled Games','cal','48:0'],['Invitations','mail','49:0'],['Attendance','list','51:0'],['Arrivals · ETA','clock','52:0']]},
   {key:'Reports',icon:'Reporting',label:'Reports',home:'67:0',items:[
@@ -8171,7 +8301,7 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
   reporting:[['Overview','chart','67:0'],['Players','Players','68:0'],['Financials','coin','69:0'],['Team','Team','70:0'],['Inventory','box','70:3']],
   settings:[['Core','Settings','60:3'],['Payments','card','61:0'],['Team','Team','63:0'],['Expenses','receipt','64:1'],['Hospitality','glass','64:0'],['Players','Players',null]]};
  /* which hamburger section a screen belongs to */
- function sectionOf(id,step){if(id===53&&step===3)return 'Tables';if(id>=1&&id<=47)return 'Tables';if(id>=48&&id<=53)return 'Schedule';if(id>=54&&id<=58)return 'Players';if(id>=59&&id<=66)return 'Settings';if(id>=67&&id<=71)return 'Reports';return 'Tables';}
+ function sectionOf(id,step){if(id===53&&step===3)return 'Tables';if(id>=1&&id<=47)return 'Tables';if(id>=48&&id<=53)return 'Schedule';if(id>=54&&id<=58)return 'Players';if(id>=59&&id<=66)return 'Settings';if(id>=67&&id<=71)return 'Reports';if(id>=72&&id<=77)return 'Team';return 'Tables';}
  /* contextual bottom bar + active tab; null = no bottom bar (Schedule, Players, Team-only screens) */
  function ctx(id,step){var t;
   if(id===53&&step===3)return {bar:'live',tab:'Table'};
@@ -8647,6 +8777,13 @@ screenContent=function(w,step,i){if(w&&closeViews[w.id])return closeViews[w.id][
 .storyboard .phone .b2-tick{position:absolute;top:4px;right:4px;width:26px;height:26px;display:grid;place-items:center;background:#00a870;color:#fff;font-style:normal;font-size:18px;font-weight:900;text-shadow:none}
 .storyboard .phone .b2-pr{position:absolute;left:6px;right:4px;bottom:22px;font-size:14px;font-weight:800;color:#fff;text-shadow:0 1px 3px #000,0 0 6px #000;white-space:nowrap}
 .storyboard .phone .seat-roster-card.b2-pick .b2-face{position:absolute;inset:0}
+/* Team quick-fix: two counters; initials sit in the upper half so they never collide with name/role */
+.storyboard .phone .b2-stats{grid-template-columns:repeat(2,1fr)}
+.storyboard .phone .b2-tm .b2-face{align-items:start}
+.storyboard .phone .b2-tm .b2-face .b2-ini{margin-top:6px;font-size:34px!important}
+.storyboard .phone .b2-tm:not(.pick):not(.off) .b2-face .b2-ini{margin-top:30px;font-size:64px!important}
+.storyboard .phone .b2-tm.off:not(.pick) .b2-face .b2-ini{margin-top:34px;font-size:64px!important}
+.storyboard .phone .b2-face img,.storyboard .phone .b2-lp img,.storyboard .phone .b2-photo img{object-fit:cover}
 </style>
 <script id="nora-batch1-js">
 (function(){
@@ -9166,21 +9303,21 @@ B['69:2']=function(){return head('Account Balances','Closing balances · Oct 25,
   +foot(['FINANCIALS','69:1'],['LEDGERS','69:3']);};
 B['69:3']=function(){return '<div class="rp-search"><input type="search" data-rp-q placeholder="Search entries" value="'+E(ST.q)+'" aria-label="Search ledger"></div><label class="rp-sel"><small>LEDGER</small>'+opts('led',CATS,ST.led)+'</label><div data-rp-ledger>'+ledgerList()+'</div>'+foot(['ACCOUNTS','69:2'],['EXPORT','71:0']);};
 /* team */
-var TR={hours:['Most Hours',function(a){return a.min;},function(l){return hm(l.min);}],games:['Most Games / Shifts',function(a){return a.sh;},function(l){return l.sh+' shifts';}],tips:['Most Tips',function(a){return a.tips;},function(l){return M(l.tips);}],base:['Highest Base Compensation',function(a){return a.base;},function(l){return M(l.base);}],total:['Highest Total Compensation',function(a){return a.total;},function(l){return M(l.total);}]};
+var TR={hours:['Most Hours',function(a){return a.min;},function(l){return hm(l.min);}],games:['Most Sessions Worked',function(a){return a.sh;},function(l){return l.sh+' sessions';}],tips:['Most Tips',function(a){return a.tips;},function(l){return M(l.tips);}],base:['Highest Base Compensation',function(a){return a.base;},function(l){return M(l.base);}],total:['Highest Total Compensation',function(a){return a.total;},function(l){return M(l.total);}]};
 function trank(){var k=TR[ST.trank];return TMB.map(function(m){return {m:m,l:tmLife(m)};}).filter(function(x){return x.l.sh>0;}).sort(function(a,b){return k[1](b.l)-k[1](a.l)||b.l.min-a.l.min;});}
 B['70:0']=function(){var a=trank();
  return periodSel()+'<label class="rp-sel"><small>RANK BY</small>'+opts('trank',Object.keys(TR).map(function(k){return [k,TR[k][0]];}),ST.trank)+'</label>'
   +'<div class="rp-pod">'+a.map(function(x,i){return '<button type="button" class="rp-pt" data-rn-route="70:1" data-rp-sel="tm:'+x.m.n+'"><span class="rp-pf">'+photo(x.m.n)+'<i>'+(i+1)+'</i><b>'+x.m.n+'</b></span><em>'+TR[ST.trank][2](x.l)+'</em></button>';}).join('')+'</div>'
   +a.map(function(x,i){return '<button type="button" class="rp-rr" data-rn-route="70:1" data-rp-sel="tm:'+x.m.n+'"><u>'+(i+1)+'</u><b>'+x.m.n+' · '+x.m.role+'</b><strong>'+TR[ST.trank][2](x.l)+'</strong></button>';}).join('')
-  +note('Base compensation = salary, hourly or fixed-shift pay. Total = base + earned tips. Advances and payments are not earnings.')+foot(['SETTLEMENTS','70:2'],['TEAM REPORT','70:1']);};
+  +note('Base compensation = salary, hourly or fixed pay per session. Total = base + earned tips. Advances and payments are not earnings.')+foot(['SETTLEMENTS','70:2'],['TEAM REPORT','70:1']);};
 B['70:1']=function(){var m=TMB.filter(function(x){return x.n===ST.tm;})[0]||TMB[0],l=tmLife(m);
  return '<div class="rp-pid">'+photo(m.n,'big')+'<div><b>'+m.n+'</b><small>'+m.role+'</small></div></div>'+periodSel()
-  +'<div class="rp-g2">'+tile('HOURS WORKED','<span class="rp-m">'+hm(l.min)+'</span>','70:1')+tile('GAMES / SHIFTS','<span class="rp-m">'+l.sh+'</span>','70:1')+tile('BASE EARNED',M(l.base),'70:1')+tile('TIPS EARNED',M(l.tips),'70:1')+'</div>'
+  +'<div class="rp-g2">'+tile('HOURS WORKED','<span class="rp-m">'+hm(l.min)+'</span>','70:1')+tile('SESSIONS WORKED','<span class="rp-m">'+l.sh+'</span>','70:1')+tile('BASE EARNED',M(l.base),'70:1')+tile('TIPS EARNED',M(l.tips),'70:1')+'</div>'
   +'<div class="rp-calc">'+cl('+','Base compensation',M(l.base))+cl('+','Tips earned',M(l.tips))+cl('=','Total compensation earned',M(l.total),'rp-eq')+cl('−','Paid in chips (tips)',M(l.tips))+cl('−','Advances',M(l.adv))+cl('−','Payments received',M(l.paid))+cl('=','Outstanding balance',M(l.bal),'rp-eq '+(l.bal?'rp-bad':'rp-zero'))+'</div>'
-  +'<div class="rp-cnt">SHIFT BY SHIFT</div>'+m.r.map(function(r,i){return r&&inPeriod(i)?'<button type="button" class="rp-le rp-lb" data-rn-route="67:3" data-rp-sel="sess:'+i+'"><div><b>'+S[i].date+'</b><small>'+hm(r[0])+' · base '+M(r[1])+' · tips '+M(r[2])+'</small></div><strong>'+M(r[1]+r[2])+'</strong></button>':'';}).join('')
+  +'<div class="rp-cnt">SESSION BY SESSION</div>'+m.r.map(function(r,i){return r&&inPeriod(i)?'<button type="button" class="rp-le rp-lb" data-rn-route="67:3" data-rp-sel="sess:'+i+'"><div><b>'+S[i].date+'</b><small>'+hm(r[0])+' · base '+M(r[1])+' · tips '+M(r[2])+'</small></div><strong>'+M(r[1]+r[2])+'</strong></button>':'';}).join('')
   +foot(['RANKINGS','70:0'],['SETTLEMENTS','70:2']);};
 B['70:2']=function(){var rows=[];TMB.forEach(function(m){m.r.forEach(function(r,i){if(r&&inPeriod(i))rows.push([m,r,i]);});});rows.sort(function(a,b){return a[2]-b[2];});
- return periodSel()+head('Team settlement history','Checkout · compensation · payments')+rows.map(function(x){var m=x[0],r=x[1],bal=r[1]-r[3]-r[4];return det(m.n+' · '+S[x[2]].d,bal?'<em class="rp-pill rp-warn">⚠ OWED</em>':'<em class="rp-pill rp-ok">✓ PAID</em>',row('Checkout date',S[x[2]].date)+row('Hours / shift',hm(r[0]))+row('Compensation',M(r[1]))+row('Tips (paid in chips)',M(r[2]))+row('Prior advances',M(r[3]))+row('Amount paid',M(r[4]))+row('Remaining balance',M(bal))+row('Payment method',r[5])+row('Settlement status',bal?'Outstanding · carried forward':'Settled'));}).join('')
+ return periodSel()+head('Team settlement history','Checkout · compensation · payments')+rows.map(function(x){var m=x[0],r=x[1],bal=r[1]-r[3]-r[4];return det(m.n+' · '+S[x[2]].d,bal?'<em class="rp-pill rp-warn">⚠ OWED</em>':'<em class="rp-pill rp-ok">✓ PAID</em>',row('Checkout date',S[x[2]].date)+row('Hours worked',hm(r[0]))+row('Compensation',M(r[1]))+row('Tips (paid in chips)',M(r[2]))+row('Prior advances',M(r[3]))+row('Amount paid',M(r[4]))+row('Remaining balance',M(bal))+row('Payment method',r[5])+row('Settlement status',bal?'Outstanding · carried forward':'Settled'));}).join('')
   +foot(['TEAM REPORT','70:1'],['EXPORT','71:0']);};
 /* inventory */
 B['70:3']=function(){var sel=ST.fbview;
@@ -9304,6 +9441,64 @@ function bar(){var on=/workflow-(4[0-7]|38)\b/.test(location.hash);var o=documen
 new MutationObserver(function(){bar();}).observe(document.body,{childList:true,subtree:true});bar();
 window.NORA_REPORTS={S:S,flowVar:flowVar,invVar:invVar,net:net,rev:rev,exp:exp,ST:ST,P:P,TMB:TMB,life:life,tmLife:tmLife,closeInfo:closeInfo,M:M};
 try{if(typeof show==='function'&&typeof current!=='undefined'&&[32,38,40,41,42,43,44,45,46,47,67,68,69,70,71].indexOf(current)>-1)show(current);}catch(e){console.error(e);}
+})();
+</script>
+<style id="nora-team-css">
+/* TEAM main tab (WF72-77). Square corners, large text; names are more prominent than roles. */
+.storyboard .team-phone .b2-wrap{height:100%}
+.storyboard .team-phone .b2-fill{flex:1 1 auto;min-height:0}
+.storyboard .team-phone .m72.b2-tm .b2-nm{font-size:22px!important;bottom:27px}
+.storyboard .team-phone .m72.b2-tm .b2-rl{font-size:15px!important;font-weight:700;bottom:7px;color:#e4f1f8}
+.storyboard .team-phone .m72.b2-tm .b2-st{top:5px;font-size:14px!important}
+.storyboard .team-phone .b2-stat{background:#0a3048}
+.storyboard .team-phone .b2-stat b{color:#fff}
+.storyboard .team-phone .b2-few{grid-auto-rows:minmax(0,220px);flex:0 1 auto}
+.storyboard .team-phone .b2-bigph{position:relative;flex:0 0 250px;border:3px solid #1ebcf2;background:#17395a;overflow:hidden}
+.storyboard .team-phone .b2-bigph .b2-face{position:absolute;inset:0}
+.storyboard .team-phone .b2-bigph .b2-ini{font-size:120px!important;margin-top:40px!important}
+.storyboard .team-phone .b2-txt{font-size:22px;font-weight:800}
+.storyboard .team-phone .b2-two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.storyboard .team-phone .b2-two .b2-btn{min-height:63px;flex:none;font-size:17px}
+.storyboard .team-phone .b2-tg{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:58px;padding:6px 14px;border:3px solid #1ebcf2;background:#0a3048;cursor:pointer}
+.storyboard .team-phone .b2-tg span{font-size:18px;font-weight:900}
+.storyboard .team-phone .b2-tg i{font-style:normal;font-size:16px;font-weight:900;min-width:54px;text-align:center;padding:6px 8px;border:2px solid #35566b;background:#17395a;color:#cfe7f3}
+.storyboard .team-phone .b2-tg.on i{border-color:#3bf0ae;background:#07543f;color:#7dffd0}
+.storyboard .team-phone .b2-hist{gap:6px;overflow:hidden}
+.storyboard .team-phone .b2-hs{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;padding:8px 12px;border:3px solid #1ebcf2;background:#082b43;cursor:pointer}
+.storyboard .team-phone .b2-hs>b{font-size:22px;font-weight:900}
+.storyboard .team-phone .b2-hs>span{font-size:16px;font-weight:800;color:#d7ecf7;align-self:center;text-align:right;white-space:nowrap}
+.storyboard .team-phone .b2-hs .b2-lr{grid-column:1/-1}
+.storyboard .team-phone .b2-lc{cursor:pointer}
+.storyboard .team-phone .b2-wrap>.b2-k{padding:0 2px}
+.storyboard .team-phone .hs .b2-face .b2-ini{margin-top:30px!important;font-size:40px!important}
+.storyboard .team-phone .hs .b2-rl{display:none!important}
+.storyboard .team-phone .hs .b2-st{top:4px}
+.storyboard .phone .ux-content .b2-tm.m72.hs span.b2-nm{bottom:9px}
+.storyboard .team-phone .b2-roles .b2-row.stack{padding:6px 0}
+.storyboard .team-phone .b2-perm{gap:6px}.storyboard .team-phone .b2-tgrid{display:grid;grid-template-columns:1fr 1fr;gap:5px}.storyboard .team-phone .b2-perm .b2-tg{flex-direction:column;align-items:flex-start;justify-content:space-between;min-height:52px;padding:2px 10px}.storyboard .team-phone .b2-perm .b2-tg span{font-size:17px;line-height:1.15}.storyboard .team-phone .b2-perm .b2-tg i{font-size:15px;padding:3px 8px}
+.storyboard .team-phone .b2-lc .b2-lr{gap:2px}.storyboard .team-phone .b2-lc .b2-lr b{font-size:16px}
+.storyboard .team-phone .b2-n{font-size:30px}
+.storyboard .phone .b2-conf .b2-hero{padding:4px 8px}.storyboard .phone .b2-conf .b2-rows .b2-row{min-height:40px}
+</style>
+<script id="nora-team-main">
+/* TEAM main tab (WF72-77): phone frames, nav context, toggles. Depends on NORA_TEAM2.main and the studio globals. */
+(function(){
+ 'use strict';
+ var HEAD={72:['Team Overview','Filter by Role'],73:['Add Team Member','Photo','Pay Arrangement','Access & Invitation','Team Member Added'],74:['Team Member','Pay & Access'],75:['Edit Team Member','Pay & Access','Changes Saved'],76:['Team Sessions','Team Session','Member History'],77:['Access & Permissions','Role Permissions','Invitations','Invite Team Member','Invitation Sent']};
+ var SUB={72:0,73:0,74:0,75:0,76:0,77:0};
+ var TYPES={};Object.keys(HEAD).forEach(function(k){TYPES[k]=HEAD[k].map(function(_,i){return 'nora-team-'+k+'-'+i;});});
+ Object.keys(TYPES).forEach(function(k){if(!SCREEN_SPECS[k])SCREEN_SPECS[k]={types:TYPES[k],focus:'Team',values:'',cta:''};else SCREEN_SPECS[k].types=TYPES[k];});
+ var H=function(){return {LP:LOCAL_PORTRAITS,sharedRoster:sharedRoster,esc:esc,ic:function(k){return window.noraLuc(k,'b2-ic');},chev:'<svg class="b1-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>'};};
+ var prev=customPhone;
+ customPhone=function(w,step,i){
+  if(!w||w.id<72||w.id>77||!window.NORA_TEAM2||!window.NORA_TEAM2.main)return prev(w,step,i);
+  var body;try{window.NORA_TEAM2.render(19,'x',99,H());body=window.NORA_TEAM2.main(w.id,i);}catch(e){console.error(e);body=null;}
+  if(body==null)body='<div class="b2-wrap"><div class="b2-note"><b>Screen not available</b></div></div>';
+  return '<div class="stage hi-stage team-main" data-workflow="'+w.id+'" data-step="'+i+'"><div class="stage-head"><div class="stage-number">'+(i+1)+'</div><div class="stage-title">'+esc(step)+'</div></div><div class="phone hi-phone shared-phone team-phone"><div class="notch"></div>'+fullHead('TEAM',HEAD[w.id][i])+'<div class="ux-content screen-specific">'+body+'</div></div><p class="steptext">'+esc(step)+'</p></div>';
+ };
+ window.addEventListener('click',function(ev){var t=ev.target.closest&&ev.target.closest('.team-phone .b2-tg');if(!t)return;ev.preventDefault();ev.stopImmediatePropagation();var on=!t.classList.contains('on');t.classList.toggle('on',on);t.setAttribute('aria-checked',on?'true':'false');var i=t.querySelector('i');if(i)i.textContent=on?'ON':'OFF';},true);
+ window.addEventListener('input',function(ev){var f=ev.target;if(f.matches&&f.matches('.team-phone .b2-in'))f.setAttribute('value',f.value);},true);
+ if(typeof current!=='undefined'&&current>=72&&current<=77)show(current);
 })();
 </script>
 </body></html>
