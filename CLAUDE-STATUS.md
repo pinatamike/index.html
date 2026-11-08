@@ -22,24 +22,13 @@ After **every substantive answer to Mike** (including readiness, test results, i
 
 ### Message template
 
-**Updated (Bogotá time):** YYYY-MM-DD HH:MM  
-**Current task:** ...  
-**State:** Ready / In progress / Needs Mike decision / Blocked / Complete  
-**Latest Claude response:** 1–5 sentences including the useful result or question  
-**Changed UI files:** None / paths  
-**UI commit SHA:** (only if changed)  
-**Testing:** Passed, failed, and unverified clearly separated  
-**Needs Mike/ChatGPT:** Specific decision/action or None
-
-## Latest status
-
-**Updated (Bogotá time):** 2026-11-07 20:00  
-**Current task:** Brief (b) TEAM main tab + Team terminology + Team quick fixes: DONE on branch nora-team-20261107 (backup backup-before-team-20261107 = fa1b7d7). Brief (c) Settings + onboarding + 4 Rewards programs is next.  
+**Updated (Bogotá time):** 2026-11-08 12:00  
+**Current task:** Brief (c) Settings + onboarding + 4 Rewards programs: DONE on branch nora-settings-20261107 (backup backup-before-settings-20261107 = 07f5063). All three queued briefs complete.  
 **State:** Complete (awaiting Mike review; nothing merged or deployed)  
-**Latest Claude response:** Added WF72-77 (Team Overview, Add Team Member, Team Member Profile, Edit Team Member, Team History, Team Access & Permissions). Live Game Team dashboard now shows only WORKING and FINISHED; Check In / Check Out / Team Sessions / Hours Worked / Sessions Worked; no Shift wording. Tests: test-team 25/25, test-nav 93/93, reports 48/48, batch1 39/39, batch2 35/35, design 19/19, wf48sweep 32/32, task002 76/76, fixes123 41/41, items45 28/28, s1align 18/18.  
-**Changed UI files:** index.html (+ qa suites)  
-**UI commit SHA:** b9fe6eda0f4738ea13cb7c701e1bcb148b12e247  
-**Preview:** https://raw.githack.com/pinatamike/index.html/b9fe6eda0f4738ea13cb7c701e1bcb148b12e247/index.html#workflow-72 (not reachable from this PC; checked locally)
+**Latest Claude response:** Settings has 8 modules (GAME, INVITATIONS, PLAYERS, TEAM, ACCOUNTS, EXPENSES, INVENTORY, REWARDS) and a 6-icon bar (MORE = Expenses/Inventory/Rewards); GAME OWNERS labels; no table count; avatar opens My Account (WF84); WF59 voice+touch onboarding with 5 fields; new WF78-85 incl. 4 independent Rewards programs and Rakeback settlement. Tests: settings 41/41, team 25/25, reports 48/48, nav 101/101, design 19/19, wf48sweep 32/32. Open: example figures in WF83, rules marked pending owner approval, WF60 step 8 overflow (pre-existing).  
+**Changed UI files:** index.html (+ qa suites, HANDOFF.md)  
+**UI commit SHA:** 047f360ee8b61f07dcba511fd5fb1e96198d0df7  
+**Preview:** https://raw.githack.com/pinatamike/index.html/047f360ee8b61f07dcba511fd5fb1e96198d0df7/index.html#workflow-60 (not reachable from this PC; checked locally)
 
 ## History
 
