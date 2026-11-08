@@ -31,7 +31,7 @@ const allTxt = async () => { const n = await nStages(); const o = []; for (let i
 const WFN = await ev(`WORKFLOWS.length`);
 check('1. Exactly 85 workflows; WF59-66 numbers kept; 78-85 added after WF77', WFN === 85 && (await ev(`[59,60,61,62,63,64,65,66,77,78,85].every(n=>WORKFLOWS.some(w=>w.id===n))`)) === true, 'n=' + WFN);
 const steps = await ev(`JSON.stringify([59,60,61,62,63,64,65,66,78,79,80,81,82,83,84,85].map(n=>WORKFLOWS.find(w=>w.id===n).steps.length))`);
-check('2. Step counts: WF59 6, WF60 8, WF78-85 = 3,2,2,5,4,4,2,1', steps === JSON.stringify([6, 8, 2, 4, 3, 5, 2, 5, 3, 2, 2, 5, 4, 4, 2, 1]), steps);
+check('2. Step counts: WF59 6, WF60 9, WF78-85 = 3,2,2,5,4,5,2,1', steps === JSON.stringify([6, 9, 2, 4, 3, 5, 2, 5, 3, 2, 2, 5, 4, 5, 2, 1]), steps);
 
 // Settings home: 8 modules in the required order
 await go(60); const h0 = await J(`return [...${S(0)}.querySelectorAll('.s3-tile b')].map(b=>b.textContent)`);
@@ -83,6 +83,7 @@ check('21. Amounts follow the configured game currency (EUR), never hard-coded C
 await ev(`delete window.NORA_ST.CFG.currency`);
 
 // independent enable/disable
+const setP = async (p, v) => { await ev(`window.NORA_ST.setP('${p}',${v})`); await ev(`show(current)`); await sleep(400); };
 const setR = async (k, v) => { await ev(`window.NORA_ST.setP('rewards.${k}',${v})`); await ev(`show(current)`); await sleep(400); };
 for (const k of ['referral', 'loyalty', 'welcome', 'rakeback']) await setR(k, true);
 await go(82); const pAll = await J(`return [...${S(0)}.querySelectorAll('.fb-li b')].map(b=>b.textContent)`);
@@ -112,7 +113,7 @@ await setR('loyalty', true);
 await go(83); const st = (await allTxt()).join(' | ');
 check('30. Settlement: partial amount, Account Balance, reference, operator, timestamp, no auto-payment', /Partial amounts are allowed/.test(st) && /Pay from Account Balance/.test(st) && /Transaction reference/.test(st) && /Operator/.test(st) && /Time/.test(st) && /does not send money/.test(st));
 check('31. Accrued, Settled and Outstanding shown separately; REWARDS · RAKEBACK; not Team Compensation; in Net P/L, Snapshot, Daily Close, Reports', /Accrued/.test(st) && /Settled/.test(st) && /Outstanding/.test(st) && /REWARDS · RAKEBACK/.test(st) && /Not Team Compensation/.test(st) && /Net Profit\/Loss, Snapshot, Daily Close and Reports/.test(st));
-check('32. Example figures are labelled EXAMPLE (no fabricated activity)', (st.match(/EXAMPLE/g) || []).length === 4);
+check('32. Example figures are labelled EXAMPLE (no fabricated activity)', (st.match(/EXAMPLE/g) || []).length === 1);
 check('33. Settlement arithmetic is consistent: 10.5 h × 5,000 = 52,500; − 20,000 settled = 32,500; partial 20,000 leaves 12,500', /52,500/.test(st) && /32,500/.test(st) && /12,500/.test(st) && /40,000/.test(st));
 await go(80); const pcs = await phoneTxt(1);
 check('34. Promo-chip rewards recorded once as Promo Chips in Chip Flow Reconciliation', /Promo Chips in Chip Flow Reconciliation/.test(pcs), pcs.slice(0, 80));
@@ -123,8 +124,8 @@ check('35. Rewards screens highlight MORE in the bottom bar', JSON.stringify(ctx
 await go(78); const c78 = await J(`return [...${S(0)}.querySelectorAll('.ux-bottom .ux-tab.chosen .s2-lbl')].map(x=>x.textContent)`);
 check('36. Invitations settings highlight INVITES', JSON.stringify(c78) === JSON.stringify(['INVITES']), c78.join(','));
 let ov = [];
-for (const w of [59, 60, 78, 79, 80, 81, 82, 83, 84, 85]) { await go(w); const r = await J(`const o=[];document.querySelectorAll('.storyboard .stage').forEach((s,i)=>{const p=s.querySelector('.phone'),u=p.querySelector('.ux-content'),pr=p.getBoundingClientRect();let bad=u.scrollHeight>u.clientHeight+2||u.scrollWidth>u.clientWidth+2;u.querySelectorAll('*').forEach(e=>{const b=e.getBoundingClientRect();if(b.width&&b.bottom>pr.bottom+1||b.right>pr.right+1)bad=true});if(bad)o.push(i)});return o`); const rr = w === 60 ? r.filter(x => x !== 7) : r; if (rr.length) ov.push(w + ':' + rr.join('/')); }
-check('37. No overflow or clipping on any changed screen (WF59, 60, 78-85; WF60 step 8 Invitations is a pre-existing overflow, identical on the backup branch, excluded and reported)', ov.length === 0, ov.join(' '));
+for (const w of [59, 60, 78, 79, 80, 81, 82, 83, 84, 85]) { await go(w); const r = await J(`const o=[];document.querySelectorAll('.storyboard .stage').forEach((s,i)=>{const p=s.querySelector('.phone'),u=p.querySelector('.ux-content'),pr=p.getBoundingClientRect();let bad=u.scrollHeight>u.clientHeight+2||u.scrollWidth>u.clientWidth+2;u.querySelectorAll('*').forEach(e=>{const b=e.getBoundingClientRect();if(b.width&&b.bottom>pr.bottom+1||b.right>pr.right+1)bad=true});if(bad)o.push(i)});return o`); const rr = r; if (rr.length) ov.push(w + ':' + rr.join('/')); }
+check('37. No overflow or clipping on any changed screen (WF59, 60 incl. the split Invitations screens, 78-85)', ov.length === 0, ov.join(' '));
 let fl = [];
 for (const w of [59, 60, 78, 79, 80, 81, 82, 83, 84, 85]) { await go(w); const r = await J(`const o=[];document.querySelectorAll('.storyboard .stage .ux-content *').forEach(e=>{if(e.children.length)return;const t=(e.textContent||'').trim();if(!t)return;const f=parseFloat(getComputedStyle(e).fontSize);if(f<13&&!e.closest('.ux-bottom')&&!e.classList.contains('s2-cop')&&!e.closest('.s2-cop'))o.push(t.slice(0,20)+'='+f)});return o.slice(0,4)`); if (r.length) fl.push(w + ':' + r.join(',')); }
 check('38. No body text under 13px on changed screens', fl.length === 0, fl.join('; '));
@@ -133,6 +134,41 @@ for (const w of [59, 60, 78, 80, 81, 82, 83]) { await go(w); const r = await J(`
 check('39. Every screen of a workflow has the same frame height', hs.length === 0, hs.join(' '));
 await go(78); const l78 = await J(`return [...${S(0)}.querySelectorAll('.fb-li')].map(b=>b.dataset.rnRoute)`);
 check('39b. Invitations settings (WF78) links to Message & RSVP (60:7), Delivery (78:1) and Reminders (78:2)', l78.includes('60:7') && l78.includes('78:1') && l78.includes('78:2'), l78.join(','));
+// ---------- Final cleanup sweep ----------
+await setR('referral', true); await setR('loyalty', true); await setR('welcome', true); await setR('rakeback', true);
+await go(54); const z_p54 = await phoneTxt(1); const z_r54 = await J(`return [...${S(1)}.querySelectorAll('[data-rn-route]')].map(b=>b.dataset.rnRoute+'='+b.textContent.trim())`);
+check('C1. WF54 player profile has a REWARDS tab routed to WF82 (82:0) when programs are enabled', z_r54.some(x => x === '82:0=REWARDS'), z_r54.join(','));
+for (const k of ['referral', 'loyalty', 'welcome', 'rakeback']) await setR(k, false);
+await go(54); const r54b = await J(`return [...${S(1)}.querySelectorAll('[data-rn-route]')].map(b=>b.dataset.rnRoute)`);
+check('C2. WF54 REWARDS tab is hidden when every program is disabled', !r54b.includes('82:0'), r54b.join(','));
+await setR('rakeback', true);
+await go(82); const z_w82 = await phoneTxt(0);
+check('C3. WF82 shows only the enabled program (Rakeback) and no Referral/Loyalty', /Rakeback/.test(z_w82) && !/Referral Rewards/.test(z_w82) && !/Loyalty Rewards/.test(z_w82), z_w82.slice(0, 120));
+await setR('referral', true); await setR('loyalty', true); await setR('welcome', true);
+const ACC = [[32, 5], [32, 6], [43, 0], [43, 1], [46, 0], [47, 0], [67, 1], [67, 3], [69, 1]]; const accBad = [];
+for (const [w, i] of ACC) { await go(w); const t = await J(`const p=document.querySelectorAll('.storyboard .stage')[${i}];const b=p&&p.querySelector('.rw-acc');return b?b.innerText.split(String.fromCharCode(10)).join(' '):null`); if (!t || !/REWARDS/.test(t) || !/accrued/.test(t) || !/settled/.test(t) || !/outstanding/.test(t) || !/not a second expense/.test(t)) accBad.push(w + ':' + i); }
+check('C4. REWARDS expense block (accrued, settled, outstanding, no double count) on Snapshot, Daily Close, Final Summary and Reports', accBad.length === 0, accBad.join(' '));
+await go(47); const z_pn = await J(`const p=document.querySelectorAll('.storyboard .stage')[1];return !!p.querySelector('.rw-pn')`);
+check('C5. Promo-chip rewards are noted once in Chip Flow Reconciliation', z_pn === true);
+for (const k of ['referral', 'loyalty', 'welcome', 'rakeback']) await setR(k, false);
+await go(32); const z_off = await J(`return document.querySelectorAll('.storyboard .rw-acc').length`);
+check('C6. No REWARDS block anywhere when every program is disabled', z_off === 0, String(z_off));
+for (const k of ['referral', 'loyalty', 'welcome', 'rakeback']) await setR(k, true);
+await go(60); const z_ck = await phoneTxt(1); const z_ban = await phoneTxt(0);
+check('C7. Checklist separates REQUIRED from OPTIONAL with accurate counts (2 of 3 required, optional counted separately)', /Required setup: 2 of 3/.test(z_ck) && /REQUIRED/.test(z_ck) && /OPTIONAL/.test(z_ck) && /Optional modules: [0-9] of [0-9]/.test(z_ck), z_ck.slice(0, 160));
+check('C8. Settings home banner shows required progress, not the old 3/6 counter', /Required 2 of 3/.test(z_ban) && !/3 of 6|3[/]6/.test(z_ban), z_ban.slice(0, 160));
+await go(60); const z_g8 = await phoneTxt(8), z_g7 = await phoneTxt(7);
+check('C9. Invitations settings split in two screens, seats and delivery on the second (no font reduction)', /Seats & delivery/i.test(z_g7) && /Allow seat reservation/.test(z_g8) && /Hold a reserved seat/.test(z_g8) && !/Allow seat reservation/.test(z_g7));
+await go(63); const z_t63 = (await allTxt()).join(' | '); await go(66); const z_t66 = (await allTxt()).join(' | '); await go(77); const z_t77 = (await allTxt()).join(' | ');
+check('C10. WF63, WF66, WF77 use Game Owners / Primary Game Owner and no Owner/Partner wording', /Game Owner/.test(z_t63) && /Primary Game Owner/.test(z_t77) && !/Partner/.test(z_t63 + z_t66 + z_t77), (z_t63 + z_t66 + z_t77).match(/.{20}Partner.{10}/g) + '');
+await go(64); const z_t64 = (await allTxt()).join(' | ');
+check('C11. Expense permission screens (WF64 etc.) no longer say Owner / Partner', !/Owner [/] Partner|Owner · Partner|Owner or Partner/.test(z_t64), (z_t64.match(/.{20}Partner.{10}/g) || []) + '');
+await go(83); const z_t83 = await allTxt(); const z_n83 = z_t83.slice(0, 4).join(' | ');
+check('C12. WF83 normal screens show NOT SET and no invented rate or amounts (COP 5,000 only in the labelled example)', /NOT SET/.test(z_t83[0]) && !/5,000|52,500|32,500|20,000/.test(z_n83) && /EXAMPLE/.test(z_t83[4]) && /5,000/.test(z_t83[4]), z_n83.slice(0, 100));
+await setP('rewards.rbRate', 7000); await go(83); const t83c = await phoneTxt(0); await setP('rewards.rbRate', 0);
+check('C13. WF83 shows the owner-configured rate when one is set', /7,000/.test(t83c) && !/NOT SET/.test(t83c), t83c.slice(0, 100));
+const z_w85 = await ev(`WORKFLOWS.length`); let z_reach = 0; for (let w = 1; w <= 85; w++) { await go(w); if (await ev(`document.querySelectorAll('.storyboard>.stage').length`) >= 1) z_reach++; }
+check('C14. All 85 workflows open and render', z_w85 === 85 && z_reach === 85, z_reach + '/' + z_w85);
 check('40. No JavaScript errors while loading and navigating', jsErrors.length === 0, jsErrors.slice(0, 2).join(' | '));
 console.log(`\nSETTINGS TESTS: ${pass} passed, ${fail} failed`); if (fail) console.log('FAILED: ' + fails.join(' | '));
 ws.close(); edge.kill(); process.exit(fail ? 1 : 0);
